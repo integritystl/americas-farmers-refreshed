@@ -91,7 +91,7 @@ jQuery(document).ready(function( $ ) {
 					$('.winners_total').hide();
 					return;
 				} else if(returnData === null || returnData[0].error && programkey == 'rural'){
-					var display = "<p class='no_winners_blurb'>Unfortunately there are no winners for your state. The grant program opens again January 1, 2021. Tell a farmer to nominate a school in your area a <a href='http://www.AmericasFarmers.com'>www.AmericasFarmers.com</a>.</p>";
+					var display = "<p class='no_winners_blurb'>Unfortunately there are no winners for your state. The grant program opens again January 1, 2021. Tell a farmer to nominate a school in your area at <a href='http://www.AmericasFarmers.com'>www.AmericasFarmers.com</a>.</p>";
 					$('#winners_container').append(display);
 					$('.winners_total').hide();
 					return;
