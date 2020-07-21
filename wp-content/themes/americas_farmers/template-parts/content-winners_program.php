@@ -22,6 +22,7 @@ $activePhases = get_sub_field('active_phases');
 $year = get_field('program_display_year', $program);
 $program_display_year = empty($year) ? date('Y') : $year;
 $winnersBlurb = get_field('winners_content_blurb', $program);
+$noWinnersBlurb = get_field('no_winners_blurb', $program);
 
 if(in_array('announce', $currentPhase)):
 
