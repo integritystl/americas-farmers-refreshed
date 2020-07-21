@@ -22,6 +22,15 @@
 		}
 	}
 
+	.no_finalists_blurb {
+		max-width: 848px;
+		margin: 0px auto 40px;
+
+		p {
+			opacity: .8;
+		}
+	}
+
 	.announce_finalists_label {
 		 text-align: center;
 		 max-width: 600px;
@@ -231,6 +240,9 @@
 	.finalist_item .finalist_item_bottom {
 		background-color: $leadersRedLight;
 	}
+	.no_finalists_blurb a {
+		color: $leadersRed;
+	}
 }
 #announce_finalists.leaders .announce_finalists_title {
 	color: $leadersRed;
@@ -242,6 +254,9 @@
 	}
 	.finalist_item .finalist_item_bottom {
 		background-color: $ruralBlue;
+	}
+	.no_finalists_blurb a {
+		color: $ruralBlue;
 	}
 }
 #announce_finalists.rural .announce_finalists_title {
