@@ -1,0 +1,38 @@
+//Base hero styles
+.hero {
+  position: relative;
+  padding-top: 75px;
+  min-height: 50vh;
+  overflow: hidden;
+  height: 100%;
+
+  .hero-img-container {
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0;
+  }
+  .hero-content-container {
+    //butts, need to use JS to get image file I want for responsive background images
+    z-index: 2;
+    position: relative;
+    padding: 3.5rem 20px;
+    @include grid-media($medium-min) {
+      padding: 3.5rem 80px;
+    }
+  }
+}
+
+[data-responsive-background-image] {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: inline-block;
+  width: 24%;
+  padding-bottom: 56.25% /* 16:9 ratio */
+}
+
+[data-responsive-background-image] img {
+  display: none;
+}

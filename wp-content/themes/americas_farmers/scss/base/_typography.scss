@@ -1,0 +1,214 @@
+html,
+body {
+  color: $base-font-color;
+  font-family: $serif-font-family;
+  font-size: 17px;
+  line-height: $base-line-height;
+  font-weight: 400;
+  @include grid-media($medium-min) {
+    font-size: $base-font-size;
+  }
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: $heading-line-height;
+  margin: 0 0 10px;
+  color: $navyBlue;
+//  -webkit-font-smoothing: antialiased;
+  a {
+    font-size: inherit;
+    color: inherit;
+
+    &.rural {
+      color: $ruralBlue;
+    }
+    &.communities {
+      color: $communitiesGreen;
+    }
+    &.underline {
+      text-decoration: underline;
+    }
+  }
+}
+
+h1 {
+  font-family: $knockout48;
+  font-size: 60px;
+  text-transform: uppercase;
+  line-height: 62px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: 70px;
+    line-height: 72px;
+  }
+}
+
+h2 {
+  font-family: $knockout29;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: .25px;
+  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: 40px;
+  }
+}
+
+h3 {
+  font-family: $knockout29;
+  font-size: 21px;
+  font-weight: 300;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: 28px;
+  }
+}
+
+h4 {
+  font-family: $serif-font-family;
+  font-size: 21px;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: 28px;
+  }
+}
+
+h5 {
+  font-family: $serif-font-family;
+  font-size: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 1.5;
+//  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: 17px;
+  }
+}
+
+h6 {
+  font-family: $knockout30;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 400;
+  @include grid-media($medium-min) {
+    font-size: 14px;
+  }
+}
+
+p {
+
+  margin: 0 0 20px;
+  -webkit-font-smoothing: antialiased;
+  @include grid-media($medium-min) {
+    font-size: $base-font-size;
+  }
+}
+
+ul {
+  li {
+
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+
+a {
+  color: $navyBlue;
+  text-decoration: none;
+  &:hover {
+    opacity: .75;
+  }
+}
+
+.special-link {
+  color: $navyBlue;
+  cursor: pointer;
+  display: table;
+  font-family: $serif-font-family;
+  font-size: 15px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  line-height: 26px;
+
+    @include grid-media($medium-min) {
+      font-size: 17px;
+    }
+
+  &:before {
+    content: "";
+    border-bottom: 1px solid rgba($navyBlue, .8);
+    display: block;
+    width: 64px;
+    transition: all .3s ease-in-out;
+    position: absolute;
+    bottom: 0;
+  }
+  &:after {
+    content: '\f061';
+    font-family: $fontawesome;
+    font-weight: 400;
+    font-size: 10px;
+    position: relative;
+    top: -2px;
+    padding-left: 10px;
+
+  }
+
+  &:hover {
+    color: $navyBlue;
+    opacity: 1;
+    &:before {
+      width: 100%;
+      border-color: $navyBlue;
+    }
+  }
+  // //program specific classes
+  // &.communities {
+  //   &:hover {
+  //     color: $greyDark;
+  //     &:after {
+  //       border-color: $communitiesGreen;
+  //     }
+  //   }
+  // }
+  // &.rural {
+  //   &:hover {
+  //     color: $greyDark;
+  //     &:after {
+  //       border-color: $ruralBlue;
+  //     }
+  //   }
+  // }
+  // &.leaders {
+  //   &:hover {
+  //     color: $greyDark;
+  //     &:after {
+  //       border-color: $leadersRed;
+  //     }
+  //   }
+  // }
+}
+// https://webaim.org/techniques/css/invisiblecontent/
+.screen-reader-text {
+  position: absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+//to hide elements in Hero when vidoes are open and playing
+//Also used for hiding Load More button on Ajax-y page
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+}

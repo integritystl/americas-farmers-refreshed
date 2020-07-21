@@ -1,0 +1,281 @@
+//Hero styles for the Striped text layout
+
+.home .hero-striped {
+  .hero-uppercase {
+
+    &:first-of-type {
+    color: $communitiesGreen;
+    }
+    &:nth-of-type(2) {
+      color: $ruralBlue;
+    }
+    &:nth-of-type(3){
+    color: $leadersRed;
+    }
+  }
+}
+
+.communities {
+  .hero-heading .row {
+    background-color: rgba($communitiesGreen, 0.55)!important;
+  }
+}
+
+.ag-leaders {
+  .hero-heading .row {
+    background-color: rgba($leadersRed, 0.55)!important;
+  }
+}
+
+.rural-education {
+  .hero-heading .row {
+    background-color: rgba($ruralBlue, 0.55)!important;
+  }
+}
+
+.hero-striped {
+  display: flex;
+  position:relative;
+
+  .hero-content-container {
+    z-index: 2;
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-self: center;
+    width: 100%;
+
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    padding: 75px 20px;
+    @include grid-media($medium-min) {
+      padding: 100px 20px 100px;
+      position: relative;
+      min-height: 600px;
+
+    }
+    @include grid-media($large-min) {
+
+    }
+  }
+
+  .hero-heading {
+
+    margin-bottom: 0;
+    opacity: 1;
+    transition: opacity .25s ease;
+    position: relative;
+
+    .row {
+      background-color: rgba(#07283b, 0.7);
+      display: table;
+      margin-bottom: 10px;
+      padding: 0 10px;
+    }
+  }
+  .hero-stripe-text {
+    color: #ffffff;
+    line-height: 1;
+    display: inline-block;
+    font-size: 36px;
+    height: 100%;
+    position: relative;
+    text-transform: none;
+    padding: 21px 5px 9px;
+
+
+    @include grid-media($medium-min) {
+      font-size: 50px;
+    }
+
+    &.hero-uppercase {
+      //h1 is uppercase by default, so make non-caps text lowercase based on class. Also shrink it
+      text-transform: uppercase;
+      font-size: 50px;
+      padding: 5px 5px;
+
+      @include grid-media($medium-min) {
+        font-size: 70px;
+      }
+
+    }
+  }
+
+  .program-logo {
+    margin: 0 0 35px;
+    max-width: 150px;
+  }
+
+  &.hero-video {
+    transition: all .3s ease-out;
+
+    .hero-img-container {
+
+    }
+  }
+
+  //Video Hero Wrapper and Play button. Adding a Video is an option for Striped Hero
+
+  .play-vid {
+    align-items: center;
+    align-self: center;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 5.875rem;
+    left: 50%;
+    margin: 1em 0;
+    @include grid-media($medium-min) {
+      margin: 0;
+    }
+    transition: opacity .25s ease-out;
+    // transform: translate3d(-50%,1.5rem,0);
+    z-index: 1;
+
+    @include grid-media($medium-min) {
+      min-height: 7.5rem;
+      left: 0;
+      position: relative;
+      transform: translate3d(0,3rem,0);
+    }
+  }
+  .play-btn {
+    background-color: #f8f7f6;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border: 2px solid #8f8d8b;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.13);
+    cursor: pointer;
+    transition: all 0.5s ease-out;
+    height: 75px;
+    width: 75px;
+    position: relative;
+    padding: 0;
+    &:hover {
+      background-color: #8f8d8b;
+      border: 2px solid #ffffff;
+      svg .play {
+        fill: #ffffff;
+      }
+    }
+    svg {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 15px;
+      transform: translate(-30%, -50%);
+
+      .play {
+        fill: #8f8d8b;
+              box-shadow: 0 2px 4px 0 rgba(0,0,0,.13);
+      }
+    }
+
+  }
+
+  .play-text {
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: .1875rem;
+    margin-top: .85em;
+    font-size: 16px;
+  }
+
+  .iframe-video {
+    display: none;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+    position: fixed;
+    z-index: 999999999;
+    width: calc(100% - 40px);
+    max-width: 775px;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border: 10px solid #fff;
+    border-top: 30px solid #fff;
+    box-shadow: 0 4px 6px rgba(0,0,0,.25);
+    i {
+      position: absolute;
+      top: -25px;
+      right: 0;
+      color: #445F6A;
+      transition: all .3s ease-in-out;
+      &:hover {
+        cursor: pointer;
+        opacity: .75;
+      }
+    }
+    .iframe-wrapper {
+      position: relative;
+      overflow: hidden;
+      padding-top: 56.25%;
+    }
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  }
+
+  .video-overlay {
+    position: absolute;
+    background: #000;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999999;
+  }
+
+}
+
+//Button to jump down to Program info
+.hero-button-container {
+  display: flex;
+  justify-content: center;
+
+}
+.cta-scroll {
+  z-index: 2;
+  position: relative;
+  transform: translateY(-20%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 60%;
+  @include grid-media($medium-min) {
+    transform: translateY(-50%);
+  }
+
+  &:after {
+    transform: rotate(90deg); //make our default arrow point down
+  }
+}
+
+.hero-striped-caption {
+  @media screen and (max-width: 799px){
+    display: none;
+  }
+  position: absolute;
+  z-index: 50;
+  color: white;
+  background: rgba(17, 55, 79, 0.75);
+    min-width: 40%;
+  bottom: 0px;
+  right: 0px;
+  padding: 8px 10px;
+  p {
+    font-family: $knockout30;
+    font-weight: 400;
+    font-size: .875rem;
+    line-height: 1.28571;
+    letter-spacing: -.01562rem;
+    margin: 0px;
+  }
+}

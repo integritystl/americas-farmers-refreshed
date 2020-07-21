@@ -1,0 +1,454 @@
+
+
+header {
+  z-index: 500;
+  position: relative;
+  position: fixed;
+  width: 100%;
+
+  #stickyHeader {
+    width: 100%;
+    top: 0;
+    height: 75px;
+    position: relative;
+    background-color: #ffffff;
+    transition: all .3s ease-in-out;
+    z-index: 501;
+
+    .container{
+      padding:0 20px;
+      margin: auto;
+      height:100%;
+    }
+
+    .main-header{
+      display: flex;
+      height: 100%;
+      max-width: 1160px;
+      margin:auto;
+      align-items: center;
+
+    .menu-toggle{
+      flex:0 1 10%;
+      position: relative;
+      display: none;
+      @media screen and (max-width: $headerMenu){
+        display: block;
+        height: 100%;
+      }
+
+      div{
+        position: absolute;
+        top:46%;
+        height: auto;
+        span{
+          width: 26px;
+          height: 2px;
+          background-color: $navyBlue;
+          transition: all .5s;
+          display: block;
+          &:first-of-type{
+            position:relative;
+            top:-4px;
+          }
+          &:last-of-type{
+            position: relative;
+            top:4px;
+          }
+        }
+      }
+
+      /*Mobile*/
+      &.active{
+        div{
+          span{
+            transition: transform .5s;
+            transform: rotate(-45deg);
+            &:first-of-type{
+              top:2px;
+              transform: rotate(45deg);
+            }
+            &:last-of-type{
+              display: none;
+            }
+          }
+        }
+      }
+    }
+
+      .site-branding {
+        display: flex;
+        flex:0 1 30%;
+        align-items: center;
+        @media screen and (max-width: $headerMenu){
+          flex:0 1 80%;
+        }
+
+        .site-logo {
+          margin:auto;
+          @media screen and (min-width: $medium){
+            margin:0;
+          }
+          a {
+            color: #C7C6C5;
+            align-items: center;
+            display: flex;
+            margin: 0;
+            font-family: $knockout48;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            text-transform: uppercase;
+            -webkit-font-smoothing: antialiased;
+            @media screen and (min-width: $small){
+              font-size: 24px;
+            }
+          }
+          span {
+            display: flex;
+            &:first-child {
+              &:after {
+                content: "";
+                display: block;
+                border-right: 1px solid $secondary-font-color;
+                margin: 8.5px 10px;
+              }
+            }
+            &:last-child {
+              color: $navyBlue;
+            }
+          }
+        }
+      }
+      .main-nav{
+        flex:1 1 70%;
+        @media screen and (max-width: $headerMenu){
+          display: none;
+        }
+        ul{
+          padding:0;
+          margin:0;
+          list-style: none;
+          display: flex;
+          justify-content: flex-end;
+        }
+        li{
+          text-align: center;
+          &.current-menu-item,
+          &.current-page-ancestor {
+            background: $navyBlue;
+
+            a{
+              color: #ffffff ;
+              &:after{
+                display:none;
+              }
+            }
+          }
+        }
+        a{
+          padding:29px 20px 25px;
+          display: block;
+          font-size: 15px;
+          font-family: $knockout30;
+          text-transform: uppercase;
+          position: relative;
+          transition: 0.3s;
+          &:after{
+            content:'';
+            background-color: $greyMedium;
+            height:4px;
+            position: absolute;
+            top:0px;
+            left:0;
+            width: 100%;
+            transition: 0.3s;
+          }
+          &:hover{
+            &:after{
+              height:8px;
+            }
+          }
+
+        }
+        .communities a,
+        .education a,
+        .agriculture a{
+          &:before{
+            content:'GROW',;
+            padding-right:8px;
+            font-family: $serif-font-family;
+            font-weight: 600;
+          }
+        }
+        .communities a{
+          &:after{
+            background-color:$communitiesGreen;
+          }
+        }
+        .education a{
+          &:after{
+            background-color:$ruralBlue;
+          }
+        }
+        .agriculture a{
+          &:after{
+            background-color:$leadersRed;
+          }
+        }
+
+      }
+      .search{
+        flex:1 1 4%;
+        text-align: right;
+        button{
+          background-color: transparent;
+          border:none;
+          padding:0;
+          color: #445F6A;
+          outline: none;
+          .fa-search {
+            font-weight: 400;
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  .mobile-nav{
+    position: absolute;
+    top: 75px;
+    padding-bottom: 40px;
+    width: 100%;
+    background: white;
+    z-index: 500;
+    ul{
+      margin: 0;
+      padding:0;
+      list-style: none;
+      li{
+        position: relative;
+        &:last-of-type {
+          &:after {
+            display: none;
+          }
+        }
+        &:after{
+          content:'\f054';
+          font-family: "Font Awesome 5 Pro";
+          position: absolute;
+          right:20px;
+          top:18px;
+          font-size: 19px;
+        }
+        &.open{
+          &:after{
+            transition: transform .5s;
+            transform:rotate(90deg);
+          }
+        }
+        a{
+          display: block;
+          font-size: 16px;
+          font-family: $knockout29;
+          text-transform: uppercase;
+          position: relative;
+          transition: 0.3s;
+          padding:20px 30px;
+          &:after{
+            content:'';
+            background-color: $greyMedium;
+            height:100%;
+            position: absolute;
+            top:0;
+            left:0;
+            width: 6px;
+            transition: 0.3s;
+          }
+          &:hover{
+            &:after{
+              width:10px;
+            }
+          }
+
+        }
+        > .sub-menu{
+          margin:0 30px;
+          padding:15px 20px;
+          list-style: none;
+          background-color: #F4F5F4;
+          li{
+            &:after{
+              display:none;
+            }
+            padding:10px 0;
+            &.current_page_item {
+              background-color: $navyBlue;
+              width: calc(100% + 40px);
+              left: -20px;
+              padding-left: 20px;
+              a {
+                color: #F4F5F4;
+              }
+            }
+            a{
+              padding:0 !important;
+              text-transform: none;
+              font-size: 16px;
+              font-weight: 600;
+              -webkit-font-smoothing: antialiased;
+              font-family: $serif-font-family;
+              &:after{
+                display:none;
+              }
+              &:before{
+                display: none;
+              }
+            }
+          }
+        }
+
+      }
+      /*Color stuff*/
+      .communities a,
+      .education a,
+      .agriculture a{
+        &:before{
+          content:'GROW',;
+          padding-right:10px;
+          font-family: $serif-font-family;
+          font-weight: 600;
+        }
+      }
+      .communities a{
+        &:after{
+          background-color:$communitiesGreen;
+        }
+      }
+      .education a{
+        &:after{
+          background-color:$ruralBlue;
+        }
+      }
+      .agriculture a{
+        &:after{
+          background-color:$leadersRed;
+        }
+      }
+    }
+
+  }
+}
+
+//These only show on Parent Pages and their children
+
+.rural-education {
+  .subnav {
+    li {
+      &.current_page_item {
+        border-bottom: 4px solid $ruralBlue;
+        a {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.communities{
+  .subnav {
+    li {
+      &.current_page_item {
+        border-bottom: 4px solid $communitiesGreen;
+        a {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+
+.ag-leaders {
+  .subnav {
+    li {
+      &.current_page_item {
+        border-bottom: 4px solid $leadersRed;
+        a {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+.subnav {
+  display: flex;
+  position: fixed;
+  width: 100%;
+  left:0;
+  justify-content: center;
+  z-index: 51;
+  background-color: #e7edf1;
+  padding: 0px 80px;
+  box-shadow: inset 0 10px 9px -7px rgba(0,0,0,.1);
+  //border-bottom: 1px solid rgba(0,0,0,.15);
+  @media screen and (max-width: $headerMenu){
+    display: none;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    li {
+      margin: 0 20px;
+      padding: 14px 0 12px;
+      flex: 0 1 auto;
+        border-bottom: 4px solid transparent;
+
+      &.current_page_item {
+        border-bottom: 4px solid $navyBlue;
+        a {
+          opacity: 1;
+        }
+      }
+
+
+
+      a {
+        position: relative;
+        font-family: $serif-font-family;
+        color: #10384F;
+        text-transform: none;
+        font-weight: 600;
+        font-size: 15px;
+        opacity: .8;
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.25;
+        transition: all 0.3s ease-in-out;
+        /*&:after{
+          content: '';
+          background-color: #10384f;
+          position: absolute;
+          width: 20px;
+          left: 0px;
+          bottom: -5px;
+          height: 3px;
+           -webkit-transition: all 0.3s;
+
+        }  */
+        &:hover{
+          opacity: 1;
+        }
+      }
+      &.current_page_item{
+        a{
+          &:after{
+            width:100%;
+          }
+        }
+      }
+    }
+  }
+}

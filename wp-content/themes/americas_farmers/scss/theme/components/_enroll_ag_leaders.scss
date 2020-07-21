@@ -1,0 +1,74 @@
+.enroll_ag_leaders {
+	margin:60px auto;
+	.grow-ag-wrapper{
+		@include grid-media($medium-min) {
+			display: flex;
+			justify-content: space-between;
+		//	align-items: center;
+		}
+	}
+	.image{
+		flex-basis: 50%;
+		overflow: hidden;
+		position: relative;
+		img {
+			display: block;
+			border: 0;
+			@include grid-media($medium-min) {
+				max-width: none;
+				height: 100%;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+	.content-wrapper{
+		flex-basis:50%;
+		margin-top: 30px;
+		display: flex;
+		flex-direction: column;
+		min-height: 500px;
+		justify-content: center;
+		background-color: $navyBlue;
+		color: white;
+		padding: 40px 40px;
+		margin-top: 0;
+		@include grid-media($medium-min) {
+			margin-top: 0;
+		}
+		img{
+			width:25%;
+		}
+		.grow_ag_content_interior{
+			margin-top: 30px;
+			h5{
+				color:white;
+			}
+		}
+		a.button {
+			background-color: white;
+			color: $navyBlue;
+			border:1px solid white;
+			padding: 14px 50px 14px 50px;
+			margin-top: 10px;
+			display: inline-block;
+			&:after {
+				color: $navyBlue;
+			}
+			&:hover {
+				background-color: $navyBlue;
+				color: white;
+				border:1px solid white;
+				&:after {
+					color: white;
+				}
+			}
+		}
+	}
+	@include grid-media($medium-min) {
+		margin-top: 0px;
+		padding-left: 40px;
+	}
+	
+}

@@ -1,0 +1,79 @@
+.wysiwyg-wrapper {
+  margin: 40px auto;
+  max-width: 848px;
+  padding: 0 24px;
+
+  @include grid-media($medium-min) {
+    margin: 80px auto;
+  }
+
+  &.green {
+    background-color: $navyBlue;
+    color: white;
+    h3 {
+      font-family: $serif-font-family;
+      font-size: 1.8rem;
+
+    }
+  }
+}
+.wysiwyg {
+  margin: auto;
+   @include clearfix;
+
+  margin-top: 0px;
+  margin-bottom: 0px;
+
+  img.alignleft {
+    display: block;
+    padding: 0px 40px 20px 0;
+    width: auto;
+    margin: 0 auto;
+    float: none;
+    @include grid-media($small-min) {
+      float: left;
+    }
+  }
+  img.alignright {
+    display: block;
+    margin: 0 auto;
+    padding: 0px 0 20px 40px;
+    width: auto;
+    float: none;
+    @include grid-media($small-min) {
+      float: right;
+    }
+  }
+  img.aligncenter {
+    display: block;
+    margin: 0 auto;
+    padding: 0px 40px 0px 40px;
+    width: auto;
+  }
+  p {
+
+  }
+  //Keep those video embeds from blowin' up
+  iframe {
+    max-width: 100%;
+  }
+
+}
+
+.rural-education {
+  .wysiwyg a {
+    color: $ruralBlue;
+  }
+}
+
+.communities {
+  .wysiwyg a {
+    color: $communitiesGreen;
+  }
+}
+
+.ag-leaders {
+  .wysiwyg a {
+    color: $leadersRed;
+  }
+}

@@ -1,0 +1,480 @@
+.announce_winners_blurb {
+	background: white;
+	margin: 0 auto;
+	padding: 40px 24px;
+
+	@include grid-media($medium-min) {
+		margin: 0px auto;
+		padding: 80px 24px;
+	}
+
+	.blurb-wrapper {
+		max-width: 848px;
+		margin: 0 auto;
+	}
+
+	p {
+		opacity: .8;
+	}
+
+}
+
+#announce_winners {
+	background-color: $greyLight;
+	padding: 0px 24px;
+	max-width: 1160px;
+	margin: 40px auto;
+
+	@include grid-media($medium-min) {
+			margin: 80px auto;
+	}
+
+
+	h2 {
+		text-align: center;
+	}
+
+	.winners_total {
+		max-width: 1160px;
+		padding: 0 20px 20px;
+		text-align: center;
+		margin: 50px auto 0;
+		border-bottom: $base-border;
+
+		span {
+			font-weight: 600;
+			font-family: $knockout30;
+			font-size: 32px;
+			margin-right: 10px;
+
+		}
+	}
+	&.communities {
+		.announce_winners_blurb a,
+		.no_winners_blurb a {
+			color: $communitiesGreen;
+		}
+	}
+
+	&.rural {
+		.announce_winners_blurb a,
+		.no_winners_blurb a {
+			color: $ruralBlue;
+		}
+	}
+
+	&.leaders {
+		.announce_winners_blurb a,
+		.no_winners_blurb a {
+			color: $leadersRed;
+		}
+	}
+
+	.no_winners_blurb {
+		max-width: 848px;
+		margin: 40px auto 0px;
+
+		p {
+			opacity: .8;
+		}
+	}
+
+
+
+	.announce_winners_label {
+		 text-align: center;
+		 max-width: 600px;
+		 margin: 20px auto 35px;
+		 opacity: .8;
+		// margin-bottom: 14px;
+		// font-size: .9375rem;
+		// line-height: 1.46667;
+		// letter-spacing: .1875rem;
+		// margin-top: 85px;
+		// font-weight: 700;
+		@include grid-media($medium-min) {
+			margin: 60px auto 35px;
+		}
+	}
+
+	.announce_winners_title {
+		text-align: center;
+		color: $communitiesGreen;
+		text-transform: uppercase;
+		letter-spacing: 4px;
+		font-size: 16px;
+		line-height: 1;
+		span {
+			text-transform: uppercase;
+			font-family: $knockout30;
+			margin-left: 5px;
+			letter-spacing: 1px;
+			font-size: 15px;
+			line-height: 1;
+			-webkit-font-smoothing: auto;
+		}
+	}
+	.winners_year {
+		font-family: $knockout29;
+	}
+	.winners_state_select {
+		margin: auto;
+		width: 100%;
+		max-width: 425px;
+		position: relative;
+		background-color: white;
+
+		@media screen and (max-width: 767px){
+			width: 100%;
+			max-width: 425px;
+		}
+	}
+
+	.winners_state_select_top {
+		padding-left: 20px;
+		height: 60px;
+		padding-top: 15px;
+		position: relative;
+		cursor: pointer;
+
+		#winners_chevron {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			font-size: 20px;
+		}
+	}
+
+	.winners_state_select_bottom {
+		height: 0px;
+		position: absolute;
+		top: 60px;
+		overflow: hidden;
+
+		&.active {
+			height: 240px;
+			overflow: scroll;
+			z-index: 100;
+			background-color: white;
+			width: 100%;
+		//	border: 1px solid #aaa;
+			border-top: 0px;
+		}
+
+		ul {
+			padding-left: 0px;
+			padding-top: 0px;
+			margin-top: 0px;
+		}
+
+		li {
+			list-style: none;
+			padding: 7px 24px;
+			cursor: pointer;
+
+			&:hover {
+				background-color: #e3e2e2;
+			}
+		}
+	}
+	#winners_container {
+		display: flex;
+		flex-wrap: wrap;
+		padding: 0;
+		margin: 0 auto;
+		align-content: flex-start;
+		justify-content: center;
+
+		h3 {
+			text-align: center;
+			margin: auto;
+		}
+
+	}
+	.winner_item {
+		width: calc(33.333% - 30px);
+		margin: 30px 15px 0px;
+		flex-grow: 0;
+		flex-shrink: 1;
+		transform: scale(0.5);
+		opacity: 0;
+		transition: all 0.4s;
+		overflow: hidden;
+		cursor: pointer;
+		&.pop-in {
+			opacity: 1;
+			transform: scale(1);
+			transition: all 0.4s;
+		}
+
+
+		&.no-arrow {
+			&:hover {
+				cursor: default;
+			}
+
+			i {
+				display: none;
+			}
+		}
+
+		//Mobile styles for these winner cards
+		@media screen and (max-width: 959px){
+			width: calc(50% - 30px);
+		}
+
+		@media screen and (max-width: 767px){
+			width: 100%;
+		}
+		.winner_item_top {
+			padding: 25px 30px 26px;
+			background-color: #84bd00;
+			position: relative;
+			h5 {
+				color: $navyBlue;
+				text-transform: uppercase;
+				font-family: $knockout29;
+				font-size: 28px;
+				line-height: 1.25;
+				margin-bottom: 20px;
+			}
+			@media screen and (max-width: 1140px) and (min-width: 959px){
+				h5 {
+					font-size: 30px;
+				}
+			}
+			span {
+				color: $navyBlue;
+				font-family: $knockout29;
+				text-transform: uppercase;
+				font-size: 20px;
+				line-height: 1.25;
+
+			}
+			.winners_internal_chevron {
+				color: white;
+				position: absolute;
+				right: 15px;
+				top: 28px;
+				font-size: 22px;
+			}
+		}
+
+
+		.winner_item_bottom {
+			height: 0px;
+			background-color: $communitiesGreenLight;
+			overflow: hidden;
+			p {
+				color: $navyBlue;
+			}
+		}
+		&.active {
+			.winner_item_bottom {
+				padding: 0px 30px 25px;
+				height: auto;
+			}
+			p {
+				margin: 0;
+			}
+			h5 {
+				color: white;
+			}
+		}
+	}
+
+}
+//Overrides for colors
+//Leaders
+#winners_container.leaders {
+	.winner_item {
+		.winner_item_top {
+			background-color: $leadersRed;
+			color: white;
+			h5, span {
+				color: white;
+			}
+		}
+
+		.winner_item_bottom {
+			background-color: $leadersRed;
+
+			h5, span, p {
+				color: white;
+			}
+		}
+
+		&.active {
+			.winner_item_top,
+			.winner_item_bottom {
+				background-color: #a81037;
+			}
+		}
+	}
+}
+
+
+#announce_winners.leaders .announce_winners_title {
+	color: $leadersRed;
+}
+
+
+//Overrides for colors
+//Communities
+#winners_container.communities {
+	.winner_item {
+		.winner_item_top {
+			background-color: $communitiesGreen;
+			color: $navyBlue;
+			h5, span {
+				color: $navyBlue;
+			}
+		}
+
+		.winner_item_bottom {
+			background-color: $communitiesGreen;
+
+			h5, span, p {
+				color: $navyBlue;
+			}
+		}
+
+		&.active {
+			.winner_item_top,
+			.winner_item_bottom {
+				background-color: darken($communitiesGreen, 10%);
+			}
+		}
+	}
+}
+
+
+//Rural Education
+#winners_container.rural {
+	.winner_item {
+		.winner_item_top {
+			background-color: $ruralBlue;
+			color: white;
+			h5, span {
+				color: white;
+			}
+		}
+
+		.winner_item_bottom {
+			background-color: $ruralBlue;
+
+			h5, span, p {
+				color: white;
+			}
+		}
+
+		&.active {
+			.winner_item_top,
+			.winner_item_bottom {
+				background-color: #016595;
+			}
+		}
+	}
+}
+
+
+
+
+#announce_winners.rural .announce_winners_title {
+	color: $ruralBlue;
+}
+
+
+.winner_error {
+	background-color: hsla(0,2%,89%,.3);
+	margin-top: 80px;
+	padding-top: 73px;
+	.winner_congratulations {
+		font-size: 17px;
+		text-align: center;
+		letter-spacing: 3px;
+	}
+	h2 {
+		color: $communitiesGreen;
+		width: 435px;
+		margin: auto;
+		padding-top: 15px;
+		font-size: 3em;
+		line-height: .9333;
+		letter-spacing: 0.05em;
+		text-align: center;
+		font-family: $knockout48;
+		font-weight: 400;
+
+		span {
+			background-color: $communitiesGreenLight;
+			display: inline-block;
+			padding: 0px 10px;
+		}
+	}
+	h3 {
+		text-align: center;
+		padding-top: 60px;
+		text-transform: none;
+		font-family: $serif-font-family;
+		width: 500px;
+		margin: auto;
+		span {
+			background-color: $communitiesGreenLight;
+			display: inline-block;
+			padding: 0px 10px;
+			color: $ruralBlue;
+			font-weight: bold;
+		}
+	}
+	h4 {
+		font-family: $serif-font-family;
+		font-size: 18px;
+		text-align: center;
+		margin-top: 32px;
+		padding-bottom: 105px;
+		font-weight: 400;
+		width: 426px;
+		margin: auto;
+		line-height: 34px;
+		margin-top: 32px;
+		a {
+			color: $communitiesGreen;
+			text-decoration: underline;
+		}
+
+	}
+}
+
+.winner_error {
+	display: none;
+
+	&.active {
+		display: block;
+	}
+}
+
+
+.communities {
+	.winners_total {
+		span {
+			color: $communitiesGreen;
+		}
+	}
+}
+
+.rural-education {
+	.winners_total {
+		span {
+			color: $ruralBlue;
+		}
+	}
+}
+
+.ag-leaders {
+	.winners_total {
+		span {
+			color: $leadersRed;
+		}
+	}
+}

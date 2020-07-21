@@ -1,0 +1,211 @@
+// Site Specific Color Rules
+.communities {
+  //Typography - Default styles found in _typography.scss
+  h5, h6 {
+    color: $communitiesGreen;
+  }
+
+  .current-menu-parent,
+  .current-menu-item {
+    line-height: 1.35;
+    a:after {
+      content: "";
+      border-bottom: 2px solid $communitiesGreen;
+      display: block;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  a.special-link {
+    &:hover {
+      color: $base-font-color;
+      &:after {
+        border-color: $communitiesGreen;
+      }
+    }
+  }
+  .subnav {
+      a.current-menu-item {
+        color:  $communitiesGreen;
+        &:after {
+          border-color: $communitiesGreen;
+          width: 100%;
+        }
+        &:hover {
+          color: $communitiesGreenPale;
+        }
+      }
+    }
+
+
+  //Buttons - Default styles found in _buttons.scss
+/*   button,
+  .button {
+    background-color: $communitiesGreen;
+    color: White;
+    border-color: $communitiesGreenLight;
+    &:after {
+      background-image:url(./imgs/right-arrow-white.svg);
+    }
+    &:hover {
+      background-color: $communitiesGreenLight;
+      border-color: $communitiesGreen;
+    }
+  } */
+  .step_counter {
+    background-color: $communitiesGreen!important;
+  }
+  .faq-question.active {
+    color: $communitiesGreen!important;
+  }
+}
+
+.rural {
+  //Typography - Default styles found in _typography.scss
+  h5, h6 {
+    color: $ruralBlue;
+  }
+
+  //Links - Default styles found in _typography.scss
+  .flex-content-section a:not(.button) {
+    color: $ruralBlue;
+  }
+
+  .recent_stories_component {
+    .post-card a {
+      color: $navyBlue;
+    }
+  }
+
+  .current-menu-parent,
+  .current-menu-item {
+    line-height: 1.35;
+    a:after {
+      content: "";
+      border-bottom: 2px solid $ruralBlue;
+      display: block;
+      width: 100%;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  a.special-link {
+    &:hover {
+      color: $base-font-color;
+      &:after {
+        border-color: $ruralBlue;
+      }
+    }
+  }
+
+  .subnav {
+      a.current-menu-item {
+        color:  $ruralBlue;
+        &:after {
+          border-color: $ruralBlue;
+          width: 100%;
+        }
+        &:hover {
+          color: $ruralBluePale;
+        }
+      }
+    }
+
+  //Buttons - Default styles found in _buttons.scss
+  button,
+  .button {
+    background-color: $ruralBlue;
+    color: White;
+    border-color: $ruralBlueLight;
+    &:after {
+      background-image:url(./imgs/right-arrow-white.svg);
+    }
+    &:hover {
+      background-color: $ruralBlueLight;
+      border-color: $ruralBlue;
+    }
+  }
+
+  .step_counter {
+    background-color: $ruralBlue!important;
+  }
+
+  .faq-question.active {
+    color: $ruralBlue!important;
+  }
+}
+
+.leaders {
+  //Typography - Default styles found in _typography.scss
+  h5, h6 {
+    color: $leadersRed;
+  }
+
+  //Default styles found in _typography.scss
+  .flex-content-section a:not(.button) {
+    color: $leadersRed;
+  }
+
+  .recent_stories_component {
+    .post-card a {
+      color: $navyBlue;
+    }
+  }
+
+  .current-menu-parent,
+  .current-menu-item {
+    line-height: 1.35;
+    a:after {
+      content: "";
+      border-bottom: 2px solid $leadersRed;
+      display: block;
+      width: 100%;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  a.special-link {
+    color: $base-font-color;
+    &:hover {
+      &:after {
+        border-color: $leadersRed;
+      }
+    }
+  }
+
+  .subnav {
+      a.current-menu-item {
+        color:  $leadersRed;
+        &:after {
+          border-color: $leadersRed;
+          width: 100%;
+        }
+        &:hover {
+          color: $leadersRedPale;
+        }
+      }
+    }
+
+  //Buttons - Default styles found in _buttons.scss
+  button,
+  .button {
+    background-color: $leadersRed;
+    color: White;
+    border-color: $leadersRedLight;
+    &:after {
+      background-image:url(./imgs/right-arrow-white.svg);
+    }
+    &:hover {
+      background-color: $leadersRedLight;
+      border-color: $leadersRed;
+    }
+  }
+
+  .step_counter {
+    background-color: $leadersRed!important;
+  }
+
+  .faq-question.active {
+    color: $leadersRed!important;
+  }
+}

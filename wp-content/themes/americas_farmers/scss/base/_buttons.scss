@@ -1,0 +1,119 @@
+button,
+.button,
+.gform_button {
+  background-color: $navyBlue;
+  box-sizing: border-box;
+  color: white;
+  font-family: $serif-font-family;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: .5px;
+  padding: 12px 50px 12px 50px;
+  text-transform: uppercase;
+  transition: all .3s ease-in-out;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+  border: 0;
+  border-radius: 0;
+
+  @include grid-media($small-min) {
+    width: auto;
+  }
+
+  @include grid-media($medium-min) {
+    width: auto;
+    font-size: 17px;
+      padding: 15px 50px 15px 50px;
+  }
+
+  &:after {
+    content: '\f061';
+    font-family: "Font Awesome 5 Pro";
+    font-weight: 400;
+    font-size: 12px;
+    margin-left: 17px;
+    top: -1px;
+    position: relative;
+    transition: all .3s ease-in-out;
+  }
+
+  &:hover, &:focus {
+  background-color: darken($navyBlue, 5%);
+  opacity: 1;
+  }
+}
+
+button.inverse,
+.button.inverse {
+  border: 2px solid $navyBlue;
+  background: white;
+  color: $navyBlue;
+  padding: 8px 20px;
+  &:after {
+      color: $navyBlue;
+  }
+  &:hover, &:focus {
+    background-color: $navyBlue;
+    color: white;
+    &:after {
+      color: white;
+    }
+  }
+}
+
+button.no-arrow,
+.button.no-arrow {
+  &:after {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}
+//Sharing Buttons on posts
+.share-post-widget {
+  position: relative;
+  padding: 0 20px;
+  @include grid-media($medium-min) {
+    padding: 0;
+  }
+  .share-post-wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 25px;
+    @include grid-media($medium-min) {
+      display: block;
+      position: absolute;
+      left: 8%;
+    }
+  }
+  .share-title {
+    font-family: $knockout30;
+    text-transform: uppercase;
+    font-size: 18px;
+    letter-spacing: -.3px;
+    line-height: 1;
+    @include grid-media($medium-min) {
+      padding: 0 0 6px;
+    }
+  }
+  .social-share-buttons {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    @include grid-media($large-min) {
+      flex-direction: column;
+    }
+    li {
+      padding: 0;
+      text-align: center;
+      list-style: none;
+      margin: 0 5px;
+      a {
+        padding: 0 5px;
+        color: $greyMedium;
+      }
+    }
+  }
+}

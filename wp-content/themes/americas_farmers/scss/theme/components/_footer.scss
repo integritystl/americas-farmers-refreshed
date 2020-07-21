@@ -1,0 +1,379 @@
+footer {
+  background-color: #c7c6c5;
+
+  @media screen and (min-width: $medium){
+
+  }
+  .footer-main {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+    align-items: flex-start;
+    max-width: 1160px;
+    margin: auto;
+    padding: 40px 20px 0;
+    @media screen and (min-width: $medium){
+      flex-direction: row;
+    }
+    .social-container{
+      margin-bottom: 23px;
+      padding-bottom: 23px;
+      border-bottom: 1px solid $greyDark;
+      flex-basis: 100%;
+      width: 100%;
+      text-align: center;
+      @media screen and (min-width: $medium){
+        flex-basis: 35%;
+        text-align:left;
+        border-bottom: none;
+        padding-bottom:0;
+        margin-bottom:0;
+      }
+      .logo{
+        max-width: 220px;
+        max-height:100px;
+      }
+      .social-links{
+        text-align: center;
+        margin: 30px 0 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        /*Keep links snug on mobile*/
+
+        @media screen and (min-width: $medium){
+          justify-content: flex-start;
+          max-width: 33.3%;
+          text-align: center;
+          margin: 30px 0 0;
+        }
+        li{
+          font-size: 22px;
+          padding:0 10px;
+
+          @media screen and (min-width: $medium){
+            padding:0 10px;
+          }
+        }
+      }
+    }
+    .quick-links{
+      flex-basis: 100%;
+      width: 100%;
+      margin:0 auto;
+      padding-bottom: 20px;
+      text-align: center;
+      @media screen and (min-width: $medium){
+        flex-basis: 30%;
+        padding-bottom: 0;
+        text-align: left;
+      }
+      @media screen and (min-width: $large){
+        flex-basis: 35%;
+      }
+    }
+    .form-container{
+      flex-basis: 100%;
+      width: 100%;
+      margin:auto;
+      text-align: center;
+      @media screen and (min-width: $medium){
+        flex-basis: 45%;
+        text-align: left;
+      }
+      @media screen and (min-width: $large){
+        flex-basis: 40%;
+        text-align: left;
+      }
+    }
+
+    .quick-links{
+      h5{
+        font-family: $knockout29;
+        font-size: 21px;
+        font-weight: 300;
+        margin-bottom: 0;
+        text-transform: uppercase;
+        color: $navyBlue!important;
+        -webkit-font-smoothing: antialiased;
+        @include grid-media($medium-min) {
+          font-size: 28px;
+        }
+      }
+      ul{
+        padding:0;
+        margin:10px 0 0;
+        list-style: none;
+        li {
+          line-height: 2;
+        }
+      }
+    }
+
+    .form-container{
+      .gform_description {
+        font-size: 18px;
+        line-height: 1.35;
+        margin-bottom: 15px;
+        display: block;
+      }
+      p{
+        font-size: 14px;
+        color: $navyBlue;
+        margin: 15px auto 0;
+      }
+      .gform_wrapper{
+        .gform_body {
+          width: calc(100% - 130px);
+          display: inline-block;
+        }
+        .gform_footer{
+          width:125px;
+          display: inline-block;
+        }
+        .gfield{
+          margin:0;
+          label{
+            top:15px;
+          }
+          .touched{
+            label{
+              top:20px;
+            }
+          }
+        }
+        input{
+          margin:0;
+          padding:0 10px;
+          height:50px;
+        //  width: calc(100% - 150px);
+          border-color:transparent;
+        }
+        .gform_button{
+        //  width:140px;
+          margin-left: 5px;
+        }
+        .gfield_error {
+          input, select {
+            border-color: $errorRed;
+          }
+        }
+        .validation_error {
+          margin-bottom: 10px;
+        }
+        .validation_message {
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+
+
+
+    .footer-utility{
+    .container{
+      border-top: 1px solid;
+      max-width: 1160px;
+      margin: auto;
+      margin-top: 40px;
+      padding: 30px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      @media screen and (min-width: $medium){
+        flex-direction: row;
+      }
+
+      .footer-copyright{
+        p{
+          color:$secondary-font-color;
+          font-size: 15px;
+          text-align: center;
+          border-left:none;
+          margin: 0;
+          line-height: 1;
+          @media screen and (min-width: $medium){
+            border-left: 1px solid;
+            padding-left: 10px;
+          }
+        }
+      }
+      .menu{
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          list-style: none;
+          font-size: 16px;
+          @media screen and (min-width: $medium){
+            justify-content: space-around;
+          }
+          li{
+              line-height: 1;
+            a {
+              font-size: 15px;
+              font-weight: 300;
+              line-height: 1;
+            }
+            &:first-of-type{
+              padding-right: 0;
+              padding-bottom:10px;
+              border-right: none;
+              @media screen and (min-width: $medium){
+                border-right:1px solid $secondary-font-color;
+                padding-right:10px;
+                padding-bottom: 0;
+              }
+            }
+            &:last-of-type{
+              padding:0 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-newsletter {
+    .gform_wrapper {
+      padding: 0;
+      background: none;
+    }
+  }
+
+  /*.footer-newsletter {
+    padding: 40px 0 0;
+    flex-basis: 50%;
+
+
+    @include grid-media($medium-min) {
+      padding: 60px 0 0;
+      max-width: 500px;
+    }
+
+    .gform_wrapper {
+      margin: 0 auto;
+      width: 100%;
+      max-width: 100%;
+    }
+    .gform_heading {
+      margin-bottom: 40px;
+      text-align: center;
+      @include grid-media($small-min) {
+        text-align: left;
+      }
+    }
+    .gform_body {
+      display: inline-block;
+      width: calc(100% - 75px);
+
+      .gfield,
+      input {
+        margin: 0;
+      }
+    }
+    .gform_footer {
+      display: inline-block;
+      margin-left: 20px;
+      margin-top: 12px;
+      width: 50px;
+      vertical-align: top;
+      &:after {
+        content: "";
+        border-bottom: 2px solid $base-font-color;
+        display: block;
+        width: 24px;
+        transition: all .3s ease-in-out;
+      }
+      &:hover {
+        cursor: pointer;
+        &:after {
+          width: 100%;
+          border-color: $navyBlue;
+        }
+        input[type="submit"] {
+          color: $navyBlue;
+        }
+      }
+    }
+    input[type="submit"] {
+      @extend a.special-link;
+      padding: 0;
+      border: none;
+      background: none!important;
+      display: inline-block;
+      margin: 0;
+      width: auto;
+      font-family: $knockout29;
+      letter-spacing: .25px;
+      font-size: 19px;
+      line-height: 1;
+      color: $greyDark;
+    }
+  }
+
+  .footer-utility {
+    padding: 0 0 100px;
+    margin-top: 100px;
+    text-align: center;
+    @include grid-media($medium-min) {
+      text-align: left;
+      padding: 0 0 100px;
+    }
+
+    .footer-copyright {
+      display: block;
+      font-size: 14px;
+      color: darken($greyDark, 10%);
+      margin-bottom: 10px;
+
+      @include grid-media($medium-min) {
+        display: inline-block;
+        margin: 0;
+      }
+    }
+
+    .menu-footer-utility-menu-container {
+      display: block;
+      font-size: 14px;
+      margin-left: 0px;
+
+      @include grid-media($medium-min) {
+        display: inline-block;
+        margin-left: 60px;
+      }
+    }
+
+    ul#footer-utility-menu {
+      margin: 0;
+      padding: 0;
+      li {
+        list-style-type: none;
+        display: inline-block;
+        &:first-child {
+          margin-right: 10px;
+        }
+        a {
+          color: darken($greyDark, 10%);
+        }
+      }
+    }
+  }
+}
+
+.footer-newsletter {
+  .gform_confirmation_wrapper {
+    background-color: white;
+    max-width: 450px;
+    margin: auto;
+    .gform_confirmation_message {
+      color: $navyBlue;
+      text-align: center;
+      padding: 14px;
+    }
+  }
+}
+
+}*/

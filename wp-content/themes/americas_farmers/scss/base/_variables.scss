@@ -1,0 +1,42 @@
+// Typography
+$serif-font-family: "Sentinel A", "Sentinel B";
+$knockout48: "Knockout 48 A", "Knockout 48 B";
+$knockout30: "Knockout 30 A", "Knockout 30 B";
+$knockout29: "Knockout 29 A", "Knockout 29 B";
+$special-font-headline: 'Alfa Slab One', cursive;
+$fontawesome: "Font Awesome 5 Pro";
+// Font Sizes
+$base-font-size: 20px;
+
+// Line height
+$base-line-height: 1.45;
+$heading-line-height: 1.15;
+
+
+//Colors - Due to client edits now green not orange
+$communitiesGreen: #84BD00;
+$communitiesGreenLight: #9bd020;
+$communitiesGreenPale: #bdff24;
+
+$ruralBlue: #008DD1;
+$ruralBlueLight: #00a0f0;
+$ruralBluePale: #24b6ff;
+
+$leadersRed: #E61A4E;
+$leadersRedLight: #ff3164;
+$leadersRedPale: #ed5a7e;
+
+
+$greyLight: #F6F8F9;
+$greyMedium: #445F6A;
+$greyDark: darken(#807f7d, 5%);
+$navyBlue: #10384F;
+$errorRed: #d05264;
+
+
+//Font Colors
+$base-font-color: $greyMedium;
+$secondary-font-color: $navyBlue;
+// Border
+$base-border-color: #e3e3e3;
+$base-border: 1px solid $base-border-color;

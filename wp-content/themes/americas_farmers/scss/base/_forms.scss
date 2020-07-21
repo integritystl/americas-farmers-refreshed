@@ -1,0 +1,312 @@
+form {
+	ul {
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="tel"],
+input[type="range"],
+input[type="date"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="color"],
+textarea {
+	box-sizing: border-box;
+	border: $base-border;
+	border-radius: 0;
+	-webkit-appearance: none;
+	color: #707070;
+	display: block;
+	font-size: 16px;
+	line-height: 40px;
+	height: 40px;
+	padding: 0 13px;
+	margin-bottom: 8px;
+	width: 100%;
+	transition: all .3s ease-in-out;
+	&:hover {
+		border-color: $navyBlue;
+	}
+	&:focus {
+		border-color: $navyBlue;
+		outline: none;
+	}
+	&::placeholder {
+		color: #707070;
+		opacity: 1;
+	}
+	@include grid-media($medium-min) {
+		font-size: 20px;
+		line-height: 48px;
+		height: 48px;
+		margin-bottom: 12px;
+	}
+}
+
+select {
+	border: $base-border;
+	background-color: #fff;
+	background-image: url('./imgs/arrow-down.png');
+	background-repeat: no-repeat;
+	background-position: right 50%;
+	background-size: auto;
+	-webkit-appearance: none;
+	appearance: none;
+	color: #707070;
+	border-radius: 0;
+	padding: 0 13px;
+	margin-bottom: 8px;
+	font-size: 16px;
+	line-height: 40px;
+	height: 40px;
+	@include grid-media($medium-min) {
+		font-size: 20px;
+		line-height: 48px;
+		height: 48px;
+		margin-bottom: 12px;
+	}
+}
+select::-ms-expand {
+	visibility: hidden;
+}
+
+.hidden_label {
+	label {
+		visibility: hidden;
+		height: 0;
+	}
+}
+.gf_left_half, .gf_right_half, .ginput_left, .ginput_right {
+	@include grid-media($medium-min) {
+		display: inline-block;
+		vertical-align: top;
+		width: 50%;
+		padding-right: 10px;
+		float: none;
+	}
+}
+.gf_left_half.gfield_error {
+	@include grid-media($medium-min) {
+		&:after {
+			right: 33px;
+		}
+	}
+}
+.gf_right_half, .ginput_right {
+	@include grid-media($medium-min) {
+		padding-left: 10px;
+		padding-right: 0;
+	}
+}
+.gform_button {
+	padding: 0;
+	line-height: 48px;
+	width: 185px;
+	letter-spacing: 0;
+}
+// Maybe an IE targeting hack to remove IE specific caret
+@media screen and (min-width: 0\0) {
+  select {
+    //background: none;
+    padding: 5px;
+  }
+}
+
+.select > label {
+	display: block!important;
+	position: relative;
+	font-size: 12px;
+	font-family: $knockout48;
+}
+
+textarea {
+	width: 100%;
+	line-height: 1.2;
+	min-height: 220px;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	@include grid-media($medium-min) {
+		min-height: 270px;
+	}
+}
+.gform_wrapper h3.gform_title {
+  //  display: none !important;
+}
+.gfield,
+.animate-textarea,
+.name_first,
+.name_last,
+.address_city,
+.address_line_1 {
+	position: relative;
+	line-height: 1;
+	label {
+		white-space:nowrap;
+		z-index:2;
+		display: block;
+		font-size: 20px;
+		font-weight: 400;
+		transition: all 0.3s ease;
+		color: $navyBlue;
+	}
+	&.touched {
+		label {
+			font-family: $knockout30;
+			font-size: 16px;
+		}
+	}
+}
+.gform_wrapper .teacher {
+	label {
+		white-space:normal;
+	}
+	.address_line_1 {
+		label {
+			white-space: nowrap;
+		}
+	}
+	.address_city, .address_line_2, .address_zip {
+		position: relative;
+		line-height: 1;
+		margin-bottom: 45px;
+		label {
+			white-space:nowrap;
+			z-index:2;
+			display: block;
+			font-size: 18px;
+			font-weight: 400;
+			transition: all 0.3s ease;
+		}
+		&.touched {
+			label {
+				font-family: $knockout30;
+				font-size: 16px;
+			}
+		}
+	}
+
+	.gfield_description, .ginput_container_radio {
+		position: relative;
+		top: 62px;
+		left: 20px;
+		font-size: 18px;
+		input {
+			margin-top: 6px;
+			width: auto;
+		}
+		ul li label {
+			position: relative;
+			top: -18px;
+			left: 30px;
+			width: 50%;
+		}
+	}
+	.gfield_description {
+		margin-bottom: 20px;
+		//Displays if form field isn't valid, ex: text in a number field
+		&.validation_message {
+			margin-bottom: 0;
+			position: initial;
+			font-size: 16px;
+		}
+	}
+	.animate-textarea {
+		position: relative;
+		top: 50px;
+		line-height: 1;
+		margin-bottom: 35px;
+		label {
+			position: relative;
+			white-space: normal;
+			top: 33px;
+			left: 0px;
+		}
+		.ginput_counter {
+			margin-bottom: 60px;
+			font-size: 18px;
+		}
+	}
+	.ginput_container_fileupload {
+		position: relative;
+		left: 20px;
+		font-size: 18px;
+	}
+}
+
+label.gfield_label_before_complex {
+	visibility: hidden;
+}
+
+.gform_wrapper {
+	margin: auto;
+	padding: 20px;
+	background: #fff;
+	input,
+	select,textarea {
+		width: 100%;
+	}
+	.select-container {
+		select{
+			width: 100%;
+		}
+	}
+	@include grid-media($large-min) {
+		padding: 50px;
+	}
+}
+
+// Validation styles
+.validation_message {
+	color: $errorRed;
+	font-size: 16px;
+	font-family: $knockout30;
+	margin: -6px 0 8px;
+	@include grid-media($medium-min) {
+		margin-top: -10px;
+		margin-bottom: 12px;
+	}
+}
+
+body img.gform_ajax_spinner {
+ display: none !important;
+}
+
+.gfield_error {
+	label {
+		color: $errorRed;
+		display: block;
+		font-size: 16px;
+		font-family: $knockout30;
+	}
+	input, select {
+		border-color: $errorRed;
+	}
+}
+
+.gfield {
+	position: relative;
+}
+
+.gfield.required {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.gform_validation_container {
+	display: none;
+}
+
+.gform_confirmation_wrapper {
+	text-align: center;
+}

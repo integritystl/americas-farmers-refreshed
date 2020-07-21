@@ -1,0 +1,121 @@
+//People Component
+.people_component {
+  max-width: 848px;
+  padding: 0 24px;
+  margin: 40px auto;
+  .person {
+    margin: 40px auto;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-content: flex-start;
+    @include grid-media($small-min) {
+      flex-flow: row;
+
+    }
+  }
+  img {
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto 20px;
+    display: block;
+    @include grid-media($small-min) {
+      margin: 0 auto;
+    }
+  }
+  .person-img {
+
+    @include grid-media($small-min) {
+      flex: 0 1 237px;
+    }
+    img {
+      width: 100%; //images are in a lot of different varying sizes for these portraits :\
+      height: auto;
+      max-width: 335px;
+      max-height: 335px;
+      object-fit: cover;
+      @include grid-media($small-min) {
+        width: 237px;
+        height: 237px;
+      }
+    }
+  }
+
+  @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    .person-img img {
+      position: relative;
+      max-width: 237px;
+      max-height: 237px;
+      height: auto;
+      width: auto;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .person-content {
+    @include grid-media($small-min) {
+      padding-left: 30px;
+      flex: 1 1 65%;
+    }
+    h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      @include grid-media($small-min) {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+    }
+    h4 {
+      text-transform: uppercase;
+      font-size: 18px;
+      font-family: $knockout29;
+      font-weight: 300;
+      opacity: 0.8;
+      margin-bottom: 15px;
+      @include grid-media($small-min) {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .showmore span {
+      display: none;
+    }
+    p {
+      margin: 0;
+    }
+    .people-text-content {
+      opacity: .8;
+    }
+
+    .morelink {
+      display: block;
+      width: 135px;
+      line-height: 30px;
+      padding: 0;
+      font-size: 16px;
+      margin-top: 20px;
+      background-color: rgba($navyBlue, .5);
+      letter-spacing: 0;
+      text-align: center;
+      &:hover {
+        background-color: rgba($navyBlue, .75);
+      }
+      &:after {
+        content: "\f063";
+        font-size: 10px;
+      }
+      &.less {
+        background-color: rgba($navyBlue, 1);
+        &:hover {
+          background-color: rgba($navyBlue, .75);
+        }
+        &:after {
+          content: "\f062";
+        }
+      }
+    }
+  }
+}

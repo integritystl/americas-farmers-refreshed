@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="23px" height="24px" viewBox="0 0 23 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Down Arrow</title>
+    <g id="style-guide" stroke-width="1" stroke="#FFFFFF" fill="none" fill-rule="evenodd">
+        <g id="down_arrow_icon">
+            <polyline id="Path-3-Copy" stroke-width="3.5" transform="translate(9.852051, 11.792965) rotate(-45.000000) translate(-9.852051, -11.792965) " points="2.82276368 4.97290862 2.82276368 18.613021 16.8813386 18.613021"></polyline>
+            <path d="M9.5,0.5 C9.5,7.51042845 9.5,12.0934363 9.5,14.2490234 C9.5,18.1222235 9.5,20.0588235 9.5,20.0588235" id="Path-2" stroke-width="3.5"></path>
+        </g>
+    </g>
+</svg>

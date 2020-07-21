@@ -1,0 +1,362 @@
+.post-block-quote {
+  margin: 0 auto;
+  @include grid-media($medium-min) {
+    max-width: 775px;
+    width: 50%;
+  }
+  @include grid-media($large-min) {
+    max-width: 775px;
+    width: 50%;
+  }
+
+  .container {
+    padding: 0 20px 0 20px;
+    @include grid-media($medium-min) {
+      padding: 0 0 0 20px;
+    }
+  }
+  blockquote {
+    margin: 1rem 0;
+    @include grid-media($medium-min) {
+      margin: 2rem auto;
+    }
+    @include grid-media($large-min) {
+      margin: 4rem auto;
+    }
+    .quote {
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      line-height: 1.25;
+      position: relative;
+      font-weight: 300;
+      @include grid-media($medium-min) {
+        font-size: 1.25rem;
+      }
+
+      @include grid-media($large-min) {
+        font-size: 1.5rem;
+      }
+
+      //Quote wrappers
+      &:before,
+      &:after {
+        font-family: $serif-font-family;
+        color: #e2eebd; //fallback in case there's no Category
+        display: inline;
+        opacity: .25;
+        @include grid-media($medium-min) {
+          font-size: 12.375rem;
+          height: 6rem;
+          line-height: 1em;
+          position: absolute;
+          display: block;
+        }
+      }
+      &:before {
+        content: "\201c";
+        left: -5.5rem;
+        top: -1.75rem;
+      }
+      &:after {
+        content: "\201d";
+        right: -5rem;
+        bottom: -2.25rem;
+      }
+
+    }
+  }
+
+  cite {
+    display: block;
+    font-style: normal;
+    font-family: $knockout29;
+    letter-spacing: .0125rem;
+    text-transform: uppercase;
+    color: $navyBlue;
+  }
+}
+
+.related-stories {
+  margin: 3rem auto 8rem;
+  .related-content {
+    padding-top: 20px;
+    margin: 0 auto;
+    border-top: 1px solid $greyDark;
+  }
+  h4 {
+    font-family: $knockout29;
+    font-weight: 400;
+    font-size: 1.9375rem;
+    line-height: 1.16129;
+    letter-spacing: .01562rem;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    @include grid-media($medium-min) {
+      margin-bottom: 60px;
+    }
+  }
+  h3 {
+    font-family: "Sentinel A", "Sentinel B";
+    font-size: 28px;
+    font-weight: 700;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    @include grid-media($medium-min) {
+      flex-flow: row;
+    }
+    li {
+      list-style: none;
+      margin-bottom: 40px;
+      @include grid-media($medium-min) {
+        width: 30%;
+        margin-bottom: 0;
+      }
+
+      .image {
+        width: 100%;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .button {
+    color: #fff;
+    display: block;
+    width: auto;
+    text-align: center;
+
+    @include grid-media($medium-min) {
+      margin: 70px auto 0;
+      max-width: 30%;
+    }
+  }
+}
+//Wraps the Category for a Post
+.post-program {
+  font-family: $serif-font-family;
+  letter-spacing: .25rem;
+  font-size: 16px;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  margin-bottom: 8px;
+  span {
+    font-family: $knockout29;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  &.communities {
+    a {
+      color: $communitiesGreen;
+    }
+  }
+  &.rural {
+    a {
+      color: $ruralBluePale;
+    }
+  }
+  &.leaders {
+    a {
+      color: $leadersRedPale;
+    }
+  }
+}
+//These are style changes to existing components to account for the Post Category assigned to the Post/Story
+.grow-communities {
+  .post-block-quote {
+    blockquote {
+      .quote {
+        &:before,
+        &:after {
+          color: $communitiesGreen;
+        }
+      }
+    }
+  }
+  cite {
+    color: $communitiesGreen;
+  }
+  .related-stories {
+    .post-program {
+      color: $communitiesGreen;
+    }
+  }
+}
+.grow-rural-education {
+  .post-block-quote {
+    blockquote {
+      .quote {
+        &:before,
+        &:after {
+          color: rgba($ruralBluePale, 0.3);
+        }
+      }
+    }
+    cite {
+      color: $ruralBluePale;
+    }
+  }
+  .related-stories {
+    .post-program {
+      color: $ruralBluePale;
+    }
+  }
+}
+.grow-ag-leaders {
+  .post-block-quote {
+    blockquote {
+      .quote {
+        &:before,
+        &:after {
+          color: $leadersRedPale
+        }
+      }
+    }
+    cite {
+      color: $leadersRedPale;
+    }
+  }
+}
+
+.post-color-block {
+  padding: 50px 0;
+  &.with-logo {
+    .container {
+      display: flex;
+      max-width: 935px;
+      margin: 0 auto;
+      justify-content: center;
+      flex-direction: column;
+
+      .post-color-block_content {
+        text-align: center;
+        margin-left: 40px auto 0;
+      }
+
+      @include grid-media($medium-min) {
+        justify-content: flex-start;
+        flex-direction: row;
+        .post-color-block_content {
+          text-align: left;
+          margin-left: 40px;
+        }
+      }
+    }
+  }
+
+  .container {
+    display: block;
+    max-width: 935px;
+    margin: 0 auto;
+    .post-color-block_content {
+      text-align: center;
+    }
+  }
+  &.Orange {
+    background-color: $communitiesGreen;
+  }
+  &.Green {
+    background-color: $navyBlue;
+  }
+  &.Red {
+    background-color: $leadersRed;
+  }
+  &.Blue {
+    background-color: $ruralBlue;
+  }
+
+  &_image {
+    width: 150px;
+    min-width: 150px;
+    display: block;
+    margin: 0 auto 20px;
+    @include grid-media($medium-min) {
+      margin: 0;
+    }
+    img {
+      display: block;
+    }
+  }
+
+  &_content {
+    p {
+      color: #fff;
+      margin: 0px auto 0;
+      font-family: $serif-font-family;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 1.5rem;
+      line-height: 1.25;
+      letter-spacing: -.01562rem;
+
+      @include grid-media($medium-min) {
+        font-size: 2rem;
+        margin: -10px auto 0;
+        //text-align: center;
+      }
+    }
+
+    a {
+      border-color: white;
+      color: white;
+      background-color: rgba(255,255,255, 0);
+      margin-top: 20px;
+      display: inline-block;
+      &:after {
+        background-image: url(./imgs/right-arrow-white.svg);
+      }
+
+      &:hover {
+        background-color: rgba(255,255,255, .15);
+        opacity: 1;
+      }
+    }
+  }
+
+}
+
+//This is for the single post changes only
+.single-post{
+  &.page-wrapper{
+    display: flex;
+    margin: auto;
+    flex-direction: column-reverse;
+    justify-content: space-evenly;
+    @include grid-media($large-min) {
+      flex-direction: row;
+    }
+    .wysiwyg-wrapper {
+      padding: 0;
+    }
+    .share-post-widget{
+      padding-top: 0;
+      @include grid-media($large-min) {
+        padding-top: 80px;
+      }
+      .share-post-wrap{
+        margin-top:0;
+        display: flex;
+        flex-direction: row;
+        position: relative;
+        @include grid-media($large-min){
+          flex-direction:column;
+        }
+        .share-title{
+          margin-bottom: 0;
+          @include grid-media($large-min) {
+            margin-bottom:15px;
+          }
+        }
+      }
+    }
+  }
+}

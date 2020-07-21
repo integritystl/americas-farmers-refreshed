@@ -1,0 +1,111 @@
+.faqs_callout {
+  margin: 3rem 0;
+  .container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px 0 20px;
+    @include grid-media($medium-min) {
+      padding: 0 24px;
+      max-width: 848px;
+    }
+
+    .faqs-intro {
+      margin-bottom: 40px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  }
+  .faq-single {
+    background: white;
+    margin-bottom: 15px;
+    position: relative;
+    &:before {
+      position: absolute;
+      left: 0;
+      top: 0;
+      content: '';
+      width: 8px;
+      height: 100%;
+      background-color: white;
+      transition: all .3s ease-in-out;
+    }
+          //border-left: 8px solid white;
+
+    &.active {
+      //  border-left: 8px solid $navyBlue;
+      i {
+        transform: rotateX(-180deg);
+      }
+      &:before {
+        background-color: $navyBlue;
+        height: 100%;
+      }
+    }
+    .faq-question {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px;
+      -webkit-font-smoothing: antialiased;
+      @include grid-media($medium-min) {
+        padding: 30px 50px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      h4 {
+        font-size: 18px;
+        margin-bottom: 0px;
+        @include grid-media($medium-min) {
+            font-size: 25px;
+        }
+      }
+      i {
+        font-size: 40px;
+        transition: all .3s ease-in-out;
+        padding-left: 20px;
+        color: $navyBlue;
+      }
+    }
+    .faq-answer {
+      padding: 0px 30px 30px;
+      background: white;
+      @include grid-media($medium-min) {
+        padding: 0px 50px 30px;
+      }
+      p {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.rural-education {
+    .faq-answer {
+      a {
+        color: $ruralBlue;
+      }
+    }
+}
+
+.communities {
+    .faq-answer {
+      a {
+        color: $communitiesGreen;
+      }
+    }
+}
+
+.ag-leaders {
+    .faq-answer {
+      a {
+        color: $leadersRed;
+      }
+    }
+}

@@ -1,0 +1,152 @@
+.page-template-page-blog-list {
+  .entry-content {
+    max-width: 1160px;
+    margin: 40px auto 40px;
+    padding: 0 25px;
+    p {
+      font-family: $serif-font-family;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1.25;
+
+    }
+    @include grid-media($medium-min) {
+      margin: 75px auto;
+    }
+  }
+  //When there's no more posts
+  .no-results {
+    text-align: center;
+    flex-basis: 100%;
+  }
+}
+
+.recent_stories_component,
+.posts-group {
+  margin-top: 35px;
+  @include grid-media($medium-min) {
+    margin-top: 70px;
+
+      .container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: flex-start;
+        &:after {
+          content: "";
+          display: flex;
+          flex-flow: column;
+          justify-content: center;
+          flex-basis: 31.5%;
+        }
+      }
+  }
+
+  @include grid-media($large-min) {
+    //padding: 0 80px;
+  }
+
+  h2, h3 {
+    font-family: $knockout29;
+    text-align: center;
+    margin-bottom: 30px;
+
+    @include grid-media($small-min) {
+      margin-bottom: 45px;
+    }
+  }
+
+  .post-card {
+    margin-bottom: 60px;
+    &:first-of-type {
+      flex-basis: 100%;
+        @include grid-media($large-min) {
+              flex-basis: 66%;
+        }
+      .post-image {
+        @include grid-media($medium-min) {
+            position: relative;
+            img {
+              position: absolute;
+              top: 75%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+        }
+      }
+    }
+
+    flex-basis: 48%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+      @include grid-media($large-min) {
+            flex-basis: 31.5%;
+      }
+
+    .post-image {
+      width: 100%;
+      margin-bottom: 20px;
+      overflow: hidden;
+      display: block;
+      position: relative;
+      @include grid-media($medium-min) {
+          height: 260px;
+      }
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+        position: relative;
+        min-height: 260px;
+        object-fit: cover;
+      }
+    }
+    &:first-child {
+    //  animation-delay: 0s;
+    }
+    &:last-child {
+    //  animation-delay: .75s;
+    }
+  }
+
+  .button, button {
+    width: auto;
+    display: table;
+    margin: 0 auto 45px;
+    @include grid-media($medium-min) {
+      margin-bottom: 80px;
+    }
+  }
+}
+
+.posts-group {
+  background-color: $greyLight;
+  margin-top: 0px;
+}
+
+.post-tags {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  width: 100%;
+  padding: 0 22px;
+
+  @include grid-media($medium-min) {
+    margin-top: 75px;
+    margin-bottom: 63px;
+  }
+
+  select {
+    border: none;
+    max-width: 422px;
+    width: 100%;
+    height: 63px;
+    line-height: 63px;
+    padding: 0 26px;
+    margin-bottom: 0;
+    align-self: center;
+  }
+}

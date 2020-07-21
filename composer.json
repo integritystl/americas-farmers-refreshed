@@ -1,0 +1,8 @@
+{
+	"config": {
+		"vendor-dir": "wp-content/themes/americas_farmers/theme_infrastructure/vendor_packages"
+	},
+	"require": {
+		"guzzlehttp/guzzle":"~6.0"
+	}
+}

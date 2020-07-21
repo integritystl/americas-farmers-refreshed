@@ -1,0 +1,44 @@
+// Breakpoints
+$small: 480px;
+$medium: 800px;
+$large: 1225px;
+
+//Menu-specific Breakpoints
+$headerMenu: 1200px;
+
+// Use case: @include grid-media($small-min)
+// http://neat.bourbon.io/docs/2.0.0/#grid-media
+$small-min: (columns: 12, gutter: 0, media: $small + 1);
+$medium-min: (columns: 12, gutter: 20px, media: $medium + 1);
+$large-min: (columns: 12, gutter: 20px, media: $large + 1);
+$headerMenu-min: (columns: 12, gutter: 20px, media: $headerMenu + 1);
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.page-template-default .site-main .container {
+  max-width: 1160px;
+  padding: 0px 20px;
+  margin: 2rem auto;
+  @include grid-media($medium-min) {
+      margin: 3rem auto;
+      padding: 0px 40px;
+
+  }
+  .entry-footer {
+    background: none;
+  }
+}
+.site-content {
+  min-height: calc(100vh - 450px);
+  &.no-hero {
+    padding-top: 120px;
+  }
+}
+
+.content-area {
+  background: $greyLight;
+}

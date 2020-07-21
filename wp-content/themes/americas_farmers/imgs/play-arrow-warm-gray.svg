@@ -1,0 +1,11 @@
+<svg id="playIcon" data-name="playIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 46.2 53.33">
+    <defs>
+        <style>
+            .play {
+                fill: #F8F7F6;
+            }
+        </style>
+    </defs>
+    <title>Play Icon</title>
+    <polygon class="play" points="0 53.33 46.2 26.67 0 0 0 53.33" />
+</svg>

@@ -1,0 +1,390 @@
+{
+	"info": {
+		"_postman_id": "c4c92051-0580-46bb-af38-dc0ade951380",
+		"name": "America's Farmers",
+		"description": "A collection of SalesForce API calls used on the America's Farmers website.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test - Authorization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "GetFromTeamPassword",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "GetFromTeamPassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://test.amp.monsanto.com/as/token.oauth2?grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"test",
+						"amp",
+						"monsanto",
+						"com"
+					],
+					"path": [
+						"as",
+						"token.oauth2"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				},
+				"description": "Returns Bearer token"
+			},
+			"response": []
+		},
+		{
+			"name": "Test - Winners Update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "OATo9XgA9UumJKmdHEv6qd9uYQUP",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "category",
+						"value": "GrowRuralEducation"
+					},
+					{
+						"key": "year",
+						"value": "2018"
+					},
+					{
+						"key": "state",
+						"value": "WI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://mongateway-t.monsanto.com:443/AmericasFarmersWinnerUpdate",
+					"protocol": "https",
+					"host": [
+						"mongateway-t",
+						"monsanto",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"AmericasFarmersWinnerUpdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test - Nomination Count",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "PsCLjWQQ1hqwlRn7isXIN9tC3zKd",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "state",
+						"value": "WI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://mongateway-t.monsanto.com/GREnominationCount",
+					"protocol": "https",
+					"host": [
+						"mongateway-t",
+						"monsanto",
+						"com"
+					],
+					"path": [
+						"GREnominationCount"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test - Communities Enrollment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "ASXGw8YMzknjhGMuWWgd4D9oPKDt",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"First_Name\": \"Lori\",\n\t\"Last_Name\": \"Abraham\",\n\t\"Street_1\": \"1840 130th Ave SE\",\n\t\"City\": \"Page\",\n\t\"State\": \"ND\",\n\t\"Zip_Postal_Code\": \"58064\",\n\t\"county\": \"Barnes\",\n\t\"Phone\": \"(701) 238-2320\",\n\t\"Email\": \"labraham@live.com\",\n\t\"Mobile_Phone\": \"(701) 238-2320\"\n}"
+				},
+				"url": {
+					"raw": "https://mongateway-t.monsanto.com:443/AmericasFarmersEnrollment",
+					"protocol": "https",
+					"host": [
+						"mongateway-t",
+						"monsanto",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"AmericasFarmersEnrollment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test - Rural Enrollment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "va7tNPicsJMYfFFk59cKe1tK6cEH",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"thing\": \"thing\"\n}"
+				},
+				"url": {
+					"raw": "https://mongateway-t.monsanto.com:443/AmericasFarmersGRE",
+					"protocol": "https",
+					"host": [
+						"mongateway-t",
+						"monsanto",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"AmericasFarmersGRE"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prod - Authorization",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_id",
+							"value": "GetFromTeamPassword",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "GetFromTeamPassword",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://amp.monsanto.com/as/token.oauth2?grant_type=client_credentials",
+					"protocol": "https",
+					"host": [
+						"amp",
+						"monsanto",
+						"com"
+					],
+					"path": [
+						"as",
+						"token.oauth2"
+					],
+					"query": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prod -  Winners",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "C7rbKti2chSWDJ6MPgp1RYVzMEgF",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "category",
+						"value": "GrowRuralEducation"
+					},
+					{
+						"key": "year",
+						"value": "2018"
+					},
+					{
+						"key": "state",
+						"value": "WI"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://mongateway.monsanto.com:443/AmericasFarmersWinnerUpdate",
+					"protocol": "https",
+					"host": [
+						"mongateway",
+						"monsanto",
+						"com"
+					],
+					"port": "443",
+					"path": [
+						"AmericasFarmersWinnerUpdate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prod - Nomination Count",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "P3lZufmk28XjMwgi7EPQrqdJCcuj",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "state",
+						"value": "MO"
+					},
+					{
+						"key": "year",
+						"value": "2017"
+					},
+					{
+						"key": "schoolid",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://mongateway.monsanto.com/GREnominationCount",
+					"protocol": "https",
+					"host": [
+						"mongateway",
+						"monsanto",
+						"com"
+					],
+					"path": [
+						"GREnominationCount"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c764b887-faa3-47d9-944e-501c35d6b5aa",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "d90fad18-812a-47e0-bfae-f90a1b201a74",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
