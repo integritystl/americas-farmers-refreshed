@@ -1,0 +1,37 @@
+{
+  "name": "americas-farmers-integrity",
+  "version": "1.0.0",
+  "description": "Website for Americas Farmers",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://trattles@github.com/integritystl/americas-farmers-integrity.git"
+  },
+  "author": "IntegritySTL",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/integritystl/americas-farmers-integrity/issues"
+  },
+  "homepage": "https://github.com/integritystl/americas-farmers-integrity#readme",
+  "devDependencies": {
+    "autoprefixer": "^8.5.1",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^4.0.2",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^7.0.1",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^3.0.0"
+  },
+  "dependencies": {
+    "node-sass": "^4.12.0"
+  }
+}

@@ -1,0 +1,359 @@
+#search-modal {
+  align-items: center;
+  background: rgba(0,0,0,.8);
+  bottom: 0;
+  flex-direction: column;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 85px;
+  z-index: 500;
+  transition: all .4s ease;
+  display: none;
+  visibility: hidden;
+  @include grid-media($small-min) {
+    top: 0;
+  }
+
+  &.search-open {
+    display: flex;
+    visibility: visible;
+  }
+
+  .search-container {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 85px);
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 12px 24px;
+    width: 100vw;
+    @include grid-media($small-min) {
+      height: 80vh;
+      padding: 1rem 2rem;
+      width: 80vw;
+    }
+  }
+  .search-bar-container {
+    position: relative;
+    margin: 0 0 1rem;
+    width: 100%;
+    @include grid-media($large-min) {
+      margin-bottom: 2rem;
+    }
+  }
+  .search-modal-input {
+    padding: 0 35px;
+    line-height: 48px;
+    height: 48px;
+    border-color: #A6ADB4;
+    margin-bottom: 0;
+    @include grid-media($medium-min) {
+      padding-left: 55px;
+      padding-right: 55px;
+      line-height: 60px;
+      height: 60px;
+    }
+  }
+
+  .search-results-container {
+    overflow: auto;
+  }
+  .search-results {
+    display: flex;
+    justify-content: flex-start;
+    flex-flow: row wrap;
+    align-items: stretch;
+    height: 100%;
+    .results-number {
+      width: 100%;
+      flex-basis: 100%;
+      margin-left: 1rem;
+      margin-bottom: 12px;
+      letter-spacing: 0;
+      @include grid-media($medium-min) {
+        margin-bottom: 22px;
+      }
+    }
+    .post-card {
+      background-color: $greyLight;
+      padding: 30px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: row;
+      transition: background-color .25s ease;
+      width: 100%;
+      margin: 0 1rem 1rem;
+
+      @include grid-media($medium-min) {
+        width: calc(50% - 2rem);
+        min-height: 265px;
+      }
+      @include grid-media($large-min) {
+        width: calc(33% - 2rem);
+      }
+      &:hover {
+        background-color: darken($greyLight, 5%);
+      }
+      .post-image {
+        order: 1;
+        min-width: 64px;
+        @include grid-media($large-min) {
+          width: 80px;
+          order: 2;
+        }
+        img {
+          display: none;
+          @include grid-media($medium-min) {
+            width: 100%;
+            max-width: 64px;
+            height: 43px;
+            object-fit: cover;
+            display: block;
+          }
+        }
+      }
+      .post-content {
+        display: flex;
+        justify-content: space-between;
+        flex-flow: column nowrap;
+        font-family: $knockout29;
+        text-transform: uppercase;
+        width: 100%;
+        h4 {
+          font: 400 20px/1 $knockout29;
+          letter-spacing: 0;
+          -webkit-font-smoothing: antialiased;
+          color: #707070;
+          a {
+            &:hover, &:focus {
+              opacity: 1;
+            }
+          }
+          @include grid-media($medium-min) {
+            font-size: 25px;
+          }
+        }
+        .special-link {
+          display: flex;
+          margin-top: auto;
+          margin-bottom: 0;
+          font-size: 15px;
+          line-height: 22px;
+          color: $navyBlue;
+          @include grid-media($medium-min) {
+            font-size: 16px;
+          }
+          &:hover, &:focus {
+            &:before {
+              width: 115px;
+            }
+          }
+          &:before {
+            bottom: -2px;
+          }
+          &:after {
+            top: 0;
+            line-height: 22px;
+          }
+        }
+      }
+    }
+  }
+
+  .no-results {
+    margin: 0 1rem;
+    letter-spacing: 0;
+    text-align:left;
+    h2{
+      text-align: left;
+    }
+    p {
+      max-width: 650px;
+      text-align: left;
+    }
+    .links {
+      height: auto;
+      @include grid-media($medium-min) {
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        width: 100%;
+        max-width: 750px;
+        height: 5rem;
+      }
+      li {
+        margin: 0 30px 20px 0;
+
+        a {
+          font-family: $knockout29;
+          font-weight: 500;
+          text-transform: uppercase;
+          opacity: .8;
+          font-size: 20px;
+        }
+      }
+    }
+
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    width: auto;
+    color: $greyMedium;
+    font-size: 20px;
+    line-height: 48px;
+    outline: none;
+    @include grid-media($medium-min) {
+      right: 14px;
+      line-height: 60px;
+    }
+
+    &:hover {
+      color: $greyDark;
+      opacity: 0.8;
+    }
+  }
+  .fa-search {
+    position: absolute;
+    left: 10px;
+    top: 1px;
+    display: block;
+    line-height: 48px;
+    font-weight: 400;
+    @include grid-media($medium-min) {
+      left: 27px;
+      line-height: 60px;
+    }
+  }
+  .close-search {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    top: -76px;
+    right: -6px;
+    transform: translate3d(-1.5rem,1rem,0);
+    color: $greyMedium;
+    font-size: 25px;
+    padding: 0 10px;
+    background: #fff;
+    @include grid-media($small-min) {
+      display: none;
+    }
+  }
+}
+
+.result-card {
+  background-color: $greyLight;
+  padding: 30px;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column nowrap;
+  transition: background-color .25s ease;
+  width: 100%;
+  margin: 0 1rem 1rem;
+
+  @include grid-media($medium-min) {
+    width: calc(50% - 2rem);
+    min-height: 265px;
+  }
+  @include grid-media($large-min) {
+    width: calc(33% - 2rem);
+  }
+  &:hover {
+    background-color: darken($greyLight, 5%);
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    font-family: $knockout29;
+    text-transform: uppercase;
+    @include grid-media($large-min) {
+       flex-direction: row;
+    }
+    p {
+      color: #707070;
+    }
+    .results-section {
+      color: $greyMedium;
+      opacity: 0.8;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1;
+      margin-bottom: 20px;
+      @include grid-media($medium-min) {
+        margin-bottom: 28px;
+      }
+    }
+
+    .results-header-text {
+      display: flex;
+      flex-direction: column;
+      order: 2;
+      width: 100%;
+      h2 {
+        font-size: 20px;
+        line-height: 1;
+        letter-spacing: 0;
+        -webkit-font-smoothing: antialiased;
+        color: #707070;
+        @include grid-media($medium-min) {
+          font-size: 25px;
+        }
+      }
+    }
+    .thumbnail {
+      order: 1;
+      min-width: 64px;
+      @include grid-media($large-min) {
+        width: 80px;
+        order: 2;
+      }
+      img {
+        display: none;
+        @include grid-media($medium-min) {
+          width: 100%;
+          max-width: 64px;
+          height: 43px;
+          object-fit: cover;
+          display: block;
+        }
+      }
+    }
+  }
+  .special-link {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: 0;
+    font-size: 15px;
+    line-height: 22px;
+    @include grid-media($medium-min) {
+      font-size: 16px;
+    }
+    &:hover, &:focus {
+      &:before {
+        width: 115px;
+      }
+    }
+    &:before {
+      bottom: -2px;
+    }
+    &:after {
+      top: 0;
+      line-height: 22px;
+    }
+  }
+}
+
+//Helper class to jam onto the <body> to keep background behind modals from scrolling
+.scroll-locked {
+  overflow: hidden;
+}

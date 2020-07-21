@@ -1,0 +1,228 @@
+.check_for_nominations {
+	background-color: $greyLight;
+	padding-top: 80px;
+	margin-top: 0px;
+	.container {
+		margin-top: 0px;
+	}
+	.check_for_nominations_title {
+		text-align: center;
+		color: $ruralBlue;
+		text-transform: uppercase;
+		letter-spacing: 4px;
+		font-size: 16px;
+		line-height: 1;
+		span {
+			text-transform: uppercase;
+			font-family: $knockout30;
+			margin-left: 5px;
+			letter-spacing: 1px;
+			font-size: 15px;
+			line-height: 1;
+			-webkit-font-smoothing: auto;
+		}
+	}
+
+	.nominations_text {
+		// font-size: 3em;
+		// line-height: .9333;
+		// letter-spacing: 0.05em;
+		// font-family: $knockout48;
+		 text-align: center;
+		text-transform: uppercase;
+		// font-weight: 400;
+		margin-bottom: 40px;
+	}
+
+	.nominations_blurb {
+		margin: auto;
+		text-align: center;
+	}
+
+	.nominations_form_box {
+		margin: auto;
+		margin-top: 30px;
+		padding-top: 60px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.nomination_form_section {
+		flex-basis: 31%;
+		margin: auto;
+		text-align: center;
+		margin-bottom: 40px;
+		pointer-events: none;
+				@media screen and (max-width: 767px){
+					flex-basis: 100%;
+						margin-bottom:20px;
+				}
+		.nomination_select {
+			background-color: #EBEDED;
+		}
+		&.active {
+			pointer-events: all;
+			opacity:1;
+			.nomination_select {
+				background-color: white;
+			}
+		}
+	}
+	.loading_spinner{
+		flex-basis:100%;
+	}
+
+	.nomination_select {
+		margin: auto;
+		width: 100%;
+		position: relative;
+		//background-color: white;
+		height: 60px;
+		@media screen and (max-width: 767px){
+			width: 100%;
+		}
+		#nomination_nicename {
+			text-align: left;
+		}
+	}
+
+	.nomination_select_top {
+		padding-left: 24px;
+		height: 60px;
+		position: relative;
+		overflow: hidden;
+		cursor: pointer;
+		text-align: left;
+
+		span{
+			width: calc(100% - 70px);
+			position: absolute;
+		  top: 15px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+
+		.nomination_chevron {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			font-size: 20px;
+			color: $greyMedium;
+			font-weight: 400;
+			position: absolute;
+		}
+	}
+
+	.nomination_select_bottom {
+		height: 0px;
+		position: absolute;
+		overflow: hidden;
+
+		&.active {
+			height: 240px;
+			overflow: scroll;
+			z-index: 100;
+			background-color: #fff;
+			width: 100%;
+		//	border: 1px solid #aaa;
+			border-top: 0px;
+		}
+
+		ul {
+			padding-left: 0px;
+			padding-top: 0px;
+			margin-top: 0px;
+		}
+
+		li {
+			list-style: none;
+			padding: 7px 24px;
+			cursor: pointer;
+			text-align: left;
+			color: #707070;
+			&:hover {
+				background-color: #EBEDED;
+			}
+		}
+	}
+
+	.nomination_failure, .nomination_success, .nomination_error {
+		padding-top: 20px;
+		text-align: center;
+		i{
+
+		    text-align: center;
+		    font-size: 70px;
+		    padding-bottom: 30px;
+		    color: $ruralBlue;
+		}
+		h2 {
+			color: $navyBlue;
+		    margin: 0 auto 30px;
+		    text-align: center;
+		    font-family: $knockout29;
+		    font-size: 28px;
+
+			span {
+				color: $ruralBlue;
+				display: inline-block;
+				&:after{
+					content: ' times';
+				}
+			}
+		}
+		h3 {
+			color: $navyBlue;
+		  margin: -10px auto 25px;
+		  text-align: center;
+		  font-family: $knockout29;
+		  font-size: 28px;
+			font-weight: 500;
+			text-transform: none;
+			-webkit-font-smoothing: auto;
+			span {
+				color: $ruralBlue;
+				display: inline-block;
+				color: $ruralBlue;
+			}
+		}
+		a{
+			display: inline-block;
+
+			&.nominations-button{
+				padding:15px;
+				font-weight: 300;
+				background-color: $ruralBlue;
+				color:#fff;
+
+				&:hover{
+					opacity:.5;
+				}
+			}
+		}
+		h4 {
+			font-family: $serif-font-family;
+			font-size: 18px;
+			line-height: 26px;
+			text-align: center;
+			margin-top: 35px;
+			font-weight: 400;
+			max-width: 425px;
+			margin: auto;
+			margin-top: 32px;
+
+			@media screen and (max-width: 440px){
+				width: 100%;
+				max-width: 350px;
+			}
+		}
+	}
+
+	.nomination_failure, .nomination_success, .nomination_error {
+		display: none;
+		&.active {
+			display: block;
+		}
+	}
+}

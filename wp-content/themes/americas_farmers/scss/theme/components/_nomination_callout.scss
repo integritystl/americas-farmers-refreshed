@@ -1,0 +1,75 @@
+.nomination_callout {
+  border-top: 25px solid #e3e2e2;
+  border-bottom: 25px solid #e3e2e2;
+
+  .container {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 640px;
+    padding: 50px 20px;
+    margin: 0 auto;
+    @include grid-media($medium-min) {
+      flex-flow: row nowrap;
+    }
+    @media screen and (min-width: 1024px){
+      max-width: 900px;
+    }
+
+  }
+  &-left {
+    width: 100%;
+    text-align: center;
+    @include grid-media($medium-min) {
+      flex-basis: 22%;
+    }
+    @media screen and (min-width: 1024px){
+      flex-basis: 15%;
+    }
+    img {
+      max-width: 150px;
+    }
+  }
+  &-right {
+    flex-basis: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    text-align: center;
+    margin-top: 20px;
+    @include grid-media($medium-min) {
+      margin: 0;
+      flex-basis: 70%;
+      text-align: left;
+    }
+    @media screen and (min-width: 1024px){
+      flex-basis: 80%;
+      flex-flow: row nowrap;
+      align-items: center;
+    }
+    .nomination_callout-content {
+      p {
+        font-size: 20px;
+        line-height: 1.35;
+        margin-bottom: 25px;
+        @media screen and (min-width: 1024px){
+          margin-bottom: 0;
+        }
+      }
+      @media screen and (min-width: 1024px){
+        flex-basis: 55%;
+      }
+    }
+    .nomination_callout-button {
+      margin: 0 auto;
+      @include grid-media($medium-min) {
+        margin: 0;
+      }
+      @media screen and (min-width: 1024px){
+        flex-basis: 35%;
+      }
+    }
+  }
+}

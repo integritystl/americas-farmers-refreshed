@@ -1,0 +1,487 @@
+.enrollment_block {
+	background-color: $greyLight;
+	padding: 90px 0px 80px;
+}
+.enrollment_block_title {
+	text-align: center;
+	color: $communitiesGreen;
+	text-transform: uppercase;
+	letter-spacing: .26875rem;
+	font-size: .9375rem;
+	line-height: 1.2;
+	span {
+		text-transform: uppercase;
+		font-family: $knockout30;
+		font-weight: 400;
+		letter-spacing: 0.0625rem;
+		font-size: .875rem;
+		line-height: 1.28571;
+	}
+}
+.enroll_block {
+	&.complete {
+		display: none;
+
+	}
+
+}
+#GC_Enrollment_lookup.hide {
+	display: none;
+}
+#GC_Enrollment_lookup, #GC_Rural_Enrollment_lookup {
+	.parsley-custom-error-message, .parsley-required, .parsley-hasSpecialCharacters, .parsley-type {
+		font-family: $knockout30;
+		font-size: 16px;
+		color: $errorRed;
+	}
+}
+.submission_success_message, .code_submission_success, .code_submission_fail, .submission_fail_message {
+	display: none;
+	padding-bottom: 60px;
+	padding-left: 25px;
+	padding-right: 25px;
+	&.active {
+		padding-top: 50px;
+		padding-left: 20px;
+		padding-right: 20px;
+		background-color: #e3e2e2;
+		display: block;
+		text-align: center;
+		@include grid-media($medium-min) {
+			padding-left: 0;
+			padding-right: 0;
+		}
+
+		h2 {
+			text-align: center;
+			color: $navyBlue;
+		}
+		h5 {
+			color: $navyBlue;
+			max-width: 544px;
+			margin: auto;
+		}
+	}
+}
+.enrollment_block_content {
+	text-align: left;
+	max-width: 840px;
+	margin: auto;
+	padding-left: 25px;
+	padding-right: 25px;
+	margin-bottom: 20px;
+	h2{
+		text-align: center;
+		margin-bottom:20px;
+	}
+}
+
+.required_field_callout {
+	text-align: center;
+}
+
+.no-box {
+	max-width: 790px;
+	margin: 58px auto 65px;
+	border: 0;
+	padding: 24px 20px 28px;
+	background: #fff;
+	@include grid-media($large-min) {
+		padding: 39px 67px 34px;
+	}
+	.form-field {
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-columns: auto;
+		@include grid-media($small-min) {
+			grid-template-columns: auto 144px;
+		}
+		label {
+			order: 3;
+		}
+		.field_instruction {
+			font-size: 14px;
+			color: $ruralBlue;
+			cursor: pointer;
+			margin-bottom: 3px;
+			position: relative;
+			@include grid-media($small-min) {
+				z-index: 10;
+				font-size: 17px;
+				margin-bottom: 0;
+				order: 2;
+			}
+			.field_instruction_helper {
+				border: 1px solid $navyBlue;
+				background-color: #fff;
+				max-width: 320px;
+				position: absolute;
+				left: 0;
+				top: 35px;
+				z-index: 1000;
+				padding: 10px;
+				display: none;
+				&.show {
+					display: block;
+				}
+				.arrow-up {
+					width: 0;
+					height: 0;
+					border-left: 10px solid transparent;
+					border-right: 10px solid transparent;
+					border-bottom: 10px solid $navyBlue;
+					position: absolute;
+					top: -10px;
+					left: 50%;
+					margin-left: -10px;
+					&.white {
+						top: -8px;
+						border-bottom: 10px solid white;
+					}
+				}
+				p {
+					font-size: 13px;
+					color: #707070;
+				}
+			}
+		}
+		.field-wrapper {
+			margin-right: 12px;
+			input {
+				line-height: 46px;
+				margin-bottom: 18px;
+				@include grid-media($small-min) {
+					line-height: 58px;
+					margin-bottom: 0;
+				}
+			}
+			.fa {
+				line-height: 48px;
+				@include grid-media($small-min) {
+					line-height: 60px;
+				}
+			}
+		}
+	}
+}
+#GC_Full_Rural_Enrollment_Form, #GC_Full_Enrollment_Form {
+	max-width: 790px;
+	background: #fff;
+	padding: 20px;
+	margin: 45px auto 0;
+	position: relative;
+	z-index: 3;
+	@include grid-media($large-min) {
+		padding: 27px 67px 52px;
+	}
+}
+.form-field {
+	position: relative;
+	label {
+		display: block;
+		visibility: hidden;
+		height: 0;
+	}
+}
+.field-wrapper {
+	position: relative;
+
+	input.parsley-error {
+		border-color: $errorRed;
+	}
+	.fa {
+		position: absolute;
+		top: 0;
+		right: 13px;
+		line-height: 42px;
+		@include grid-media($medium-min) {
+			line-height: 50px;
+		}
+	}
+	.fa-exclamation-triangle {
+		display: none;
+		color: $errorRed;
+	}
+	.fa-check {
+		display: none;
+		color: $navyBlue;
+	}
+
+	&.hasSuccess {
+		.fa-check {
+			display: block;
+		}
+	}
+	&.hasError {
+		.fa-exclamation-triangle {
+			display: block;
+		}
+	}
+}
+.GC_Code_submit {
+	padding: 0;
+	height: 48px;
+	width: 132px;
+	font-size: 14px;
+	letter-spacing: 0;
+	@include grid-media($small-min) {
+		height: 60px;
+		width: 144px;
+		font-size: 17px;
+	}
+}
+
+.info-span-after-code {
+	border-top: 1px solid #A6ADB4;
+	position: relative;
+	max-width: 790px;
+	margin: auto;
+	text-align: center;
+	p {
+		background-color: #F6F8F9;
+		max-width: 331px;
+		margin: -18px auto 0;
+		font-size: 20px;
+		color: $navyBlue;
+	}
+
+	&.hide {
+		display: none;
+	}
+}
+
+.enrollment_fieldset {
+	margin: 0;
+	border: 0;
+	padding: 0;
+	&.school_info {
+		margin-top: 25px;
+		@include grid-media($small-min) {
+			margin-top: 40px;
+		}
+	}
+	legend {
+		color: $navyBlue;
+		line-height: 1;
+		border-bottom: 1px solid #d8d8d8;
+		padding-bottom: 11px;
+		margin-bottom: 17px;
+		width: 99%;
+		@include grid-media($small-min) {
+			padding-bottom: 21px;
+			margin-bottom: 24px;
+		}
+	}
+	.form-field {
+		width: 100%;
+		@include grid-media($small-min) {
+			display: inline-block;
+			width: 49%;
+			padding-right: 10px;
+			vertical-align: top;
+		}
+		&:last-of-type {
+			@include grid-media($small-min) {
+				padding-right: 0;
+				padding-left: 10px;
+			}
+		}
+	}
+	.parsley-custom-error-message, .parsley-required, .parsley-hasSpecialCharacters, .parsley-type {
+		font-family: $knockout30;
+		font-size: 16px;
+		color: $errorRed;
+		margin-top: -10px;
+	}
+}
+
+.enroll_state_select_top, .enroll_county_select_top, .enroll_school_county_select_top, .enroll_school_district_select_top {
+		border: 1px solid #e3e3e3;
+		padding: 0 13px;
+		font-size: 16px;
+		line-height: 48px;
+		color: #707070;
+		position: relative;
+		cursor: pointer;
+		margin-bottom: 8px;
+		@include grid-media($medium-min) {
+			font-size: 20px;
+			margin-bottom: 12px;
+		}
+		&.hasError {
+			border: 1px solid $errorRed;
+		}
+
+		#enroll_county_chevron, #enroll_chevron, #enroll_school_district_chevron, #enroll_school_county_chevron {
+			float: right;
+			font-size: 16px;
+			color: $greyMedium;
+			font-weight: 300;
+			line-height: 48px;
+		}
+	}
+
+	.enroll_state_select_bottom, .enroll_county_select_bottom, .enroll_school_county_select_bottom, .enroll_school_district_select_bottom {
+		height: 0;
+		position: absolute;
+		top: 49px;
+		overflow: hidden;
+
+		&.active {
+			height: 240px;
+			overflow: scroll;
+			z-index: 100;
+			background-color: white;
+			width: 100%;
+			border: 1px solid #e3e3e3;
+			border-top: 0;
+			@include grid-media($small-min) {
+				width: calc(100% - 10px);
+			}
+		}
+
+		ul {
+			padding-left: 0px;
+			padding-top: 0px;
+			margin-top: 0px;
+		}
+
+		li {
+			list-style: none;
+			padding: 7px 24px;
+			cursor: pointer;
+			color: #707070;
+
+			&:hover, &:focus {
+				background-color: #e3e3e3;
+			}
+		}
+	}
+
+.enroll_checkboxes {
+	max-width: 790px;
+	margin: 23px auto 33px;
+	@include grid-media($medium-min) {
+		margin-top: 37px;
+		margin-bottom: 40px;
+	}
+	.form-field {
+		input {
+			display: none;
+		}
+		label {
+			visibility: visible;
+			height: auto;
+			pointer-events: auto !important;
+			&:before {
+				content: "";
+				background-color: white;
+				width: 15px;
+				height: 15px;
+				font-size: 13px;
+				border: 1px solid #A6ADB4;
+				display: flex;
+				align-items: center;
+				flex-shrink: 0;
+				position: absolute;
+				left: 0;
+				font-family: $fontawesome;
+				@include grid-media($medium-min) {
+					width: 18px;
+					height: 18px;
+					font-size: 16px;
+				}
+			}
+			font-size: 15px;
+			line-height: 1.2;
+			color: #A6ADB4;
+			display: block;
+			position: relative;
+			left: 5px;
+			top: 0;
+			padding-left: 30px;
+			margin-bottom: 28px;
+			@include grid-media($medium-min) {
+				font-size: 17px;
+			}
+			&.checked {
+				&:before {
+					content: '\f00c';
+					color: $navyBlue;
+				}
+			}
+		}
+		.checkbox_error {
+			display: none;
+		}
+		&.error {
+			.checkbox_error {
+				display: block;
+				color: $errorRed;
+				font-size: 16px;
+				font-family: $knockout30;
+			}
+		}
+	}
+}
+.submit_wrapper {
+	.enroll_submit {
+		width: 132px;
+		margin: 0 auto;
+		display: block;
+		font-size: 14px;
+		height: 40px;
+		padding: 0;
+		@include grid-media($medium-min) {
+			width: 185px;
+			font-size: 17px;
+			height: 48px;
+		}
+	}
+}
+
+.submission_success_message {
+	.social-icons {
+		list-style: none;
+		padding-left: 0px;
+		li {
+			display: inline-block;
+			list-style: none;
+			margin: 0;
+			padding: 0;
+			@media screen and (max-width: 470px){
+				width: 49%;
+			}
+			a {
+				color: #807f7d;
+				transition: all 0.3s ease;
+				font-size: 50px;
+
+				i {
+					margin: 20px 30px;
+				}
+			}
+			a:hover, a:focus {
+				color: $navyBlue;
+			}
+		}
+	}
+}
+//just the dang colors
+.grow_rural{
+	.enrollment_block_title {
+		color: $ruralBlue;
+	}
+}
+
+.hasError {
+
+	.enroll_state_select_top, .enroll_county_select_top, .enroll_school_county_select_top, .enroll_school_district_select_top {
+		border: 2px solid $errorRed;
+	}
+
+}
+
+.text_message_terms {
+	font-size: 14px;
+}

@@ -1,0 +1,131 @@
+.flex_fifty-fifty-repeater{
+	margin: 40px auto;
+
+	@include grid-media($medium-min) {
+			margin: 80px auto;
+	}
+
+	.intro-content {
+		max-width: 800px;
+		margin: 0 auto 80px;
+		text-align: center;
+
+		@include grid-media($medium-min) {
+			margin: 0 auto 40px;
+		}
+	}
+	.fifty-fifty-container {
+		@include grid-media($medium-min) {
+			display: flex;
+			justify-content: space-between;
+		//	align-items: center;
+		}
+	}
+	.image{
+		flex-basis: 50%;
+		overflow: hidden;
+		position: relative;
+		img {
+			display: block;
+			border: 0;
+			@include grid-media($medium-min) {
+				max-width: none;
+				height: 100%;
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+			}
+		}
+	}
+	.content-wrapper{
+		flex-basis:50%;
+		margin-top: 30px;
+		display: flex;
+		padding-left: 40px;
+		flex-direction: column;
+
+				@include grid-media($medium-min) {
+						min-height: 500px;
+				}
+		justify-content: center;
+		&.navy {
+			background-color: $navyBlue;
+			color: white;
+				padding: 40px 30px 0;
+				margin-top: 0;
+				@include grid-media($medium-min) {
+					margin-top: 0;
+					padding: 40px 40px 0;
+				}
+
+
+			.content-text{
+
+				margin-bottom: 40px;
+				a.button {
+					background-color: white;
+					color: $navyBlue;
+					border:1px solid white;
+					padding: 14px 10px 14px 10px;
+						@include grid-media($small-min) {
+							padding: 14px 50px 14px 50px;
+						}
+					&:after {
+						color: $navyBlue;
+					}
+					&:hover {
+						background-color: $navyBlue;
+						color: white;
+						border:1px solid white;
+						&:after {
+							color: white;
+						}
+					}
+				}
+			}
+		}
+		@include grid-media($medium-min) {
+			margin-top: 0px;
+			padding-left: 40px;
+		}
+
+
+		.content-text{
+			margin-bottom: 40px;
+
+			a.button {
+				display: inline-block;
+				margin-top: 10px;
+				text-align: center;
+				@include grid-media($medium-min) {
+
+				}
+			}
+		}
+	}
+}
+
+
+.rural-education {
+	.content-wrapper {
+		padding-left: 0;
+		@include grid-media($medium-min) {
+			padding-left: 40px;
+		}
+	}
+	.content-text p a {
+		color: $ruralBlue;
+	}
+}
+
+.communities {
+	.content-text p a {
+	color: $communitiesGreen;
+	}
+}
+
+.ag-leaders {
+	.content-text p a {
+	color: $leadersRed;
+	}
+}

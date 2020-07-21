@@ -1,0 +1,23 @@
+/*!
+Theme Name: americas_farmers
+Theme URI: N/A
+Author: IntegritySTL
+Author URI: https://integritystl.com
+Description: Description
+Version: 1.0.0
+License: None
+License URI: LICENSE
+Text Domain: americas_farmers
+Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
+*/
+
+/*--------------------------------------------------------------
+# Vendor
+--------------------------------------------------------------*/
+@import "vendor/bourbon/bourbon";
+@import "vendor/neat/neat";
+
+@import 'base/base';
+@import 'theme/americasfarmers';
+@import 'vendor/vendor';
+@import url('https://fonts.googleapis.com/css?family=Alfa+Slab+One|IBM+Plex+Serif:300,300i,400,400i,500,500i,600,600i,700,700i|Oswald:200,300,400,500,600,700');
