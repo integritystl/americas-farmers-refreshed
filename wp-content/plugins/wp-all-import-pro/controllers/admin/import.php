@@ -1555,14 +1555,14 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if (!empty($post['title'])) {			
 				$this->_validate_template($post['title'], 'Post title');
 			}
-			elseif ( ! in_array($post['custom_type'], array('shop_order', 'taxonomies', 'import_users', 'shop_customer')) ){
+			elseif ( ! in_array($post['custom_type'], array('shop_order', 'taxonomies', 'import_users', 'shop_customer', 'comments', 'reviews')) ){
 				$this->warnings->add('1', __('<strong>Warning:</strong> your title is blank.', 'wp_all_import_plugin'));
 			}
 
 			if (!empty($post['content'])) {				
 				$this->_validate_template($post['content'], 'Post content');
 			}
-			elseif ( ! in_array($post['custom_type'], array('shop_order', 'taxonomies', 'import_users', 'shop_customer')) ){
+			elseif ( ! in_array($post['custom_type'], array('shop_order', 'taxonomies', 'import_users', 'shop_customer', 'comments', 'reviews')) ){
 				$this->warnings->add('2', __('<strong>Warning:</strong> your content is blank.', 'wp_all_import_plugin'));
 			}
 			
@@ -1761,6 +1761,20 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                     }
                 }
                 break;
+            case 'reviews':
+            case 'comments':
+                // Get All meta keys in the system
+                $this->data['meta_keys'] = array();
+                $meta_keys = new PMXI_Model_List();
+                $meta_keys->setTable(PMXI_Plugin::getInstance()->getWPPrefix() . 'commentmeta');
+                $meta_keys->setColumns('meta_id', 'meta_key')->getBy(NULL, "meta_id", NULL, NULL, "meta_key");
+                $hide_fields = array();
+                if ( ! empty($meta_keys) and $meta_keys->count() ){
+                    foreach ($meta_keys as $meta_key) { if (in_array($meta_key['meta_key'], $hide_fields)) continue;
+                        $this->data['meta_keys'][] = $meta_key['meta_key'];
+                    }
+                }
+                break;
             default:
 
                 // Get all meta keys for requested post type
@@ -1824,12 +1838,12 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 	protected function _validate_template($text, $field_title)
 	{
 		try {
-		  if ($text != ''){
-        $scanner = new XmlImportTemplateScanner();
-        $tokens = $scanner->scan(new XmlImportStringReader($text));
-        $parser = new XmlImportTemplateParser($tokens);
-        $tree = $parser->parse();
-      }
+            if ($text != ''){
+                $scanner = new XmlImportTemplateScanner();
+                $tokens = $scanner->scan(new XmlImportStringReader($text));
+                $parser = new XmlImportTemplateParser($tokens);
+                $parser->parse();
+            }
 		} catch (XmlImportException $e) {
 			$this->errors->add('form-validation', sprintf(__('%s template is invalid: %s', 'wp_all_import_plugin'), $field_title, $e->getMessage()));
 		}
@@ -1890,7 +1904,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 
 			$DefaultOptions = array_replace_recursive($default, (isset(PMXI_Plugin::$session->options) ? PMXI_Plugin::$session->options : array()));
 
-			if ( ! in_array(PMXI_Plugin::$session->options['custom_type'], array('import_users', 'shop_customer', 'shop_order')) ){
+			if ( ! in_array(PMXI_Plugin::$session->options['custom_type'], array('import_users', 'shop_customer', 'shop_order', 'comments', 'reviews')) ){
 				if (empty(PMXI_Plugin::$session->options['title']))
 					$this->warnings->add('form-validation', __('<strong>Warning:</strong> your title is blank.'));
 			}
@@ -2351,6 +2365,20 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                     }
                 }
                 break;
+            case 'comments':
+            case 'reviews':
+                // Get All meta keys in the system
+                $this->data['meta_keys'] = array();
+                $meta_keys = new PMXI_Model_List();
+                $meta_keys->setTable(PMXI_Plugin::getInstance()->getWPPrefix() . 'commentmeta');
+                $meta_keys->setColumns('meta_id', 'meta_key')->getBy(NULL, "meta_id", NULL, NULL, "meta_key");
+                $hide_fields = array();
+                if ( ! empty($meta_keys) and $meta_keys->count() ){
+                    foreach ($meta_keys as $meta_key) { if (in_array($meta_key['meta_key'], $hide_fields)) continue;
+                        $this->data['existing_meta_keys'][] = $meta_key['meta_key'];
+                    }
+                }
+                break;
             default:
 
                 // Get all meta keys for requested post type
@@ -2415,7 +2443,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if (class_exists($class)) $DefaultOptions += call_user_func(array($class, "get_default_import_options"));			
 		}		
 
-		if ($this->isWizard and ! in_array(PMXI_Plugin::$session->options['custom_type'], array('import_users', 'shop_customer', 'shop_order'))){
+		if ($this->isWizard and ! in_array(PMXI_Plugin::$session->options['custom_type'], array('import_users', 'shop_customer', 'shop_order', 'comments', 'reviews'))){
 			if (empty(PMXI_Plugin::$session->options['title']))
 				$this->warnings->add('form-validation', __('<strong>Warning:</strong> your title is blank.', 'wp_all_import_plugin'));
 		}
@@ -2495,6 +2523,18 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 				$custom_type->labels = new stdClass();
 				$custom_type->labels->name = empty($tx->labels->name) ? __('Taxonomy Terms', 'wp_all_import_plugin') : $tx->labels->name;
 				$custom_type->labels->singular_name = empty($tx->labels->singular_name) ? __('Taxonomy Term', 'wp_all_import_plugin') : $tx->labels->singular_name;
+            }
+            elseif ($import->options['custom_type'] == 'comments'){
+                $custom_type = new stdClass();
+                $custom_type->labels = new stdClass();
+                $custom_type->labels->name = __('Comments', 'wp_all_import_plugin');
+                $custom_type->labels->singular_name = __('Comment', 'wp_all_import_plugin');
+            }
+            elseif ($import->options['custom_type'] == 'reviews'){
+                $custom_type = new stdClass();
+                $custom_type->labels = new stdClass();
+                $custom_type->labels->name = __('Reviews', 'wp_all_import_plugin');
+                $custom_type->labels->singular_name = __('Review', 'wp_all_import_plugin');
             }
             else{
                 $custom_type = get_post_type_object( $import->options['custom_type'] );
@@ -2822,7 +2862,19 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 												$custom_type->labels->name = empty($tx->labels->name) ? __('Taxonomy Terms', 'wp_all_import_plugin') : $tx->labels->name;
 												$custom_type->labels->singular_name = empty($tx->labels->singular_name) ? __('Taxonomy Term', 'wp_all_import_plugin') : $tx->labels->singular_name;
                                             }
-                                            else {
+                                            elseif ($import->options['custom_type'] == 'comments'){
+                                                $custom_type = new stdClass();
+                                                $custom_type->labels = new stdClass();
+                                                $custom_type->labels->name = __('Comments', 'wp_all_import_plugin');
+                                                $custom_type->labels->singular_name = __('Comment', 'wp_all_import_plugin');
+                                            }
+                                            elseif ($import->options['custom_type'] == 'reviews'){
+                                                $custom_type = new stdClass();
+                                                $custom_type->labels = new stdClass();
+                                                $custom_type->labels->name = __('Reviews', 'wp_all_import_plugin');
+                                                $custom_type->labels->singular_name = __('Review', 'wp_all_import_plugin');
+                                            }
+                                            else{
                                                 $custom_type = get_post_type_object( $import->options['custom_type'] );
                                             }
 											$history_log->set(array(					
@@ -2845,8 +2897,10 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 											'imported' => $import->imported,
 											'created' => $import->created,
 											'updated' => $import->updated,			
-											'skipped' => $import->skipped,							
-											'percentage' => ceil(($processed_records/$import->count) * 100),
+											'skipped' => $import->skipped,
+											'skipped_by_hash' => PMXI_Plugin::$session->skipped,
+                                            'deleted' => $import->deleted,
+                                            'percentage' => ceil(($processed_records/$import->count) * 100),
 											'warnings' => PMXI_Plugin::$session->warnings,
 											'errors' => PMXI_Plugin::$session->errors,
 											'log' => $log_data,
@@ -2893,6 +2947,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 					'created' => $import->created,
 					'updated' => $import->updated,		
 					'skipped' => $import->skipped,
+                    'skipped_by_hash' => PMXI_Plugin::$session->skipped,
 					'deleted' => $import->deleted,								
 					'percentage' => 99,
 					'warnings' => PMXI_Plugin::$session->warnings,
@@ -2947,6 +3002,18 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 				$custom_type->labels->name = empty($tx->labels->name) ? __('Taxonomy Terms', 'wp_all_import_plugin') : $tx->labels->name;
 				$custom_type->labels->singular_name = empty($tx->labels->singular_name) ? __('Taxonomy Term', 'wp_all_import_plugin') : $tx->labels->singular_name;
             }
+            elseif ($import->options['custom_type'] == 'comments'){
+                $custom_type = new stdClass();
+                $custom_type->labels = new stdClass();
+                $custom_type->labels->name = __('Comments', 'wp_all_import_plugin');
+                $custom_type->labels->singular_name = __('Comment', 'wp_all_import_plugin');
+            }
+            elseif ($import->options['custom_type'] == 'reviews'){
+                $custom_type = new stdClass();
+                $custom_type->labels = new stdClass();
+                $custom_type->labels->name = __('Reviews', 'wp_all_import_plugin');
+                $custom_type->labels->singular_name = __('Review', 'wp_all_import_plugin');
+            }
             else{
                 $custom_type = get_post_type_object( $import->options['custom_type'] );
             }
@@ -2986,8 +3053,10 @@ COMPLETE;
 					'imported' => $import->imported,
 					'created' => $import->created,
 					'updated' => $import->updated,	
-					'skipped' => $import->skipped,			
-					'percentage' => 100,
+					'skipped' => $import->skipped,
+                    'skipped_by_hash' => PMXI_Plugin::$session->skipped,
+                    'deleted' => $import->deleted,
+                    'percentage' => 100,
 					'warnings' => PMXI_Plugin::$session->warnings,
 					'errors' => PMXI_Plugin::$session->errors,
 					'log' => ob_get_clean(),					
