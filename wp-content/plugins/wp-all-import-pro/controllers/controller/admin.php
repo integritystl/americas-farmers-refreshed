@@ -69,7 +69,6 @@ abstract class PMXI_Controller_Admin extends PMXI_Controller {
 		wp_enqueue_style('jquery-select2', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/select2/select2-bootstrap.css');
         wp_enqueue_style('jquery-chosen', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/chosen/chosen.css');
 		add_editor_style( WP_ALL_IMPORT_ROOT_URL . '/static/css/custom-editor-style.css' );
-        wp_deregister_style('wp-codemirror');
 		wp_enqueue_style('jquery-codemirror', WP_ALL_IMPORT_ROOT_URL . '/static/css/codemirror.css', array(), PMXI_VERSION);
 
         wp_enqueue_style('jquery-timepicker', WP_ALL_IMPORT_ROOT_URL . '/static/js/jquery/css/timepicker/jquery.timepicker.css', array(), PMXI_VERSION);
