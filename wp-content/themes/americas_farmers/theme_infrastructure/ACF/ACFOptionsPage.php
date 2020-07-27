@@ -185,7 +185,7 @@ class ACFOptionsPage {
 									array(
 										'key' => 'field_5b0ede81b7c29',
 										'label' => 'Content',
-										'name' => 'content',
+										'name' => 'enroll_content',
 										'type' => 'textarea',
 										'instructions' => '',
 										'required' => 0,
