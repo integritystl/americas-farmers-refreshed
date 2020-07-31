@@ -15,12 +15,17 @@ if(in_array('enroll', $currentPhase)):
 //From theme_infrastructure/services/helpers.php
 $states = getStateArray();
 $thankYouLink = get_field('thank_you_page');
+
+$headline = get_field('enroll_headline', $program);
+$content = get_field('enroll_content_blurb', $program);
+
 ?>
 <div id="grow_communities_enrollment_page_container" class="enrollment_block grow_communities" data-thank-you-link="<?php echo $thankYouLink ?>">
-	<h4 class="enrollment_block_title">GROW <span class="enrollment_block_title">Communities</span></h4>
 	<div class="enrollment_block_content wysiwyg">
-		<?php echo get_field('content', $program); ?>
+		<h2><?php echo $headline; ?></h2>
+		<?php echo $content; ?>
 	</div>
+	<h4 class="enrollment_block_title">GROW <span class="enrollment_block_title">Communities</span></h4>
 	<div class="enroll_block form">
 		<p class="required_field_callout">* Required Field</p>
 		<!-- Enrollment Lookup Form -->
