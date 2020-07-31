@@ -44,7 +44,8 @@ if(in_array('announce', $currentPhase)):
 		<h4 class="announce_winners_title">Grow<span class="announce_winners_program_title"><?php echo $programKey; ?></span></h4>
 		<h2 class="winners_year" data-program-year="<?php echo $program_display_year;?>"><?php echo $program_display_year;?> WINNERS</h2>
 
-		<p class="announce_winners_label">Select a state using the dropdown field to see who the 2020 winners are in your area.</p>
+		<p>Some of our features are currently down for maintenance. Check back soon for winners. Thank you for your patience!</p>
+		<!-- <p class="announce_winners_label">Select a state using the dropdown field to see who the 2020 winners are in your area.</p>
 		<div class="winners_state_select">
 			<div class="winners_state_select_top">
 				<span id="winners_state_nicename">Select a State</span>
@@ -59,7 +60,7 @@ if(in_array('announce', $currentPhase)):
 					?>
 				</ul>
 			</div>
-		</div>
+		</div> -->
 		<div class="loading_spinner">
 			<div class="lds-ring dark-ring"><div></div><div></div><div></div><div></div></div>
 		</div>
