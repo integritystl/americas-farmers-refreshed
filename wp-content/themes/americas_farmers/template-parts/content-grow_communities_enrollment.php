@@ -14,7 +14,7 @@ $currentPhase = getProgramPhase($program);
 if(in_array('enroll', $currentPhase)):
 //From theme_infrastructure/services/helpers.php
 $states = getStateArray();
-$thankYouLink = get_field('thank_you_page');
+$thankYouLink = get_field('thank_you_page', $program);
 
 $headline = get_field('enroll_headline', $program);
 $content = get_field('enroll_content_blurb', $program);
