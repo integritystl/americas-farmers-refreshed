@@ -6,7 +6,7 @@ $currentPhase = getProgramPhase($program);
 
 if(in_array('enroll', $currentPhase)):
 
-$thankYouLink = get_field('thank_you_page');
+$thankYouLink = get_field('thank_you_page', $program);
 $agLink = get_field('grow_ag_enrollment_link', $program);
 $agUrl = $agLink['url'];
 $agImg = get_field('gro_ag_img', $program)
