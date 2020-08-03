@@ -13,7 +13,7 @@ $currentPhase = getProgramPhase($program);
 //Is the current phase in the list of active phases?
 // $moduleEnabled = in_array($currentPhase, $activePhases);
 if(in_array('enroll', $currentPhase)):
-$thankYouLink = get_field('thank_you_page');
+$thankYouLink = get_field('thank_you_page', $program);
 //From theme_infrastructure/services/helpers.php
 $states = getStateArray();
 ?>
