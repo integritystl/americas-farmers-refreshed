@@ -202,7 +202,7 @@ class SalesforceAPICalls
 		//Check the environment and grab the right endpoint
 		$environment = get_field('environment', 'options');
 		if($environment == 'test'){
-			$endpoint = 'https://mongateway-t.monsanto.com:443/AmericasFarmersWinnerUpdate';
+			$endpoint = 'https://mongateway-ps.monsanto.com/AmericasFarmersWinnerUpdate';
 		} else if ($environment == 'prod') {
 			$endpoint = 'https://mongateway.monsanto.com:443/AmericasFarmersWinnerUpdate';
 		}
@@ -253,7 +253,7 @@ class SalesforceAPICalls
 		//Check the environment and grab the right endpoint
 		$environment = get_field('environment', 'options');
 		if($environment == 'test'){
-			$endpoint = 'https://mongateway-t.monsanto.com/GREnominationCount';
+			$endpoint = 'https://mongateway-ps.monsanto.com/GREnominationCount';
 		} else if ($environment == 'prod') {
 			$endpoint = 'https://mongateway.monsanto.com/GREnominationCount';
 		}
@@ -297,7 +297,7 @@ class SalesforceAPICalls
 		//Check the environment and grab the right endpoint
 		$environment = get_field('environment', 'options');
 		if($environment == 'test'){
-			$endpoint = 'https://mongateway-t.monsanto.com/GREnominationCount';
+			$endpoint = 'https://mongateway-ps.monsanto.com/GREnominationCount';
 		} else if ($environment == 'prod') {
 			$endpoint = 'https://mongateway.monsanto.com/GREnominationCount';
 		}
