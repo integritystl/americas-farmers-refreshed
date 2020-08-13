@@ -34,12 +34,10 @@ $winnersContent = get_field('winners_content_blurb', $program);
 
 		<h4 class="announce_winners_title">Grow<span class="announce_winners_program_title"><?php echo $programKey; ?></span></h4>
 		<h2 class="winners_year" data-program-year="<?php echo $program_display_year;?>"><?php echo $program_display_year;?> WINNERS</h2>
-		
-		<p>Some of our features are currently down for maintenance. Check back soon for winners. Thank you for your patience!</p>
-		<!-- <p class="announce_winners_label">Select a state using the dropdown field to see who the <?php echo $program_display_year; ?> winners are in your area.</p> -->
+		<p class="announce_winners_label">Select a state using the dropdown field to see who the <?php echo $program_display_year; ?> winners are in your area.</p>
 		<div class="winners_state_select">
 
-			<!-- <div class="winners_state_select_top">
+			<div class="winners_state_select_top">
 				<span id="winners_state_nicename">Select a State</span>
 				<i id="winners_chevron" class="far fa-chevron-down" aria-hidden="true"></i>
 			</div>
@@ -51,7 +49,7 @@ $winnersContent = get_field('winners_content_blurb', $program);
 						}
 					?>
 				</ul>
-			</div> -->
+			</div>
 		</div>
 		<div class="loading_spinner">
 			<div class="lds-ring dark-ring"><div></div><div></div><div></div><div></div></div>
