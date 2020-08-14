@@ -151,7 +151,7 @@ jQuery(document).ready(function( $ ) {
 			node += "<i class='winners_internal_chevron fal fa-arrow-down' aria-hidden='true'></i></div>" +
 			"<div class='winner_item_bottom'>" +
 			"<p>" + sortedData[i].School_Application__c.Project_Title__c + "</p>" +
-			"<p>$" + (sortedData[i].School_Application__c.Grant_Amount__c ? Number(Number(sortedData[i].School_Application__c.Grant_Amount__c).toFixed(2)).toLocaleString() : '') + "</p>";
+			"<p>" + (sortedData[i].School_Application__c.Grant_Amount__c ? Number(Number(sortedData[i].School_Application__c.Grant_Amount__c).toFixed(2)).toLocaleString() : '') + "</p>";
 
 
 			node += "</div>";
