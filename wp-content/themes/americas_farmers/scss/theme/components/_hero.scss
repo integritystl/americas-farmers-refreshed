@@ -18,5 +18,17 @@
     justify-content: flex-start;
     align-items: middle
   }
+
+  &.hero-download_callouts{
+    .hero-img-container{
+      min-height: 45vh;
+      @include grid-media($medium-min) {
+        min-height: 65vh;
+      }
+    }
+    
+  }
   
 }
+
+
