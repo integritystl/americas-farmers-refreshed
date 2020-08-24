@@ -301,7 +301,7 @@ class ACFHeroFields
       								'class' => '',
       								'id' => '',
       							),
-      							'return_format' => 'ID',
+      							'return_format' => 'url',
       							'preview_size' => 'thumbnail',
       							'library' => 'all',
       							'min_width' => '',

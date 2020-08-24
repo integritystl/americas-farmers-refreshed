@@ -2,9 +2,6 @@
 $heroBgImg = get_sub_field('background_image');
 $heroBgImgSize = 'full';
 
-
-
-
 $heroVideo = get_sub_field('video');
 $caption = get_sub_field('caption');
 
@@ -19,7 +16,7 @@ $caption = get_sub_field('caption');
   }
   ?>
 
-  <div id="hero-img" class="hero-img-container" style="background: url('<?php the_sub_field('background_image') ?>')no-repeat center center;; background-size:cover;">
+  <div id="hero-img" class="hero-img-container" style="background: url('<?php the_sub_field('background_image') ?>')no-repeat center center; background-size:cover;">
 
   <div class="hero-content-container">
     <?php if (get_sub_field('small_logo') ) {  ?>
