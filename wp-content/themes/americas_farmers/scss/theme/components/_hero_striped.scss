@@ -38,26 +38,13 @@
   position:relative;
 
   .hero-content-container {
-    z-index: 2;
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-    align-self: center;
+    padding: 100px 20px 100px;
     width: 100%;
-
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    padding: 75px 20px;
-    @include grid-media($medium-min) {
-      padding: 100px 20px 100px;
-      position: relative;
-      min-height: 600px;
-
-    }
-    @include grid-media($large-min) {
-
-    }
+    max-width: 80vw;
+    margin: auto;
+     @include grid-media($large-min){
+      padding-top: 175px;
+     }
   }
 
   .hero-heading {
