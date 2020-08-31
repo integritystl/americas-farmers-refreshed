@@ -286,6 +286,12 @@
 				padding-left: 10px;
 			}
 		}
+		&.one {
+			@include grid-media($small-min) {
+				padding-right: 10px;
+				padding-left: 0;
+			}
+		}
 	}
 	.parsley-custom-error-message, .parsley-required, .parsley-hasSpecialCharacters, .parsley-type {
 		font-family: $knockout30;

@@ -79,24 +79,24 @@ $content = get_field('enroll_content_blurb', $program);
 		<!-- Full Enrollment Form -->
 		<form id="GC_Full_Enrollment_Form" data-parsley-validate="" data-parsley-excluded="input[type=button], input[type=submit], input[type=reset], [disabled]">
 			<fieldset class="enrollment_fieldset">
-				<!-- First Name -->
-				<div class="form-field">
-					<label for="gc_code">Full Name *</label>
-					<div class="field-wrapper">
-						<input type="text" name="full_name" id="full_name" placeholder="Full Name *" data-parsley-trigger="blur" data-parsley-required="a full name" data-parsley-has-special-characters/>
-						<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-						<i class="fa fa-check" aria-hidden="true"></i>
-					</div>
-				</div>
-				<!-- Email -->
-				<div class="form-field">
-					<label for="gc_code">Email Address *</label>
-					<div class="field-wrapper">
-						<input type="text" name="email" id="email" placeholder="Email Address *" data-parsley-trigger="blur" data-parsley-required="an email address" data-parsley-type="email" data-parsley-has-special-characters/>
-						<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-						<i class="fa fa-check" aria-hidden="true"></i>
-					</div>
-				</div>
+                <!-- First Name -->
+                <div class="form-field">
+                    <label for="gc_code">First Name *</label>
+                    <div class="field-wrapper">
+                        <input type="text" name="first_name" id="first_name" placeholder="First Name *" data-parsley-trigger="blur" data-parsley-required="a first name" data-parsley-has-special-characters/>
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!-- Last Name -->
+                <div class="form-field">
+                    <label for="gc_code">Last Name *</label>
+                    <div class="field-wrapper">
+                        <input type="text" name="last_name" id="last_name" placeholder="Last Name *" data-parsley-trigger="blur" data-parsley-required="a last name" data-parsley-has-special-characters/>
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                </div>
 			</fieldset>
 			<fieldset class="enrollment_fieldset">
 				<!--Address -->
@@ -196,6 +196,17 @@ $content = get_field('enroll_content_blurb', $program);
 					</div>
 				</div>
 			</fieldset>
+            <fieldset class="enrollment_fieldset">
+                <!-- Email -->
+                <div class="form-field one">
+                    <label for="gc_code">Email Address *</label>
+                    <div class="field-wrapper">
+                        <input type="text" name="email" id="email" placeholder="Email Address *" data-parsley-trigger="blur" data-parsley-required="an email address" data-parsley-type="email" data-parsley-has-special-characters/>
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </fieldset>
 			<div class="enroll_checkboxes">
 				<!-- is 21 -->
 				<div class="form-field checkbox-field">
