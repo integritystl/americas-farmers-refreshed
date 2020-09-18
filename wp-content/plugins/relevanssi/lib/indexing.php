@@ -809,13 +809,16 @@ function relevanssi_publish( $post_id, $bypass_global_post = false ) {
  * @param int $post_id The post ID.
  *
  * @return string|int Returns 'auto-draft' if the post is an auto draft and
- * thus skipped, 'removed' if the post is removed or the relevanssi_index_doc()
- * return value from relevanssi_publish().
+ * thus skipped, 'revision' for revisions, 'removed' if the post is removed or
+ * the relevanssi_index_doc() return value from relevanssi_publish().
  *
  * @see relevanssi_publish()
  */
 function relevanssi_insert_edit( $post_id ) {
 	global $wpdb;
+	if ( 'revision' === relevanssi_get_post_type( $post_id ) ) {
+		return 'revision';
+	}
 
 	$post_status = get_post_status( $post_id );
 	if ( 'auto-draft' === $post_status ) {
@@ -858,8 +861,6 @@ function relevanssi_insert_edit( $post_id ) {
 	if ( $index_this_post ) {
 		$bypass_global_post = true;
 		$return_value       = relevanssi_publish( $post_id, $bypass_global_post );
-
-		relevanssi_async_update_doc_count();
 	} else {
 		// The post isn't supposed to be indexed anymore, remove it from index.
 		relevanssi_remove_doc( $post_id );
@@ -1040,10 +1041,6 @@ function relevanssi_remove_doc( $post_id, $keep_internal_links = false ) {
 				$post_id
 			)
 		);
-
-		if ( $rows_updated && $rows_updated > 0 ) {
-			relevanssi_async_update_doc_count();
-		}
 	}
 }
 
