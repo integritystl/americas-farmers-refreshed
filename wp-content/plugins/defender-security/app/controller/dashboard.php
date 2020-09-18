@@ -7,19 +7,20 @@ namespace WP_Defender\Controller;
 
 use Hammer\Base\Container;
 use Hammer\Helper\HTTP_Helper;
-use Hammer\Helper\WP_Helper;
 use WP_Defender\Behavior\Utils;
 use WP_Defender\Behavior\WPMUDEV;
 use WP_Defender\Component\Data_Factory;
 use WP_Defender\Controller;
+use WP_Defender\Module\Advanced_Tools\Model\Mask_Settings;
 use WP_Defender\Module\Audit\Component\Audit_API;
-use WP_Defender\Module\IP_Lockout;
 use WP_Defender\Module\IP_Lockout\Component\Login_Protection_Api;
+use WP_Defender\Module\IP_Lockout\Model\Log_Model;
 use WP_Defender\Module\Scan\Component\Scan_Api;
 use WP_Defender\Module\Scan\Component\Scanning;
 use WP_Defender\Module\Scan\Model\Result_Item;
 use WP_Defender\Module\Scan\Model\Settings;
 use WP_Defender\Module\Setting\Component\Backup_Settings;
+use WP_Defender\Module\Two_Factor\Model\Auth_Settings;
 
 class Dashboard extends Controller {
 	protected $slug = 'wp-defender';
@@ -256,7 +257,80 @@ class Dashboard extends Controller {
 		$actions['defender_export_settings'] = array( &$this, 'exportSettings' );
 		$actions['defender_import_settings'] = array( &$this, 'importSettings' );
 
+		$actions['defender_get_stats_v2'] = [ &$this, 'defender_get_stats_v2' ];
+
 		return $actions;
+	}
+
+	public function defender_get_stats_v2( $params, $action ) {
+		if ( ! class_exists( WPMUDEV::class ) ) {
+			return wp_send_json_error();
+		}
+		$wpmudev = WPMUDEV::instance();
+		$summary = $wpmudev->stats_summary();
+		$report  = $wpmudev->stats_report();
+		$tweaks  = $wpmudev->stats_security_tweaks();
+		global $wp_version;
+		$scan             = $wpmudev->stats_malware_scan();
+		$firewall         = Log_Model::getSummary();
+		$audit            = Audit_API::summary();
+		$security_headers = $wpmudev->stats_security_headers();
+
+		$ret = [
+			'summary'         => [
+				'count'     => $summary['count'],
+				'next_scan' => $summary['next_scan']
+			],
+			'report'          => [
+				'malware_scan'  => $report['scan'],
+				'firewall'      => $report['firewall'],
+				'audit_logging' => $report['audit']
+			],
+			'security_tweaks' => [
+				'issues'       => $tweaks['issues'],
+				'fixed'        => $tweaks['fixed'],
+				'notification' => $tweaks['notification'],
+				'wp_version'   => $wp_version,
+				'php_version'  => phpversion()
+			],
+			'malware_scan'    => [
+				'count'        => $scan['count'],
+				'notification' => $scan['notification']
+			],
+			'firewall'        => [
+				'last_lockout' => $firewall['lastLockout'],
+				'24_hours'     => [
+					'login_lockout' => $firewall['loginLockoutToday'],
+					'404_lockout'   => $firewall['lockout404Today']
+				],
+				'7_days'       => [
+					'login_lockout' => $firewall['loginLockoutThisWeek'],
+					'404_lockout'   => $firewall['lockout404ThisWeek']
+				],
+				'30_days'      => [
+					'login_lockout' => $firewall['lockoutLoginThisMonth'],
+					'404_lockout'   => $firewall['lockout404ThisMonth']
+				]
+			],
+			'audit'           => [
+				'last_event' => $audit['lastEvent'],
+				'24_hours'   => $audit['day_count'],
+				'7_days'     => $audit['last_7_days'],
+				'30_days'    => $audit['last_30_days']
+			],
+			'advanced_tools'  => [
+				'security_headers' => $security_headers,
+				'mask_login'       => Mask_Settings::instance()->isEnabled()
+			],
+			'two_fa'          => [
+				'status'     => Auth_Settings::instance()->enabled,
+				'lost_phone' => Auth_Settings::instance()->lost_phone
+			]
+		];
+
+		wp_send_json_success( [
+			'stats' => $ret
+		] );
 	}
 
 	public function importSettings( $params ) {
@@ -556,7 +630,7 @@ class Dashboard extends Controller {
 		ob_start();
 		?>
         <svg width="17px" height="18px" viewBox="10 397 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
-             xmlns:xlink="http://www.w3.org/1999/xlink">
+        >
             <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
             <desc>Created with Sketch.</desc>
             <defs></defs>

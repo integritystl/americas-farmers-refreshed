@@ -50,7 +50,8 @@ class Log_Model extends DB_Model {
 		if ( ! $format ) {
 			return esc_html( $this->log );
 		} else {
-			$text = sprintf( __( "Request for file <span class='log-text-table'>%s</span> which doesn't exist", "defender-security" ), esc_attr( $this->log ) );
+			$text = sprintf( __( "Request for file <span class='log-text-table'>%s</span> which doesn't exist",
+				"defender-security" ), esc_attr( $this->log ) );
 
 			return $text;
 		}
@@ -127,26 +128,30 @@ class Log_Model extends DB_Model {
 
 		if ( count( $lockouts ) == 0 ) {
 			$data = array(
-				'lastLockout'          => __( "Never", "defender-security" ),
-				'lockoutToday'         => 0,
-				'lockoutThisMonth'     => 0,
-				'loginLockoutToday'    => 0,
-				'loginLockoutThisWeek' => 0,
-				'lockout404Today'      => 0,
-				'lockout404ThisWeek'   => 0,
+				'lastLockout'           => __( "Never", "defender-security" ),
+				'lockoutToday'          => 0,
+				'lockoutThisMonth'      => 0,
+				'loginLockoutToday'     => 0,
+				'loginLockoutThisWeek'  => 0,
+				'lockout404Today'       => 0,
+				'lockout404ThisWeek'    => 0,
+				'lockoutLoginThisMonth' => 0,
+				'lockout404ThisMonth'   => 0
 			);
 
 			return $data;
 		}
 
 		//init params
-		$lastLockout          = '';
-		$lockoutToday         = 0;
-		$lockoutThisMonth     = count( $lockouts );
-		$loginLockoutToday    = 0;
-		$loginLockoutThisWeek = 0;
-		$lockout404ThisWeek   = 0;
-		$lockout404Today      = 0;
+		$lastLockout           = '';
+		$lockoutToday          = 0;
+		$lockoutThisMonth      = count( $lockouts );
+		$loginLockoutToday     = 0;
+		$loginLockoutThisWeek  = 0;
+		$lockout404ThisWeek    = 0;
+		$lockout404Today       = 0;
+		$loginLockoutThisMonth = 0;
+		$lockout404ThisMonth   = 0;
 		//time
 		$todayMidnight = strtotime( '-24 hours', current_time( 'timestamp' ) );
 		$firstThisWeek = strtotime( '-7 days', current_time( 'timestamp' ) );
@@ -170,16 +175,24 @@ class Log_Model extends DB_Model {
 			} elseif ( $log->type == Log_Model::LOCKOUT_404 && $log->date > $firstThisWeek ) {
 				$lockout404ThisWeek ++;
 			}
+
+			if ( $log->type === Log_Model::AUTH_LOCK ) {
+				$loginLockoutThisMonth += 1;
+			} elseif ( $log->type === Log_Model::LOCKOUT_404 ) {
+				$lockout404ThisMonth += 1;
+			}
 		}
 
 		$data = array(
-			'lastLockout'          => $lastLockout,
-			'lockoutToday'         => $lockoutToday,
-			'lockoutThisMonth'     => $lockoutThisMonth,
-			'loginLockoutToday'    => $loginLockoutToday,
-			'loginLockoutThisWeek' => $loginLockoutThisWeek,
-			'lockout404ThisWeek'   => $lockout404ThisWeek,
-			'lockout404Today'      => $lockout404Today
+			'lastLockout'           => $lastLockout,
+			'lockoutToday'          => $lockoutToday,
+			'lockoutThisMonth'      => $lockoutThisMonth,
+			'loginLockoutToday'     => $loginLockoutToday,
+			'loginLockoutThisWeek'  => $loginLockoutThisWeek,
+			'lockout404ThisWeek'    => $lockout404ThisWeek,
+			'lockout404Today'       => $lockout404Today,
+			'lockoutLoginThisMonth' => $loginLockoutThisMonth,
+			'lockout404ThisMonth'   => $lockout404ThisMonth
 		);
 
 		return $data;
@@ -194,15 +207,21 @@ class Log_Model extends DB_Model {
 	 *  -type: optional
 	 *  -ip: optional
 	 *
-	 * @param array $filters
-	 * @param int $paged
-	 * @param string $orderBy
-	 * @param string $order
-	 * @param int $pageSize
+	 * @param  array  $filters
+	 * @param  int  $paged
+	 * @param  string  $orderBy
+	 * @param  string  $order
+	 * @param  int  $pageSize
 	 *
 	 * @return Log_Model[]
 	 */
-	public static function queryLogs( $filters = array(), $paged = 1, $orderBy = 'id', $order = 'DESC', $pageSize = 20 ) {
+	public static function queryLogs(
+		$filters = array(),
+		$paged = 1,
+		$orderBy = 'id',
+		$order = 'DESC',
+		$pageSize = 20
+	) {
 		$params = [
 			'date' => [
 				'compare' => 'between',

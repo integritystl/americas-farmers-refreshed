@@ -11,9 +11,12 @@ Defender.showNotification = function (type, message, closeModal) {
         type: 'green',
         icon: 'info',
         dismiss: {
-            show: true,
+            show: false,
             label: 'Click to close',
             tooltip: 'Dismiss'
+        },
+        autoclose: {
+            timeout: 3000
         }
     }
     if (type === 'error') {

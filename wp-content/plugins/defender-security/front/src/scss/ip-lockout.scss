@@ -4,19 +4,15 @@
     .sui-summary:not(.sui-unbranded) {
       background-image: url($summary-image);
       background-repeat: no-repeat;
-      background-position: 30px bottom;
+      background-position: 30px center;
 
       .sui-summary-image-space {
         display: block;
-        min-width: 222px;
-        min-height: 212px;
       }
     }
-  }
-
-  .sui-summary.sui-rebranded {
-    background-position: 3% 50%;
-    background-size: 192px 182px;
+    .sui-summary:not(.sui-unbranded):not(.sui-rebranded) {
+      background-position: 30px 40px;
+    }
   }
 
   .box-filter {

@@ -414,8 +414,9 @@ function relevanssi_recognize_phrases( $search_query, $operator = 'AND' ) {
 		return $all_queries;
 	}
 
+	/* Documented in lib/indexing.php. */
+	$custom_fields    = apply_filters( 'relevanssi_index_custom_fields', relevanssi_get_custom_fields() );
 	$taxonomies       = get_option( 'relevanssi_index_taxonomies_list', array() );
-	$custom_fields    = relevanssi_get_custom_fields();
 	$excerpts         = get_option( 'relevanssi_index_excerpt', 'off' );
 	$index_pdf_parent = get_option( 'relevanssi_index_pdf_parent' );
 
@@ -507,14 +508,8 @@ function relevanssi_generate_phrase_queries( $phrases, $taxonomies, $custom_fiel
 	foreach ( $phrases as $phrase ) {
 		$queries = array();
 		$phrase  = $wpdb->esc_like( $phrase );
-		$phrase  = str_replace( '‘', '_', $phrase );
-		$phrase  = str_replace( '’', '_', $phrase );
-		$phrase  = str_replace( "'", '_', $phrase );
-		$phrase  = str_replace( '"', '_', $phrase );
-		$phrase  = str_replace( '”', '_', $phrase );
-		$phrase  = str_replace( '“', '_', $phrase );
-		$phrase  = str_replace( '„', '_', $phrase );
-		$phrase  = str_replace( '´', '_', $phrase );
+		$phrase  = str_replace( array( '‘', '’', "'", '"', '”', '“', '“', '„', '´' ), '_', $phrase );
+		$phrase  = htmlentities( $phrase );
 		$phrase  = esc_sql( $phrase );
 
 		$excerpt = '';
@@ -545,15 +540,21 @@ function relevanssi_generate_phrase_queries( $phrases, $taxonomies, $custom_fiel
 
 			if ( is_array( $custom_fields ) ) {
 				array_push( $custom_fields, '_relevanssi_pdf_content' );
-				$custom_fields_escaped = implode(
-					"','",
-					array_map(
-						'esc_sql',
-						$custom_fields
-					)
-				);
 
-				$keys = "AND m.meta_key IN ('$custom_fields_escaped')";
+				if ( strpos( implode( ' ', $custom_fields ), '%' ) ) {
+					// ACF repeater fields involved.
+					$custom_fields_regexp = str_replace( '%', '.+', implode( '|', $custom_fields ) );
+					$keys                 = "AND m.meta_key REGEXP ('$custom_fields_regexp')";
+				} else {
+					$custom_fields_escaped = implode(
+						"','",
+						array_map(
+							'esc_sql',
+							$custom_fields
+						)
+					);
+					$keys                  = "AND m.meta_key IN ('$custom_fields_escaped')";
+				}
 			}
 
 			if ( 'visible' === $custom_fields ) {
@@ -1300,7 +1301,43 @@ function relevanssi_stripos( $haystack, $needle, $offset = 0 ) {
 		return false;
 	}
 
-	if ( function_exists( 'mb_stripos' ) ) {
+	if ( preg_match( '/[\?\*]/', $needle ) ) {
+		// There's a ? or an * in the string, which means it's a wildcard search
+		// query (a Premium feature) and requires some extra steps.
+
+		$needle_regex = str_replace(
+			array( '?', '*' ),
+			array( '.', '.*' ),
+			$needle
+		);
+		$pos_found    = false;
+		while ( ! $pos_found ) {
+			preg_match(
+				"/$needle_regex/i",
+				$haystack,
+				$matches,
+				PREG_OFFSET_CAPTURE,
+				$offset
+			);
+			/**
+			 * This trickery is necessary, because PREG_OFFSET_CAPTURE gives
+			 * wrong offsets for multibyte strings. The mb_strlen() gives the
+			 * correct offset, the rest of this is because the $offset received
+			 * as a parameter can be before the first $position, leading to an
+			 * infinite loop.
+			 */
+			$pos = isset( $matches[0][1] )
+				? mb_strlen( substr( $haystack, 0, $matches[0][1] ) )
+				: false;
+			if ( $pos && $pos > $offset ) {
+				$pos_found = true;
+			} elseif ( $pos ) {
+				$offset++;
+			} else {
+				$pos_found = true;
+			}
+		}
+	} elseif ( function_exists( 'mb_stripos' ) ) {
 		if ( '' === $haystack ) {
 			$pos = false;
 		} else {
@@ -2062,6 +2099,8 @@ function relevanssi_remove_page_builder_shortcodes( $content ) {
 			'/\[ai1ec.*?\]/im',
 			'/\[eme_.*?\]/im',
 			'/\[layerslider.*?\]/im',
+			// Divi garbage.
+			'/@ET-DC@.*?@/im',
 		),
 		$context
 	);

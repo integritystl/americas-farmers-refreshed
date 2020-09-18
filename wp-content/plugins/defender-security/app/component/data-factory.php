@@ -29,8 +29,16 @@ class Data_Factory {
 			'report'          => self::buildReportData(),
 			'advanced_tools'  => self::buildAToolsData(),
 			'two_fa'          => self::buildTwoFaData(),
-			'waf'             => self::buildWafData()
+			'waf'             => self::buildWafData(),
+			'settings'        => self::buildSettingsData()
 		];
+	}
+
+	public static function buildSettingsData() {
+		$module     = Container::instance()->get( 'setting' );
+		$controller = $module->getController( 'main' );
+
+		return $controller->scriptsData();
 	}
 
 	public static function buildWafData() {

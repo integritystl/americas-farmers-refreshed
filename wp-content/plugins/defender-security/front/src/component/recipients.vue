@@ -6,7 +6,7 @@
                     <i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
 
                     <p>
-                        {{__("You've removed all recipients. If you save without a recipient, we'll automatically turn of reports")}}
+                        {{__("You've removed all recipients. If you save without a recipient, we'll automatically turn off reports")}}
                     </p>
 
                 </div>

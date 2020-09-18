@@ -273,6 +273,19 @@ class GFMailChimp extends GFFeedAddOn {
 
 	}
 
+	/**
+	 * Return the plugin's icon for the plugin/form settings menu.
+	 *
+	 * @since 4.7
+	 *
+	 * @return string
+	 */
+	public function get_menu_icon() {
+
+		return file_get_contents( $this->get_base_path() . '/images/menu-icon.svg' );
+
+	}
+
 
 
 
@@ -863,7 +876,7 @@ class GFMailChimp extends GFFeedAddOn {
 
 		$conditional_style = $decision == 'always' ? "style='display:none;'" : '';
 
-		$str .= '   <span id="' . $setting_name_root . '_decision_container" ' . $conditional_style . '><br />' .
+		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition" ' . $conditional_style . '><br />' .
 		        $this->simple_condition( $setting_name_root, $is_enabled ) .
 		        '   </span>' .
 
@@ -977,7 +990,7 @@ class GFMailChimp extends GFFeedAddOn {
 		);
 
 
-		$str .= '   <span id="' . $setting_name_root . '_decision_container"><br />' .
+		$str .= '   <span id="' . $setting_name_root . '_decision_container" class="gform-settings-simple-condition"><br />' .
 				$this->simple_condition( $setting_name_root, $is_enabled ) .
 				'   </span>' .
 
@@ -1194,9 +1207,6 @@ class GFMailChimp extends GFFeedAddOn {
 				switch( $date_format ) {
 
 					case 'DD/MM':
-						$field_value = date( 'd/m', $field_value_timestamp );
-						break;
-
 					case 'MM/DD':
 						$field_value = date( 'm/d', $field_value_timestamp );
 						break;

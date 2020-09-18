@@ -4,6 +4,17 @@ Tested up to: 5.4
 
 Change Log:
 
+2.3.1 - 2020-08-06
+----------------------------------------------------------------------
+- New: Feature to save presets configurations of the Defender's settings, and make them available to download and apply to your other sites.
+- New: Add tutorials section in the Defender dashboard.
+- Improvement: Allow to bulk delete suspicious files
+- Improvement: Improve the logic of how "Include sub-domains" option should be shown on the Strict Transport Security header
+- Fix: Prevent wp-signup.php to access when Mask Login is enabled.
+- Fix: 2FA login does not redirect correctly after login via the my-account page of Woocommerce
+- Remove: Change default database prefix, as this can be bypass.
+- Other minor enhancements and fixes
+
 2.3 - 2020-05-18
 ----------------------------------------------------------------------
 - Improvement: Change the description for X-Content-Type-Options security header
@@ -14,7 +25,7 @@ Change Log:
 
 2.2.9 - 2020-04-05
 ----------------------------------------------------------------------
-- New:  WPMU DEV’s Hosted Web Application Firewall (WAF) is a first layer of protection to block hackers and bot attacks before they ever reach your site. Websites hosted with WPMU DEV can now use this advanced WAF by enabling it via your site’s Security or Hosting tab in The Hub.
+- New: WPMU DEV’s Hosted Web Application Firewall (WAF) is a first layer of protection to block hackers and bot attacks before they ever reach your site. Websites hosted with WPMU DEV can now use this advanced WAF by enabling it via your site’s Security or Hosting tab in The Hub.
 - Improvement: Moved the security headers out of Security Tweaks and into their own section inside Advanced Tools.
 - Improvement: Relocated Two-Factor Authentication to it’s own menu item and area.
 - Improvement: Renamed a couple of modules to more accurately reflect what they do.

@@ -35,7 +35,7 @@ class Rest extends Controller {
 		}
 
 		//get the backup email from current user
-		$backup_email = Advanced_Tools\Component\Auth_API::getBackupEmail( get_current_user_id() );
+		$backup_email = \WP_Defender\Module\Two_Factor\Component\Auth_API::getBackupEmail( get_current_user_id() );
 		$subject      = wp_kses_post( HTTP_Helper::retrievePost( 'email_subject' ) );
 		$sender       = HTTP_Helper::retrievePost( 'email_sender' );
 		$body         = wp_kses_post( HTTP_Helper::retrievePost( 'email_body' ) );
