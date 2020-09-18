@@ -26,7 +26,8 @@ class Mask_Settings extends \Hammer\WP\Settings {
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
-			$class           = new Mask_Settings( 'wd_masking_login_settings', WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
+			$class           = new Mask_Settings( 'wd_masking_login_settings',
+				WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
 			self::$_instance = $class;
 		}
 
@@ -73,13 +74,15 @@ class Mask_Settings extends \Hammer\WP\Settings {
 						];
 
 						if ( in_array( $this->mask_url, $forbidden, true ) ) {
-							$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.', 'wpdef' );
+							$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.',
+								'wpdef' );
 
 							return false;
 						}
 						$exits = get_page_by_path( $this->mask_url, OBJECT, [ 'post', 'page' ] );
 						if ( is_object( $exits ) ) {
-							$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.', 'wpdef' );
+							$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.',
+								'wpdef' );
 
 							return false;
 						}
@@ -98,13 +101,13 @@ class Mask_Settings extends \Hammer\WP\Settings {
 	/**
 	 * Define labels for settings key, we will use it for HUB
 	 *
-	 * @param null $key
+	 * @param  null  $key
 	 *
 	 * @return array|mixed
 	 */
 	public function labels( $key = null ) {
 		$labels = [
-			'enabled'              => __( 'Mask Login Area', "defender-security" ),
+			'enabled'              => __( 'Enable', "defender-security" ),
 			'mask_url'             => __( "Masking URL", "defender-security" ),
 			'redirect_traffic'     => __( 'Redirect traffic', "defender-security" ),
 			'redirect_traffic_url' => __( "Redirection URL", "defender-security" ),
@@ -119,7 +122,32 @@ class Mask_Settings extends \Hammer\WP\Settings {
 
 	public function beforeValidate() {
 		if ( $this->mask_url === $this->redirect_traffic_url && strlen( $this->redirect_traffic_url ) > 0 ) {
-			$this->addError( 'redirect_traffic_url', __( "Redirect URL must different from Login URL", "defender-security" ) );
+			$this->addError( 'redirect_traffic_url',
+				__( "Redirect URL must different from Login URL", "defender-security" ) );
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	public function export_strings( $configs ) {
+		$class = new Mask_Settings( 'wd_masking_login_settings',
+			WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
+		$class->import( $configs );
+
+		return [
+			$class->isEnabled() ? __( 'Active', "defender-security" ) : __( 'Inactive', "defender-security" )
+		];
+	}
+
+	public function format_hub_data() {
+		return [
+			'enabled'              => $this->enabled ? __( 'Active', "defender-security" ) : __( 'Inactivate',
+				"defender-security" ),
+			'mask_url'             => $this->mask_url,
+			'redirect_traffic'     => $this->redirect_traffic ? __( 'Yes', "defender-security" ) : __( 'No',
+				"defender-security" ),
+			'redirect_traffic_url' => $this->redirect_traffic_url
+		];
 	}
 }

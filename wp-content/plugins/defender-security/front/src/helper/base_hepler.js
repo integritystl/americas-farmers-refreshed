@@ -198,13 +198,7 @@ export default {
             jQuery('.sui-accordion').each(function () {
                 SUI.suiAccordion(this);
             });
-            var mainEl = jQuery('.sui-wrap');
-            SUI.dialogs = {};
-
-            // Init the dialog elements.
-            jQuery('.sui-dialog').each(function () {
-                SUI.dialogs[this.id] = new A11yDialog(this, mainEl);
-            });
+            SUI.modalDialog()
         }
     },
 };

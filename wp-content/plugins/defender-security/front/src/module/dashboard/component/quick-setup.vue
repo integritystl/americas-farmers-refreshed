@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </form>
-                <img v-if="maybeHideBranding" :src="assetUrl('/assets/img/defender-activator.svg')"
+                <img v-if="!maybeHideBranding" :src="assetUrl('/assets/img/defender-activator.svg')"
                      class="sui-image sui-image-center"/>
             </div>
             <div class="sui-box" v-else>

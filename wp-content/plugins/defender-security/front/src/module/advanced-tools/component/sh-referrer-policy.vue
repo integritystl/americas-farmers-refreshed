@@ -42,7 +42,6 @@
 				},
 				mode: null,
 				policyDesc: '',
-				model: this.model
 			}
 		},
 		created: function () {

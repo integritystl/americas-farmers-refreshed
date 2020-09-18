@@ -95,7 +95,8 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
-			$class           = new Security_Headers_Settings( 'wd_security_headers_settings', WP_Helper::is_network_activate( "defender-security" ) );
+			$class           = new Security_Headers_Settings( 'wd_security_headers_settings',
+				WP_Helper::is_network_activate( "defender-security" ) );
 			self::$_instance = $class;
 		}
 
@@ -105,23 +106,23 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 	/**
 	 * Define labels for settings key, we will use it for HUB
 	 *
-	 * @param null $key
+	 * @param  null  $key
 	 *
 	 * @return string
 	 */
 	public function labels( $key = null ) {
 		$labels = array(
-			'sh_xframe'               => __( 'Enable X-Frame-Options', "defender-security" ),
+			'sh_xframe'               => __( 'X-Frame-Options', "defender-security" ),
 			'sh_xframe_urls'          => __( 'Allow-from', "defender-security" ),
-			'sh_xss_protection'       => __( 'Enable X-XSS-Protection', "defender-security" ),
-			'sh_content_type_options' => __( 'Enable X-Content-Type-Options', "defender-security" ),
-			'sh_strict_transport'     => __( 'Enable Strict Transport', "defender-security" ),
+			'sh_xss_protection'       => __( 'X-XSS-Protection', "defender-security" ),
+			'sh_content_type_options' => __( 'X-Content-Type-Options', "defender-security" ),
+			'sh_strict_transport'     => __( 'Strict Transport', "defender-security" ),
 			'hsts_preload'            => __( 'HSTS Preload', "defender-security" ),
 			'include_subdomain'       => __( 'Include Subdomains', "defender-security" ),
 			'hsts_cache_duration'     => __( 'Browser caching', "defender-security" ),
-			'sh_referrer_policy'      => __( 'Enable Referrer Policy', "defender-security" ),
+			'sh_referrer_policy'      => __( 'Referrer Policy', "defender-security" ),
 			'sh_referrer_policy_mode' => __( 'Referrer Information', "defender-security" ),
-			'sh_feature_policy'       => __( 'Enable Feature-Policy', "defender-security" ),
+			'sh_feature_policy'       => __( 'Feature-Policy', "defender-security" ),
 			'sh_feature_policy_urls'  => __( 'Specific Origins', "defender-security" ),
 		);
 
@@ -149,7 +150,7 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 	/**
 	 * Filter the security headers and return data as array
 	 *
-	 * @param bool $sort
+	 * @param  bool  $sort
 	 *
 	 * @return array
 	 */
@@ -211,7 +212,8 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 		     && ( empty( $this->sh_xss_protection_mode )
 		          || ! in_array( $this->sh_xss_protection_mode, array( 'sanitize', 'block', 'none' ), true ) )
 		) {
-			$this->addError( 'sh_xss_protection_mode', __( 'X-XSS-Protection mode is invalid', "defender-security" ) );
+			$this->addError( 'sh_xss_protection_mode',
+				__( 'X-XSS-Protection mode is invalid', "defender-security" ) );
 
 			return false;
 		}
@@ -234,7 +236,8 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 				)
 		     )
 		) {
-			$this->addError( 'sh_referrer_policy_mode', __( 'Referrer Policy mode is invalid', "defender-security" ) );
+			$this->addError( 'sh_referrer_policy_mode',
+				__( 'Referrer Policy mode is invalid', "defender-security" ) );
 
 			return false;
 		}
@@ -253,5 +256,55 @@ class Security_Headers_Settings extends \Hammer\WP\Settings {
 			}
 		}
 		wp_defender()->global['security_headers_enabled'] = $enabled;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function is_any_activated() {
+		if ( $this->sh_xframe === true || $this->sh_xss_protection === true || $this->sh_content_type_options === true ||
+		     $this->sh_feature_policy === true || $this->sh_strict_transport === true || $this->sh_referrer_policy === true ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function export_strings( $configs ) {
+		$class = new Security_Headers_Settings( 'wd_security_headers_settings',
+			WP_Helper::is_network_activate( "defender-security" ) );
+		$class->import( $configs );
+
+		return [
+			$class->is_any_activated() ? __( 'Active', "defender-security" ) : __( 'Inactive', "defender-security" )
+		];
+	}
+
+	public function format_hub_data() {
+		return [
+			'sh_xframe'               => $this->sh_xframe ? sprintf( __( 'Mode: %s%s',
+				"defender-security" ), $this->sh_xframe_mode,
+				$this->sh_xframe_mode == 'allow-from' ? ',urls: ' . $this->sh_xframe_urls : '' ) : __( 'Inactivate',
+				"defender-security" ),
+			'sh_xss_protection'       => $this->sh_xss_protection ? sprintf( __( 'Mode: %s',
+				"defender-security" ), $this->sh_xss_protection_mode ) : __( 'Inactivate',
+				"defender-security" ),
+			'sh_content_type_options' => $this->sh_content_type_options ? sprintf( __( 'Mode: %s',
+				"defender-security" ), 'nosniff' ) : __( 'Inactivate',
+				"defender-security" ),
+			'sh_strict_transport'     => $this->sh_strict_transport ? sprintf( __( 'Enabled%s',
+				"defender-security" ), $this->hsts_preload ? ',HSTS preloaded, ' : '' ) : __( 'Inactivate',
+				"defender-security" ),
+			'sh_referrer_policy'      => $this->sh_referrer_policy ? sprintf( __( 'Mode: %s',
+				"defender-security" ), $this->sh_referrer_policy_mode ) : __( 'Inactivate',
+				"defender-security" ),
+			'sh_feature_policy'       => $this->sh_feature_policy ? sprintf( __( 'Mode: %s%s',
+				"defender-security" ), $this->sh_feature_policy_mode,
+				$this->sh_feature_policy_mode == 'origins' ? ',urls: ' . $this->sh_feature_policy_urls : '' ) : __( 'Inactivate',
+				"defender-security" ),
+		];
 	}
 }

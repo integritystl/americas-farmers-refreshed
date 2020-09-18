@@ -49,3 +49,12 @@ a.premium-button {
     text-transform: none;
   }
 }
+
+#configs {
+  .sui-accordion-item-header {
+    .sui-button-icon {
+      margin-right: 0 !important;
+      margin-left: auto;
+    }
+  }
+}

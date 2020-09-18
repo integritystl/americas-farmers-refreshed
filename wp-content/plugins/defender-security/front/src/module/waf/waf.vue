@@ -1,5 +1,5 @@
 <template>
-    <div id="waf" class="sui-wrap" :class="maybeHighContrast">
+    <div id="waf" class="sui-wrap" :class="maybeHighContrast()">
         <div class="sui-header">
             <h1 class="sui-header-title">
                 {{__("Web Application Firewall")}}

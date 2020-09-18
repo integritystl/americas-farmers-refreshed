@@ -44,6 +44,10 @@ class Sh_Strict_Transport extends Security_Header {
 		if ( ! $model->sh_strict_transport ) {
 			return false;
 		}
+		//'max-age' directive is required
+		if ( ! empty( $model->hsts_cache_duration ) ) {
+			return true;
+		}
 		$headers = $this->headRequest( network_site_url(), self::$rule_slug );
 		if ( is_wp_error( $headers ) ) {
 			Utils::instance()->log( sprintf( 'Self ping error: %s', $headers->get_error_message() ) );
@@ -55,13 +59,16 @@ class Sh_Strict_Transport extends Security_Header {
 			$hsts_cache_duration = '';
 			$hsts_preload        = 0;
 			$include_subdomain   = 0;
+			$header_sts          = is_array( $headers['strict-transport-security'] )
+				? $headers['strict-transport-security'][0]
+				: $headers['strict-transport-security'];
 
-			$content = explode( ';', $headers['strict-transport-security'] );
+			$content = explode( ';', $header_sts );
 			foreach ( $content as $line ) {
 				if ( stristr( $line, 'max-age' ) ) {
 					$value   = explode( '=', $line );
 					$arr     = $this->timeInSeconds();
-					$seconds = isset( $value[1] ) ? (int)$value[1] : 0;
+					$seconds = isset( $value[1] ) ? (int) $value[1] : 0;
 					$closest = null;
 					$key     = null;
 					foreach ( $arr as $k => $item ) {
@@ -107,6 +114,12 @@ class Sh_Strict_Transport extends Security_Header {
 		$allow_subdomain = false;
 		if ( is_array( $domain_data ) && ! isset( $domain_data['subdomain'] ) ) {
 			$allow_subdomain = true;
+		} elseif ( ! $domain_data && ! is_multisite() ) {
+			//case if a single site installs in a folder, e.g. http://example.com/something/folder/
+			$allow_subdomain = true;
+		} elseif ( ! $domain_data && is_multisite() && is_subdomain_install() && is_main_site() ) {
+			//case if it's a main MU site with subdomain install
+			$allow_subdomain = true;
 		}
 
 		return array(
@@ -135,17 +148,18 @@ class Sh_Strict_Transport extends Security_Header {
 		if ( true === $model->sh_strict_transport ) {
 			$headers = 'Strict-Transport-Security:';
 			if ( isset( $model->hsts_cache_duration ) && ! empty( $model->hsts_cache_duration ) ) {
-				$arr     = $this->timeInSeconds();
-				$seconds = isset( $arr[ $model->hsts_cache_duration ] ) ? $arr[ $model->hsts_cache_duration ] : null;
+				$arr = $this->timeInSeconds();
+				//set default for a week, so RIPs wont waring weak header
+				$seconds = isset( $arr[ $model->hsts_cache_duration ] ) ? $arr[ $model->hsts_cache_duration ] : 604800;
 				if ( ! is_null( $seconds ) ) {
 					$headers .= ' max-age=' . $seconds;
 				}
 			}
 
-			if ( '1' === (string)$model->include_subdomain ) {
+			if ( '1' === (string) $model->include_subdomain ) {
 				$headers .= ' ; includeSubDomains';
 			}
-			if ( '1' === (string)$model->hsts_preload ) {
+			if ( '1' === (string) $model->hsts_preload ) {
 				$headers .= ' ; preload';
 			}
 
