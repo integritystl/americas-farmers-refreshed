@@ -15,6 +15,11 @@
                                 {{__("General")}}
                             </a>
                         </li>
+                        <li :class="{current:view==='configs'}" class="sui-vertical-tab">
+                            <a @click.prevent="view='configs'" :href="adminUrl('admin.php?page=wdf-setting&view=configs')">
+                                {{__("Configs")}}
+                            </a>
+                        </li>
                         <li :class="{current:view==='data'}" class="sui-vertical-tab">
                             <a @click.prevent="view='data'" :href="adminUrl('admin.php?page=wdf-setting&view=data')">
                                 {{__("Data & Settings")}}
@@ -36,6 +41,7 @@
                     </div>
                 </div>
                 <general v-show="view==='general'"></general>
+                <configs v-show="view==='configs'"></configs>
                 <data-settings v-show="view==='data'"></data-settings>
                 <accessibility v-show="view==='accessibility'"></accessibility>
             </div>
@@ -49,6 +55,7 @@
     import general from './screen/general';
     import data from './screen/data';
     import accessibility from './screen/accessibility'
+    import Configs from "./screen/configs";
 
     export default {
         mixins: [base_helper],
@@ -59,6 +66,7 @@
             }
         },
         components: {
+            Configs,
             general, 'data-settings': data, accessibility,
         },
         created: function () {

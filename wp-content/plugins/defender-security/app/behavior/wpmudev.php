@@ -6,6 +6,13 @@
 namespace WP_Defender\Behavior;
 
 use Hammer\Base\Behavior;
+use WP_Defender\Module\Advanced_Tools\Model\Security_Headers_Settings;
+use WP_Defender\Module\Hardener\Model\Settings;
+use WP_Defender\Module\IP_Lockout\Model\Log_Model;
+use WP_Defender\Module\Scan\Component\Scan_Api;
+use WP_Defender\Module\Scan\Component\Scanning;
+use WP_Defender\Module\Scan\Model\Result_Item;
+use WP_Defender\Module\Scan\Model\Scan;
 
 /**
  * This class contains everything relate to WPMUDEV
@@ -87,5 +94,74 @@ class WPMUDEV extends Behavior {
 	 */
 	public function maybeHighContrast() {
 		return \WP_Defender\Module\Setting\Model\Settings::instance()->high_contrast_mode;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function stats_summary() {
+		$count = 0;
+		$scan  = Scan_Api::getLastScan();
+		if ( is_object( $scan ) ) {
+			$count += $scan->countAll( Result_Item::STATUS_ISSUE );
+		}
+		$count += count( Settings::instance()->getIssues() );
+
+		$scan_setting = \WP_Defender\Module\Scan\Model\Settings::instance();
+
+		$next_scan = $scan_setting->report === true ?
+			Utils::instance()->getNextRun( $scan_setting->frequency, $scan_setting->day, $scan_setting->time,
+				$scan_setting->last_report_sent ) : 'N/A';
+
+		return [
+			'count'     => $count,
+			'next_scan' => $next_scan
+		];
+	}
+
+	public function stats_report() {
+		$scan     = \WP_Defender\Module\Scan\Model\Settings::instance();
+		$audit    = \WP_Defender\Module\Audit\Model\Settings::instance();
+		$firewall = \WP_Defender\Module\IP_Lockout\Model\Settings::instance();
+
+		return [
+			'scan'     => $scan->report === true ? sprintf( '%s, %s', $scan->day, $scan->time ) : false,
+			'audit'    => $audit->notification === true ? sprintf( '%s, %s', $audit->day, $audit->time ) : false,
+			'firewall' => $firewall->report === true ? sprintf( '%s, %s', $firewall->report_day,
+				$firewall->report_time ) : false
+		];
+	}
+
+	public function stats_security_tweaks() {
+		$settings = Settings::instance();
+
+		return [
+			'issues'       => count( $settings->issues ),
+			'fixed'        => count( $settings->fixed ),
+			'notification' => $settings->notification
+		];
+	}
+
+	public function stats_malware_scan() {
+		$scan  = Scan_Api::getLastScan();
+		$count = 0;
+		if ( is_object( $scan ) ) {
+			$count = $scan->countAll( Result_Item::STATUS_ISSUE );
+		}
+
+		return [
+			'count'        => $count,
+			'notification' => \WP_Defender\Module\Scan\Model\Settings::instance()->notification
+		];
+	}
+
+	public function stats_security_headers() {
+		$settings = Security_Headers_Settings::instance();
+		$headers  = [];
+		foreach ( array_slice( $settings->getHeaders(), 0, 3 ) as $header ) {
+			$headers[ $header->getTitle() ] = $header->check();
+		}
+
+		return $headers;
 	}
 }

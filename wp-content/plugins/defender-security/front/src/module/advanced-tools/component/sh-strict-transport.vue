@@ -71,7 +71,6 @@
 				allow_subdomain: this.misc.misc.allow_subdomain,
 				include_subdomain: this.misc.misc.include_subdomain,
 				hsts_cache_duration: this.misc.misc.hsts_cache_duration,
-				model: this.model
 			}
 		},
 		created: function () {

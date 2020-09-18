@@ -22,7 +22,7 @@ class Auth_Settings extends \Hammer\WP\Settings {
 	public $email_subject = '';
 	public $email_sender = '';
 	public $email_body = '';
-	
+
 	public function __construct( $id, $is_multi ) {
 		//fetch the userRoles
 		if ( ! function_exists( 'get_editable_roles' ) ) {
@@ -56,19 +56,20 @@ Administrator';
 		}
 		$this->force_auth_roles = array_values( $this->force_auth_roles );
 	}
-	
+
 	/**
 	 * @return Auth_Settings
 	 */
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
-			$class           = new Auth_Settings( 'wd_2auth_settings', WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
+			$class           = new Auth_Settings( 'wd_2auth_settings',
+				WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
 			self::$_instance = $class;
 		}
-		
+
 		return self::$_instance;
 	}
-	
+
 	/**
 	 * @param $plugin
 	 *
@@ -80,10 +81,10 @@ Administrator';
 		} elseif ( in_array( '!' . $plugin, $this->is_conflict ) ) {
 			return false;
 		}
-		
+
 		return 0;
 	}
-	
+
 	/**
 	 * @param $plugin
 	 */
@@ -93,7 +94,7 @@ Administrator';
 			$this->save();
 		}
 	}
-	
+
 	/**
 	 * @param $plugin
 	 */
@@ -106,10 +107,10 @@ Administrator';
 		}
 		$this->save();
 	}
-	
+
 	public function events() {
 		$that = $this;
-		
+
 		return array(
 			self::EVENT_AFTER_DELETED => array(
 				array(
@@ -122,7 +123,7 @@ Administrator';
 			)
 		);
 	}
-	
+
 	/**
 	 * Email default body.
 	 */
@@ -135,37 +136,67 @@ Copy and paste the passcode into the input field on the login screen to complete
 
 Regards,
 Administrator';
-		
+
 		return $content;
 	}
-	
+
 	/**
 	 * Define labels for settings key, we will use it for HUB
 	 *
-	 * @param null $key
+	 * @param  null  $key
 	 *
 	 * @return array|mixed
 	 */
 	public function labels( $key = null ) {
 		$labels = [
-			'enabled'            => __( 'Two Factor Authentication', "defender-security" ),
-			'user_roles'         => __( "User Roles", "defender-security" ),
-			'lost_phone'         => __( 'Lost Phone', "defender-security" ),
-			'force_auth'         => __( "Force Authentication", "defender-security" ),
-			'force_auth_mess'    => __( "Custom warning message", "defender-security" ),
-			'force_auth_roles'   => __( "Force Authentication", "defender-security" ),
-			'custom_graphic'     => __( "Custom Graphic", "defender-security" ),
-			'custom_graphic_url' => __( "Custom Graphic Image", "defender-security" ),
-			'email_subject'      => __( "Subject", "defender-security" ),
-			'email_sender'       => __( "Sender", "defender-security" ),
-			'email_body'         => __( "Body", "defender-security" )
-		
+			'enabled'         => __( 'Enable', "defender-security" ),
+			'user_roles'      => __( "Enabled user roles", "defender-security" ),
+			'lost_phone'      => __( 'Allow lost phone recovery option', "defender-security" ),
+			'email_subject'   => __( "Subject", "defender-security" ),
+			'email_body'      => __( "Body", "defender-security" ),
+			'email_sender'    => __( "Sender", "defender-security" ),
+			'force_auth'      => __( "Force 2FA on user roles", "defender-security" ),
+			'force_auth_mess' => __( "Force 2FA login warning message", "defender-security" ),
+			'custom_graphic'  => __( "Use custom login branding graphic", "defender-security" ),
 		];
-		
+
 		if ( $key != null ) {
 			return isset( $labels[ $key ] ) ? $labels[ $key ] : null;
 		}
-		
+
 		return $labels;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function export_strings( $configs ) {
+		$class = new Auth_Settings( 'wd_2auth_settings',
+			WP_Helper::is_network_activate( wp_defender()->plugin_slug ) );
+		$class->import( $configs );
+
+		return [
+			$class->enabled ? __( 'Active', "defender-security" ) : __( 'Inactive', "defender-security" )
+		];
+	}
+
+	public function format_hub_data() {
+		return [
+			'enabled'         => $this->enabled ? __( 'Active', "defender-security" ) : __( 'Inactivate',
+				"defender-security" ),
+			'user_roles'      => empty( $this->user_roles ) ? __( 'Nonce', "defender-security" ) : implode( ', ',
+				$this->user_roles ),
+			'lost_phone'      => $this->lost_phone ? __( 'Yes', "defender-security" ) : __( 'No',
+				"defender-security" ),
+			'email_subject'   => $this->email_subject,
+			'email_body'      => $this->email_body,
+			'email_sender'    => $this->email_sender,
+			'force_auth'      => empty( $this->force_auth_roles ) ? __( 'Nonce',
+				"defender-security" ) : implode( ', ',
+				$this->force_auth_roles ),
+			'force_auth_mess' => $this->force_auth_mess,
+			'custom_graphic'  => ! ( $this->custom_graphic ) ? __( 'No',
+				"defender-security" ) : $this->custom_graphic_url
+		];
 	}
 }

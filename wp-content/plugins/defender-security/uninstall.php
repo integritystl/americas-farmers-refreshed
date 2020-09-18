@@ -20,10 +20,10 @@ $path = dirname( __FILE__ );
 include_once $path . DIRECTORY_SEPARATOR . 'wp-defender.php';
 
 $settings = \WP_Defender\Module\Setting\Model\Settings::instance();
-if ( is_multisite() ) {
-	$data = get_site_option( 'wd_main_settings', array(), false );
-	$settings->import( $data );
-}
+//if ( is_multisite() ) {
+//	$data = get_site_option( 'wd_main_settings', array(), false );
+//	$settings->import( $data );
+//}
 
 if ( $settings->uninstall_data == 'remove' ) {
 	$scan = \WP_Defender\Module\Scan\Model\Scan::findAll();
@@ -40,8 +40,9 @@ if ( $settings->uninstall_data == 'remove' ) {
 
 	$sql = "DROP TABLE IF EXISTS $tableName1, $tableName2;";
 	$wpdb->query( $sql );
-	
+
 	\WP_Defender\Behavior\Utils::instance()->removeDir( \WP_Defender\Behavior\Utils::instance()->getDefUploadDir() );
+	\WP_Defender\Module\Setting\Component\Backup_Settings::clearConfigs();
 }
 
 if ( $settings->uninstall_settings == 'reset' ) {

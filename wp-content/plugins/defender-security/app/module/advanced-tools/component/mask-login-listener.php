@@ -85,24 +85,50 @@ class Mask_Login_Listener extends Component {
 	}
 	
 	public function handleLoginRequest() {
-		//need to check if the current request is for signup, login, if those is not the slug, then we redirect
-		//to the 404 redirect, or 403 wp die
-		$requestPath = Mask_Api::getRequestPath();
-		$settings    = Mask_Settings::instance();
-		$ticket      = HTTP_Helper::retrieveGet( 'ticket', false );
+		$ticket = HTTP_Helper::retrieveGet( 'ticket', false );
 		if ( $ticket !== false && Mask_Api::redeemTicket( $ticket ) ) {
 			//we have an express ticket
 			return true;
 		}
-		if ( '/' . ltrim( $settings->mask_url, '/' ) == $requestPath ) {
+		//need to check if the current request is for signup, login, if those is not the slug, then we redirect
+		//to the 404 redirect, or 403 wp die
+		$requestPath = Mask_Api::getRequestPath();
+		$settings    = Mask_Settings::instance();
+		if ( '/' . ltrim( $settings->mask_url, '/' ) === $requestPath ) {
 			//we need to redirect this one to wp-login and open it
 			$this->_showLoginPage();
-		} elseif ( substr( $requestPath, 0, 9 ) == '/wp-admin' ) {
-			//this one try to login to wp-admin, redirect or lock it
-			$this->_handleRequestToAdmin();
-		} elseif ( $requestPath == '/wp-login.php' || $requestPath == '/login' ) {
-			//this one want to login, redirect or lock
-			$this->_handleRequestToLoginPage();
+		}
+		if ( is_user_logged_in() ) {
+			//do nothing
+			return;
+		}
+
+		if ( defined( 'DOING_AJAX' ) ) {
+			//we listen on normal requests, not ajax
+			return;
+		}
+		/**
+		 * /wp-admin/admin.php
+		 * /login
+		 * /wp-login.php
+		 */
+		$loginSlugs = [
+			'wp-admin',
+			'wp-login.php',
+			'login',
+			'dashboard',
+			'admin',
+			'wp-signup.php'
+		];
+		//else lock it
+		$requestPath = ltrim( $requestPath, '/' );
+		//decoded url path, e.g. for case 'wp-%61dmin'
+		$pathDecoded = rawurldecode( $requestPath );
+		foreach ( $loginSlugs as $slug ) {
+			if ( stristr( $requestPath, $slug ) || stristr( $pathDecoded, $slug ) ) {
+				//catch
+				return $this->_maybeLock();
+			}
 		}
 	}
 	
@@ -222,34 +248,6 @@ class Mask_Login_Listener extends Component {
 		}
 		
 		return $currentUrl;
-	}
-	
-	/**
-	 * Catch any request to wp-admin/*, block or redirect it base on settings.
-	 * This wont apply for logged in user
-	 */
-	private function _handleRequestToAdmin() {
-		global $pagenow;
-		if ( defined( 'DOING_AJAX' ) ) {
-			//we need to allow ajax access for other tasks
-			return;
-		}
-		if ( is_user_logged_in() ) {
-			return;
-		}
-		
-		if ( ( $key = HTTP_Helper::retrieveGet( 'otp', false ) ) !== false
-		     && Mask_Api::verifyOTP( $key ) ) {
-			return;
-		}
-		
-		$this->_maybeLock();
-	}
-	
-	private function _handleRequestToLoginPage() {
-		if ( ! is_user_logged_in() ) {
-			$this->_maybeLock();
-		}
 	}
 	
 	private function _showLoginPage() {
