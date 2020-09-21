@@ -502,7 +502,7 @@ class ACFHeroFields
       								'class' => '',
       								'id' => '',
       							),
-      							'return_format' => 'id',
+      							'return_format' => 'url',
       							'preview_size' => 'thumbnail',
       							'library' => 'all',
       							'min_width' => '',
