@@ -8,14 +8,12 @@ $thirdHeadline = get_sub_field('header_text_line_three');
 
 <div class="hero hero-program_callouts">
   <div class="overlay"></div>
-  <div id="hero-img" class="hero-img-container" data-responsive-background-image>
-  <?php echo wp_get_attachment_image( $heroBgImg, $heroBgImgSize );?>
+  <div id="hero-img" class="hero-img-container" style="background-image: url('<?php echo $heroBgImg; ?>');">
   </div>
   <div class="hero-content-container">
 
     <?php if ($firstHeadline || $secondHeadline || $thirdHeadline) { ?>
-      <h1 class="heading-container" data-responsive-background-image>
-        <?php echo wp_get_attachment_image( $heroBgImg, $heroBgImgSize );?>
+      <h1 class="heading-container">
         <span class="small-headline"><?php echo $firstHeadline; ?></span>
         <span class="large-headline"><?php echo $secondHeadline; ?></span>
         <span class="small-headline"><?php echo $thirdHeadline; ?></span>

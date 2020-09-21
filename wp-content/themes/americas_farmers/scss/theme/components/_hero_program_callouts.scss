@@ -9,7 +9,20 @@
     z-index: 1;
     transition: opacity .3s ease-in-out;
   }
+  .hero-img-container {
+    display: none;
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0;
+    @include grid-media($medium-min) {
+      display: block;
+    }
+  }
   .hero-content-container {
+    z-index: 2;
+    position: relative;
     padding: 0;
     background-size: 0;
     background-color: #f8f7f6;
