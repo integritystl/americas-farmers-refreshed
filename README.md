@@ -2,7 +2,7 @@
 Rebuild of the Americas Farmers site for Monsanto
 
 ## Team
-- Dev Lead: Lindsay Hornsby
+- Dev Lead: Julia Cramer
 - Dev Support: Jordan Fautley
 - Dev Support: Laura Kong
 - PM: Jamal Mclaughlin
