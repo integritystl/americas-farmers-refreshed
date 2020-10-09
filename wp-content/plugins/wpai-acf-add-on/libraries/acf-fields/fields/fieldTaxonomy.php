@@ -243,9 +243,13 @@ class FieldTaxonomy extends Field {
                 $values[$tx_name] = $value;
             }
             return $values;
-        }
-        else{
-            $value = $this->getOption('is_multiple_field') ? explode(",", parent::getFieldValue()) : parent::getFieldValue();
+        } else {
+			if ($this->getOption('is_multiple_field')) {
+				$value = $this->options['values'];
+			} else {
+				$value = parent::getFieldValue();
+			}
+
         }
         return $value;
     }
