@@ -140,16 +140,16 @@
 							{{ __("Files & Folders") }}
 						</span>
             <span class="sui-description">
-							{{ __("Choose specific files and folders that you want to automatically ban users/bots from accessing, or whitelist access to.") }}
+							{{ __("Choose specific files and folders that you want to automatically ban users/bots from accessing, or allow access to.") }}
 						</span>
           </div>
           <div class="sui-box-settings-col-2">
-            <strong>{{ __("Blacklist") }}</strong>
+            <strong>{{ __("Blocklist") }}</strong>
             <p class="sui-description">
-              {{ __("Add file or folder URLs you want to automatically ban. Users or bots who request blacklisted them will be locked out as per your 404 rules above.") }}
+              {{ __("Add file or folder URLs you want to automatically ban. Users or bots who request them will be locked out as per your 404 rules above.") }}
             </p>
             <div class="sui-border-frame">
-              <label class="sui-label">{{ __("Blacklisted files & folders") }}</label>
+              <label class="sui-label">{{ __("Blocklisted files & folders") }}</label>
               <textarea class="sui-form-control"
                         name="detect_404_blacklist"
                         v-model="model.detect_404_blacklist"
@@ -158,12 +158,12 @@
 								{{ __("One URL per line. You must list the full path beginning with a /.") }}
 							</span>
             </div>
-            <strong>{{ __("Whitelist") }}</strong>
+            <strong>{{ __("Allowlist") }}</strong>
             <p class="sui-description">
               {{ __("If you know a common file or folder on your website is missing, you can record it here so it doesn't count towards a lockout record.") }}
             </p>
             <div class="sui-border-frame">
-              <label class="sui-label">{{ __("Whitelisted files & folders") }}</label>
+              <label class="sui-label">{{ __("Allowlisted files & folders") }}</label>
               <textarea class="sui-form-control"
                         id="detect_404_whitelist" name="detect_404_whitelist"
                         v-model="model.detect_404_whitelist"
@@ -180,27 +180,27 @@
 							{{ __("Filetypes & Extensions") }}
 						</span>
             <span class="sui-description">
-							{{ __("Choose which types of files or extentions you want to auto-ban or whitelist.") }}
+							{{ __("Choose which types of files or extensions you want to auto-ban or allow.") }}
 						</span>
           </div>
           <div class="sui-box-settings-col-2">
-            <strong>{{ __("Blacklist") }}</strong>
+            <strong>{{ __("Blocklist") }}</strong>
             <p class="sui-description">
-              {{ __("Add a common filetype or extention you want to auto-ban. Users or bots who request blacklisted filetypes or extensions will be locked out as per your 404 rules above.") }}
+              {{ __("Add a common filetype or extension you want to auto-ban. Users or bots who request blocklisted filetypes or extensions will be locked out as per your 404 rules above.") }}
             </p>
             <div class="sui-border-frame">
-              <label class="sui-label">{{ __("Blacklisted filetypes & extensions") }}</label>
+              <label class="sui-label">{{ __("Blocklisted filetypes & extensions") }}</label>
               <textarea class="sui-form-control"
                         name="detect_404_filetypes_blacklist"
                         v-model="model.detect_404_filetypes_blacklist"
                         rows="8"></textarea>
             </div>
-            <strong>{{ __("Whitelist") }}</strong>
+            <strong>{{ __("Allowlist") }}</strong>
             <p class="sui-description">
               {{ __("Defender will log the 404 error, but won't lockout the user for these filetypes.") }}
             </p>
             <div class="sui-border-frame">
-              <label class="sui-label">{{ __("Whitelisted filetypes & extentions") }}</label>
+              <label class="sui-label">{{ __("Allowlisted filetypes & extensions") }}</label>
               <textarea class="sui-form-control"
                         id="detect_404_blacklist" name="detect_404_ignored_filetypes"
                         v-model="model.detect_404_ignored_filetypes"

@@ -1,13 +1,13 @@
 === Defender Security - Malware Scanner, Login Security & Firewall ===
 Plugin Name: Defender Security - Malware Scanner, Login Security & Firewall
-Version: 2.3
+Version: 2.3.2
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV, WebFactory
 Tags: security plugin, security, firewall, malware, malware scanner, antivirus, ip blocking, login security, brute force attacks, two-factor authentication, activity log, audit logs, block hackers, 2fa, hack
 Requires at least: 5.0
 Tested up to: 5.5
-Stable tag: 2.3.1
+Stable tag: 2.3.2
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Security plugin with malware scanner, IP blocking, audit logs, activity logs, firewall, login security & more.
@@ -162,6 +162,20 @@ WPMU DEV's expert support will restore and clean up your site after it’s been 
 
 
 == Changelog ==
+
+= 2.3.2 =
+- New: Add a separate Tutorials sub-menu and X-icon to remove it from the Dashboard
+- Improvement: Change mention of blacklist and whitelist to blocklist and allowlist on Defender pages
+- Improvement: Change Documentation links for Firewall and Malware Scanning
+- Improvement: Config Improvements
+- Fix: Display custom login forms if the Defender Masking URL is enabled
+- Fix: Receive email from Defender security tweaks daily
+- Fix: Activate 'Mask Login Area' through the Defender dashboard
+- Fix: Correct display of the Audit log for a new registered user - except for a Subscriber role - in MU
+- Fix: Masked login alters ajaxurl in MU in sites table page
+- Fix: Remove 'ambient-light-sensor', 'picture-in-picture', 'speaker' and 'vr' directives from Feature-Policy header
+- Fix: Compatibility with HUB
+- Other minor enhancements and fixes
 
 = 2.3.1 =
 - New: Feature to save presets configurations of the Defender's settings, and make them available to download and apply to your other sites.

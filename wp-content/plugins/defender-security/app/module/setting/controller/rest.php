@@ -132,7 +132,7 @@ class Rest extends Controller {
 
 		if ( ! $this->validate_importer( $importer ) ) {
 			wp_send_json_error( [
-				'message' => __( 'The file is corrupted.', "defender-security" )
+				'message' => __( 'An error occurred while importing the file. Please check your file or upload another file.', "defender-security" )
 			] );
 		}
 
@@ -177,10 +177,12 @@ class Rest extends Controller {
 			}
 			$configs['configs'][ $slug ] = $model->exportByKeys( array_keys( $module ) );
 		}
-		$configs['description'] = Setting\Component\Backup_Settings::buildConfigDescription( $configs['configs'] );
+		$configs['description'] = isset( $importer['description'] ) && ! empty( $importer['description'] )
+			? sanitize_textarea_field( $importer['description'] )
+			: '';
 		$tmp                    = Setting\Component\Backup_Settings::parseDataForImport( $configs['configs'] );
 		$configs['strings']     = $tmp['strings'];
-		$key                    = 'wp_defender_config_' . sanitize_file_name( $name ) . time();
+		$key                    = 'wp_defender_config_import_' . time();
 		update_site_option( $key, $configs );
 		Setting\Component\Backup_Settings::indexKey( $key );
 		wp_send_json_success( [
@@ -192,11 +194,10 @@ class Rest extends Controller {
 	}
 
 	private function validate_importer( $importer ) {
-		if ( ! isset( $importer['name'] ) || ! isset( $importer['description'] ) ||
+		if ( ! isset( $importer['name'] ) ||
 		     ! isset( $importer['configs'] ) || ! isset( $importer['strings'] )
-		     || empty( $importer['name'] ) || empty( $importer['description'] ) || empty( $importer['strings'] )
+		     || empty( $importer['name'] ) || empty( $importer['strings'] )
 		) {
-
 			return false;
 		}
 		//validate content
@@ -229,27 +230,35 @@ class Rest extends Controller {
 		}
 
 		$name = trim( HTTP_Helper::retrievePost( 'name' ) );
+		$desc = wp_kses_post( HTTP_Helper::retrievePost( 'desc', '' ) );
 		if ( empty( $name ) ) {
 			wp_send_json_error( [
 				'message' => __( 'Invalid config name', "defender-security" )
 			] );
 		}
 		$name     = strip_tags( $name );
-		$key      = 'wp_defender_config_' . sanitize_file_name( $name ) . time();
+		$key      = 'wp_defender_config_' . time();
 		$settings = Setting\Component\Backup_Settings::parseDataForImport();
 		$data     = array_merge( [
 			'name'        => $name,
 			'immortal'    => false,
-			'description' => Setting\Component\Backup_Settings::buildConfigDescription( $settings['configs'] )
+			'description' => $desc
 		], $settings );
 		unset( $data['labels'] );
-		update_site_option( $key, $data );
-		Setting\Component\Backup_Settings::indexKey( $key );
-		wp_send_json_success( [
-			'message' => sprintf( __( '<strong>%s</strong> config saved successfully.', "defender-security" ),
-				$name ),
-			'configs' => Setting\Component\Backup_Settings::getConfigs()
-		] );
+		if ( update_site_option( $key, $data ) ) {
+			Setting\Component\Backup_Settings::indexKey( $key );
+			wp_send_json_success( [
+				'message' => sprintf(
+					__( '<strong>%s</strong> config saved successfully.', "defender-security" ),
+					$name
+				),
+				'configs' => Setting\Component\Backup_Settings::getConfigs()
+			] );
+		} else {
+			wp_send_json_error( [
+				'message' => __( 'An error occurred while saving your config. Please try it again.', "defender-security" )
+			] );
+		}
 	}
 
 	public function downloadConfig() {
@@ -312,7 +321,7 @@ class Rest extends Controller {
 				'message' => __( 'Invalid config', "defender-security" )
 			] );
 		}
-
+		Setting\Component\Backup_Settings::makeConfigActive( $key );
 		$need_reauth = Setting\Component\Backup_Settings::restoreData( $config['configs'] );
 		$message     = sprintf( __( '<strong>%s</strong> config has been applied successfully.',
 			"defender-security" ),
@@ -349,8 +358,9 @@ class Rest extends Controller {
 			return;
 		}
 
-		$name = trim( HTTP_Helper::retrievePost( 'name' ) );
-		$key  = trim( HTTP_Helper::retrievePost( 'key' ) );
+		$name        = trim( HTTP_Helper::retrievePost( 'name' ) );
+		$description = trim( HTTP_Helper::retrievePost( 'description' ) );
+		$key         = trim( HTTP_Helper::retrievePost( 'key' ) );
 		if ( empty( $name ) || empty( $key ) ) {
 			wp_send_json_error( [
 				'message' => __( 'Invalid config', "defender-security" )
@@ -364,13 +374,21 @@ class Rest extends Controller {
 			] );
 		}
 
-		$config['name'] = $name;
-		update_site_option( $key, $config );
-		wp_send_json_success( [
-			'message' => sprintf( __( '<strong>%s</strong> config saved successfully.', "defender-security" ),
-				$name ),
-			'configs' => Setting\Component\Backup_Settings::getConfigs()
-		] );
+		$config['name']        = sanitize_text_field( $name );
+		$config['description'] = sanitize_textarea_field( $description );
+		if ( update_site_option( $key, $config ) ) {
+			wp_send_json_success( [
+				'message' => sprintf(
+					__( '<strong>%s</strong> config saved successfully.', "defender-security" ),
+					$name
+				),
+				'configs' => Setting\Component\Backup_Settings::getConfigs()
+			]);
+		} else {
+			wp_send_json_error( [
+				'message' => __( 'An error occurred while saving your config. Please try it again.', "defender-security" )
+			] );
+		}
 	}
 
 	public function deleteConfig() {

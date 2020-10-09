@@ -3,19 +3,18 @@
     <div class="defender-dashboard">
       <div class="sui-header">
         <h1 class="sui-header-title">{{ __("Dashboard") }}</h1>
-        <doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender"></doc-link>
+        <doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#defender-dashboard"></doc-link>
       </div>
-      <tutorial></tutorial>
       <summary-box>
         <div class="sui-summary-segment">
           <div class="sui-summary-details">
             <span class="sui-summary-large" v-text="countTotalIssues"></span>
             <span class="sui-tooltip sui-tooltip-top-left sui-tooltip-constrained" :data-tooltip="tooltips">
-                            <i aria-hidden="true" class="sui-icon-check-tick sui-success"
-                               v-if="this.security_tweaks.count.issues === 0 && this.scan.count === 0">
-                            </i>
-                            <i class="sui-icon-info sui-warning" aria-hidden="true" v-else></i>
-                        </span>
+                <i aria-hidden="true" class="sui-icon-check-tick sui-success"
+                   v-if="this.security_tweaks.count.issues === 0 && this.scan.count === 0">
+                </i>
+                <i class="sui-icon-info sui-warning" aria-hidden="true" v-else></i>
+            </span>
             <span class="sui-summary-sub">{{ __("security issues") }}</span>
           </div>
         </div>
@@ -46,6 +45,7 @@
           </ul>
         </div>
       </summary-box>
+      <tutorial v-if="show_tutorials==true"></tutorial>
       <div class="sui-row">
         <div class="sui-col-md-6">
           <security-tweaks></security-tweaks>
@@ -107,6 +107,7 @@ export default {
   name: "dashboard",
   data: function () {
     return {
+      show_tutorials: dashboard.tutorials.show,
       quick_setup: parseInt(dashboard.quick_setup.show),
       show_features: dashboard.new_features.show,
       is_free: parseInt(defender.is_free),

@@ -17,6 +17,9 @@ class Sh_X_Frame extends Security_Header {
 		if ( ! $model->sh_xframe ) {
 			return false;
 		}
+		if ( isset( $model->sh_xframe_mode ) && ! empty( $model->sh_xframe_mode ) ) {
+			return true;
+		}
 		$headers = $this->headRequest( network_site_url(), self::$rule_slug );
 		if ( is_wp_error( $headers ) ) {
 			Utils::instance()->log( sprintf( 'Self ping error: %s', $headers->get_error_message() ), 'security-headers' );
@@ -24,7 +27,7 @@ class Sh_X_Frame extends Security_Header {
 			return false;
 		}
 
-		if ( isset( $headers['x-frame-options'] ) && empty( $model->sh_xframe_mode ) ) {
+		if ( isset( $headers['x-frame-options'] ) ) {
 			$header_xframe = is_array( $headers['x-frame-options'] ) ? $headers['x-frame-options'][0] : $headers['x-frame-options'];
 
 			$content = strtolower( trim( $header_xframe ) );

@@ -1,8 +1,22 @@
 Plugin Name: WP Defender
-Author: Hoang Ngo, Aaron Edwards
-Tested up to: 5.4
+Author: Hoang Ngo, Aaron Edwards, Anton Shulga
+Tested up to: 5.5
 
 Change Log:
+
+2.3.2 - 2020-09-14
+- New: Add a separate Tutorials sub-menu and X-icon to remove it from the Dashboard
+- Improvement: Change mention of blacklist and whitelist to blocklist and allowlist on Defender pages
+- Improvement: Change Documentation links for Firewall and Malware Scanning
+- Improvement: Config Improvements
+- Fix: Display custom login forms if the Defender Masking URL is enabled
+- Fix: Receive email from Defender security tweaks daily
+- Fix: Activate 'Mask Login Area' through the Defender dashboard
+- Fix: Correct display of the Audit log for a new registered user - except for a Subscriber role - in MU
+- Fix: Masked login alters ajaxurl in MU in sites table page
+- Fix: Remove 'ambient-light-sensor', 'picture-in-picture', 'speaker' and 'vr' directives from Feature-Policy header
+- Fix: Compatibility with HUB
+- Other minor enhancements and fixes
 
 2.3.1 - 2020-08-06
 ----------------------------------------------------------------------

@@ -38,6 +38,7 @@
           strong {
             color: #333;
             font-size: 13px;
+            margin-right: 5px;
           }
         }
 
@@ -117,21 +118,75 @@
 
     i {
       vertical-align: middle;
+      line-height: 30px;
+      margin-right: 0 !important;
+      font-size: 14px !important;
     }
 
     i:before {
       color: #FFBA01 !important;
+      display: inline-block !important;
+    }
+  }
+
+  .sui-accordion-item-title {
+    strong {
+      margin-right: 10px;
+    }
+
+    .sui-tooltip i {
+      margin-right: 0 !important;
     }
   }
 
   i.sui-icon-check-tick {
-    margin-left: 15px;
     line-height: 14px;
     vertical-align: middle;
   }
 
   i.sui-icon-check-tick:before {
-    color: #286EFA !important;
+    color: #DDDDDD !important;
+    font-size: 12px !important;
+  }
+
+  .config-detail {
+    hr {
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
+    table {
+      td {
+        color: #888888
+      }
+
+      td:nth-child(1) {
+        color: #333
+      }
+
+      tr.odd {
+        background-color: #f8f8f8;
+      }
+    }
+  }
+
+  .sui-accordion-item-body {
+    .sui-description {
+      margin-top: 0;
+      font-weight: 500;
+    }
+  }
+
+  .sui-box-footer {
+    .sui-actions-left {
+      margin-left: 0;
+    }
+  }
+
+  .sui-modal-content {
+    textarea.sui-form-control {
+      line-height: 30px;
+      resize: none;
+    }
   }
 }
 
@@ -188,6 +243,11 @@
 
       .sui-description {
         line-height: 18px;
+        display: flex;
+
+        i {
+          margin-right: 5px;
+        }
       }
     }
   }

@@ -79,34 +79,30 @@ class Main extends Controller {
 
 	public function tweaksSendNotification() {
 		$settings = Hardener\Model\Settings::instance();
-		$canSend  = false;
-		if ( $settings->last_sent ) {
-			if (
-				$settings->notification_repeat == true
-				&& strtotime( apply_filters( 'wd_tweaks_notification_interval', '+24 hours' ),
-					apply_filters( 'wd_tweaks_last_notification_sent', $settings->last_sent ) ) < time() ) {
-				$canSend = true;
-			}
-		} else {
-			//this only happen one
-			if ( ! $settings->last_seen ) {
-				//should not in here
-				$settings->last_seen = time();
-				$settings->save();
-			}
 
-			if ( strtotime( apply_filters( 'wd_tweaks_notification_interval', '+7 days' ),
-					apply_filters( 'wd_tweaks_last_action_time', $settings->last_seen ) ) > time() ) {
+		$lastAction = $settings->last_sent
+			? apply_filters( 'wd_tweaks_last_notification_sent', $settings->last_sent )
+			: apply_filters( 'wd_tweaks_last_action_time', $settings->last_seen );
+
+		if ( ! $lastAction ) {
+			//should not in here
+			$lastAction = $settings->last_seen = time();
+			$settings->save();
+		}
+
+		//Daily
+		if ( true === $settings->notification_repeat ) {
+			if ( strtotime( apply_filters( 'wd_tweaks_notification_interval', '+24 hours' ), $lastAction ) > time() ) {
 				return;
 			}
-
-			$canSend = true;
+		//or weekly
+		} else {
+			if ( strtotime( apply_filters( 'wd_tweaks_notification_interval', '+7 days' ), $lastAction ) > time() ) {
+				return;
+			}
 		}
 
-		if ( ! $canSend ) {
-			return;
-		}
-
+		//notification can send
 		$settings->refreshStatus();
 		$tweaks = $settings->getIssues();
 

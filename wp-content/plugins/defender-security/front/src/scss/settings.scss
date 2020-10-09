@@ -1,4 +1,17 @@
 #configs {
+  input[type="file"] {
+    display: none;
+    opacity: 0;
+  }
+
+  .sui-upsell-items {
+    .sui-box-settings-row {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
   .sui-accordion-item-header {
     .config-description {
       position: relative;
@@ -20,6 +33,7 @@
 
       i {
         margin: 7px;
+        font-size: 14px;
       }
 
       i:before {
@@ -28,39 +42,33 @@
     }
 
     i.sui-icon-check-tick {
-      margin-left: 15px;
+      margin-left: 10px;
     }
 
     i.sui-icon-check-tick:before {
-      color: #286EFA
-    }
-  }
-
-  .sui-accordion-item-header:hover {
-    .config-description:after {
-      background: linear-gradient(to left,
-              rgba(248, 248, 248, 1) 30%,
-              rgba(248, 248, 248, 0) 90%
-      );
-      position: absolute;
-      bottom: 0;
-      right: 110px;
-      height: 100%;
-      width: 100%;
-      content: "";
-      transition: 0.3s ease;
+      color: #DDDDDD;
+      font-size: 12px !important;
     }
 
-    .config-description {
-      .quick-apply {
-        position: absolute;
-        display: inline-block;
-        right: 0
+    .defender-config-title {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+    }
+
+    .sui-button-icon {
+      i {
+        margin: 0;
       }
     }
   }
 
   .config-detail {
+    hr{
+      margin-bottom: 20px;
+      margin-top: 20px;
+    }
     table {
       td {
         color: #888888
@@ -73,6 +81,24 @@
       tr.odd {
         background-color: #f8f8f8;
       }
+    }
+  }
+
+  .sui-modal-content {
+    textarea.sui-form-control {
+      line-height: 30px;
+      resize: none;
+    }
+  }
+
+  @media (min-width: 783px) {
+    .sui-box-body .sui-upsell-row .defender-config-notice-info {
+      padding-left: 130px;
+    }
+  }
+  @media (max-width: 768px) {
+    .config-description {
+      display: none;
     }
   }
 }

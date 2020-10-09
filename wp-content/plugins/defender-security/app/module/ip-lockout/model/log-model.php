@@ -112,9 +112,11 @@ class Log_Model extends DB_Model {
 
 	/**
 	 * Return summary data
+	 * @param  bool  $for_hub
+	 *
 	 * @return array
 	 */
-	public static function getSummary() {
+	public static function getSummary( $for_hub = false ) {
 		$lockouts = Log_Model::findAll( array(
 			'type' => array(
 				Log_Model::LOCKOUT_404,
@@ -158,7 +160,9 @@ class Log_Model extends DB_Model {
 		foreach ( $lockouts as $k => $log ) {
 			//the other as DESC, so first will be last lockout
 			if ( $k == 0 ) {
-				$lastLockout = Utils::instance()->formatDateTime( date( 'Y-m-d H:i:s', $log->date ) );
+				$lastLockout = $for_hub
+					? date( 'Y-m-d H:i:s', $log->date )
+					: Utils::instance()->formatDateTime( date( 'Y-m-d H:i:s', $log->date ) );
 			}
 
 			if ( $log->date > $todayMidnight ) {

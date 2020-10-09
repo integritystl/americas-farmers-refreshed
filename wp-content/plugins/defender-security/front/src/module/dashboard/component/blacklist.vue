@@ -3,7 +3,7 @@
         <div class="sui-box-header">
             <h3 class="sui-box-title">
                 <i class="sui-icon-target" aria-hidden="true"></i>
-                {{__("Blacklist Monitor")}}
+                {{__("Blocklist Monitor")}}
             </h3>
             <div class="sui-actions-right" v-if="status==='blacklisted' || status === 'good'">
                 <label class="sui-toggle">
@@ -14,7 +14,7 @@
         </div>
         <div class="sui-box-body">
             <p>
-                {{__("Automatically check if you’re on Google’s blacklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
+                {{__("Automatically check if you’re on Google’s blocklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
             </p>
             <div class="sui-notice sui-notice-info" v-if="status==='fetching'">
                 <div class="sui-notice-content">
@@ -36,7 +36,7 @@
                     <div class="sui-notice-message">
                         <i class="sui-notice-icon sui-icon-info sui-md" aria-hidden="true"></i>
                         <p>
-                            {{__("Your domain is currently on Google’s blacklist. Check out the article below to find out how to fix up your domain.")}}
+                            {{__("Your domain is currently on Google’s blocklist. Check out the article below to find out how to fix up your domain.")}}
                         </p>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="sui-center-box no-padding-bottom" v-if="status!=='new'">
                 <p class="sui-p-small">
-                    {{__("Want to know more about blacklisting?")}} <a target="_blank"
+                    {{__("Want to know more about blocklisting?")}} <a target="_blank"
                                                                        href="https://premium.wpmudev.org/blog/get-off-googles-blacklist/">{{__("Read this article.")}}</a>
                 </p>
             </div>
