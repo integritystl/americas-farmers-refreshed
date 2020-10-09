@@ -15,7 +15,8 @@ module.exports = {
         'advanced-tools': './src/advanced-tools.js',
         'two-fa': './src/two-fa.js',
         'waf': './src/waf.js',
-        settings: './src/settings.js'
+        settings: './src/settings.js',
+        'tutorial': './src/tutorial.js'
     },
     output: {
         path: __dirname + '/../assets/app',

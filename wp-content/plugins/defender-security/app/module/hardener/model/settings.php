@@ -127,13 +127,6 @@ class Settings extends \Hammer\WP\Settings {
 
 	public $automate = false;
 
-	/**
-	 * shorthand to add to a list
-	 *
-	 * @param $slug
-	 * @param $devPush
-	 */
-
 	public function __construct( $id, $is_multi ) {
 		if ( is_admin() || is_network_admin() && current_user_can( 'manage_options' ) ) {
 			$user = wp_get_current_user();

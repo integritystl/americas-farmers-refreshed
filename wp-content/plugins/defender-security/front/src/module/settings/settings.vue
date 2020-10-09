@@ -34,9 +34,10 @@
                     </ul>
                     <div class="sui-sidenav-hide-lg">
                         <select class="sui-mobile-nav">
-                            <option value="general">{{__("General")}}</option>
-                            <option value="data">{{__("Data & Settings")}}</option>
-                            <option value="accessibility">{{__("Accessibility")}}</option>
+                            <option value="general" :selected="view==='general'">{{__("General")}}</option>
+                            <option value="configs" :selected="view==='configs'">{{__("Configs")}}</option>
+                            <option value="data" :selected="view==='data'">{{__("Data & Settings")}}</option>
+                            <option value="accessibility" :selected="view==='accessibility'">{{__("Accessibility")}}</option>
                         </select>
                     </div>
                 </div>

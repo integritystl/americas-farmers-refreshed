@@ -10,7 +10,7 @@
 						{{__("New Scan")}}
 					</button>
 				</div>
-				<doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/"></doc-link>
+				<doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#malware-scanning"></doc-link>
 			</div>
 			<div class="sui-modal sui-modal-lg">
 

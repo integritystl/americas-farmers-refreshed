@@ -102,20 +102,22 @@ class Rest extends Controller {
 		$type = sanitize_key( $type );
 
 		if ( $ip && filter_var( $ip, FILTER_VALIDATE_IP ) ) {
-			if ( $type == 'unwhitelist' || $type == 'unblacklist' ) {
+			if ( 'unwhitelist' === $type || 'unblacklist' === $type ) {
 				$type = substr( $type, 2 );
+				$type = 'whitelist' === $type ? 'allowlist' : 'blocklist';
 				Settings::instance()->removeIpFromList( $ip, $type );
 				wp_send_json_success( array(
 					'message' => sprintf( __( "IP %s has been removed from your %s. You can control your %s in <a href=\"%s\">IP Lockouts.</a>",
 						"defender-security" ), $ip, $type, $type,
-						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blacklist' ) ),
+						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blocklist' ) ),
 				) );
 			} else {
+				$type = 'whitelist' === $type ? 'allowlist' : 'blocklist';
 				Settings::instance()->addIpToList( $ip, $type );
 				wp_send_json_success( array(
 					'message' => sprintf( __( "IP %s has been added to your %s You can control your %s in <a href=\"%s\">IP Lockouts.</a>",
 						"defender-security" ), $ip, $type, $type,
-						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blacklist' ) ),
+						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blocklist' ) ),
 				) );
 			}
 
@@ -169,21 +171,21 @@ class Rest extends Controller {
 					foreach ( $ids as $id ) {
 						$model = Log_Model::findByID( $id );
 						$ips[] = $model->ip;
-						$settings->addIpToList( $model->ip, 'whitelist' );
+						$settings->addIpToList( $model->ip, 'allowlist' );
 					}
-					$messages = sprintf( __( "IP %s has been added to your whitelist. You can control your whitelist in <a href=\"%s\">IP Lockouts.</a>",
+					$messages = sprintf( __( "IP %s has been added to your allowlist. You can control your allowlist in <a href=\"%s\">IP Lockouts.</a>",
 						"defender-security" ), implode( ',', $ips ),
-						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blacklist' ) );
+						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blocklist' ) );
 					break;
 				case 'ban':
 					foreach ( $ids as $id ) {
 						$model = Log_Model::findByID( $id );
 						$ips[] = $model->ip;
-						$settings->addIpToList( $model->ip, 'blacklist' );
+						$settings->addIpToList( $model->ip, 'blocklist' );
 					}
-					$messages = sprintf( __( "IP %s has been added to your blacklist You can control your blacklist in <a href=\"%s\">IP Lockouts.</a>",
+					$messages = sprintf( __( "IP %s has been added to your blocklist You can control your blocklist in <a href=\"%s\">IP Lockouts.</a>",
 						"defender-security" ), implode( ',', $ips ),
-						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blacklist' ) );
+						network_admin_url( 'admin.php?page=wdf-ip-lockout&view=blocklist' ) );
 					break;
 				case 'delete':
 					foreach ( $ids as $id ) {
@@ -283,7 +285,7 @@ class Rest extends Controller {
 			$settings->addIpToList( $line[0], $line[1] );
 		}
 		wp_send_json_success( array(
-			'message'   => __( "Your whitelist/blacklist has been successfully imported.", "defender-security" ),
+			'message'   => __( "Your allowlist/blocklist has been successfully imported.", "defender-security" ),
 			'reload'    => 1,
 			'blacklist' => $settings->getIpBlacklist(),
 			'whitelist' => $settings->getIpWhitelist()
@@ -351,7 +353,7 @@ class Rest extends Controller {
 			$isBLSelf = WP_Helper::getArrayCache()->get( 'isBlacklistSelf', false );
 			if ( $faultIps || $isBLSelf ) {
 				$res = array(
-					'message' => sprintf( __( "Your settings have been updated, however some IPs were removed because invalid format, or you blacklist yourself",
+					'message' => sprintf( __( "Your settings have been updated, however some IPs were removed because invalid format, or you blocklist yourself",
 						"defender-security" ), implode( ',', $faultIps ) ),
 					'reload'  => 1
 				);

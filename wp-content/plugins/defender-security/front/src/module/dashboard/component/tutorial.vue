@@ -9,6 +9,12 @@
           <i class="sui-icon-open-new-window icon-link-blue sui-sm"
              aria-hidden="true"></i>{{__('View all')}}
         </a>
+        <button @click="hide" class="sui-button-icon sui-tooltip"
+                :style="{'marginLeft':'10px'}"
+                data-tooltip="Hide tutorials"
+                aria-label="Close this dialog window">
+          <i class="sui-icon-close"></i>
+        </button>
       </div>
     </div>
     <div class="sui-box-body">
@@ -20,7 +26,9 @@
                  aria-hidden="true"/>
             <div class="wd-tutorial-title-text">
               <small class="no-margin-bottom" v-html="tutorialTitle(1, tutorialLink1)"></small>
-              <p class="sui-description no-margin-top">{{__('*5 min read')}}</p>
+              <p class="sui-description no-margin-top">
+                <i class="sui-icon-clock" aria-hidden="true"></i> 5 {{timeRead}}
+              </p>
             </div>
           </div>
           <p class="sui-description wd-tutorial-desc" v-html="tutorialDesc(1, tutorialLink1)"></p>
@@ -32,7 +40,9 @@
                  aria-hidden="true"/>
             <div class="wd-tutorial-title-text">
               <small class="no-margin-bottom" v-html="tutorialTitle(2, tutorialLink2)"></small>
-              <p class="sui-description no-margin-top">{{__('*6 min read')}}</p>
+              <p class="sui-description no-margin-top">
+                <i class="sui-icon-clock" aria-hidden="true"></i> 6 {{timeRead}}
+              </p>
             </div>
           </div>
           <p class="sui-description wd-tutorial-desc" v-html="tutorialDesc(2, tutorialLink2)"></p>
@@ -44,7 +54,9 @@
                  aria-hidden="true"/>
             <div class="wd-tutorial-title-text">
               <small class="no-margin-bottom" v-html="tutorialTitle(3, tutorialLink3)"></small>
-              <p class="sui-description no-margin-top">{{__('*7 min read')}}</p>
+              <p class="sui-description no-margin-top">
+                <i class="sui-icon-clock" aria-hidden="true"></i> 7 {{timeRead}}
+              </p>
             </div>
           </div>
           <p class="sui-description wd-tutorial-desc" v-html="tutorialDesc(3, tutorialLink3)"></p>
@@ -56,7 +68,9 @@
                  aria-hidden="true"/>
             <div class="wd-tutorial-title-text">
               <small class="no-margin-bottom" v-html="tutorialTitle(4, tutorialLink4)"></small>
-              <p class="sui-description no-margin-top">{{__('*6 min read')}}</p>
+              <p class="sui-description no-margin-top">
+                <i class="sui-icon-clock" aria-hidden="true"></i> 6 {{timeRead}}
+              </p>
             </div>
           </div>
           <p class="sui-description wd-tutorial-desc" v-html="tutorialDesc(4, tutorialLink4)"></p>
@@ -98,14 +112,21 @@
           tablet: 782,
           largeDevice: 1200
         },
+        timeRead: '',
         tutorialLink1: 'https://premium.wpmudev.org/blog/stop-hackers-with-defender-wordpress-security-plugin/',
         tutorialLink2: 'https://premium.wpmudev.org/blog/delete-suspicious-code-defender/',
         tutorialLink3: 'https://premium.wpmudev.org/blog/how-to-get-the-most-out-of-defender-security/',
-        tutorialLink4: 'https://premium.wpmudev.org/blog/defender-ip-address-lockout-firewall/'
+        tutorialLink4: 'https://premium.wpmudev.org/blog/defender-ip-address-lockout-firewall/',
+        state: {
+          on_saving: false
+        },
+        nonces: dashboard.tutorials.nonces,
+        endpoints: dashboard.tutorials.endpoints
       }
     },
     created: function () {
       this.showMore = ! this.isMobile() ? true : false;
+      this.timeRead = this.__('min read');
     },
     computed: {
       documentWidth: function () {
@@ -203,6 +224,28 @@
         } else {
           this.prevSlide();
         }
+      },
+      hide: function () {
+          let that = this;
+          this.state.on_saving = true;
+          let url = ajaxurl + '?action=' + this.endpoints['hide'] + '&_wpnonce=' + this.nonces['hide'];
+          jQuery.ajax({
+            url: url,
+            method: 'post',
+            data: this.model,
+            success: function (response) {
+              let data = response.data;
+              that.state.on_saving = false;
+              if (data !== undefined && data.message !== undefined) {
+                if (response.success) {
+                  jQuery('.wd-tutorial').hide();
+                  Defender.showNotification('success', data.message, true);
+                } else {
+                  Defender.showNotification('error', data.message);
+                }
+              }
+            }
+          })
       }
     },
     beforeDestroy () {

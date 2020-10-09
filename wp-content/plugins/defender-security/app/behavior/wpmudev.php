@@ -158,8 +158,8 @@ class WPMUDEV extends Behavior {
 	public function stats_security_headers() {
 		$settings = Security_Headers_Settings::instance();
 		$headers  = [];
-		foreach ( array_slice( $settings->getHeaders(), 0, 3 ) as $header ) {
-			$headers[ $header->getTitle() ] = $header->check();
+		foreach ( $settings->getHeaders() as $header ) {
+			$headers[ $header::$rule_slug ] = $header->check();
 		}
 
 		return $headers;

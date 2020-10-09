@@ -13,6 +13,7 @@ use WP_Defender\Component\Data_Factory;
 use WP_Defender\Controller;
 use WP_Defender\Module\Advanced_Tools\Model\Mask_Settings;
 use WP_Defender\Module\Audit\Component\Audit_API;
+use WP_Defender\Module\Audit\Model\Events;
 use WP_Defender\Module\IP_Lockout\Component\Login_Protection_Api;
 use WP_Defender\Module\IP_Lockout\Model\Log_Model;
 use WP_Defender\Module\Scan\Component\Scan_Api;
@@ -43,6 +44,7 @@ class Dashboard extends Controller {
 		$this->addAjaxAction( 'wp-defender/v1/activateModule', $module_activation );
 		$this->addAjaxAction( 'wp-defender/v1/skipActivator', 'skipQuickSetup' );
 		$this->addAjaxAction( 'wp-defender/v1/hideFeature', 'hideFeature' );
+		$this->addAjaxAction( 'wp-defender/v1/hideTutorials', 'hideTutorials' );
 		$this->addAction( 'defenderSubmitStats', 'defenderSubmitStats' );
 		$this->addFilter( 'wdp_register_hub_action', 'addMyEndpoint' );
 		add_filter( 'custom_menu_order', '__return_true' );
@@ -211,6 +213,22 @@ class Dashboard extends Controller {
 		wp_send_json_success();
 	}
 
+	public function hideTutorials() {
+		if ( ! $this->checkPermission() ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( HTTP_Helper::retrieveGet( '_wpnonce' ), 'hideTutorials' ) ) {
+			return;
+		}
+		delete_site_option( 'wp_defender_show_tutorials' );
+		wp_send_json_success( array(
+			'message' => sprintf( __( "The widget has been removed. You can check all defender tutorials at the <a href=\"%s\">tutorials' tab</a> at any time.",
+				"defender-security" ),
+				network_admin_url( 'admin.php?page=wdf-tutorial' ) ),
+		) );
+	}
+
 	public function menuOrder( $menu_order ) {
 		global $submenu;
 		if ( isset( $submenu['wp-defender'] ) ) {
@@ -266,14 +284,17 @@ class Dashboard extends Controller {
 		if ( ! class_exists( WPMUDEV::class ) ) {
 			return wp_send_json_error();
 		}
-		$wpmudev = WPMUDEV::instance();
-		$summary = $wpmudev->stats_summary();
-		$report  = $wpmudev->stats_report();
-		$tweaks  = $wpmudev->stats_security_tweaks();
+		$date_format = 'm/d/Y';
+		$wpmudev     = WPMUDEV::instance();
+		$summary     = $wpmudev->stats_summary();
+		$report      = $wpmudev->stats_report();
+		$tweaks      = $wpmudev->stats_security_tweaks();
 		global $wp_version;
-		$scan             = $wpmudev->stats_malware_scan();
-		$firewall         = Log_Model::getSummary();
-		$audit            = Audit_API::summary();
+		$for_hub  = true;
+		$scan     = $wpmudev->stats_malware_scan();
+		$firewall = Log_Model::getSummary( $for_hub );
+
+		$audit            = Audit_API::summary( $for_hub );
 		$security_headers = $wpmudev->stats_security_headers();
 
 		$ret = [
@@ -298,18 +319,22 @@ class Dashboard extends Controller {
 				'notification' => $scan['notification']
 			],
 			'firewall'        => [
-				'last_lockout' => $firewall['lastLockout'],
-				'24_hours'     => [
+				'last_lockout'        => $firewall['lastLockout'],
+				'24_hours'            => [
 					'login_lockout' => $firewall['loginLockoutToday'],
 					'404_lockout'   => $firewall['lockout404Today']
 				],
-				'7_days'       => [
+				'7_days'              => [
 					'login_lockout' => $firewall['loginLockoutThisWeek'],
 					'404_lockout'   => $firewall['lockout404ThisWeek']
 				],
-				'30_days'      => [
+				'30_days'             => [
 					'login_lockout' => $firewall['lockoutLoginThisMonth'],
 					'404_lockout'   => $firewall['lockout404ThisMonth']
+				],
+				'notification_status' => [
+					'login_lockout' => \WP_Defender\Module\IP_Lockout\Model\Settings::instance()->login_lockout_notification,
+					'404_lockout'   => \WP_Defender\Module\IP_Lockout\Model\Settings::instance()->ip_lockout_notification
 				]
 			],
 			'audit'           => [
@@ -327,7 +352,7 @@ class Dashboard extends Controller {
 				'lost_phone' => Auth_Settings::instance()->lost_phone
 			]
 		];
-
+		Utils::instance()->log( json_encode( $ret ) );
 		wp_send_json_success( [
 			'stats' => $ret
 		] );
@@ -502,8 +527,8 @@ class Dashboard extends Controller {
 		$settings = \WP_Defender\Module\IP_Lockout\Model\Settings::instance();
 		$ip       = $params['ip'];
 		if ( $ip && filter_var( $ip, FILTER_VALIDATE_IP ) ) {
-			$settings->removeIpFromList( $ip, 'blacklist' );
-			$settings->addIpToList( $ip, 'whitelist' );
+			$settings->removeIpFromList( $ip, 'blocklist' );
+			$settings->addIpToList( $ip, 'allowlist' );
 		} else {
 			wp_send_json_error();
 		}
@@ -520,8 +545,8 @@ class Dashboard extends Controller {
 		$settings = \WP_Defender\Module\IP_Lockout\Model\Settings::instance();
 		$ip       = $params['ip'];
 		if ( $ip && filter_var( $ip, FILTER_VALIDATE_IP ) ) {
-			$settings->removeIpFromList( $ip, 'whitelist' );
-			$settings->addIpToList( $ip, 'blacklist' );
+			$settings->removeIpFromList( $ip, 'allowlist' );
+			$settings->addIpToList( $ip, 'blocklist' );
 		} else {
 			wp_send_json_error();
 		}
@@ -629,19 +654,23 @@ class Dashboard extends Controller {
 	private function get_menu_icon() {
 		ob_start();
 		?>
-        <svg width="17px" height="18px" viewBox="10 397 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
-        >
-            <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-            <desc>Created with Sketch.</desc>
-            <defs></defs>
-            <path
-                    d="M24.8009393,403.7962 L23.7971393,410.1724 C23.7395393,410.5372 23.5313393,410.8528 23.2229393,411.0532 L18.4001393,413.6428 L13.5767393,411.0532 C13.2683393,410.8528 13.0601393,410.5372 13.0019393,410.1724 L11.9993393,403.7962 L11.6153393,401.3566 C12.5321393,402.9514 14.4893393,405.5518 18.4001393,408.082 C22.3115393,405.5518 24.2675393,402.9514 25.1855393,401.3566 L24.8009393,403.7962 Z M26.5985393,398.0644 C25.7435393,397.87 22.6919393,397.2106 19.9571393,397 L19.9571393,403.4374 L18.4037393,404.5558 L16.8431393,403.4374 L16.8431393,397 C14.1077393,397.2106 11.0561393,397.87 10.2011393,398.0644 C10.0685393,398.0938 9.98213933,398.221 10.0031393,398.3536 L10.8875393,403.969 L11.8913393,410.3446 C12.0071393,411.0796 12.4559393,411.7192 13.1105393,412.0798 L16.8431393,414.1402 L18.4001393,415 L19.9571393,414.1402 L23.6891393,412.0798 C24.3431393,411.7192 24.7925393,411.0796 24.9083393,410.3446 L25.9121393,403.969 L26.7965393,398.3536 C26.8175393,398.221 26.7311393,398.0938 26.5985393,398.0644 L26.5985393,398.0644 Z"
-                    id="Defender-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
-        </svg>
+     <svg width="17px" height="18px" viewBox="10 397 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg"
+     >
+      <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+      <desc>Created with Sketch.</desc>
+      <defs></defs>
+      <path
+        d="M24.8009393,403.7962 L23.7971393,410.1724 C23.7395393,410.5372 23.5313393,410.8528 23.2229393,411.0532 L18.4001393,413.6428 L13.5767393,411.0532 C13.2683393,410.8528 13.0601393,410.5372 13.0019393,410.1724 L11.9993393,403.7962 L11.6153393,401.3566 C12.5321393,402.9514 14.4893393,405.5518 18.4001393,408.082 C22.3115393,405.5518 24.2675393,402.9514 25.1855393,401.3566 L24.8009393,403.7962 Z M26.5985393,398.0644 C25.7435393,397.87 22.6919393,397.2106 19.9571393,397 L19.9571393,403.4374 L18.4037393,404.5558 L16.8431393,403.4374 L16.8431393,397 C14.1077393,397.2106 11.0561393,397.87 10.2011393,398.0644 C10.0685393,398.0938 9.98213933,398.221 10.0031393,398.3536 L10.8875393,403.969 L11.8913393,410.3446 C12.0071393,411.0796 12.4559393,411.7192 13.1105393,412.0798 L16.8431393,414.1402 L18.4001393,415 L19.9571393,414.1402 L23.6891393,412.0798 C24.3431393,411.7192 24.7925393,411.0796 24.9083393,410.3446 L25.9121393,403.969 L26.7965393,398.3536 C26.8175393,398.221 26.7311393,398.0938 26.5985393,398.0644 L26.5985393,398.0644 Z"
+        id="Defender-Icon" stroke="none" fill="#FFFFFF" fill-rule="evenodd"></path>
+     </svg>
 		<?php
 		$svg = ob_get_clean();
 
 		return 'data:image/svg+xml;base64,' . base64_encode( $svg );
+	}
+
+	public function isShowTutorials() {
+		return get_site_option( 'wp_defender_show_tutorials' );
 	}
 
 	public function scripts() {
@@ -677,7 +706,7 @@ class Dashboard extends Controller {
 							'activate' => 'wp-defender/v1/activateModule',
 						),
 					),
-					'new_features' => [
+					'new_features' => array(
 						'show'      => $waf->maybe_show_modal(),
 						'nonces'    => array(
 							'hide' => wp_create_nonce( 'hideFeature' ),
@@ -685,7 +714,16 @@ class Dashboard extends Controller {
 						'endpoints' => array(
 							'hide' => 'wp-defender/v1/hideFeature',
 						),
-					]
+					),
+					'tutorials'    => array(
+						'show'      => $this->isShowTutorials(),
+						'nonces'    => array(
+							'hide' => wp_create_nonce( 'hideTutorials' ),
+						),
+						'endpoints' => array(
+							'hide' => 'wp-defender/v1/hideTutorials',
+						),
+					)
 				)
 			)
 		);

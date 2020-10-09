@@ -170,7 +170,7 @@ class Settings extends \Hammer\WP\Settings {
 	 * @return array
 	 */
 	public function get404Whitelist() {
-		$arr = array_filter( explode( PHP_EOL, $this->detect_404_whitelist ) );;
+		$arr = array_filter( explode( PHP_EOL, $this->detect_404_whitelist ) );
 		$arr = array_map( 'trim', $arr );
 
 		return $arr;
@@ -335,16 +335,19 @@ class Settings extends \Hammer\WP\Settings {
 	}
 
 	/**
+	 * Add IP to list
+	 *
 	 * @param $ip
-	 * @param $list
+	 * @param string $list blocklist|allowlist
+	 * @since 2.3.2
 	 */
 	public function addIpToList( $ip, $list ) {
 		$ips  = array();
 		$type = '';
-		if ( $list == 'blacklist' ) {
+		if ( 'blocklist' === $list ) {
 			$ips  = $this->getIpBlacklist();
 			$type = 'ip_blacklist';
-		} elseif ( $list == 'whitelist' ) {
+		} elseif ( 'allowlist' === $list ) {
 			$ips  = $this->getIpWhitelist();
 			$type = 'ip_whitelist';
 		}
@@ -359,16 +362,19 @@ class Settings extends \Hammer\WP\Settings {
 	}
 
 	/**
+	 * Remove IP from list
+	 *
 	 * @param $ip
-	 * @param $list
+	 * @param string $list blocklist|allowlist
+	 * @since 2.3.2
 	 */
 	public function removeIpFromList( $ip, $list ) {
 		$ips  = array();
 		$type = '';
-		if ( $list == 'blacklist' ) {
+		if ( 'blocklist' === $list ) {
 			$ips  = $this->getIpBlacklist();
 			$type = 'ip_blacklist';
-		} elseif ( $list == 'whitelist' ) {
+		} elseif ( 'allowlist' === $list ) {
 			$ips  = $this->getIpWhitelist();
 			$type = 'ip_whitelist';
 		}

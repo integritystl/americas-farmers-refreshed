@@ -17,8 +17,12 @@ class WD_Main_Activator {
 
 	public function upgradeHook() {
 		$db_ver = get_site_option( 'wd_db_version' );
-		if ( false != $db_ver && version_compare( $db_ver, '2.2.9', '>=' ) ) {
+		if ( false != $db_ver && version_compare( $db_ver, '2.3.2', '>=' ) ) {
 			return;
+		}
+		if ( false != $db_ver && version_compare( $db_ver, '2.3.2', '<' ) ) {
+			//add a flag to show tutorials
+			update_site_option( 'wp_defender_show_tutorials', true );
 		}
 		if ( false != $db_ver && version_compare( $db_ver, '2.2.9', '<' ) ) {
 			// Migrate security headers into Advanced Tools from Security Tweaks
@@ -231,6 +235,7 @@ class WD_Main_Activator {
 			\Hammer\Base\Container::instance()->set( 'advanced_tool', new \WP_Defender\Module\Advanced_Tools() );
 			\Hammer\Base\Container::instance()->set( 'gdpr', new \WP_Defender\Controller\GDPR() );
 			\Hammer\Base\Container::instance()->set( 'setting', new \WP_Defender\Module\Setting() );
+			\Hammer\Base\Container::instance()->set( 'tutorial', new \WP_Defender\Controller\Tutorial() );
 			//no need to set debug
 			require_once $this->wp_defender->getPluginPath() . 'free-dashboard/module.php';
 			add_filter( 'wdev-email-message-' . plugin_basename( __FILE__ ), array( &$this, 'defenderAdsMessage' ) );

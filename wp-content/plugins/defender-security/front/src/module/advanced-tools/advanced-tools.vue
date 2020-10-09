@@ -19,8 +19,8 @@
                     </ul>
                     <div class="sui-sidenav-hide-lg">
                         <select class="sui-mobile-nav">
-                            <option value="mask-login">{{__("Mask Login Area")}}</option>
-                            <option value="security-headers">{{__("Security Headers")}}</option>
+                            <option value="mask-login" :selected="view==='mask-login'">{{__("Mask Login Area")}}</option>
+                            <option value="security-headers" :selected="view==='security-headers'">{{__("Security Headers")}}</option>
                         </select>
                     </div>
                 </div>
