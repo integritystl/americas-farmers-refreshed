@@ -17,6 +17,9 @@ class Sh_XSS_Protection extends Security_Header {
 		if ( ! $model->sh_xss_protection ) {
 			return false;
 		}
+		if ( isset( $model->sh_xss_protection_mode ) && ! empty( $model->sh_xss_protection_mode ) ) {
+			return true;
+		}
 		$headers = $this->headRequest( network_site_url(), self::$rule_slug );
 		if ( is_wp_error( $headers ) ) {
 			Utils::instance()->log( sprintf( 'Self ping error: %s', $headers->get_error_message() ) );
@@ -24,8 +27,10 @@ class Sh_XSS_Protection extends Security_Header {
 			return false;
 		}
 
-		if ( isset( $headers['x-xss-protection'] ) && empty( $model->sh_xss_protection_mode ) ) {
-			$header_xss_protection = is_array( $headers['x-xss-protection'] ) ? $headers['x-xss-protection'][0] : $headers['x-xss-protection'];
+		if ( isset( $headers['x-xss-protection'] ) ) {
+			$header_xss_protection = is_array( $headers['x-xss-protection'] )
+				? $headers['x-xss-protection'][0]
+				: $headers['x-xss-protection'];
 			$content               = strtolower( trim( $header_xss_protection ) );
 			$content               = explode( ';', $content );
 			if ( 1 === count( $content ) ) {

@@ -87,7 +87,7 @@
 								if ($post_type == 'taxonomies'){
 									include( 'options/_reimport_taxonomies_template.php' );
 								}
-                                elseif (in_array($post_type, ['comments', 'reviews'])) {
+                                elseif (in_array($post_type, ['comments', 'woo_reviews'])) {
                                     include( 'options/_reimport_comments_template.php' );
                                 }
 								else{

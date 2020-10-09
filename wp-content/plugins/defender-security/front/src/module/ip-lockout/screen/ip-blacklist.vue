@@ -21,12 +21,12 @@
                     </span>
                     </div>
                     <div class="sui-box-settings-col-2">
-                        <strong>{{__("Blacklist")}}</strong>
+                        <strong>{{__("Blocklist")}}</strong>
                         <p class="sui-description">
                             {{__("Any IP addresses you list here will be completely blocked from accessing your website, including admins.")}}
                         </p>
                         <div class="sui-border-frame">
-                            <label class="sui-label">{{__("Blacklisted IPs")}}</label>
+                            <label class="sui-label">{{__("Blocklisted IPs")}}</label>
                             <textarea class="sui-form-control"
                                       id="ip_blacklist" name="ip_blacklist"
                                       :placeholder="__('Add IP addresses here, one per line')"
@@ -36,7 +36,7 @@
                                 {{__("Both IPv4 and IPv6 are supported. IP ranges are also accepted in format xxx.xxx.xxx.xxx-xxx.xxx.xxx.xxx.")}}
                             </span>
                         </div>
-                        <strong>{{__("Whitelist")}}</strong>
+                        <strong>{{__("Allowlist")}}</strong>
                         <p class="sui-description">
                             {{__("Any IP addresses you list here will be exempt any existing or new ban rules outlined in login protection, 404 detection or IP ban lists.")}}
                         </p>
@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <div v-else>
-                                <strong>{{__("Blacklist")}}</strong>
+                                <strong>{{__("Blocklist")}}</strong>
                                 <p class="sui-description no-margin-bottom">
                                     {{__("Any countries you select will not be able to access any area of your website.")}}
                                 </p>
@@ -183,7 +183,7 @@
                                         <i class="sui-icon-web-globe-world" aria-hidden="true"></i>
                                     </div>
                                 </div>
-                                <strong>{{__("Whitelist")}}</strong>
+                                <strong>{{__("Allowlist")}}</strong>
                                 <p class="sui-description no-margin-bottom">
                                     {{__("Any countries you select will always be able to view your website. Note: We've added your default country by default.")}}
                                 </p>
@@ -201,7 +201,7 @@
                                         <i class="sui-icon-web-globe-world" aria-hidden="true"></i>
                                     </div>
                                     <p class="sui-description">
-                                        {{__("Note: your whitelist will override any country ban, but will still follow your 404 and login lockout rules.")}}
+                                        {{__("Note: your allowlist will override any country ban, but will still follow your 404 and login lockout rules.")}}
                                     </p>
                                 </div>
                                 <p class="sui-description" v-html="maxmind_product_description"></p>
@@ -234,12 +234,12 @@
                         {{__("Import")}}
                         </span>
                         <span class="sui-description">
-                        {{__("Use this tool to import both your blacklist and whitelist from another website.")}}
+                        {{__("Use this tool to import both your blocklist and allowlist from another website.")}}
                         </span>
                     </div>
                     <div class="sui-box-settings-col-2">
                         <div class="sui-form-field">
-                            <span>{{__("Upload your exported blacklist.")}}</span>
+                            <span>{{__("Upload your exported blocklist.")}}</span>
                             <div class="upload-input sui-upload" :class="{'sui-has_file':ip_import.id!==false}">
                                 <div class="sui-upload-file">
                                     <span>{{ip_import.name}}</span>
@@ -271,7 +271,7 @@
                         {{__("Export")}}
                         </span>
                         <span class="sui-description">
-                            {{__("Export both your blacklist and whitelist to use on another website.")}}
+                            {{__("Export both your blocklist and allowlist to use on another website.")}}
                         </span>
                     </div>
                     <div class="sui-box-settings-col-2">
@@ -280,7 +280,7 @@
                             {{__("Export")}}
                         </a>
                         <span class="sui-description">
-                        {{__("The export will include both the blacklist and whitelist.")}}
+                        {{__("The export will include both the blocklist and allowlist.")}}
                         </span>
                     </div>
                 </div>
@@ -389,7 +389,7 @@
                 }
             },
             demo_link: function () {
-                return this.vsprintf(this.__("This message will be displayed across your website during the lockout period. See a quick preview <a href=\"%s\">here</a>."), this.siteUrl('?def-lockout-demo=1&type=blacklist'));
+                return this.vsprintf(this.__("This message will be displayed across your website during the lockout period. See a quick preview <a href=\"%s\">here</a>."), this.siteUrl('?def-lockout-demo=1&type=blocklist'));
             },
             ip_block_count: function () {
                 return this.vsprintf(this.__("%s results"), this.blacklist.count)

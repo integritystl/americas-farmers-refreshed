@@ -5,7 +5,7 @@
                 <h1 class="sui-header-title">
                     {{__("Malware Scanning")}}
                 </h1>
-                 <doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#security-scans"></doc-link>
+                 <doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#malware-scanning"></doc-link>
             </div>
             <div class="sui-box sui-message">
                 <img v-if="maybeHideBranding() === false" :src="assetUrl('/assets/img/no-scan-man.svg')" class="sui-image" aria-hidden="true">

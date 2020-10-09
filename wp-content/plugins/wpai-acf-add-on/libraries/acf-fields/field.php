@@ -145,11 +145,20 @@ abstract class Field implements FieldInterface {
             $field_keys = str_replace(array('[',']'), array(''), str_replace('][', ':', $this->getData('field_name')));
 
             foreach (explode(":", $field_keys) as $n => $key) {
-
-                $data['current_field'] = empty($post['fields'][$key]) ? $data['current_field'][$key] : $post['fields'][$key];
+                $data['current_field'] = false;
+                if (isset($post['fields'][$key])) {
+                    $data['current_field'] = $post['fields'][$key];
+                } elseif (isset($data['current_field'][$key])) {
+                    $data['current_field'] = $data['current_field'][$key];
+                }
 
                 foreach ($options as $option){
-                    $data['current_' . $option] = isset($post[$option][$key]) ? $post[$option][$key] : $data['current_' . $option][$key];
+                    $data['current_' . $option] = false;
+                    if (isset($post[$option][$key])) {
+                        $data['current_' . $option] = $post[$option][$key];
+                    } elseif(isset($post[$option][$key])) {
+                        $data['current_' . $option] = $post[$option][$key];
+                    }
                 }
             }
 
@@ -383,15 +392,18 @@ abstract class Field implements FieldInterface {
         $this->options[$option] = $value;
     }
 
-    /**
-     * @param $xpath
-     * @return array
-     */
-    public function getByXPath($xpath){
+	/**
+	 * @param $xpath
+	 * @param string $suffix
+	 *
+	 * @return array
+	 * @throws \XmlImportException
+	 */
+    public function getByXPath($xpath, $suffix = '') {
         $values = array_fill(0, $this->getOption('count'), "");
         if ($xpath != ""){
             $file = false;
-            $values = \XmlImportParser::factory($this->parsingData['xml'], $this->getOption('base_xpath'), $xpath, $file)->parse();
+            $values = \XmlImportParser::factory($this->parsingData['xml'], $this->getOption('base_xpath') . $suffix, $xpath, $file)->parse();
             @unlink($file);
         }
         return $values;
@@ -443,7 +455,7 @@ abstract class Field implements FieldInterface {
                 $fieldName = $this->data['field']['name'] = $field['name'];
             }
         }
-        return $this->importData['container_name'] . $fieldName;
+        return empty($this->importData['container_name']) ? $fieldName : $this->importData['container_name'] . $fieldName;
     }
 
     /**

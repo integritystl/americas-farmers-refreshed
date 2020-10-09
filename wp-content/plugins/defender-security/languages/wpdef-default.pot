@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: wp-defender 2.3.1\n"
+"Project-Id-Version: wp-defender 2.3.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-08-10 18:51+0700\n"
+"POT-Creation-Date: 2020-09-14 09:27+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: app/behavior/blacklist.php:19
-msgid "A WPMU DEV subscription is required for blacklist monitoring"
+msgid "A WPMU DEV subscription is required for blocklist monitoring"
 msgstr ""
 
 #: app/behavior/blacklist.php:45
@@ -74,28 +74,28 @@ msgstr ""
 msgid "Suspicious Code"
 msgstr ""
 
-#: app/behavior/utils.php:893 app/module/audit/component/audit-api.php:406
-#: app/module/ip-lockout/model/log-model.php:131
+#: app/behavior/utils.php:893 app/module/audit/component/audit-api.php:412
+#: app/module/ip-lockout/model/log-model.php:133
 msgid "Never"
 msgstr ""
 
-#: app/behavior/utils.php:1025 free/utils.php:696
+#: app/behavior/utils.php:1031 free/utils.php:696
 msgid "Please upgrade to 5.6 or later"
 msgstr ""
 
-#: app/behavior/utils.php:1042 free/utils.php:720
+#: app/behavior/utils.php:1048 free/utils.php:720
 msgid "daily"
 msgstr ""
 
-#: app/behavior/utils.php:1045 free/utils.php:723
+#: app/behavior/utils.php:1051 free/utils.php:723
 msgid "weekly"
 msgstr ""
 
-#: app/behavior/utils.php:1048 free/utils.php:726
+#: app/behavior/utils.php:1054 free/utils.php:726
 msgid "monthly"
 msgstr ""
 
-#: app/behavior/utils.php:1451 app/behavior/utils.php:1457
+#: app/behavior/utils.php:1457 app/behavior/utils.php:1463
 #: app/module/scan/behavior/core-result.php:96
 #: app/module/scan/behavior/core-result.php:247
 #: app/module/scan/behavior/core-result.php:252
@@ -106,16 +106,23 @@ msgstr ""
 msgid "Defender doesn't have enough permission to remove this file"
 msgstr ""
 
-#: app/controller/dashboard.php:218 front/src/module/dashboard/dashboard.vue:5
+#: app/controller/dashboard.php:226
+#, php-format
+msgid ""
+"The widget has been removed. You can check all defender tutorials at the <a "
+"href=\"%s\">tutorials' tab</a> at any time."
+msgstr ""
+
+#: app/controller/dashboard.php:236 front/src/module/dashboard/dashboard.vue:5
 msgid "Dashboard"
 msgstr ""
 
-#: app/controller/dashboard.php:609 app/controller/gdpr.php:16
+#: app/controller/dashboard.php:634 app/controller/gdpr.php:16
 #: app/controller/requirement.php:69 app/module/ip-lockout/view/locked.php:82
 msgid "Defender"
 msgstr ""
 
-#: app/controller/dashboard.php:610 app/controller/gdpr.php:16
+#: app/controller/dashboard.php:635 app/controller/gdpr.php:16
 msgid "Defender Pro"
 msgstr ""
 
@@ -183,6 +190,20 @@ msgstr ""
 msgid "Defender%s"
 msgstr ""
 
+#: app/controller/tutorial.php:28 app/controller/tutorial.php:29
+#: front/src/module/dashboard/component/tutorial.vue:5
+#: front/src/module/tutorial/tutorial.vue:5
+msgid "Tutorials"
+msgstr ""
+
+#: app/controller/tutorial.php:57
+msgid "min read"
+msgstr ""
+
+#: app/controller/tutorial.php:58
+msgid "Read article"
+msgstr ""
+
 #: app/controller/waf.php:30 app/controller/waf.php:31
 msgid "WAF"
 msgstr ""
@@ -214,7 +235,7 @@ msgid ""
 "to this page to continue setup."
 msgstr ""
 
-#: app/module/advanced-tools/component/mask-login-listener.php:265
+#: app/module/advanced-tools/component/mask-login-listener.php:288
 msgid "This feature is disabled"
 msgstr ""
 
@@ -231,18 +252,18 @@ msgstr ""
 msgid "X-Content-Type-Options"
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-feature-policy.php:40
+#: app/module/advanced-tools/component/security-headers/sh-feature-policy.php:43
 msgid ""
 "The Feature-Policy response header provides control over what browser "
 "features can be used when web pages are embedded in iframes."
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-feature-policy.php:161
+#: app/module/advanced-tools/component/security-headers/sh-feature-policy.php:159
 #: app/module/advanced-tools/model/security-headers-settings.php:125
 msgid "Feature-Policy"
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-referrer-policy.php:37
+#: app/module/advanced-tools/component/security-headers/sh-referrer-policy.php:40
 msgid ""
 "The Referrer-Policy HTTP header tells web-browsers how to handle referrer "
 "information that is sent to websites when a user clicks a link that leads to "
@@ -252,7 +273,7 @@ msgid ""
 "information present in this header."
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-referrer-policy.php:82
+#: app/module/advanced-tools/component/security-headers/sh-referrer-policy.php:85
 #: app/module/advanced-tools/model/security-headers-settings.php:123
 msgid "Referrer Policy"
 msgstr ""
@@ -271,7 +292,7 @@ msgstr ""
 msgid "Strict Transport"
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-x-frame.php:54
+#: app/module/advanced-tools/component/security-headers/sh-x-frame.php:57
 msgid ""
 "The X-Frame-Options HTTP response header controls whether or not a browser "
 "can render a webpage inside a <frame>, <iframe> or <object> tag. Websites "
@@ -279,19 +300,19 @@ msgid ""
 "into other websites."
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-x-frame.php:113
+#: app/module/advanced-tools/component/security-headers/sh-x-frame.php:116
 #: app/module/advanced-tools/model/security-headers-settings.php:115
 msgid "X-Frame-Options"
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-xss-protection.php:52
+#: app/module/advanced-tools/component/security-headers/sh-xss-protection.php:57
 msgid ""
 "The HTTP X-XSS-Protection response header that stops pages from loading when "
 "they detect reflected cross-site scripting (XSS) attacks on Chrome, IE and "
 "Safari."
 msgstr ""
 
-#: app/module/advanced-tools/component/security-headers/sh-xss-protection.php:92
+#: app/module/advanced-tools/component/security-headers/sh-xss-protection.php:97
 #: app/module/advanced-tools/model/security-headers-settings.php:117
 msgid "X-XSS-Protection"
 msgstr ""
@@ -316,7 +337,7 @@ msgstr ""
 #: app/module/advanced-tools/controller/rest.php:98
 #: app/module/audit/controller/rest.php:134
 #: app/module/hardener/controller/rest.php:57
-#: app/module/ip-lockout/controller/rest.php:359
+#: app/module/ip-lockout/controller/rest.php:361
 #: app/module/scan/controller/rest.php:382
 #: app/module/setting/controller/rest.php:108
 #: app/module/two-factor/controller/rest.php:85
@@ -358,8 +379,8 @@ msgstr ""
 #: app/module/advanced-tools/model/security-headers-settings.php:282
 #: app/module/audit/model/settings.php:190
 #: app/module/audit/model/settings.php:196
-#: app/module/hardener/model/settings.php:610
-#: app/module/ip-lockout/model/settings.php:698
+#: app/module/hardener/model/settings.php:603
+#: app/module/ip-lockout/model/settings.php:704
 #: app/module/scan/model/settings.php:377
 #: app/module/two-factor/model/auth-settings.php:179
 #: app/module/two-factor/model/auth-settings.php:185
@@ -392,12 +413,12 @@ msgstr ""
 #: app/module/advanced-tools/model/security-headers-settings.php:306
 #: app/module/audit/model/settings.php:196
 #: app/module/audit/model/settings.php:200
-#: app/module/hardener/model/settings.php:610
-#: app/module/ip-lockout/model/settings.php:705
-#: app/module/ip-lockout/model/settings.php:716
-#: app/module/ip-lockout/model/settings.php:741
-#: app/module/ip-lockout/model/settings.php:744
-#: app/module/ip-lockout/model/settings.php:753
+#: app/module/hardener/model/settings.php:603
+#: app/module/ip-lockout/model/settings.php:711
+#: app/module/ip-lockout/model/settings.php:722
+#: app/module/ip-lockout/model/settings.php:747
+#: app/module/ip-lockout/model/settings.php:750
+#: app/module/ip-lockout/model/settings.php:759
 #: app/module/scan/model/settings.php:347
 #: app/module/scan/model/settings.php:358
 #: app/module/two-factor/model/auth-settings.php:185
@@ -405,15 +426,15 @@ msgid "Inactivate"
 msgstr ""
 
 #: app/module/advanced-tools/model/mask-settings.php:148
-#: app/module/hardener/model/settings.php:612
-#: app/module/ip-lockout/model/settings.php:732
-#: app/module/ip-lockout/model/settings.php:748
+#: app/module/hardener/model/settings.php:605
+#: app/module/ip-lockout/model/settings.php:738
+#: app/module/ip-lockout/model/settings.php:754
 #: app/module/scan/model/settings.php:339
 #: app/module/scan/model/settings.php:341
 #: app/module/scan/model/settings.php:343
 #: app/module/scan/model/settings.php:349
 #: app/module/scan/model/settings.php:359
-#: app/module/setting/component/backup-settings.php:516
+#: app/module/setting/component/backup-settings.php:473
 #: app/module/two-factor/model/auth-settings.php:189
 #: front/src/module/scan/component/_issue_content.vue:68
 #: front/src/module/scan/component/_issue_core.vue:74
@@ -421,15 +442,15 @@ msgid "Yes"
 msgstr ""
 
 #: app/module/advanced-tools/model/mask-settings.php:148
-#: app/module/hardener/model/settings.php:612
-#: app/module/ip-lockout/model/settings.php:733
-#: app/module/ip-lockout/model/settings.php:749
+#: app/module/hardener/model/settings.php:605
+#: app/module/ip-lockout/model/settings.php:739
+#: app/module/ip-lockout/model/settings.php:755
 #: app/module/scan/model/settings.php:339
 #: app/module/scan/model/settings.php:341
 #: app/module/scan/model/settings.php:343
 #: app/module/scan/model/settings.php:350
 #: app/module/scan/model/settings.php:360
-#: app/module/setting/component/backup-settings.php:516
+#: app/module/setting/component/backup-settings.php:473
 #: app/module/two-factor/model/auth-settings.php:189
 #: app/module/two-factor/model/auth-settings.php:198
 #: front/src/module/scan/component/_issue_content.vue:74
@@ -747,7 +768,7 @@ msgid "Save Changes"
 msgstr ""
 
 #: app/module/advanced-tools/view/mask-login/enabled.php:4
-#: app/module/setting/component/backup-settings.php:589
+#: app/module/setting/component/backup-settings.php:546
 #: front/src/module/advanced-tools/advanced-tools.vue:13
 #: front/src/module/advanced-tools/advanced-tools.vue:22
 #: front/src/module/advanced-tools/screen/mask-login.vue:5
@@ -1233,7 +1254,7 @@ msgid "Comment Moderation"
 msgstr ""
 
 #: app/module/audit/component/options-audit.php:135
-msgid "Comment Blacklist"
+msgid "Comment Blocklist"
 msgstr ""
 
 #: app/module/audit/component/options-audit.php:136
@@ -1414,11 +1435,11 @@ msgstr ""
 #: app/module/audit/component/options-audit.php:215
 #: app/module/scan/view/layouts/layout.php:101
 #: app/module/scan/view/setting-free.php:4 app/module/scan/view/setting.php:4
-#: app/module/setting/component/backup-settings.php:585
+#: app/module/setting/component/backup-settings.php:542
 #: app/module/setting/controller/main.php:47
 #: app/module/setting/controller/main.php:48
-#: app/module/setting/view/layouts/layout.php:6 free/main-activator.php:357
-#: main-activator.php:287 front/src/module/audit/audit.vue:39
+#: app/module/setting/view/layouts/layout.php:6 free/main-activator.php:362
+#: main-activator.php:293 front/src/module/audit/audit.vue:39
 #: front/src/module/audit/audit.vue:49
 #: front/src/module/audit/screen/settings.vue:5
 #: front/src/module/ip-lockout/ip-lockout.vue:61
@@ -1478,91 +1499,91 @@ msgstr ""
 msgid "%s added new %s \"%s\""
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:22
+#: app/module/audit/component/users-audit.php:24
 #, php-format
 msgid "User login fail. Username: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:30
+#: app/module/audit/component/users-audit.php:32
 #, php-format
 msgid "User login success: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:38
+#: app/module/audit/component/users-audit.php:40
 #, php-format
 msgid "User logout success: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:50
+#: app/module/audit/component/users-audit.php:52
 #, php-format
 msgid "%s added a new user: Username: %s, Role: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:51
+#: app/module/audit/component/users-audit.php:53
 #, php-format
 msgid "A new user registered: Username: %s, Role: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:75
-#: app/module/audit/component/users-audit.php:111
+#: app/module/audit/component/users-audit.php:77
+#: app/module/audit/component/users-audit.php:113
 #, php-format
 msgid "%s deleted a user: ID: %s, username: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:93
+#: app/module/audit/component/users-audit.php:95
 #, php-format
 msgid "%s removed a user: ID: %s, username: %s from blog %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:137
+#: app/module/audit/component/users-audit.php:139
 #, php-format
 msgid "Password requested to reset for user: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:145
+#: app/module/audit/component/users-audit.php:147
 #, php-format
 msgid "Password reset for user: %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:156
+#: app/module/audit/component/users-audit.php:158
 #, php-format
 msgid "%s changed user %s's role from %s to %s"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:210
+#: app/module/audit/component/users-audit.php:212
 #, php-format
 msgid "User %s updated his/her profile"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:215
+#: app/module/audit/component/users-audit.php:217
 #, php-format
 msgid "%s updated user %s's profile information"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:223
+#: app/module/audit/component/users-audit.php:225
 msgid "lost password"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:224
+#: app/module/audit/component/users-audit.php:226
 msgid "registered"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:225
+#: app/module/audit/component/users-audit.php:227
 msgid "login"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:226
+#: app/module/audit/component/users-audit.php:228
 msgid "logout"
 msgstr ""
 
-#: app/module/audit/component/users-audit.php:227
+#: app/module/audit/component/users-audit.php:229
 msgid "password reset"
 msgstr ""
 
 #: app/module/audit/controller/main-free.php:52
 #: app/module/audit/controller/main.php:323
 #: app/module/scan/view/pro-feature.php:22
-#: app/module/setting/component/backup-settings.php:581
+#: app/module/setting/component/backup-settings.php:538
 #: front/src/module/audit/audit-free.vue:6 front/src/module/audit/audit.vue:6
 #: front/src/module/audit/audit.vue:63
 #: front/src/module/dashboard/component/audit-free.vue:6
@@ -1612,7 +1633,7 @@ msgid "Summary"
 msgstr ""
 
 #: app/module/audit/controller/rest.php:55
-#: app/module/ip-lockout/controller/rest.php:412
+#: app/module/ip-lockout/controller/rest.php:414
 #: front/src/module/audit/screen/logs.vue:159
 msgid "Date / Time"
 msgstr ""
@@ -1624,7 +1645,7 @@ msgstr ""
 
 #: app/module/audit/controller/rest.php:57
 #: app/module/ip-lockout/component/logs-table.php:357
-#: app/module/ip-lockout/controller/rest.php:413
+#: app/module/ip-lockout/controller/rest.php:415
 #: app/module/scan/view/issues.php:16
 #: front/src/module/audit/screen/logs.vue:145
 #: front/src/module/scan/screen/_issues.vue:7
@@ -1632,7 +1653,7 @@ msgid "Type"
 msgstr ""
 
 #: app/module/audit/controller/rest.php:58
-#: app/module/ip-lockout/controller/rest.php:414
+#: app/module/ip-lockout/controller/rest.php:416
 msgid "IP address"
 msgstr ""
 
@@ -1660,28 +1681,28 @@ msgid "Reports - Scheduled Audit Log Report"
 msgstr ""
 
 #: app/module/audit/model/settings.php:165
-#: app/module/ip-lockout/model/settings.php:680
+#: app/module/ip-lockout/model/settings.php:686
 msgid "Reports - Frequency"
 msgstr ""
 
 #: app/module/audit/model/settings.php:166
-#: app/module/ip-lockout/model/settings.php:681
+#: app/module/ip-lockout/model/settings.php:687
 msgid "Reports - Recipients"
 msgstr ""
 
 #: app/module/audit/model/settings.php:185
-#: app/module/setting/component/backup-settings.php:461
+#: app/module/setting/component/backup-settings.php:418
 #, php-format
 msgid "Inactive %s"
 msgstr ""
 
 #: app/module/audit/model/settings.php:199
 #: app/module/ip-lockout/behavior/widget.php:38
-#: app/module/ip-lockout/model/settings.php:704
-#: app/module/ip-lockout/model/settings.php:715
-#: app/module/ip-lockout/model/settings.php:740
-#: app/module/ip-lockout/model/settings.php:743
-#: app/module/ip-lockout/model/settings.php:752
+#: app/module/ip-lockout/model/settings.php:710
+#: app/module/ip-lockout/model/settings.php:721
+#: app/module/ip-lockout/model/settings.php:746
+#: app/module/ip-lockout/model/settings.php:749
+#: app/module/ip-lockout/model/settings.php:758
 #: app/module/scan/model/settings.php:346
 #: app/module/scan/model/settings.php:357
 #: app/module/setting/model/settings.php:80
@@ -2196,13 +2217,13 @@ msgid ""
 "missing out on the latest security patches in v%s"
 msgstr ""
 
-#: app/module/hardener/controller/main.php:124
+#: app/module/hardener/controller/main.php:120
 #, php-format
 msgid "Security Tweak Report for %s. %s tweak needs attention."
 msgstr ""
 
-#: app/module/hardener/controller/main.php:175
-#: app/module/hardener/controller/main.php:176
+#: app/module/hardener/controller/main.php:171
+#: app/module/hardener/controller/main.php:172
 #: app/module/hardener/view/layouts/layout.php:19
 #: front/src/module/dashboard/component/security-tweaks.vue:6
 #: front/src/module/security-tweak/security-tweak.vue:6
@@ -2225,34 +2246,34 @@ msgstr ""
 msgid "Security tweak successfully restored."
 msgstr ""
 
-#: app/module/hardener/model/settings.php:491
+#: app/module/hardener/model/settings.php:484
 msgid "Email reminders"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:492
+#: app/module/hardener/model/settings.php:485
 msgid "Remind every 24 hours"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:493
+#: app/module/hardener/model/settings.php:486
 msgid "Email reminder recipients"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:533
-#: app/module/hardener/model/settings.php:538
+#: app/module/hardener/model/settings.php:526
+#: app/module/hardener/model/settings.php:531
 #, php-format
 msgid "%d/%d recommendations activated"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:536
+#: app/module/hardener/model/settings.php:529
 msgid "All available recommendations activated"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:543
+#: app/module/hardener/model/settings.php:536
 #: app/module/scan/model/settings.php:383
 msgid "Email notifications active"
 msgstr ""
 
-#: app/module/hardener/model/settings.php:614
+#: app/module/hardener/model/settings.php:607
 #: app/module/scan/model/settings.php:355
 #: app/module/scan/model/settings.php:361
 msgid "No recipients"
@@ -2280,6 +2301,7 @@ msgstr ""
 
 #: app/module/hardener/view/email/notification.php:230
 #: front/src/module/dashboard/component/security-tweaks.vue:41
+#: front/src/module/tutorial/tutorial.vue:9
 msgid "View All"
 msgstr ""
 
@@ -2297,14 +2319,14 @@ msgstr ""
 
 #: app/module/hardener/view/layouts/layout.php:5
 #: app/module/scan/view/layouts/layout.php:5
-#: front/src/module/dashboard/dashboard.vue:191
+#: front/src/module/dashboard/dashboard.vue:192
 #: front/src/module/scan/screen/scan-result.vue:211
 #: front/src/module/security-tweak/security-tweak.vue:138
 msgid "You don't have any outstanding security issues, nice work!"
 msgstr ""
 
 #: app/module/hardener/view/layouts/layout.php:8
-#: front/src/module/dashboard/dashboard.vue:193
+#: front/src/module/dashboard/dashboard.vue:194
 #: front/src/module/security-tweak/security-tweak.vue:140
 msgid ""
 "You have one security tweak left to do. We recommend you action it, or "
@@ -2413,7 +2435,7 @@ msgid ""
 msgstr ""
 
 #: app/module/hardener/view/rules/db-prefix.php:34
-#: app/module/ip-lockout/controller/rest.php:415
+#: app/module/ip-lockout/controller/rest.php:417
 #: front/src/module/security-tweak/component/db-prefix.vue:31
 #: front/src/module/security-tweak/component/db-prefix.vue:46
 #: front/src/module/security-tweak/component/disable-file-editor.vue:31
@@ -2642,9 +2664,9 @@ msgid "Lockout occurred: Too many failed login attempts for the username %s"
 msgstr ""
 
 #: app/module/ip-lockout/component/login-protection-api.php:158
-#: app/module/ip-lockout/component/notfound-listener.php:77
-#: app/module/ip-lockout/component/notfound-listener.php:86
-#: app/module/ip-lockout/component/notfound-listener.php:106
+#: app/module/ip-lockout/component/notfound-listener.php:80
+#: app/module/ip-lockout/component/notfound-listener.php:93
+#: app/module/ip-lockout/component/notfound-listener.php:122
 #, php-format
 msgid "Lockout occurred:  Too many 404 requests for %s"
 msgstr ""
@@ -2664,24 +2686,23 @@ msgid "Add Whitelist"
 msgstr ""
 
 #: app/module/ip-lockout/component/login-protection-api.php:296
-#: front/src/module/ip-lockout/component/lockout-table.vue:220
 msgid "Unwhitelist"
 msgstr ""
 
-#: app/module/ip-lockout/component/login-protection-api.php:582
-msgid "Is whitelisted"
+#: app/module/ip-lockout/component/login-protection-api.php:583
+msgid "Is allowlisted"
 msgstr ""
 
-#: app/module/ip-lockout/component/login-protection-api.php:585
-msgid "Is blacklisted"
+#: app/module/ip-lockout/component/login-protection-api.php:586
+msgid "Is blocklisted"
 msgstr ""
 
-#: app/module/ip-lockout/component/login-protection-api.php:592
-#: app/module/ip-lockout/component/login-protection-api.php:598
+#: app/module/ip-lockout/component/login-protection-api.php:593
+#: app/module/ip-lockout/component/login-protection-api.php:599
 msgid "Not banned"
 msgstr ""
 
-#: app/module/ip-lockout/component/login-protection-api.php:596
+#: app/module/ip-lockout/component/login-protection-api.php:597
 msgid "Banned"
 msgstr ""
 
@@ -2818,13 +2839,12 @@ msgid "Ban"
 msgstr ""
 
 #: app/module/ip-lockout/component/logs-table.php:444
-#: app/module/ip-lockout/view/detect-404/enabled.php:109
 #: front/src/module/ip-lockout/component/lockout-table.vue:44
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:39
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:186
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:161
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:198
-msgid "Whitelist"
+msgid "Allowlist"
 msgstr ""
 
 #: app/module/ip-lockout/component/logs-table.php:445
@@ -2847,12 +2867,12 @@ msgid "Select All"
 msgstr ""
 
 #: app/module/ip-lockout/component/notfound-listener.php:62
-#: app/module/ip-lockout/component/notfound-listener.php:91
+#: app/module/ip-lockout/component/notfound-listener.php:103
 #, php-format
 msgid "Request for file %s which doesn't exist"
 msgstr ""
 
-#: app/module/ip-lockout/component/notfound-listener.php:182
+#: app/module/ip-lockout/component/notfound-listener.php:199
 #, php-format
 msgid "404 lockout alert for %s"
 msgstr ""
@@ -2861,8 +2881,8 @@ msgstr ""
 msgid "Demo"
 msgstr ""
 
-#: app/module/ip-lockout/controller/main.php:287
-#: app/module/setting/component/backup-settings.php:583
+#: app/module/ip-lockout/controller/main.php:291
+#: app/module/setting/component/backup-settings.php:540
 #: front/src/module/dashboard/component/ip-lockout.vue:6
 #: front/src/module/dashboard/component/quick-setup-free.vue:55
 #: front/src/module/dashboard/component/quick-setup.vue:78
@@ -2871,95 +2891,95 @@ msgstr ""
 msgid "Firewall"
 msgstr ""
 
-#: app/module/ip-lockout/controller/main.php:437
+#: app/module/ip-lockout/controller/main.php:441
 msgid "Block all"
 msgstr ""
 
-#: app/module/ip-lockout/controller/main.php:438
+#: app/module/ip-lockout/controller/main.php:442
 msgid "Allow all"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:109
+#: app/module/ip-lockout/controller/rest.php:110
 #, php-format
 msgid ""
 "IP %s has been removed from your %s. You can control your %s in <a href=\"%s"
 "\">IP Lockouts.</a>"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:116
+#: app/module/ip-lockout/controller/rest.php:118
 #, php-format
 msgid ""
 "IP %s has been added to your %s You can control your %s in <a href=\"%s\">IP "
 "Lockouts.</a>"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:124
+#: app/module/ip-lockout/controller/rest.php:126
 msgid "No record found"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:142
+#: app/module/ip-lockout/controller/rest.php:144
 msgid "Your logs have been successfully deleted."
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:174
+#: app/module/ip-lockout/controller/rest.php:176
 #, php-format
 msgid ""
-"IP %s has been added to your whitelist. You can control your whitelist in <a "
+"IP %s has been added to your allowlist. You can control your allowlist in <a "
 "href=\"%s\">IP Lockouts.</a>"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:184
+#: app/module/ip-lockout/controller/rest.php:186
 #, php-format
 msgid ""
-"IP %s has been added to your blacklist You can control your blacklist in <a "
+"IP %s has been added to your blocklist You can control your blocklist in <a "
 "href=\"%s\">IP Lockouts.</a>"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:194
+#: app/module/ip-lockout/controller/rest.php:196
 #, php-format
 msgid "IP %s has been deleted"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:262
-#: app/module/ip-lockout/controller/rest.php:269
+#: app/module/ip-lockout/controller/rest.php:264
+#: app/module/ip-lockout/controller/rest.php:271
 msgid "Your file is invalid!"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:275
+#: app/module/ip-lockout/controller/rest.php:277
 msgid "Your file content is invalid!"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:286
-msgid "Your whitelist/blacklist has been successfully imported."
+#: app/module/ip-lockout/controller/rest.php:288
+msgid "Your allowlist/blocklist has been successfully imported."
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:321
+#: app/module/ip-lockout/controller/rest.php:323
 msgid "Database downloaded"
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:354
+#: app/module/ip-lockout/controller/rest.php:356
 msgid ""
 "Your settings have been updated, however some IPs were removed because "
-"invalid format, or you blacklist yourself"
-msgstr ""
-
-#: app/module/ip-lockout/controller/rest.php:366
-msgid "Login Protection has been activated."
+"invalid format, or you blocklist yourself"
 msgstr ""
 
 #: app/module/ip-lockout/controller/rest.php:368
+msgid "Login Protection has been activated."
+msgstr ""
+
+#: app/module/ip-lockout/controller/rest.php:370
 msgid "Login Protection has been deactivated."
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:373
+#: app/module/ip-lockout/controller/rest.php:375
 msgid "404 Detection has been activated."
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:375
+#: app/module/ip-lockout/controller/rest.php:377
 msgid "404 Detection has been deactivated."
 msgstr ""
 
-#: app/module/ip-lockout/controller/rest.php:411
+#: app/module/ip-lockout/controller/rest.php:413
 msgid "Log"
 msgstr ""
 
@@ -2980,11 +3000,11 @@ msgstr ""
 msgid "ago"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:486
+#: app/module/ip-lockout/model/settings.php:492
 msgid "Recipients' emails can't be duplicate"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:650
+#: app/module/ip-lockout/model/settings.php:656
 #: front/src/module/ip-lockout/ip-lockout.vue:41
 #: front/src/module/ip-lockout/ip-lockout.vue:70
 #: front/src/module/ip-lockout/screen/lockout.vue:5
@@ -2992,23 +3012,23 @@ msgstr ""
 msgid "Login Protection"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:651
+#: app/module/ip-lockout/model/settings.php:657
 msgid "Login Protection - Threshold"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:652
+#: app/module/ip-lockout/model/settings.php:658
 msgid "Login Protection - Duration"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:653
+#: app/module/ip-lockout/model/settings.php:659
 msgid "Login Protection - Lockout Message"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:654
+#: app/module/ip-lockout/model/settings.php:660
 msgid "Login Protection - Banned Usernames"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:655
+#: app/module/ip-lockout/model/settings.php:661
 #: app/module/ip-lockout/view/detect-404/enabled.php:5
 #: front/src/module/ip-lockout/ip-lockout.vue:45
 #: front/src/module/ip-lockout/ip-lockout.vue:71
@@ -3017,116 +3037,116 @@ msgstr ""
 msgid "404 Detection"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:656
+#: app/module/ip-lockout/model/settings.php:662
 msgid "404 Detection - Threshold"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:657
+#: app/module/ip-lockout/model/settings.php:663
 msgid "404 Detection - Duration"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:658
+#: app/module/ip-lockout/model/settings.php:664
 msgid "404 Detection - Lockout Message"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:659
+#: app/module/ip-lockout/model/settings.php:665
 msgid "404 Detection - Files & Folders Blacklist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:661
+#: app/module/ip-lockout/model/settings.php:667
 msgid "404 Detection - Files & Folders Whitelist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:663
+#: app/module/ip-lockout/model/settings.php:669
 msgid "404 Detection - Filetypes & Extensions Whitelist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:665
+#: app/module/ip-lockout/model/settings.php:671
 msgid "404 Detection - Filetypes & Extensions Blacklist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:667
+#: app/module/ip-lockout/model/settings.php:673
 msgid "404 Detection - Monitor logged in users"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:669
+#: app/module/ip-lockout/model/settings.php:675
 msgid "IP Banning - IP Address Blacklist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:670
+#: app/module/ip-lockout/model/settings.php:676
 msgid "IP Banning - IP Address Whitelist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:671
+#: app/module/ip-lockout/model/settings.php:677
 msgid "IP Banning - Country Whitelist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:672
+#: app/module/ip-lockout/model/settings.php:678
 msgid "IP Banning - Country Blacklist"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:673
+#: app/module/ip-lockout/model/settings.php:679
 msgid "IP Banning - Lockout Message"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:674
+#: app/module/ip-lockout/model/settings.php:680
 msgid "Emails - Login Protection Lockout"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:675
+#: app/module/ip-lockout/model/settings.php:681
 msgid "Emails - 404 Detection Lockout"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:676
+#: app/module/ip-lockout/model/settings.php:682
 msgid "Emails - Lockout Recipients"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:677
+#: app/module/ip-lockout/model/settings.php:683
 msgid "Emails - Repeat Lockouts"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:678
+#: app/module/ip-lockout/model/settings.php:684
 msgid "Emails - Repeat Lockouts Threshold"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:679
+#: app/module/ip-lockout/model/settings.php:685
 msgid "Reports - Scheduled Lockout Report"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:682
+#: app/module/ip-lockout/model/settings.php:688
 msgid "Days to keep logs"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:707
+#: app/module/ip-lockout/model/settings.php:713
 #, php-format
 msgid "%d logins in %d seconds"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:710
-#: app/module/ip-lockout/model/settings.php:721
+#: app/module/ip-lockout/model/settings.php:716
+#: app/module/ip-lockout/model/settings.php:727
 #: app/module/ip-lockout/view/detect-404/enabled.php:60
 msgid "Permanent"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:713
-#: app/module/ip-lockout/model/settings.php:724
-#: app/module/ip-lockout/model/settings.php:726
-#: app/module/ip-lockout/model/settings.php:728
+#: app/module/ip-lockout/model/settings.php:719
 #: app/module/ip-lockout/model/settings.php:730
+#: app/module/ip-lockout/model/settings.php:732
 #: app/module/ip-lockout/model/settings.php:734
 #: app/module/ip-lockout/model/settings.php:736
-#: app/module/ip-lockout/model/settings.php:738
-#: app/module/ip-lockout/model/settings.php:746
-#: app/module/ip-lockout/model/settings.php:750
+#: app/module/ip-lockout/model/settings.php:740
+#: app/module/ip-lockout/model/settings.php:742
+#: app/module/ip-lockout/model/settings.php:744
+#: app/module/ip-lockout/model/settings.php:752
+#: app/module/ip-lockout/model/settings.php:756
 msgid "None"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:718
+#: app/module/ip-lockout/model/settings.php:724
 #, php-format
 msgid "%d hits in %d seconds"
 msgstr ""
 
-#: app/module/ip-lockout/model/settings.php:757
+#: app/module/ip-lockout/model/settings.php:763
 #, php-format
 msgid "%d days"
 msgstr ""
@@ -3222,6 +3242,10 @@ msgstr ""
 msgid ""
 "This message will be displayed across your website during the lockout "
 "period. See a quick preview <a href=\"%s\">here</a>."
+msgstr ""
+
+#: app/module/ip-lockout/view/detect-404/enabled.php:109
+msgid "Whitelist"
 msgstr ""
 
 #: app/module/ip-lockout/view/detect-404/enabled.php:112
@@ -3827,7 +3851,7 @@ msgstr ""
 #: app/module/scan/controller/main.php:129
 #: app/module/scan/controller/main.php:130
 #: app/module/scan/view/layouts/layout.php:17
-#: app/module/setting/component/backup-settings.php:579
+#: app/module/setting/component/backup-settings.php:536
 #: front/src/module/dashboard/component/file-scanning-free.vue:6
 #: front/src/module/dashboard/component/file-scanning.vue:6
 #: front/src/module/dashboard/component/quick-setup-free.vue:32
@@ -4093,7 +4117,7 @@ msgid ""
 msgstr ""
 
 #: app/module/scan/view/layouts/layout.php:7
-#: front/src/module/dashboard/dashboard.vue:195
+#: front/src/module/dashboard/dashboard.vue:196
 #: front/src/module/scan/screen/scan-result.vue:213
 msgid ""
 "We've detected a potential security risk in your file system. We recommend "
@@ -4109,7 +4133,7 @@ msgid ""
 msgstr ""
 
 #: app/module/scan/view/layouts/layout.php:26
-#: front/src/module/dashboard/dashboard.vue:34
+#: front/src/module/dashboard/dashboard.vue:33
 #: front/src/module/scan/screen/scan-result.vue:10
 #: front/src/module/scan/screen/scanning.vue:10
 msgid "New Scan"
@@ -4373,43 +4397,38 @@ msgstr ""
 msgid "Save Template"
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:246
+#: app/module/setting/component/backup-settings.php:261
 msgid "You have been locked out due to too many invalid login attempts."
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:255
+#: app/module/setting/component/backup-settings.php:270
 msgid ""
 "You have been locked out due to too many attempts to access a file that "
 "doesn't exist."
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:266
+#: app/module/setting/component/backup-settings.php:281
 msgid "The administrator has blocked your IP from accessing this website."
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:321
+#: app/module/setting/component/backup-settings.php:336
 msgid "Basic config"
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:322
+#: app/module/setting/component/backup-settings.php:337
 msgid "Recommended default protection for every site"
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:384
-#, php-format
-msgid "%d/%d modules active"
-msgstr ""
-
-#: app/module/setting/component/backup-settings.php:577
+#: app/module/setting/component/backup-settings.php:534
 msgid "Security Recommendations"
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:587
+#: app/module/setting/component/backup-settings.php:544
 #: app/module/two-factor/controller/main.php:42
 msgid "2FA"
 msgstr ""
 
-#: app/module/setting/component/backup-settings.php:591
+#: app/module/setting/component/backup-settings.php:548
 #: front/src/module/advanced-tools/advanced-tools.vue:17
 #: front/src/module/advanced-tools/advanced-tools.vue:23
 #: front/src/module/advanced-tools/screen/security-headers.vue:6
@@ -4422,44 +4441,54 @@ msgid "Your settings have been reset."
 msgstr ""
 
 #: app/module/setting/controller/rest.php:129
-#: app/module/setting/controller/rest.php:135
 msgid "The file is corrupted."
 msgstr ""
 
-#: app/module/setting/controller/rest.php:187
+#: app/module/setting/controller/rest.php:135
+msgid ""
+"An error occurred while importing the file. Please check your file or upload "
+"another file."
+msgstr ""
+
+#: app/module/setting/controller/rest.php:189
 #, php-format
 msgid ""
 "<strong>%s</strong> config has been uploaded successfully – you can now "
 "apply it to this site."
 msgstr ""
 
-#: app/module/setting/controller/rest.php:234
+#: app/module/setting/controller/rest.php:236
 msgid "Invalid config name"
 msgstr ""
 
-#: app/module/setting/controller/rest.php:249
-#: app/module/setting/controller/rest.php:370
+#: app/module/setting/controller/rest.php:252
+#: app/module/setting/controller/rest.php:382
 #, php-format
 msgid "<strong>%s</strong> config saved successfully."
 msgstr ""
 
-#: app/module/setting/controller/rest.php:267
-#: app/module/setting/controller/rest.php:274
-#: app/module/setting/controller/rest.php:305
-#: app/module/setting/controller/rest.php:312
-#: app/module/setting/controller/rest.php:356
-#: app/module/setting/controller/rest.php:363
-#: app/module/setting/controller/rest.php:388
-#: app/module/setting/controller/rest.php:398
+#: app/module/setting/controller/rest.php:259
+#: app/module/setting/controller/rest.php:389
+msgid "An error occurred while saving your config. Please try it again."
+msgstr ""
+
+#: app/module/setting/controller/rest.php:276
+#: app/module/setting/controller/rest.php:283
+#: app/module/setting/controller/rest.php:314
+#: app/module/setting/controller/rest.php:321
+#: app/module/setting/controller/rest.php:366
+#: app/module/setting/controller/rest.php:373
+#: app/module/setting/controller/rest.php:406
+#: app/module/setting/controller/rest.php:416
 msgid "Invalid config"
 msgstr ""
 
-#: app/module/setting/controller/rest.php:317
+#: app/module/setting/controller/rest.php:326
 #, php-format
 msgid "<strong>%s</strong> config has been applied successfully."
 msgstr ""
 
-#: app/module/setting/controller/rest.php:326
+#: app/module/setting/controller/rest.php:335
 #, php-format
 msgid ""
 "Because of some security tweaks get applied, You will now need to <a href="
@@ -4507,7 +4536,7 @@ msgstr ""
 #: app/module/setting/view/layouts/layout.php:48
 #: front/src/module/settings/screen/accessibility.vue:5
 #: front/src/module/settings/settings.vue:31
-#: front/src/module/settings/settings.vue:39
+#: front/src/module/settings/settings.vue:40
 msgid "Accessibility"
 msgstr ""
 
@@ -4598,7 +4627,7 @@ msgstr ""
 #: app/module/setting/view/layouts/layout.php:45
 #: front/src/module/settings/screen/data.vue:5
 #: front/src/module/settings/settings.vue:25
-#: front/src/module/settings/settings.vue:38
+#: front/src/module/settings/settings.vue:39
 msgid "Data & Settings"
 msgstr ""
 
@@ -4922,18 +4951,18 @@ msgstr ""
 msgid "Rate %s"
 msgstr ""
 
-#: free/main-activator.php:244
+#: free/main-activator.php:249
 msgid "Get Secure!"
 msgstr ""
 
-#: free/main-activator.php:269
+#: free/main-activator.php:274
 msgid ""
 "You're awesome for installing Defender! Are you interested in how to make "
 "the most of this plugin? We've collected all the best security resources we "
 "know in a single email - just for users of Defender!"
 msgstr ""
 
-#: free/main-activator.php:312
+#: free/main-activator.php:317
 #, php-format
 msgid ""
 "%1$s, you now have access to Defender's pro features but you still have the "
@@ -4941,19 +4970,19 @@ msgid ""
 "features! &nbsp; %2$s"
 msgstr ""
 
-#: free/main-activator.php:314 free/main-activator.php:365
+#: free/main-activator.php:319 free/main-activator.php:370
 msgid "Upgrade"
 msgstr ""
 
-#: free/main-activator.php:345
+#: free/main-activator.php:350
 msgid "<br/>Something went wrong. Please try again later!"
 msgstr ""
 
-#: free/main-activator.php:364 main-activator.php:295
+#: free/main-activator.php:369 main-activator.php:301
 msgid "Docs"
 msgstr ""
 
-#: main-activator.php:275
+#: main-activator.php:281
 msgid ""
 "We noticed you have both the free and pro versions of Defender installed, so "
 "we've automatically deactivated the free version for you."
@@ -5439,21 +5468,21 @@ msgstr ""
 #: front/src/module/dashboard/component/blacklist-free.vue:6
 #: front/src/module/dashboard/component/blacklist.vue:6
 #: front/src/module/dashboard/component/quick-setup.vue:101
-msgid "Blacklist Monitor"
+msgid "Blocklist Monitor"
 msgstr ""
 
 #: front/src/module/dashboard/component/blacklist-free.vue:15
 #: front/src/module/dashboard/component/blacklist.vue:17
 #: front/src/module/dashboard/component/quick-setup.vue:104
 msgid ""
-"Automatically check if you’re on Google’s blacklist every 6 hours. If "
+"Automatically check if you’re on Google’s blocklist every 6 hours. If "
 "something’s wrong, we’ll let you know via email."
 msgstr ""
 
 #: front/src/module/dashboard/component/blacklist-free.vue:24
 msgid ""
 "Defender will warn you if your site has been flagged as unsafe. Get "
-"blacklist Monitor as part of a WPMU DEV membership."
+"blocklist Monitor as part of a WPMU DEV membership."
 msgstr ""
 
 #: front/src/module/dashboard/component/blacklist.vue:24
@@ -5462,7 +5491,7 @@ msgstr ""
 
 #: front/src/module/dashboard/component/blacklist.vue:39
 msgid ""
-"Your domain is currently on Google’s blacklist. Check out the article below "
+"Your domain is currently on Google’s blocklist. Check out the article below "
 "to find out how to fix up your domain."
 msgstr ""
 
@@ -5471,7 +5500,7 @@ msgid "Your domain is currently clean."
 msgstr ""
 
 #: front/src/module/dashboard/component/blacklist.vue:57
-msgid "Want to know more about blacklisting?"
+msgid "Want to know more about blocklisting?"
 msgstr ""
 
 #: front/src/module/dashboard/component/blacklist.vue:58
@@ -5574,6 +5603,13 @@ msgstr ""
 msgid "Preset Configs"
 msgstr ""
 
+#: front/src/module/dashboard/component/preset-config.vue:176
+msgid ""
+"Use configs to save preset configurations of Defender's settings, then "
+"upload and apply them to your other sites in just a few clicks! P.s. Save as "
+"many of them as you like - you can have unlimited preset configs."
+msgstr ""
+
 #: front/src/module/dashboard/component/quick-setup-free.vue:13
 #: front/src/module/dashboard/component/quick-setup.vue:13
 msgid "Quick Setup"
@@ -5662,17 +5698,15 @@ msgstr ""
 msgid "You’ve actioned all of the recommended security tweaks."
 msgstr ""
 
-#: front/src/module/dashboard/component/tutorial.vue:5
-msgid "Tutorials"
-msgstr ""
-
-#: front/src/module/dashboard/component/tutorial.vue:141
+#: front/src/module/dashboard/component/tutorial.vue:162
+#: front/src/module/tutorial/tutorial.vue:141
 msgid ""
 "Find Out if You’re Hacked: How to Find and Delete Suspicious Code with "
 "Defender"
 msgstr ""
 
-#: front/src/module/dashboard/component/tutorial.vue:143
+#: front/src/module/dashboard/component/tutorial.vue:164
+#: front/src/module/tutorial/tutorial.vue:143
 msgid "Find Out if You’re Hacked: How to Find and Delete Suspicious Code..."
 msgstr ""
 
@@ -5694,30 +5728,30 @@ msgid ""
 "This feature is available to members who host their sites with WPMU DEV."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:19
+#: front/src/module/dashboard/dashboard.vue:18
 msgid "security issues"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:25
+#: front/src/module/dashboard/dashboard.vue:24
 msgid "Security Tweaks Actioned"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:29
+#: front/src/module/dashboard/dashboard.vue:28
 msgid "Malware Scan Issues"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:43
+#: front/src/module/dashboard/dashboard.vue:42
 msgid "Last Lockout"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:197
+#: front/src/module/dashboard/dashboard.vue:198
 msgid ""
 "You have one security tweak left to do, and one potential security risk in "
 "your file system. We recommend you take a look and action fixes, or ignore "
 "the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:199
+#: front/src/module/dashboard/dashboard.vue:200
 #, c-format
 msgid ""
 "You have one security tweak left to do, and %s potential security risks in "
@@ -5725,7 +5759,7 @@ msgid ""
 "the issues if they are harmless"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:201
+#: front/src/module/dashboard/dashboard.vue:202
 #, c-format
 msgid ""
 "You have %s security tweaks left to do, and one potential security risk in "
@@ -5733,7 +5767,7 @@ msgid ""
 "the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:203
+#: front/src/module/dashboard/dashboard.vue:204
 #, c-format
 msgid ""
 "You have %s security tweaks left to do, and %s potential security risks in "
@@ -5741,14 +5775,14 @@ msgid ""
 "the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:205
+#: front/src/module/dashboard/dashboard.vue:206
 #, c-format
 msgid ""
 "You have %d security tweaks left to do. We recommend you action it, or "
 "ignore it if it's irrelevant."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:207
+#: front/src/module/dashboard/dashboard.vue:208
 #, c-format
 msgid ""
 "We've detected %d potential security risks in your file system. We recommend "
@@ -5786,7 +5820,11 @@ msgid "Loading logs...."
 msgstr ""
 
 #: front/src/module/ip-lockout/component/lockout-table.vue:211
-msgid "Add whitelist"
+msgid "Add allowlist"
+msgstr ""
+
+#: front/src/module/ip-lockout/component/lockout-table.vue:220
+msgid "Unallowlist"
 msgstr ""
 
 #: front/src/module/ip-lockout/ip-lockout.vue:13
@@ -5837,7 +5875,7 @@ msgstr ""
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:167
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:147
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:187
-msgid "Blacklist"
+msgid "Blocklist"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:26
@@ -5847,7 +5885,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:29
-msgid "Blacklisted IPs"
+msgid "Blocklisted IPs"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:36
@@ -5937,7 +5975,7 @@ msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:204
 msgid ""
-"Note: your whitelist will override any country ban, but will still follow "
+"Note: your allowlist will override any country ban, but will still follow "
 "your 404 and login lockout rules."
 msgstr ""
 
@@ -5959,12 +5997,12 @@ msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:237
 msgid ""
-"Use this tool to import both your blacklist and whitelist from another "
+"Use this tool to import both your blocklist and allowlist from another "
 "website."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:242
-msgid "Upload your exported blacklist."
+msgid "Upload your exported blocklist."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:253
@@ -5982,11 +6020,11 @@ msgid "Export"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:274
-msgid "Export both your blacklist and whitelist to use on another website."
+msgid "Export both your blocklist and allowlist to use on another website."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:283
-msgid "The export will include both the blacklist and whitelist."
+msgid "The export will include both the blocklist and allowlist."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:378
@@ -6114,7 +6152,7 @@ msgstr ""
 
 #: front/src/module/ip-lockout/screen/logs.vue:24
 msgid ""
-"Here's your comprehensive IP lockout log. You can whitelist and ban IPs from "
+"Here's your comprehensive IP lockout log. You can allowlist and ban IPs from "
 "there."
 msgstr ""
 
@@ -6137,17 +6175,17 @@ msgstr ""
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:143
 msgid ""
 "Choose specific files and folders that you want to automatically ban users/"
-"bots from accessing, or whitelist access to."
+"bots from accessing, or allow access to."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:149
 msgid ""
 "Add file or folder URLs you want to automatically ban. Users or bots who "
-"request blacklisted them will be locked out as per your 404 rules above."
+"request them will be locked out as per your 404 rules above."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:152
-msgid "Blacklisted files & folders"
+msgid "Blocklisted files & folders"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:158
@@ -6162,7 +6200,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:166
-msgid "Whitelisted files & folders"
+msgid "Allowlisted files & folders"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:180
@@ -6171,18 +6209,18 @@ msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:183
 msgid ""
-"Choose which types of files or extentions you want to auto-ban or whitelist."
+"Choose which types of files or extensions you want to auto-ban or allow."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:189
 msgid ""
-"Add a common filetype or extention you want to auto-ban. Users or bots who "
-"request blacklisted filetypes or extensions will be locked out as per your "
+"Add a common filetype or extension you want to auto-ban. Users or bots who "
+"request blocklisted filetypes or extensions will be locked out as per your "
 "404 rules above."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:192
-msgid "Blacklisted filetypes & extensions"
+msgid "Blocklisted filetypes & extensions"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:200
@@ -6192,7 +6230,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:203
-msgid "Whitelisted filetypes & extentions"
+msgid "Allowlisted filetypes & extensions"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notification.vue:86
@@ -6996,11 +7034,15 @@ msgid ""
 "plugin's interface to meet WCAG AAA requirements."
 msgstr ""
 
-#: front/src/module/settings/screen/configs.vue:48
+#: front/src/module/settings/screen/configs.vue:49
 msgid ""
 "Use configs to save preset configurations of Defender's settings, then "
-"upload and apply them to your other sites in just a few clicks! P.s. save as "
+"upload and apply them to your other sites in just a few clicks! P.S. Save as "
 "many of them as you like - you can have unlimited preset configs."
+msgstr ""
+
+#: front/src/module/settings/screen/configs.vue:228
+msgid "Try the hub"
 msgstr ""
 
 #: front/src/module/settings/screen/data.vue:11
@@ -7066,7 +7108,12 @@ msgid ""
 msgstr ""
 
 #: front/src/module/settings/settings.vue:20
+#: front/src/module/settings/settings.vue:38
 msgid "Configs"
+msgstr ""
+
+#: front/src/module/tutorial/tutorial.vue:16
+msgid "Defender Tutorials"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:16

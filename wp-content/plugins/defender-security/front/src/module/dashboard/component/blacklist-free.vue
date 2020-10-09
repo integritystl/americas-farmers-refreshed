@@ -3,7 +3,7 @@
         <div class="sui-box-header">
             <h3 class="sui-box-title">
                 <i class="sui-icon-target" aria-hidden="true"></i>
-                {{__("Blacklist Monitor")}}
+                {{__("Blocklist Monitor")}}
             </h3>
             <div class="sui-actions-left">
                 <span class="sui-tag sui-tag-pro">{{__("Pro")}}</span>
@@ -12,7 +12,7 @@
         <div class="sui-box-body sui-upsell-items">
             <div class="sui-padding-left sui-padding-right sui-padding-top">
                 <p>
-                    {{__("Automatically check if you’re on Google’s blacklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
+                    {{__("Automatically check if you’re on Google’s blocklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
                 </p>
             </div>
             <div class="sui-box-settings-row sui-upsell-row">
@@ -21,7 +21,7 @@
                 <div class="sui-upsell-notice">
                     <div>
                         <p>
-                            {{__("Defender will warn you if your site has been flagged as unsafe. Get blacklist Monitor as part of a WPMU DEV membership.")}}<br/> <a class="premium-button sui-button sui-button-purple" target='_blank' :href="campaign_url('defender_dash_blacklist_upgrade_button')">{{__("Try Pro Free Today")}}</a>.
+                            {{__("Defender will warn you if your site has been flagged as unsafe. Get blocklist Monitor as part of a WPMU DEV membership.")}}<br/> <a class="premium-button sui-button sui-button-purple" target='_blank' :href="campaign_url('defender_dash_blocklist_upgrade_button')">{{__("Try Pro Free Today")}}</a>.
                         </p>
                     </div>
                 </div>

@@ -30,7 +30,7 @@ class Cli {
 	 */
 	public function scan( $args, $options ) {
 		if ( empty( $args ) ) {
-			\WP_CLI::error( sprintf( 'Invalid command' ) );
+			\WP_CLI::error( 'Invalid command' );
 		}
 		list( $command ) = $args;
 		switch ( $command ) {

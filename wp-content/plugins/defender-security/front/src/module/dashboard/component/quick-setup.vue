@@ -98,10 +98,10 @@
                         <div class="sui-row">
                             <div class="sui-col-md-10">
                                 <span class="sui-settings-label">
-                                   {{__("Blacklist Monitor")}}
+                                   {{__("Blocklist Monitor")}}
                                 </span>
                                 <span class="sui-description">
-                                {{__("Automatically check if you’re on Google’s blacklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
+                                {{__("Automatically check if you’re on Google’s blocklist every 6 hours. If something’s wrong, we’ll let you know via email.")}}
                                 </span>
                             </div>
 

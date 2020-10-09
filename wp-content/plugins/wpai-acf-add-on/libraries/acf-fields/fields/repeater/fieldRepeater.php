@@ -112,7 +112,9 @@ class FieldRepeater extends Field {
 
             $values = array();
 
-            $this->setIgnoreEmpties($xpath['is_ignore_empties']);
+            $is_ignore_empties = empty($xpath['is_ignore_empties']) ? false : true;
+
+            $this->setIgnoreEmpties($is_ignore_empties);
 
             switch ($xpath['is_variable']){
                 case 'yes':

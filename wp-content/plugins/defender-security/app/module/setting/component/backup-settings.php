@@ -175,6 +175,21 @@ class Backup_Settings {
 		return $results;
 	}
 
+	/**
+	 * @param $key
+	 */
+	public static function makeConfigActive( $key ) {
+		$configs = self::getConfigs();
+		foreach ( $configs as $k => $config ) {
+			if ( $k === $key ) {
+				$config['is_active'] = true;
+			} else {
+				$config['is_active'] = false;
+			}
+			update_site_option( $k, $config );
+		}
+	}
+
 	public static function clearConfigs() {
 		$keys = get_site_option( self::INDEXER, false );
 		foreach ( $keys as $key ) {
@@ -324,64 +339,6 @@ class Backup_Settings {
 		$key                    = 'wp_defender_config_' . sanitize_file_name( $configs['name'] ) . time();
 		update_site_option( $key, $configs );
 		self::indexKey( $key );
-	}
-
-	/**
-	 * @param $configs
-	 *
-	 * @return string
-	 */
-	public static function buildConfigDescription( $configs ) {
-		$activated        = 0;
-		$always_activated = [
-			'iplockout',
-		];
-		foreach ( $configs as $module => $settings ) {
-			if ( in_array( $module, $always_activated ) ) {
-				$activated += 1;
-				continue;
-			}
-			$model = self::moduleToModel( $module );
-			if ( ! is_object( $model ) ) {
-				continue;
-			}
-			$model->import( $settings );
-
-			switch ( $module ) {
-				case 'security_headers':
-					if ( $model->is_any_activated() ) {
-						$activated += 1;
-					}
-					break;
-				case 'mask_login':
-					if ( $model->isEnabled() ) {
-						$activated += 1;
-					}
-					break;
-				case 'two_factor':
-					if ( $model->enabled ) {
-						$activated += 1;
-					}
-					break;
-				case 'audit':
-					if ( $model->enabled && wp_defender()->isFree == false ) {
-						$activated += 1;
-					}
-					break;
-				case 'security_tweaks':
-					if ( ( is_array( $model->fixed ) && count( $model->fixed ) ) || $model->automate ) {
-						$activated += 1;
-					}
-					break;
-				case 'scan':
-					if ( $model->is_any_active() ) {
-						$activated += 1;
-					}
-					break;
-			}
-		}
-
-		return sprintf( __( '%d/%d modules active', "defender-security" ), $activated, count( $configs ) - 1 );
 	}
 
 	/**

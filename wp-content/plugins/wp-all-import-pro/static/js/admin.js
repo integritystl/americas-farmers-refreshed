@@ -276,6 +276,32 @@
 		});
 
 		$('.wpallimport-import-from').click(function(){
+
+			var showImportType = false;
+
+			switch ($(this).attr('rel')){
+				case 'upload_type':
+					if ($('input[name=filepath]').val() != '') {
+						showImportType = true;
+					}
+					$('.wpallimport-download-resource').hide();
+					break;
+				case 'url_type':
+					if ($('input[name=url]').val() != '') {
+						showImportType = true;
+					}
+					$('.wpallimport-download-from-checked').click();
+					break;
+				case 'file_type':
+					if ($('input[name=file]').val() != '') {
+						showImportType = true;
+					}
+					$('.wpallimport-download-resource').hide();
+					break;
+			}
+
+			$('.wpallimport-import-from').removeClass('selected').addClass('bind');
+			$(this).addClass('selected').removeClass('bind');			
 			$('.wpallimport-import-from').removeClass('selected').addClass('bind');
 			$(this).addClass('selected').removeClass('bind');
 			$('.change_file').find('.wpallimport-upload-type-container').hide();
@@ -290,6 +316,20 @@
 			}
 		});
 		$('.wpallimport-import-from.selected').click();
+
+		$('.wpallimport-download-from').click(function(){
+			if ($(this).attr('rel') === 'url') {
+				$('.wpallimport-download-resource-step-two-url').show();
+				$('.wpallimport-download-resource-step-two-ftp').hide();
+			} else {
+				$('.wpallimport-download-resource-step-two-url').hide();
+				$('.wpallimport-download-resource-step-two-ftp').show();
+			}
+			$('.wpallimport-download-from').removeClass('wpallimport-download-from-checked');
+			$(this).addClass('wpallimport-download-from-checked');
+			$('.change_file').find('input[name=new_type]').val( $(this).attr('rel') );
+		});
+		$('.wpallimport-download-from.wpallimport-download-from-checked').click();
 
 	});
 
@@ -338,16 +378,22 @@
 
 			switch ($(this).attr('rel')){
 				case 'upload_type':
-					if ($('input[name=filepath]').val() != '')
+					if ($('input[name=filepath]').val() != '') {
 						showImportType = true;
+					}
+					$('.wpallimport-download-resource').hide();
 					break;
 				case 'url_type':
-					if ($('input[name=url]').val() != '')
+					if ($('input[name=url]').val() != '') {
 						showImportType = true;
+					}
+					$('.wpallimport-download-from-checked').click();
 					break;
-				case 'file_type':
-					if ($('input[name=file]').val() != '')
+				case 'file_type':					
+					if ($('input[name=file]').val() != '') {
 						showImportType = true;
+					}
+					$('.wpallimport-download-resource').hide();
 					break;
 			}
 
@@ -382,10 +428,24 @@
 
 		$('.wpallimport-download-from-url').click(function(){
 
-			var $url = $('input[name=url]').val();
-			var $template = $('input[name=template]').val();
+			let $type = $('input[name=type]').val();
+			let $url = $('input[name=url]').val();
+			let $ftp_host = $('input[name=ftp_host]').val();
+			let $ftp_path = $('input[name=ftp_path]').val();
+			let $ftp_port = $('input[name=ftp_port]').val();
+			let $ftp_username = $('input[name=ftp_username]').val();
+			let $ftp_password = $('input[name=ftp_password]').val();
+			let $ftp_private_key = $('textarea[name=ftp_private_key]').val();
+			let $template = $('input[name=template]').val();
 
-			if ("" == $url) return;
+			switch ($type) {
+				case 'ftp':
+					if ("" == $ftp_host || $ftp_port == "" || $ftp_username == "" || $ftp_password == "") return;
+					break;
+				default:
+					if ("" == $url) return;
+					break;
+			}
 
 			$('#wpallimport-url-upload-status').html('');
 			$('.error.inline').remove();
@@ -394,7 +454,13 @@
 			var request = {
 				action: 'upload_resource',
 				security: wp_all_import_security,
-				type: 'url',
+				type: $type,
+				ftp_host: $ftp_host,
+				ftp_path: $ftp_path,
+				ftp_port: $ftp_port,
+				ftp_username: $ftp_username,
+				ftp_password: $('input[name="ftp_password"]').val(),
+				ftp_private_key: $ftp_private_key,
 				file: $url,
 				template: $template
 		    };
@@ -411,13 +477,12 @@
 				url: ajaxurl,
 				data: request,
 				success: function(response) {
-
 					if (response.success) {
 						if (response.post_type) {
-							var index = $('#custom_type_selector li:has(input[value="'+ response.post_type +'"])').index();
+							let index = $('#custom_type_selector li:has(input[value="'+ response.post_type +'"])').index();
 							if (index != -1) {
-								if (response.taxonomy_type){
-									var tindex = $('#taxonomy_to_import li:has(input[value="'+ response.taxonomy_type +'"])').index();
+								if (response.taxonomy_type) {
+									let tindex = $('#taxonomy_to_import li:has(input[value="'+ response.taxonomy_type +'"])').index();
 									if (tindex != -1){
 										$('#taxonomy_to_import').ddslick('select', {index: tindex });
 									}
@@ -499,7 +564,7 @@
 					$('.wpallimport-choose-file').find('.wpallimport-submit-buttons').hide();
 				}
 
-				if (selectedData.selectedData.value == 'taxonomies'){
+				if (selectedData.selectedData.value == 'taxonomies') {
 					$('.taxonomy_to_import_wrapper').slideDown();
 					var selectedTaxonomy = $('input[name=taxonomy_type]').val();
 					if (selectedTaxonomy == ''){
@@ -545,7 +610,7 @@
 							if (response.post_type) {
 								var index = $('#custom_type_selector li:has(input[value="'+ response.post_type +'"])').index();
 								if (index != -1) {
-									if (response.taxonomy_type){
+									if (response.taxonomy_type) {
 										var tindex = $('#taxonomy_to_import li:has(input[value="'+ response.taxonomy_type +'"])').index();
 										if (tindex != -1){
 											$('#taxonomy_to_import').ddslick('select', {index: tindex });
@@ -573,10 +638,11 @@
 							$('.wpallimport-header').next('.clear').after(response.responseText);
 						},
 						dataType: "json"
-					});
+					});					
+														
 		    	} else {
 		    		if ($('.wpallimport-import-from.selected').attr('rel') == 'file_type') {
-		    			$('.wpallimport-choose-file').find('input[name=file]').val('');
+		    			$('.wpallimport-choose-file').find('input[name=file]').val('');	
 			    		$('#file_selector').find('.dd-selected').css({'color':'#cfceca'});
 			    		$('.wpallimport-choose-file').find('.wpallimport-upload-resource-step-two').slideUp();
 						$('.wpallimport-choose-file').find('.wpallimport-submit-buttons').hide();
@@ -600,9 +666,24 @@
 			$('.dd-container').fadeIn();
 		});
 
+		$('.wpallimport-download-from').click(function(){
+			if ($(this).attr('rel') === 'url') {
+				$('.wpallimport-download-resource-step-two-url').show();
+				$('.wpallimport-download-resource-step-two-ftp').hide();
+			} else {
+				$('.wpallimport-download-resource-step-two-url').hide();
+				$('.wpallimport-download-resource-step-two-ftp').show();
+			}
+			$('.wpallimport-download-from').removeClass('wpallimport-download-from-checked');
+			$(this).addClass('wpallimport-download-from-checked');
+			$('.wpallimport-choose-file').find('input[name=type]').val( $(this).attr('rel') );
+			$('.dd-container').fadeIn();
+		});
+
 		$('#custom_type_selector').hide();
 
 		$('.wpallimport-import-to.wpallimport-import-to-checked').click();
+		$('.wpallimport-download-from.wpallimport-download-from-checked').click();
 
 		$('a.auto-generate-template').click(function(){
 			$('input[name^=auto_generate]').val('1');
@@ -1748,7 +1829,7 @@
     	if ($(this).parents('td:first').find('input:first').val() == '') $(this).parents('td:first').find('.hierarhy-output').val('');
     });
 
-    $('.drag-element').find('input').on('hover', function(){},function(){
+    $('.drag-element').find('input').on('mouseenter', function(){},function(){
     	$(this).parents('td:first').find('.hierarhy-output').val(window.JSON.stringify($(this).parents('.ui-sortable:first').pmxi_nestedSortable('toArray', {startDepthCount: 0})));
     	if ($(this).parents('td:first').find('input:first').val() == '') $(this).parents('td:first').find('.hierarhy-output').val('');
     });
@@ -2295,6 +2376,19 @@
     	$(this).attr('rel', $(this).html());
     	$(this).html($newtitle);
     });
+
+    $('table.pmxi-admin-imports').each(function () {
+    	let manage_table = $(this);
+    	$(this).find('thead tr th.check-column :checkbox, tfoot tr th.check-column :checkbox').click(function () {
+    		let is_checked = $(this).is(':checked');
+			manage_table.find('tbody tr th.check-column :checkbox').prop('checked', function () {
+				if (is_checked) {
+					return true;
+				}
+				return false;
+			});
+		});
+	});
 
 	var fix_tag_position = function(){
 		if ($('.wpallimport-layout').length && $('.tag').length){

@@ -17,6 +17,9 @@ class Sh_Feature_Policy extends Security_Header {
 		if ( ! $model->sh_feature_policy ) {
 			return false;
 		}
+		if ( isset( $model->sh_feature_policy_mode ) && ! empty( $model->sh_feature_policy_mode ) ) {
+			return true;
+		}
 		$headers = $this->headRequest( network_site_url(), self::$rule_slug );
 		if ( is_wp_error( $headers ) ) {
 			Utils::instance()->log( sprintf( 'Self ping error: %s', $headers->get_error_message() ) );
@@ -85,7 +88,6 @@ class Sh_Feature_Policy extends Security_Header {
 			$headers  = '';
 			$features = array(
 				'accelerometer',
-				'ambient-light-sensor',
 				'autoplay',
 				'camera',
 				'encrypted-media',
@@ -96,11 +98,7 @@ class Sh_Feature_Policy extends Security_Header {
 				'microphone',
 				'midi',
 				'payment',
-				'picture-in-picture',
-				'speaker',
 				'usb',
-				//'vibrate',
-				'vr',
 			);
 
 			switch ( $model->sh_feature_policy_mode ) {

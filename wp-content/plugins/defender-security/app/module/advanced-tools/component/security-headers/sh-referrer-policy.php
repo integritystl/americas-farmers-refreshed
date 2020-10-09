@@ -17,6 +17,9 @@ class Sh_Referrer_Policy extends Security_Header {
 		if ( ! $model->sh_referrer_policy ) {
 			return false;
 		}
+		if ( isset( $model->sh_referrer_policy_mode ) && ! empty( $model->sh_referrer_policy_mode ) ) {
+			return true;
+		}
 		$headers = $this->headRequest( network_site_url(), self::$rule_slug );
 		if ( is_wp_error( $headers ) ) {
 			Utils::instance()->log( sprintf( 'Self ping error: %s', $headers->get_error_message() ) );

@@ -21,7 +21,7 @@
 		</div>
 		<div class="sui-box-body">
 			<p>
-				{{__("Here's your comprehensive IP lockout log. You can whitelist and ban IPs from there.")}}
+				{{__("Here's your comprehensive IP lockout log. You can allowlist and ban IPs from there.")}}
 			</p>
 		</div>
 		<lockout-table

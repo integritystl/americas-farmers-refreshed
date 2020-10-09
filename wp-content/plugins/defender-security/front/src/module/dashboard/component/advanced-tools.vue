@@ -39,7 +39,7 @@
                 {{__("Change the location of WordPress's default login area.")}}
             </span>
             <form method="post" class="margin-top-10"
-                  @submit.prevent="updateSettings()" v-if="mask_login.enabled===false">
+                  @submit.prevent="updateSettings" v-if="mask_login.enabled===false">
                 <submit-button type="submit" css-class="sui-button-blue" :state="state">
                     {{__("Activate")}}
                 </submit-button>
@@ -95,21 +95,17 @@
             }
         },
         methods: {
-            updateSettings: function (module) {
+            updateSettings: function () {
                 let self = this;
                 this.httpPostRequest('updateSettings', {
                     data: JSON.stringify({
                         settings: {
                             enabled: true
                         },
-                        module: module
+                        module: 'mask-login'
                     })
                 }, function () {
-                    if (module === 'auth') {
-                        self.two_factor.enabled = true;
-                    } else {
-                        self.mask_login.enabled = true;
-                    }
+                    self.mask_login.enabled = true;
                 });
             }
         }

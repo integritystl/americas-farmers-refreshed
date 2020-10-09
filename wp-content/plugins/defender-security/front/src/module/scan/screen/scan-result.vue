@@ -10,7 +10,7 @@
 						{{__("New Scan")}}
 					</submit-button>
 				</div>
-				<doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#security-scans"></doc-link>
+				<doc-link link="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#malware-scanning"></doc-link>
 			</div>
 			<summary-box>
 				<div class="sui-summary-segment">

@@ -122,7 +122,7 @@ class Main extends Controller {
 				case '404':
 					$message = $settings->detect_404_lockout_message;
 					break;
-				case 'blacklist':
+				case 'blocklist':
 					$message = $settings->ip_lockout_message;
 					break;
 				default:
@@ -144,7 +144,7 @@ class Main extends Controller {
 			$temp_whitelist   = array_unique( $temp_whitelist );
 			$temp_whitelist   = array_filter( $temp_whitelist );
 			$cache->set( 'staff_ips', $temp_whitelist, DAY_IN_SECONDS );
-			Utils::instance()->log( sprintf( 'Temporary whitelist ip %s', $ip ), 'lockout' );
+			Utils::instance()->log( sprintf( 'Temporary allowlist ip %s', $ip ), 'lockout' );
 		}
 		$arr = array_merge( $arr, $temp_whitelist );
 		
@@ -175,8 +175,12 @@ class Main extends Controller {
 			) );
 			die;
 		} else {
-			if ( is_user_logged_in() ) {
-				//if current user can logged in, and no blacklisted we don't need to check the ip
+			if ( $settings->detect_404_logged == false && is_user_logged_in() ) {
+				/**
+				 * We don't need to check the IP if:
+				 * the current user can logged in and no blacklisted,
+				 * the option detect_404_logged is disabled
+				 */
 				return;
 			}
 			
@@ -255,13 +259,13 @@ class Main extends Controller {
 			foreach ( $setting->getIpBlacklist() as $ip ) {
 				$data[] = array(
 					'ip'   => $ip,
-					'type' => 'blacklist'
+					'type' => 'blocklist'
 				);
 			}
 			foreach ( $setting->getIpWhitelist() as $ip ) {
 				$data[] = array(
 					'ip'   => $ip,
-					'type' => 'whitelist'
+					'type' => 'allowlist'
 				);
 			}
 			$fp = fopen( 'php://memory', 'w' );
