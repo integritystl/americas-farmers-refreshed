@@ -32,10 +32,11 @@
 		justify-content: center;
 		background-color: $navyBlue;
 		color: white;
-		padding: 40px 40px;
+		padding: 40px 30px;
 		margin-top: 0;
 		@include grid-media($medium-min) {
 			margin-top: 0;
+			padding: 40px 40px 0;
 		}
 		img{
 			width:25%;
