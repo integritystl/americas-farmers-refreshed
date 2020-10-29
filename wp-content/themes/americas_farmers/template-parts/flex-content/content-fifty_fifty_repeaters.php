@@ -37,7 +37,7 @@ $backgroundColor = get_sub_field('background_color');
 							$link = get_sub_field('buttons');
 							$link_url = $link['url'];
 						    $link_title = $link['title'];
-						    $link_target = $link['target'] ? $link['target'] : '_blank';
+						    $link_target = $link['target'];
 						?>
 						<a class="button" href="<?php echo esc_url( $link_url ); ?>" target="<?php echo $link_target ?>"><?php echo $link_title ?></a>
 					   	<?php endwhile;?>
