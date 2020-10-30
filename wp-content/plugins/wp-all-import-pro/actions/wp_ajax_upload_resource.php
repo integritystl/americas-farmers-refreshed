@@ -20,6 +20,7 @@ function pmxi_wp_ajax_upload_resource() {
 		'type' => '',
 		'ftp_host' => '',
 		'ftp_path' => '',
+		'ftp_root' => '/',
 		'ftp_port' => '',
 		'ftp_username' => '',
 		'ftp_password' => '',

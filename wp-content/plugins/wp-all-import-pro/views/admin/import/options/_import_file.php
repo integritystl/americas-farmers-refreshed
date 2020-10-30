@@ -178,6 +178,10 @@
                                     <textarea class="wpai-ftp-text-area" name="ftp_private_key" placeholder="SFTP Private Key"><?php echo ( ! empty($import->options['ftp_private_key'])) ? esc_attr($import->options['ftp_private_key']) : ''; ?></textarea>
                                     <a class="wpallimport-help" id="wpai-ftp-text-area-help" href="#help" style="position: relative; top: -2px;" title="<?php _e('If you don\'t know if you need an SFTP Private Key, contact the host of the server.', PMXI_Plugin::LANGUAGE_DOMAIN); ?>">?</a>
                                 </div>
+                                <div style="display:none;">
+                                    <input type="hidden" name="ftp_root"
+                                           value="<?php echo ( ! empty( $import->options['ftp_root'] ) ) ? esc_attr( $import->options['ftp_root'] ) : ''; ?>"/>
+                                </div>
                                 <div class="wpallimport-file-type-options ftp_path">
 
                                     <input type="text" class="regular-text" name="ftp_path"

@@ -76,6 +76,11 @@ class FtpbrowserController {
 			$contents['host'] = $ftp->get_protocol() . '://' . $conn_details['host'];
 		}
 
+		// Check if the root path has changed and update as needed.
+		if( !(strpos(strtolower($conn_details['root']), $ftp->get_root()) !== false) ){
+			$contents['root'] = $ftp->get_root();
+		}
+
 		// Return contents if all went well.
 		return $this->sendRes($contents);
 
