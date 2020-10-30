@@ -469,6 +469,9 @@ class PMXI_Admin_Manage extends PMXI_Controller_Admin {
 					if ($item->options['is_delete_missing']) {
 						$chunks = 1;
 					} else {
+						$item->set(array(
+							'registered_on' => date('Y-m-d H:i:s')
+						))->update();
 						$this->errors->add('root-element-validation', __('No matching elements found for Root element and XPath expression specified', 'wp_all_import_plugin'));						
 					}
 				}

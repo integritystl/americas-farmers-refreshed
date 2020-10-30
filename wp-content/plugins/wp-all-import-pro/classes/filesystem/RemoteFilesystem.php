@@ -24,6 +24,7 @@ class RemoteFilesystem {
 	// Should match list in classes/upload.php#56 - xml|gzip|zip|csv|tsv|gz|json|txt|dat|psv|sql|xls|xlsx
 	private $allowed_file_extensions = ['xml','gzip','zip','csv','tsv','gz','json','txt','dat','psv','sql','xls','xlsx'];
 	private $debug;
+	private $orig_root = false;
 
 	public function __construct( $options ) {
 
@@ -47,6 +48,9 @@ class RemoteFilesystem {
 		];
 
 		$this->options = $this->option_merge( $default_options, $options );
+
+		// Root override
+		$this->options['root'] = apply_filters('wpai_ftp_root', $this->options['root'], PMXI_Plugin::getCurrentImportId());
 
 		// Ensure no trailing slash or text after the URL exists.
 		$this->options['host'] = preg_replace( '@(?<![/:])/.*@', '', $this->options['host'] );
@@ -138,9 +142,27 @@ class RemoteFilesystem {
 
 			}
 
+			if ( str_replace( [
+					'Root is invalid or does not exist:',
+				], '',$e->getMessage() ) !== $e->getMessage()  && $this->orig_root === false) {
+
+				// Save the original root specified.
+				$this->orig_root = $this->options['root'];
+
+				if( $this->options['root'] !== '/home') {
+					$this->options['root'] = '/home';
+					$this->error_stack[]   = $this->error;
+					$this->error           = false;
+					$this->buildFilesystem( $this->type );
+					$this->listContents( $recursive );
+				}
+				else
+					return $this->contents;
+
+			}
 			// Check if it was a login failure or connection failure.
 			// Don't retry if login failure or if host couldn't be found.
-			if ( str_replace( [ 'Could not login',
+			elseif ( str_replace( [ 'Could not login',
 								'php_network_getaddresses: getaddrinfo failed:',
 							  ], '',$e->getMessage() ) !== $e->getMessage() ) {
 
@@ -230,6 +252,9 @@ class RemoteFilesystem {
 		}
 		if ( isset( $opts['ftp_path'] ) ) {
 			$options['dir'] = $opts['ftp_path'];
+		}
+		if ( isset( $opts['ftp_root'] ) ) {
+			$options['root'] = $opts['ftp_root'];
 		}
 		if ( isset( $opts['ftp_username'] ) ) {
 			$options['username'] = $opts['ftp_username'];
@@ -326,6 +351,10 @@ class RemoteFilesystem {
 
 	public function get_protocol() {
 		return $this->type;
+	}
+
+	public function get_root() {
+		return $this->options['root'];
 	}
 
 	private function filter_contents(){
