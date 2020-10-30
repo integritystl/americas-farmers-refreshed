@@ -123,6 +123,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			'url' => '',
 			'ftp_host' => '',
 			'ftp_path' => '',
+			'ftp_root' => '/',
 			'ftp_port' => '21',
 			'ftp_username' => '',
 			'ftp_password' => '',
@@ -373,6 +374,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                     'taxonomy_type' => $post['taxonomy_type'],
                     'ftp_host' => $post['ftp_host'],
                     'ftp_path' => $post['ftp_path'],
+                    'ftp_root' => $post['ftp_root'],
                     'ftp_port' => $post['ftp_port'],
                     'ftp_username' => $post['ftp_username'],
                     'ftp_password' => $post['ftp_password'],
@@ -1389,6 +1391,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if (empty($default['delimiter'])) $default['delimiter'] = PMXI_Plugin::$session->is_csv;
 			if (empty($default['ftp_host'])) $default['ftp_host'] = PMXI_Plugin::$session->ftp_host;
 			if (empty($default['ftp_path'])) $default['ftp_path'] = PMXI_Plugin::$session->ftp_path;
+			$default['ftp_root'] = PMXI_Plugin::$session->ftp_root;
 			if (empty($default['ftp_username'])) $default['ftp_username'] = PMXI_Plugin::$session->ftp_username;
 			if (empty($default['ftp_password'])) $default['ftp_password'] = PMXI_Plugin::$session->ftp_password;
 			if (empty($default['ftp_private_key'])) $default['ftp_private_key'] = PMXI_Plugin::$session->ftp_private_key;
@@ -1436,6 +1439,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 				$template_options['delimiter'] = $post['delimiter'];		
 				$template_options['ftp_host'] = $post['ftp_host'];
 				$template_options['ftp_path'] = $post['ftp_path'];
+				$template_options['ftp_root'] = $post['ftp_root'];
 				$template_options['ftp_port'] = $post['ftp_port'];
 				$template_options['ftp_username'] = $post['ftp_username'];
 				$template_options['ftp_password'] = $post['ftp_password'];
@@ -1817,6 +1821,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
 			if (empty($DefaultOptions['delimiter'])) $DefaultOptions['delimiter'] = PMXI_Plugin::$session->is_csv;
 			if (empty($DefaultOptions['ftp_host'])) $DefaultOptions['ftp_host'] = PMXI_Plugin::$session->ftp_host;
 			if (empty($DefaultOptions['ftp_path'])) $DefaultOptions['ftp_path'] = PMXI_Plugin::$session->ftp_path;
+			if (empty($DefaultOptions['ftp_root'])) $DefaultOptions['ftp_root'] = PMXI_Plugin::$session->ftp_root;
 			if (empty($DefaultOptions['ftp_port'])) $DefaultOptions['ftp_port'] = PMXI_Plugin::$session->ftp_port;
 			if (empty($DefaultOptions['ftp_username'])) $DefaultOptions['ftp_username'] = PMXI_Plugin::$session->ftp_username;
 			if (empty($DefaultOptions['ftp_password'])) $DefaultOptions['ftp_password'] = PMXI_Plugin::$session->ftp_password;
@@ -1977,11 +1982,13 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                         $ftp_host = $this->input->post('ftp_host');
                         $ftp_port = $this->input->post('ftp_port');
                         $ftp_path = $this->input->post('ftp_path');
+                        $ftp_root = $this->input->post('ftp_root');
                         $ftp_username = $this->input->post('ftp_username');
                         $ftp_password = $this->input->post('ftp_password');
                         $ftp_private_key = $this->input->post('ftp_private_key');
                         if ($ftp_host !== $this->data['import']['options']['ftp_host'] ||
                             $ftp_path !== $this->data['import']['options']['ftp_path'] ||
+                            $ftp_root !== $this->data['import']['options']['ftp_root'] ||
                             $ftp_port !== $this->data['import']['options']['ftp_port'] ||
                             $ftp_username !== $this->data['import']['options']['ftp_username'] ||
                             $ftp_password !== $this->data['import']['options']['ftp_password'] || $ftp_private_key !== $this->data['import']['options']['ftp_private_key']) {
@@ -1989,6 +1996,7 @@ class PMXI_Admin_Import extends PMXI_Controller_Admin {
                                 $files = PMXI_FTPFetcher::fetch([
                                     'ftp_host' => $ftp_host,
                                     'ftp_path' => $ftp_path,
+                                    'ftp_root' => $ftp_root,
                                     'ftp_port' => $ftp_port,
                                     'ftp_username' => $ftp_username,
                                     'ftp_password' => $ftp_password,

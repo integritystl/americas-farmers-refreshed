@@ -363,13 +363,14 @@
 			</td>			
 		</tr>
 	</table>
-
+	<?php if ( $this->type !== 'upload' ): ?>
     <div style="color: #425F9A; font-size: 14px; font-weight: bold; margin: 0 0 15px; line-height: 25px; text-align: center;">
         <div id="no-subscription" style="display: none;">
-            <?php echo _e("Looks like you're trying out Automatic Scheduling!");?><br/>
-            <?php echo _e("Your Automatic Scheduling settings won't be saved without a subscription.");?>
+            <?php _e("Looks like you're trying out Automatic Scheduling!", 'wp_all_import_plugin');?><br/>
+            <?php _e("Your Automatic Scheduling settings won't be saved without a subscription.", 'wp_all_import_plugin');?>
         </div>
     </div>
+    <?php endif; ?>
     <?php if ($is_new_import):?>
 	<form id="wpai-submit-confirm-form" class="confirm <?php echo ! $isWizard ? 'edit' : '' ?>" method="post">
 		<?php wp_nonce_field('confirm', '_wpnonce_confirm') ?>

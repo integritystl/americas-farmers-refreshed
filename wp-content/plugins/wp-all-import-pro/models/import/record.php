@@ -222,7 +222,8 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 								'updated' => 0,
 								'skipped' => 0,
 								'deleted' => 0,
-								'triggered' => 0	
+								'triggered' => 0,
+								'registered_on' => date('Y-m-d H:i:s')
 							))->update();
 
                             $force_cron_processing = apply_filters('wp_all_import_force_cron_processing_on_empty_feed', false, $this->id);
@@ -584,7 +585,7 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 								'processing' => 0,
 								'triggered' => 0,
 								'queue_chunk_number' => 0,
-								'registered_on' => date('Y-m-d H:i:s'), // update registered_on to indicated that job has been exectured even if no files are going to be imported by the rest of the method
+								'registered_on' => date('Y-m-d H:i:s'), // update registered_on to indicated that job has been executed even if no files are going to be imported by the rest of the method
 								'iteration' => ++$this->iteration
 							))->update();							
 
@@ -641,7 +642,8 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 						'created' => 0,
 						'updated' => 0,
 						'skipped' => 0,
-						'deleted' => 0										
+						'deleted' => 0,
+						'registered_on' => date('Y-m-d H:i:s'), // update registered_on to indicated that job has been executed even if no files are going to be imported by the rest of the method
 					))->update();
 
                     if ( $history_log_id ){
@@ -2896,11 +2898,38 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 						$logger and call_user_func($logger, sprintf(__('Associate post `%s` with post format %s ...', 'wp_all_import_plugin'), $this->getRecordTitle($articleData), ("xpath" == $this->options['post_format']) ? $post_format[$i] : $this->options['post_format']));
 					}
 					// [/post format]
-					
+
+					$images_uploads = apply_filters('wp_all_import_images_uploads_dir', $uploads, $articleData, $current_xml_node, $this->id, $pid);
+
 					// [custom fields]					
 
 					$existing_meta_keys = array();
 					$existing_meta = array();
+
+					if ( $is_images_to_update and ! empty($images_uploads) and false === $images_uploads['error'] and (empty($articleData['ID']) or $this->options['update_all_data'] == "yes" or ( $this->options['update_all_data'] == "no" and $this->options['is_update_images']))) {
+						// If images set to be updated then delete image related custom fields as well.
+						if ( $this->options['update_images_logic'] == "full_update" ) {
+							$image_custom_fields = [ '_thumbnail_id', '_product_image_gallery' ];
+							foreach ( $image_custom_fields as $image_custom_field ) {
+								switch ( $this->options['custom_type'] ) {
+									case 'import_users':
+									case 'shop_customer':
+										delete_user_meta( $pid, $image_custom_field );
+										break;
+									case 'taxonomies':
+										delete_term_meta( $pid, $image_custom_field );
+										break;
+									case 'woo_reviews':
+									case 'comments':
+										delete_comment_meta( $pid, $image_custom_field );
+										break;
+									default:
+										delete_post_meta( $pid, $image_custom_field );
+										break;
+								}
+							}
+						}
+					}
 
 					if (empty($articleData['ID']) or $this->options['update_all_data'] == 'yes' or ($this->options['update_all_data'] == 'no' and $this->options['is_update_custom_fields']) or ($this->options['update_all_data'] == 'no' and !empty($this->options['is_update_attributes']) and $post_type[$i] == "product" and class_exists('PMWI_Plugin'))) {
 
@@ -2998,9 +3027,10 @@ class PMXI_Import_Record extends PMXI_Model_Record {
                                     }
 									$show_log and $logger and call_user_func($logger, sprintf(__('- Custom field %s has been deleted for `%s` attempted to `update all custom fields` setting ...', 'wp_all_import_plugin'), $cur_meta_key, $this->getRecordTitle($articleData)));
 								}
-                                // Leave these fields alone, update all other Custom Fields
-                                elseif ($this->options['update_all_data'] == 'no' and $this->options['is_update_custom_fields'] and $this->options['update_custom_fields_logic'] == "all_except"){
-                                    if ( empty($this->options['custom_fields_list']) or ! in_array($cur_meta_key, $this->options['custom_fields_list'])){
+								// Leave these fields alone, update all other Custom Fields && Update only these Custom Fields, leave the rest alone.
+                                elseif ($this->options['update_all_data'] == 'no' and $this->options['is_update_custom_fields']) {
+	                                if ( ($this->options['update_custom_fields_logic'] == "all_except" && ( empty($this->options['custom_fields_list']) or ! in_array($cur_meta_key, $this->options['custom_fields_list'])))
+	                                      || $this->options['update_custom_fields_logic'] == "only" && !empty($this->options['custom_fields_list']) && in_array($cur_meta_key, $this->options['custom_fields_list'])) {
                                         switch ($this->options['custom_type']){
 											case 'import_users':
 											case 'shop_customer':
@@ -3246,8 +3276,6 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 
                     $featuredImage = false;
 
-                    $images_uploads = apply_filters('wp_all_import_images_uploads_dir', $uploads, $articleData, $current_xml_node, $this->id, $pid);
-
                     if (!empty($articleData['post_content']) && (empty($articleData['ID']) || $this->options['is_keep_former_posts'] == "no" && ($this->options['update_all_data'] == "yes" || $this->options['is_update_content'])) && $this->options['import_img_tags'] && "gallery" !== $this->options['download_images'] ) {
 
                         require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -3453,28 +3481,6 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 					}
 
 					if ( $is_images_to_update and ! empty($images_uploads) and false === $images_uploads['error'] and (empty($articleData['ID']) or $this->options['update_all_data'] == "yes" or ( $this->options['update_all_data'] == "no" and $this->options['is_update_images']))) {
-						// If images set to be updated then delete image related custom fields as well.
-						if ( $this->options['update_images_logic'] == "full_update" ) {
-							$image_custom_fields = ['_thumbnail_id', '_product_image_gallery'];
-							foreach ($image_custom_fields as $image_custom_field) {
-								switch ($this->options['custom_type']){
-									case 'import_users':
-									case 'shop_customer':
-										delete_user_meta($pid, $image_custom_field);
-										break;
-									case 'taxonomies':
-										delete_term_meta($pid, $image_custom_field);
-										break;
-									case 'woo_reviews':
-									case 'comments':
-										delete_comment_meta($pid, $image_custom_field);
-										break;
-									default:
-										delete_post_meta($pid, $image_custom_field);
-										break;
-								}
-							}
-						}
 
 					    if ( ! empty($images_bundle) ){
 							
@@ -4234,12 +4240,12 @@ class PMXI_Import_Record extends PMXI_Model_Record {
 								if (!empty($articleData['ID'])){
 									if ($this->options['update_all_data'] == "no" and $this->options['update_categories_logic'] == "all_except" and !empty($this->options['taxonomies_list']) 
 										and is_array($this->options['taxonomies_list']) and in_array($tx_name, $this->options['taxonomies_list'])){ 
-											$logger and call_user_func($logger, sprintf(__('- %s %s `%s` has been skipped attempted to `Leave these taxonomies alone, update all others`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name, $single_tax['name']));
+											$logger and call_user_func($logger, sprintf(__('- %s %s has been skipped attempted to `Leave these taxonomies alone, update all others`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name));
 											continue;
 										}		
 									if ($this->options['update_all_data'] == "no" and $this->options['update_categories_logic'] == "only" and ((!empty($this->options['taxonomies_list']) 
 										and is_array($this->options['taxonomies_list']) and ! in_array($tx_name, $this->options['taxonomies_list'])) or empty($this->options['taxonomies_list']))){ 
-											$logger and call_user_func($logger, sprintf(__('- %s %s `%s` has been skipped attempted to `Update only these taxonomies, leave the rest alone`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name, $single_tax['name']));
+											$logger and call_user_func($logger, sprintf(__('- %s %s has been skipped attempted to `Update only these taxonomies, leave the rest alone`...', 'wp_all_import_plugin'), $custom_type_details->labels->singular_name, $tx_name));
 											continue;
 										}
 								}								

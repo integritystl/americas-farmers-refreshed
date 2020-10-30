@@ -432,6 +432,7 @@
 			let $url = $('input[name=url]').val();
 			let $ftp_host = $('input[name=ftp_host]').val();
 			let $ftp_path = $('input[name=ftp_path]').val();
+			let $ftp_root = $('input[name=ftp_root]').val();
 			let $ftp_port = $('input[name=ftp_port]').val();
 			let $ftp_username = $('input[name=ftp_username]').val();
 			let $ftp_password = $('input[name=ftp_password]').val();
@@ -457,6 +458,7 @@
 				type: $type,
 				ftp_host: $ftp_host,
 				ftp_path: $ftp_path,
+				ftp_root: $ftp_root,
 				ftp_port: $ftp_port,
 				ftp_username: $ftp_username,
 				ftp_password: $('input[name="ftp_password"]').val(),
@@ -1444,7 +1446,7 @@
 
 		var $xml = $('.wpallimport-xml');
 
-		var xpathChanged = function () {
+		var xpathChanged = function (reset_element) {
 			if ($input.val() == $input.data('checkedValue')) return;
 
 			$form.addClass('loading');
@@ -1458,7 +1460,7 @@
 			go_to_template = false;
 			$submit.hide();
 			var evaluate = function(){
-				$.post('admin.php?page=pmxi-admin-import&action=evaluate', {xpath: $input.val(), show_element: $goto_element.val(), root_element:$root_element.val(), is_csv: $apply_delimiter.length, delimiter:$csv_delimiter.val(), security: wp_all_import_security}, function (response) {
+				$.post('admin.php?page=pmxi-admin-import&action=evaluate', {xpath: $input.val(), show_element: reset_element ? 1 : $goto_element.val(), root_element:$root_element.val(), is_csv: $apply_delimiter.length, delimiter:$csv_delimiter.val(), security: wp_all_import_security}, function (response) {
 					if (response.result){
 						$('.wpallimport-elements-preloader').hide();
 						$('.ajax-console').html(response.html);
@@ -1515,7 +1517,9 @@
 			$input.val($(this).attr('rel'));
 			if ($input.val() == $input.data('checkedValue')) return;
 			reset_filters();
-			$root_element.val($(this).attr('root')); $goto_element.val(1);  xpathChanged();
+			$root_element.val($(this).attr('root'));
+			$goto_element.val(1);
+			xpathChanged(true);
 		});
 		$('.wpallimport-change-root-element').click(function(){
 			$input.val('/' + $(this).attr('rel'));
@@ -1524,9 +1528,14 @@
 			$(this).addClass('selected');
 			reset_filters();
 			$('.root_element').html($(this).attr('rel'));
-			$root_element.val($(this).attr('rel')); $goto_element.val(1); xpathChanged();
+			$root_element.val($(this).attr('rel'));
+			$goto_element.val(1);
+			xpathChanged(true);
 		});
-		$input.change(function(){$goto_element.val(1); xpathChanged();}).change();
+		$input.change(function(){
+			$goto_element.val(1);
+			xpathChanged(true);
+		}).change();
 		$input.keyup(function (e) {
 			if (13 == e.keyCode) $(this).change();
 		});
@@ -1534,7 +1543,8 @@
 		$apply_delimiter.click(function(){
 			if ( ! $input.attr('readonly') ){
 				$('input[name="xpath"]').data('checkedValue','');
-				xpathChanged();
+				$goto_element.val(1);
+				xpathChanged(true);
 			}
 		});
 
@@ -1587,6 +1597,7 @@
 
 		$(document).on('click', '.filtering_rules li a.remove-ico', function() {
 			$(this).parents('li:first').remove();
+			$('.filtering_rules').find('li:last div span.condition').hide();
 			if (!$('.filtering_rules').find('li').length){
 				$('#apply_filters').hide();
 	    		$('#filtering_rules').find('p').show();
@@ -1690,9 +1701,9 @@
 			filter += ']';
 
 			$input.val( $input.val().split('[')[0] + filter);
-
-			$input.data('checkedValue', ''); xpathChanged();
-
+			$input.data('checkedValue', '');
+			$goto_element.val(1);
+			xpathChanged(true);
 		});
 	});
 
