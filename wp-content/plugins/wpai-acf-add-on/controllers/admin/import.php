@@ -82,7 +82,8 @@ class PMAI_Admin_Import extends PMAI_Controller_Admin {
         if (!isset($this->data['groups'][$group->post_name])) {
             $this->data['groups'][] = array(
                 'ID' => $group->ID,
-                'title' => $group->post_title
+                'title' => $group->post_title,
+                'slug' => $group->post_excerpt
             );
         } else {
             $this->data['groups'][$group->post_name]['ID'] = $group->ID;
