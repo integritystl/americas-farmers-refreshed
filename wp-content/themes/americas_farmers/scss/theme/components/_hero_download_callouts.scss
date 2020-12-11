@@ -50,7 +50,7 @@
   list-style-type: none;
   display: flex;
   flex-flow: column nowrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin:40px auto;
 
   position: relative;
@@ -67,7 +67,7 @@
 
     @include grid-media($medium-min) {
       margin: 0;
-      width: 49%;
+      width: 35%;
     }
 
     a {
