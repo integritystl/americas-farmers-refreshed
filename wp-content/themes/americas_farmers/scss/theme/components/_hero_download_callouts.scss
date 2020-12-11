@@ -67,11 +67,7 @@
 
     @include grid-media($medium-min) {
       margin: 0;
-        width: 31.5%;
-    }
-
-    @media screen and (min-width: 1024px){
-      width: 31.5%;
+      width: 49%;
     }
 
     a {
