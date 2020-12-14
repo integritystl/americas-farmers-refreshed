@@ -144,20 +144,19 @@ abstract class Field implements FieldInterface {
 
             $field_keys = str_replace(array('[',']'), array(''), str_replace('][', ':', $this->getData('field_name')));
 
+			$data['current_field'] = false;
             foreach (explode(":", $field_keys) as $n => $key) {
-                $data['current_field'] = false;
-                if (isset($post['fields'][$key])) {
-                    $data['current_field'] = $post['fields'][$key];
-                } elseif (isset($data['current_field'][$key])) {
-                    $data['current_field'] = $data['current_field'][$key];
-                }
+	            if (!empty($post['fields'][$key])) {
+		            $data['current_field'] = $post['fields'][$key];
+	            } elseif (isset($data['current_field'][$key])) {
+		            $data['current_field'] = $data['current_field'][$key];
+	            }
 
                 foreach ($options as $option){
-                    $data['current_' . $option] = false;
-                    if (isset($post[$option][$key])) {
+                    if (!empty($post[$option][$key])) {
                         $data['current_' . $option] = $post[$option][$key];
-                    } elseif(isset($post[$option][$key])) {
-                        $data['current_' . $option] = $post[$option][$key];
+                    } elseif(!empty($data['current_' . $option][$key])) {
+                        $data['current_' . $option] = $data['current_' . $option][$key];
                     }
                 }
             }
@@ -445,17 +444,16 @@ abstract class Field implements FieldInterface {
         if (empty($fieldName)) {
             if (function_exists('_acf_get_field_by_id')) {
                 $field = _acf_get_field_by_id($this->data['field']['ID']);
-            }
-            else {
+            } else {
                 $label = sanitize_title( $this->data['field']['label'] );
-                $fieldName = str_replace('-', '_', $label);
+	            $fieldName = str_replace('-', '_', $label);
             }
 
             if (!empty($field)) {
                 $fieldName = $this->data['field']['name'] = $field['name'];
             }
         }
-        return empty($this->importData['container_name']) ? $fieldName : $this->importData['container_name'] . $fieldName;
+        return !isset($this->importData['container_name']) ? $fieldName : $this->importData['container_name'] . $fieldName;
     }
 
     /**
