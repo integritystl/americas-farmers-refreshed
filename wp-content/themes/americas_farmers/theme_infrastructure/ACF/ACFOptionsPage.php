@@ -74,7 +74,7 @@ class ACFOptionsPage {
 							'id' => '',
 						),
 						'collapsed' => '',
-						'min' => 3,
+						'min' => 2,
 						'max' => 3,
 						'layout' => 'block',
 						'button_label' => '',
