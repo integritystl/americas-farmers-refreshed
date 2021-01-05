@@ -2,74 +2,92 @@
 /**
  * @author: Hoang Ngo
  */
+
 // If uninstall is not called from WordPress, exit
+use Calotes\Helper\Array_Cache;
+
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit();
 }
 
-
-if ( ! function_exists( 'is_plugin_active' ) ) {
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+$phpVersion = phpversion();
+if ( version_compare( $phpVersion, '5.3', '<' ) ) {
+	//php 5.2 does not need uninstall
+	return;
 }
 
-if ( is_plugin_active( 'wp-defender/wp-defender.php' ) ) {
-	return;
+/**
+ * Drop custom tables
+ *
+ * @since 2.4
+ */
+function defender_drop_custom_tables() {
+	global $wpdb;
+
+	$wpdb->hide_errors();
+
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_email_log" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_scan_item" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_scan" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_lockout_log" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_lockout" );
+	$wpdb->query( "DROP TABLE IF EXISTS {$wpdb->prefix}defender_audit_log" );
 }
 
 $path = dirname( __FILE__ );
 include_once $path . DIRECTORY_SEPARATOR . 'wp-defender.php';
+$settings           = wd_di()->get( \WP_Defender\Model\Setting\Main_Setting::class );
+$uninstall_data     = isset( $settings->uninstall_data ) && 'remove' === $settings->uninstall_data;
+$uninstall_settings = isset( $settings->uninstall_settings ) && 'reset' === $settings->uninstall_settings;
 
-$settings = \WP_Defender\Module\Setting\Model\Settings::instance();
-//if ( is_multisite() ) {
-//	$data = get_site_option( 'wd_main_settings', array(), false );
-//	$settings->import( $data );
-//}
-
-if ( $settings->uninstall_data == 'remove' ) {
-	$scan = \WP_Defender\Module\Scan\Model\Scan::findAll();
-	foreach ( $scan as $model ) {
-		$model->delete();
-	}
-	delete_site_option( \WP_Defender\Module\Scan\Component\Scan_Api::IGNORE_LIST );
-	delete_option( \WP_Defender\Module\Scan\Component\Scan_Api::IGNORE_LIST );
-
-	//wipe table
-	global $wpdb;
-	$tableName1 = $wpdb->base_prefix . 'defender_lockout';
-	$tableName2 = $wpdb->base_prefix . 'defender_lockout_log';
-
-	$sql = "DROP TABLE IF EXISTS $tableName1, $tableName2;";
-	$wpdb->query( $sql );
-
-	\WP_Defender\Behavior\Utils::instance()->removeDir( \WP_Defender\Behavior\Utils::instance()->getDefUploadDir() );
-	\WP_Defender\Module\Setting\Component\Backup_Settings::clearConfigs();
+if ( $uninstall_settings || $uninstall_data ) {
+	//turn off Audit_Logging so that hooks are not processed after deleting the table or resetting settings
+	$audit = wd_di()->get( \WP_Defender\Model\Setting\Audit_Logging::class );
+	$audit->enabled = false;
+	$audit->save();
 }
 
-if ( $settings->uninstall_settings == 'reset' ) {
-	$tweakFixed = \WP_Defender\Module\Hardener\Model\Settings::instance()->getFixed();
+if ( $uninstall_settings ) {
+	wd_di()->get( \WP_Defender\Controller\Advanced_Tools::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Audit_Logging::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Dashboard::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Security_Tweaks::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Scan::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Firewall::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Firewall_Logs::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Login_Lockout::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Nf_Lockout::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Mask_Login::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Tutorial::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Notification::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Two_Factor::class )->remove_settings();
+	wd_di()->get( \WP_Defender\Controller\Blocklist_Monitor::class )->remove_settings();
 
-	foreach ( $tweakFixed as $rule ) {
-		$rule->getService()->revert();
-	}
-	
-	( new \WP_Defender\Module\Scan\Component\Scanning() )->flushCache();
-
-	$cache = \Hammer\Helper\WP_Helper::getCache();
-	$cache->delete( 'isActivated' );
-	$cache->delete( 'wdf_isActivated' );
-	$cache->delete( 'wdfchecksum' );
-	$cache->delete( 'cleanchecksum' );
-
-	\WP_Defender\Module\Scan\Model\Settings::instance()->delete();
-	\WP_Defender\Module\Hardener\Model\Settings::instance()->delete();
-	\WP_Defender\Module\IP_Lockout\Model\Settings::instance()->delete();
-	\WP_Defender\Module\Two_Factor\Model\Auth_Settings::instance()->delete();
-	\WP_Defender\Module\Advanced_Tools\Model\Mask_Settings::instance()->delete();
-	\WP_Defender\Module\Two_Factor\Model\Auth_Settings::instance()->delete();
-	\WP_Defender\Module\Setting\Model\Settings::instance()->delete();
-	//clear old stuff
 	delete_site_option( 'wp_defender' );
 	delete_option( 'wp_defender' );
 	delete_option( 'wd_db_version' );
 	delete_site_option( 'wd_db_version' );
+	// because not call remove_settings from WAF controller
+	delete_site_transient( 'def_waf_status' );
+	// and Onboard controller
+	delete_site_option( 'wp_defender_is_activated' );
 }
+if ( $uninstall_data ) {
+	wd_di()->get( \WP_Defender\Controller\Advanced_Tools::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Audit_Logging::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Dashboard::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Security_Tweaks::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Scan::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Firewall::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Firewall_Logs::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Login_Lockout::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Nf_Lockout::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Mask_Login::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Notification::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Tutorial::class )->remove_data();
+	wd_di()->get( \WP_Defender\Controller\Two_Factor::class )->remove_data();
+	wd_di()->get( \WP_Defender\Component\Backup_Settings::class )->clear_configs();
+	defender_drop_custom_tables();
+}
+// remains from old versions
+delete_site_option( 'wd_audit_cached' );
