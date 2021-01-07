@@ -66,3 +66,4 @@ codeship.aes
 production.env
 .DS_Store
 .idea
+package-lock.json
