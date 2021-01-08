@@ -1,41 +1,32 @@
-
-var autoprefixer = require('autoprefixer');
+const { src } = require('gulp');
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var babel = require("gulp-babel");
-var pump = require('pump');
-var postcss = require('gulp-postcss');
-var sass = require('gulp-sass');
+var plugins = require('gulp-load-plugins')({ camelize: true });
 
-var build_dir = './wp-content/themes/americas_farmers/';
+var themePath = './wp-content/themes/americas_farmers/';
 
-gulp.task('scripts', function(cb) {
-	pump([
-		gulp.src('./wp-content/themes/americas_farmers/js/src/**/*.js'),
-		sourcemaps.init(),
-		babel({presets: ['env']}),
-		uglify(),
-		concat('app.js'),
-		sourcemaps.write('.'),
-		gulp.dest('./wp-content/themes/americas_farmers/js')
-	], cb);
-});
+function scripts() {
+	return src(themePath + 'js/src/**/*.js')
+	.pipe(plugins.sourcemaps.init())
+	.pipe(plugins.babel({presets: ['env']}))
+	.pipe(plugins.uglify())
+	.pipe(plugins.concat('app.js'))
+	.pipe(plugins.sourcemaps.write('.'))
+	.pipe(gulp.dest(themePath + 'dist'));
+}
 
-gulp.task('sass', function(cb) {
-	pump([
-		gulp.src('./wp-content/themes/americas_farmers/scss/style.scss'),
-		sourcemaps.init(),
-		sass(),
-		postcss([autoprefixer("last 2 versions")]),
-		sass(),
-		sourcemaps.write(),
-		gulp.dest('./wp-content/themes/americas_farmers/')
-	], cb);
-})
+function styles() {
+	return src(themePath + 'scss/style.scss')
+	.pipe(plugins.sourcemaps.init())
+	.pipe(plugins.sass())
+	.pipe(plugins.autoprefixer('last 2 versions', '> 5%'))
+	.pipe(plugins.sass())
+	.pipe(plugins.sourcemaps.write())
+	.pipe(gulp.dest(themePath));
+}
 
-gulp.task('default', ['sass', 'scripts'], function(){
-	gulp.watch('./wp-content/themes/americas_farmers/scss/**/*.scss', ['sass']);
-	gulp.watch('./wp-content/themes/americas_farmers/js/**/*.js', ['scripts']);
-});
+function watch() {
+	gulp.watch(themePath + 'scss/**/*.scss', styles);
+	gulp.watch(themePath + 'js/**/*.js', scripts);
+}
+
+exports.default = gulp.series(styles, scripts, watch);

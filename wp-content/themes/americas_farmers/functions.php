@@ -180,7 +180,7 @@ add_action('init', 'add_state_taxonomy', 10);
  * Enqueue scripts and styles.
  */
 function americas_farmers_scripts() {
-	wp_register_script('americas_farmers_scripts', get_template_directory_uri() . '/js/app.js', array('jquery'), time(), true);
+	wp_register_script('americas_farmers_scripts', get_template_directory_uri() . '/dist/app.js', array('jquery'), time(), true);
 	wp_localize_script('americas_farmers_scripts', 'wpAjax', array(
 		'ajaxurl' => admin_url('admin-ajax.php'),
 		'api_nonce' => wp_create_nonce( 'wp_rest' ),
