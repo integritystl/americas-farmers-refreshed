@@ -1,41 +1,63 @@
+"use strict";
 
-var autoprefixer = require('autoprefixer');
+const { src } = require('gulp');
 var gulp = require('gulp');
-var sourcemaps = require('gulp-sourcemaps');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var babel = require("gulp-babel");
-var pump = require('pump');
-var postcss = require('gulp-postcss');
-var sass = require('gulp-sass');
+var plugins = require('gulp-load-plugins')({ camelize: true });
+var browserSync	= require("browser-sync").create();
 
-var build_dir = './wp-content/themes/americas_farmers/';
+// Define project specific variables
+var themePath = './wp-content/themes/americas_farmers/';
+var dev_url = 'farmers.local';
+var autoprefixerOptions = {
+  browsers: ['last 2 versions', '> 5%']
+};
+var reportError = function (error) {
+	notify({
+		title: 'Compile Error in ' + error.plugin,
+		message: error.toString()
+	}).write(error);
+}
 
-gulp.task('scripts', function(cb) {
-	pump([
-		gulp.src('./wp-content/themes/americas_farmers/js/src/**/*.js'),
-		sourcemaps.init(),
-		babel({presets: ['env']}),
-		uglify(),
-		concat('app.js'),
-		sourcemaps.write('.'),
-		gulp.dest('./wp-content/themes/americas_farmers/js')
-	], cb);
-});
+function scripts() {
+	return src(themePath + 'js/src/**/*.js')
+	.pipe(plugins.sourcemaps.init())
+	.pipe(plugins.babel({presets: ['env']}))
+	.pipe(plugins.uglify())
+	.pipe(plugins.concat('app.js'))
+	.pipe(plugins.sourcemaps.write('.'))
+	.pipe(gulp.dest(themePath + 'dist'))
+	.on('error', reportError)
+	.pipe(browserSync.stream());
+}
 
-gulp.task('sass', function(cb) {
-	pump([
-		gulp.src('./wp-content/themes/americas_farmers/scss/style.scss'),
-		sourcemaps.init(),
-		sass(),
-		postcss([autoprefixer("last 2 versions")]),
-		sass(),
-		sourcemaps.write(),
-		gulp.dest('./wp-content/themes/americas_farmers/')
-	], cb);
-})
+function styles() {
+	return src(themePath + 'scss/style.scss')
+	.pipe(plugins.plumber({ errorHandler: reportError }))
+	.pipe(plugins.sourcemaps.init())
+	.pipe(plugins.sass())
+	.pipe(plugins.autoprefixer(autoprefixerOptions))
+	.pipe(plugins.sass())
+	.pipe(plugins.sourcemaps.write())
+	.pipe(gulp.dest(themePath))
+	.on('error', reportError)
+  	.pipe(browserSync.stream());
+}
 
-gulp.task('default', ['sass', 'scripts'], function(){
-	gulp.watch('./wp-content/themes/americas_farmers/scss/**/*.scss', ['sass']);
-	gulp.watch('./wp-content/themes/americas_farmers/js/**/*.js', ['scripts']);
-});
+// create a task that ensures the `js` task is complete before
+// reloading browsers
+function jsWatch() {
+	browserSync.reload()
+	done();
+}
+
+function watch() {
+	browserSync.init({
+		proxy: dev_url,
+		port: 4200
+	});
+	gulp.watch(themePath + 'scss/**/*.scss', styles);
+	gulp.watch(themePath + '*.php').on('change', browserSync.reload);
+	gulp.watch(themePath + 'js/**/*.js', scripts);
+}
+
+exports.default = gulp.series(styles, scripts, watch, jsWatch);
