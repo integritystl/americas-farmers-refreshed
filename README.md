@@ -2,10 +2,10 @@
 Rebuild of the Americas Farmers site for Monsanto
 
 ## Team
-- Dev Lead: Julia Cramer
+- Dev Lead: Drew Newman
+- Dev Support: Julia Cramer
 - Dev Support: Jordan Fautley
 - Dev Support: Laura Kong
-- Dev Support: Drew Newman
 - PM: Jamal Mclaughlin
 
 ## Links
