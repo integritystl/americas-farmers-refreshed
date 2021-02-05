@@ -42,6 +42,7 @@ class Audit_Report extends \WP_Defender\Model\Notification {
 				$date_from = new \DateTime( '-7 days', wp_timezone() );
 				break;
 			case 'monthly':
+			default:
 				$date_from = new \DateTime( '-30 days', wp_timezone() );
 				break;
 		}

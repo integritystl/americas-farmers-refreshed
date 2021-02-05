@@ -65,6 +65,7 @@ class Tweak_Reminder extends \WP_Defender\Model\Notification {
 				$est->add( new \DateInterval( 'P1W' ) );
 				break;
 			case 'monthly':
+			default:
 				$est->add( new \DateInterval( 'P1M' ) );
 				break;
 		}

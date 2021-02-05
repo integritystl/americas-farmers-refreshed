@@ -70,14 +70,8 @@ class Dashboard extends Controller2 {
 		/**
 		 * Indicator is the total of tweaks & scanning issues
 		 */
-		$count = 0;
-		$scan  = \WP_Defender\Model\Scan::get_last();
-		if ( is_object( $scan ) ) {
-			//Only Scan issues
-			$count = count( $scan->get_issues( null, Scan_Item::STATUS_ACTIVE ) );
-		}
-		$tweaks    = new \WP_Defender\Model\Setting\Security_Tweaks();
-		$count     = $count + count( $tweaks->issues );
+		$count     = wd_di()->get( \WP_Defender\Component\Scan::class )->indicator_issue_count();
+
 		$indicator = $count > 0
 			? ' <span class="update-plugins wd-issue-indicator-sidebar"><span class="plugin-count">' . $count . '</span></span>'
 			: null;

@@ -4,7 +4,6 @@ namespace WP_Defender\Controller;
 
 use Calotes\Component\Request;
 use Calotes\Component\Response;
-use Calotes\Helper\HTTP;
 use WP_Defender\Controller2;
 use WP_Defender\Model\Lockout_Ip;
 use WP_Defender\Model\Setting\Blacklist_Lockout;

@@ -179,7 +179,6 @@ class ComposerStaticInitc3550272bb9ee13bf7329f70bf2ed3b7
         'WP_Defender\\Component\\Security_Tweaks\\Protect_Information' => __DIR__ . '/../..' . '/src/component/security-tweaks/protect-information.php',
         'WP_Defender\\Component\\Security_Tweaks\\Security_Key' => __DIR__ . '/../..' . '/src/component/security-tweaks/security-key.php',
         'WP_Defender\\Component\\Security_Tweaks\\Servers\\Apache' => __DIR__ . '/../..' . '/src/component/security-tweaks/servers/apache.php',
-        'WP_Defender\\Component\\Security_Tweaks\\Servers\\Cloudflare' => __DIR__ . '/../..' . '/src/component/security-tweaks/servers/cloudflare.php',
         'WP_Defender\\Component\\Security_Tweaks\\Servers\\Flywheel' => __DIR__ . '/../..' . '/src/component/security-tweaks/servers/flywheel.php',
         'WP_Defender\\Component\\Security_Tweaks\\Servers\\IIS_7' => __DIR__ . '/../..' . '/src/component/security-tweaks/servers/iis-7.php',
         'WP_Defender\\Component\\Security_Tweaks\\Servers\\Nginx' => __DIR__ . '/../..' . '/src/component/security-tweaks/servers/nginx.php',
@@ -246,7 +245,6 @@ class ComposerStaticInitc3550272bb9ee13bf7329f70bf2ed3b7
         'WP_Defender\\Traits\\IP' => __DIR__ . '/../..' . '/src/traits/ip.php',
         'WP_Defender\\Traits\\Permission' => __DIR__ . '/../..' . '/src/traits/permission.php',
         'WP_Defender\\Traits\\User' => __DIR__ . '/../..' . '/src/traits/user.php',
-        'WP_Defender\\Traits\\WPMU' => __DIR__ . '/../..' . '/src/traits/wpmu.php',
         'WP_Defender\\Upgrader' => __DIR__ . '/../..' . '/src/upgrader.php',
         'qrstr' => __DIR__ . '/../..' . '/src/extra/phpqrcode/phpqrcode.php',
     );

@@ -57,7 +57,7 @@ class Nf_Lockout extends Controller2 {
 	 */
 	public function save_settings( Request $request ) {
 		$data        = $request->get_data( $this->request_filter_rules() );
-		$old_enabled = boolval( $this->model->enabled );
+		$old_enabled = (bool) $this->model->enabled;
 
 		$this->model->import( $data );
 		if ( $this->model->validate() ) {
@@ -238,7 +238,7 @@ class Nf_Lockout extends Controller2 {
 	 * @return string
 	 */
 	private function get_update_message( $data, $old_data ) {
-		$new_data = boolval( $data['enabled'] );
+		$new_data = (bool) $data['enabled'];
 
 		// If old data and new data is matched, then it is not activated or deactivated.
 		if ( $old_data === $new_data ) {

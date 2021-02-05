@@ -4,8 +4,6 @@ namespace WP_Defender\Controller;
 
 use Calotes\Component\Request;
 use Calotes\Component\Response;
-use Calotes\Helper\Array_Cache;
-use Calotes\Helper\HTTP;
 use WP_Defender\Controller2;
 
 class Main_Setting extends Controller2 {
@@ -145,7 +143,7 @@ class Main_Setting extends Controller2 {
 		$model = $this->get_model();
 
 		$this->service->maybe_create_default_config();
-		$configs = $this->service->get_configs();
+		$configs = $this->get_configs_and_update_status();
 
 		foreach ( $configs as &$config ) {
 			//unset the data as we dont need it
@@ -563,4 +561,23 @@ class Main_Setting extends Controller2 {
 	public function export_strings() {
 		return array();
 	}
+
+	/**
+	 * Update config status and return them
+	 *
+	 * @return array
+	 */
+	private function get_configs_and_update_status() {
+		$configs = $this->service->get_configs();
+
+		foreach ( $configs as $key => &$config ) {
+			$config['strings'] = $this->service->import_module_strings( $config );
+
+			// Update config data.
+			update_site_option( $key, $config );
+		}
+
+		return $configs;
+	}
+
 }

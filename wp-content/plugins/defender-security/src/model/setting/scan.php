@@ -16,7 +16,7 @@ class Scan extends Setting {
 	 * Check the files inside wp-content by our malware signatures
 	 * @var bool
 	 */
-	public $scan_malware = true;
+	public $scan_malware = false;
 	/**
 	 * Check if any plugins or themes have a known vulnerability
 	 * @var bool

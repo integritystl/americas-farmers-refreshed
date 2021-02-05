@@ -8,9 +8,7 @@ use WP_Defender\Behavior\Scan\Known_Vulnerability;
 use WP_Defender\Behavior\Scan\Malware_Scan;
 use WP_Defender\Behavior\WPMUDEV;
 use WP_Defender\Component;
-use WP_Defender\Model\Notification\Malware_Notification;
 use WP_Defender\Model\Scan_Item;
-use WP_Defender\Traits\WPMU;
 
 class Scan extends Component {
 
@@ -99,7 +97,6 @@ class Scan extends Component {
 				//no more task in the queue, we done
 				$this->scan->status = \WP_Defender\Model\Scan::STATUS_FINISH;
 				$this->scan->save();
-				$this->log( var_export( $this->scan->export(), true ), 'test' );
 				$this->reindex_ignored_issues( $this->scan );
 				$this->clean_up();
 				do_action( 'defender_notify', 'malware-notification', $this->scan );
@@ -179,9 +176,8 @@ class Scan extends Component {
 		delete_site_option( Core_Integrity::CACHE_CHECKSUMS );
 		$models = \WP_Defender\Model\Scan::get_last_all();
 		if ( ! empty( $models ) ) {
-			//remove the latest
+			//remove the latest. Don't remove code to find the first value
 			$current = array_shift( $models );
-			$this->log( var_export( $current->export(), true ), 'scan' );
 			foreach ( $models as $model ) {
 				$model->delete();
 			}
@@ -218,5 +214,23 @@ class Scan extends Component {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Gets the total of scanning issues and security tweaks
+	 * 
+	 * @return integer $count
+	 */
+	public function indicator_issue_count() {
+		$count = 0;
+		$scan  = \WP_Defender\Model\Scan::get_last();
+		if ( is_object( $scan ) && ! is_wp_error( $scan ) ) {
+			//Only Scan issues
+			$count = count( $scan->get_issues( null, \WP_Defender\Model\Scan_Item::STATUS_ACTIVE ) );
+		}
+		$tweaks    = new \WP_Defender\Model\Setting\Security_Tweaks();
+		$count     = $count + count( $tweaks->issues );
+
+		return $count;
 	}
 }

@@ -113,7 +113,6 @@ return array(
     'WP_Defender\\Component\\Security_Tweaks\\Protect_Information' => $baseDir . '/src/component/security-tweaks/protect-information.php',
     'WP_Defender\\Component\\Security_Tweaks\\Security_Key' => $baseDir . '/src/component/security-tweaks/security-key.php',
     'WP_Defender\\Component\\Security_Tweaks\\Servers\\Apache' => $baseDir . '/src/component/security-tweaks/servers/apache.php',
-    'WP_Defender\\Component\\Security_Tweaks\\Servers\\Cloudflare' => $baseDir . '/src/component/security-tweaks/servers/cloudflare.php',
     'WP_Defender\\Component\\Security_Tweaks\\Servers\\Flywheel' => $baseDir . '/src/component/security-tweaks/servers/flywheel.php',
     'WP_Defender\\Component\\Security_Tweaks\\Servers\\IIS_7' => $baseDir . '/src/component/security-tweaks/servers/iis-7.php',
     'WP_Defender\\Component\\Security_Tweaks\\Servers\\Nginx' => $baseDir . '/src/component/security-tweaks/servers/nginx.php',
@@ -180,7 +179,6 @@ return array(
     'WP_Defender\\Traits\\IP' => $baseDir . '/src/traits/ip.php',
     'WP_Defender\\Traits\\Permission' => $baseDir . '/src/traits/permission.php',
     'WP_Defender\\Traits\\User' => $baseDir . '/src/traits/user.php',
-    'WP_Defender\\Traits\\WPMU' => $baseDir . '/src/traits/wpmu.php',
     'WP_Defender\\Upgrader' => $baseDir . '/src/upgrader.php',
     'qrstr' => $baseDir . '/src/extra/phpqrcode/phpqrcode.php',
 );

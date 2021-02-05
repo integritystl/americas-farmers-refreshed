@@ -53,21 +53,24 @@ class Firewall_Logs extends Controller2 {
 						case 'ban':
 							$bl->remove_from_list( $model->ip, 'allowlist' );
 							$bl->add_to_list( $model->ip, 'blocklist' );
-							$ips[] = $model->ip;
+							$ips[ $model->ip ] = $model->ip;
 							break;
 						case 'allowlist':
 							$bl->remove_from_list( $model->ip, 'blocklist' );
 							$bl->add_to_list( $model->ip, 'allowlist' );
-							$ips[] = $model->ip;
+							$ips[ $model->ip ] = $model->ip;
 							break;
 						case 'delete':
-							$ips[] = $model->ip;
+							$ips[ $model->ip ] = $model->ip;
 							$model->delete();
+							break;
+						default:
 							break;
 					}
 				}
 			}
 		}
+
 		switch ( $data['action'] ) {
 			case 'allowlist':
 				$messages = sprintf( __( "IP %s has been added to your allowlist. You can control your allowlist in <a href=\"%s\">IP Lockouts.</a>",

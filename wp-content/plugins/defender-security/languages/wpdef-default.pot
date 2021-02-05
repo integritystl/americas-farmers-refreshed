@@ -3,17 +3,12 @@
 # This file is distributed under the same license as the wp-defender package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#: src/component/audit/options-audit.php:131
-#: src/component/audit/options-audit.php:132
-#: src/component/audit/options-audit.php:133
-#: src/component/audit/options-audit.php:144
-#: src/component/audit/options-audit.php:150
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: wp-defender 2.4.5\n"
+"Project-Id-Version: wp-defender 2.4.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-21 08:31+0200\n"
+"POT-Creation-Date: 2021-01-27 15:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,22 +202,22 @@ msgid ""
 "know in a single email - just for users of Defender!"
 msgstr ""
 
-#: free/wpmudev.php:184
+#: free/wpmudev.php:185
 #, php-format
 msgid ""
 "WPMU DEV Dashboard will be required for this action. Please visit <a href=\" "
 "% s\">here</a> and install the WPMU DEV Dashboard"
 msgstr ""
 
-#: free/wpmudev.php:480 src/behavior/wpmudev.php:563 src/traits/wpmu.php:459
+#: free/wpmudev.php:482 src/behavior/wpmudev.php:600
 msgid "WordPress Core Integrity"
 msgstr ""
 
-#: free/wpmudev.php:481 src/behavior/wpmudev.php:564 src/traits/wpmu.php:460
+#: free/wpmudev.php:483 src/behavior/wpmudev.php:601
 msgid "Plugins & Themes vulnerability"
 msgstr ""
 
-#: free/wpmudev.php:482 src/behavior/wpmudev.php:565 src/traits/wpmu.php:461
+#: free/wpmudev.php:484 src/behavior/wpmudev.php:602
 #: front/src/module/dashboard/component/file-scanning-free.vue:75
 #: front/src/module/dashboard/component/file-scanning.vue:72
 #: front/src/module/scan/screen/_settings-free.vue:59
@@ -230,12 +225,12 @@ msgstr ""
 msgid "Suspicious Code"
 msgstr ""
 
-#: free/wpmudev.php:522 free/wpmudev.php:528 src/behavior/wpmudev.php:606
-#: src/behavior/wpmudev.php:612
+#: free/wpmudev.php:524 free/wpmudev.php:530 src/behavior/wpmudev.php:643
+#: src/behavior/wpmudev.php:649
 msgid "Defender Pro"
 msgstr ""
 
-#: free/wpmudev.php:529 src/behavior/wpmudev.php:613
+#: free/wpmudev.php:531 src/behavior/wpmudev.php:650
 #: src/view/ip-lockout/locked.php:77
 msgid "Defender"
 msgstr ""
@@ -301,8 +296,8 @@ msgid "Index"
 msgstr ""
 
 #: src/behavior/scan-item/core-integrity.php:98
-#: src/behavior/scan-item/vuln-result.php:82
-#: src/behavior/scan-item/vuln-result.php:108
+#: src/behavior/scan-item/vuln-result.php:87
+#: src/behavior/scan-item/vuln-result.php:114
 msgid "This item has been resolved."
 msgstr ""
 
@@ -328,15 +323,15 @@ msgstr ""
 msgid "Defender doesn't have enough permission to remove this file"
 msgstr ""
 
-#: src/behavior/scan-item/core-integrity.php:191
+#: src/behavior/scan-item/core-integrity.php:192
 msgid "Unknown file in WordPress core"
 msgstr ""
 
-#: src/behavior/scan-item/core-integrity.php:193
+#: src/behavior/scan-item/core-integrity.php:194
 msgid "This directory does not belong to WordPress core"
 msgstr ""
 
-#: src/behavior/scan-item/core-integrity.php:195
+#: src/behavior/scan-item/core-integrity.php:196
 msgid "This WordPress core file appears modified"
 msgstr ""
 
@@ -354,41 +349,57 @@ msgstr ""
 msgid "Vulnerability found in %s."
 msgstr ""
 
-#: src/behavior/scan-item/vuln-result.php:91
-#: src/behavior/scan-item/vuln-result.php:117
+#: src/behavior/scan-item/vuln-result.php:69
+msgid "Please try again! We could not find the issue type."
+msgstr ""
+
+#: src/behavior/scan-item/vuln-result.php:97
+msgid "We couldn't update your theme. Please try updating with another method."
+msgstr ""
+
+#: src/behavior/scan-item/vuln-result.php:123
 msgid "Please try again!"
 msgstr ""
 
-#: src/behavior/scan-item/vuln-result.php:130
+#: src/behavior/scan-item/vuln-result.php:136
 msgid "Vulnerability type:"
 msgstr ""
 
-#: src/behavior/scan-item/vuln-result.php:132
+#: src/behavior/scan-item/vuln-result.php:138
 msgid "This bug has been fixed in version:"
 msgstr ""
 
-#: src/behavior/wpmudev.php:240 src/component.php:181 src/traits/wpmu.php:196
+#: src/behavior/wpmudev.php:252
 #, php-format
 msgid ""
 "WPMU DEV Dashboard will be required for this action. Please visit <a target="
 "\"_blank\" href=\"%s\">here</a> and install the WPMU DEV Dashboard"
 msgstr ""
 
+#: src/central.php:56
+msgid "Invalid API request."
+msgstr ""
+
+#: src/central.php:171
+#, php-format
+msgid "%s is disabled. Please contact your hosting provider to enable it."
+msgstr ""
+
 #: src/class-admin.php:91
 msgid "Go to Defender Settings"
 msgstr ""
 
-#: src/class-admin.php:91 src/component/audit/options-audit.php:189
-#: src/component/backup-settings.php:1192 src/controller/main-setting.php:27
-#: front/src/module/audit/audit.vue:39 front/src/module/audit/audit.vue:45
+#: src/class-admin.php:91 src/component/audit/options-audit.php:227
+#: src/component/backup-settings.php:1164 src/controller/main-setting.php:25
+#: front/src/module/audit/audit.vue:42 front/src/module/audit/audit.vue:48
 #: front/src/module/audit/screen/settings.vue:5
-#: front/src/module/ip-lockout/ip-lockout.vue:57
-#: front/src/module/ip-lockout/ip-lockout.vue:66
+#: front/src/module/ip-lockout/ip-lockout.vue:60
+#: front/src/module/ip-lockout/ip-lockout.vue:69
 #: front/src/module/ip-lockout/screen/settings.vue:4
 #: front/src/module/scan/screen/_settings-free.vue:5
 #: front/src/module/scan/screen/_settings.vue:5
-#: front/src/module/scan/screen/scan-result.vue:117
-#: front/src/module/scan/screen/scan-result.vue:125
+#: front/src/module/scan/screen/scan-result.vue:120
+#: front/src/module/scan/screen/scan-result.vue:128
 #: front/src/module/settings/settings.vue:6 front/src/module/waf/waf.vue:13
 msgid "Settings"
 msgstr ""
@@ -468,32 +479,25 @@ msgstr ""
 msgid "Maybe later"
 msgstr ""
 
-#: src/component.php:113
+#: src/component.php:19
 msgid "daily"
 msgstr ""
 
-#: src/component.php:116
+#: src/component.php:22
 msgid "weekly"
 msgstr ""
 
-#: src/component.php:119
+#: src/component.php:25
 msgid "monthly"
 msgstr ""
 
-#: src/component.php:123
+#: src/component.php:30
 #, php-format
 msgid "Unexpected value %s from IP %s"
 msgstr ""
 
-#: src/component/audit.php:117
+#: src/component/audit.php:122
 msgid "Something wrong happen, please try again!"
-msgstr ""
-
-#: src/component/audit/audit-api.php:134
-#, php-format
-msgid ""
-"Whoops, Defender had trouble loading up your event log. You can try a <a "
-"href='%s'class=''>​quick refresh</a>​ of this page or check back again later."
 msgstr ""
 
 #: src/component/audit/audit-event.php:357 src/traits/user.php:18
@@ -506,7 +510,7 @@ msgstr ""
 msgid "at %s"
 msgstr ""
 
-#: src/component/audit/audit-time.php:25 src/model/notification.php:293
+#: src/component/audit/audit-time.php:25 src/model/notification.php:289
 #, php-format
 msgid "%s on %s at %s"
 msgstr ""
@@ -599,121 +603,121 @@ msgstr ""
 msgid "%s edited comment ID %s, comment author: %s on %s \"%s\""
 msgstr ""
 
-#: src/component/audit/core-audit.php:19
+#: src/component/audit/core-audit.php:22
 #, php-format
-msgid "%s activated theme: %s"
+msgid "%1$s activated theme: %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:26
+#: src/component/audit/core-audit.php:35
 #, php-format
-msgid "%s activated plugin: %s, version %s"
+msgid "%1$s activated plugin: %2$s, version %3$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:55
+#: src/component/audit/core-audit.php:70
 #, php-format
-msgid "%s deleted plugin: %s"
+msgid "%1$s deleted plugin: %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:62
+#: src/component/audit/core-audit.php:82
 #, php-format
-msgid "%s deactivated plugin: %s, version %s"
+msgid "%1$s deactivated plugin: %2$s, version %3$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:106
+#: src/component/audit/core-audit.php:132
 #, php-format
 msgid "A new file added, path %s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:113
+#: src/component/audit/core-audit.php:143
 #, php-format
 msgid "A file has been modified, path %s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:125
+#: src/component/audit/core-audit.php:159
 #, php-format
-msgid "%s updated file %s of %s %s"
+msgid "%1$s updated file %2$s of %3$s %4$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:137
+#: src/component/audit/core-audit.php:178
 #, php-format
-msgid "%s updated WordPress to %s"
+msgid "%1$s updated WordPress to %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:152
-#: src/component/audit/core-audit.php:168
+#: src/component/audit/core-audit.php:198
+#: src/component/audit/core-audit.php:224
 #, php-format
-msgid "%s to %s"
+msgid "%1$s to %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:157
+#: src/component/audit/core-audit.php:208
 #, php-format
-msgid "%s updated themes: %s"
+msgid "%1$s updated themes: %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:173
+#: src/component/audit/core-audit.php:234
 #, php-format
-msgid "%s updated plugins: %s"
+msgid "%1$s updated plugins: %2$s"
 msgstr ""
 
-#: src/component/audit/core-audit.php:190
+#: src/component/audit/core-audit.php:256
 #, php-format
-msgid "%s updated theme: %s, version %s"
-msgstr ""
-
-#: src/component/audit/core-audit.php:204
-#, php-format
-msgid "%s updated plugin: %s, version %s"
-msgstr ""
-
-#: src/component/audit/core-audit.php:223
-#: src/component/audit/core-audit.php:226
-#: src/component/security-tweaks/security-key.php:171
-msgid "unknown"
-msgstr ""
-
-#: src/component/audit/core-audit.php:236
-#, php-format
-msgid "%s installed theme: %s"
-msgstr ""
-
-#: src/component/audit/core-audit.php:242
-#, php-format
-msgid "%s installed plugin: %s"
-msgstr ""
-
-#: src/component/audit/core-audit.php:272
-msgid "deactivated"
-msgstr ""
-
-#: src/component/audit/core-audit.php:273
-msgid "upgraded"
-msgstr ""
-
-#: src/component/audit/core-audit.php:274
-msgid "activated"
-msgstr ""
-
-#: src/component/audit/core-audit.php:275
-msgid "installed"
+msgid "%1$s updated theme: %2$s, version %3$s"
 msgstr ""
 
 #: src/component/audit/core-audit.php:276
+#, php-format
+msgid "%1$s updated plugin: %2$s, version %3$s"
+msgstr ""
+
+#: src/component/audit/core-audit.php:299
+#: src/component/audit/core-audit.php:302
+#: src/component/security-tweaks/security-key.php:170
+msgid "unknown"
+msgstr ""
+
+#: src/component/audit/core-audit.php:314
+#, php-format
+msgid "%1$s installed theme: %2$s"
+msgstr ""
+
+#: src/component/audit/core-audit.php:325
+#, php-format
+msgid "%1$s installed plugin: %2$s"
+msgstr ""
+
+#: src/component/audit/core-audit.php:358
+msgid "deactivated"
+msgstr ""
+
+#: src/component/audit/core-audit.php:359
+msgid "upgraded"
+msgstr ""
+
+#: src/component/audit/core-audit.php:360
+msgid "activated"
+msgstr ""
+
+#: src/component/audit/core-audit.php:361
+msgid "installed"
+msgstr ""
+
+#: src/component/audit/core-audit.php:362
 msgid "theme"
 msgstr ""
 
-#: src/component/audit/core-audit.php:277
+#: src/component/audit/core-audit.php:363
 msgid "plugin"
 msgstr ""
 
-#: src/component/audit/core-audit.php:278
+#: src/component/audit/core-audit.php:364
 msgid "WordPress"
 msgstr ""
 
-#: src/component/audit/core-audit.php:279
+#: src/component/audit/core-audit.php:365
 msgid "File Added"
 msgstr ""
 
-#: src/component/audit/core-audit.php:280
+#: src/component/audit/core-audit.php:366
 msgid "File Modified"
 msgstr ""
 
@@ -736,332 +740,357 @@ msgstr ""
 msgid "Uploaded"
 msgstr ""
 
-#: src/component/audit/options-audit.php:55
+#: src/component/audit/options-audit.php:58
 #, php-format
 msgid "%s disabled site registration"
 msgstr ""
 
-#: src/component/audit/options-audit.php:57
+#: src/component/audit/options-audit.php:64
 #, php-format
 msgid "%s opened site registration"
 msgstr ""
 
-#: src/component/audit/options-audit.php:64
-#: src/component/audit/options-audit.php:73
+#: src/component/audit/options-audit.php:75
+#: src/component/audit/options-audit.php:104
 #, php-format
-msgid "%s update option %s from %s to %s"
-msgstr ""
-
-#: src/component/audit/options-audit.php:69
-#, php-format
-msgid "%s update option %s to %s"
+msgid "%1$s update option %2$s from %3$s to %4$s"
 msgstr ""
 
 #: src/component/audit/options-audit.php:86
-msgid "Site Title"
-msgstr ""
-
-#: src/component/audit/options-audit.php:87
-msgid "Tagline"
-msgstr ""
-
-#: src/component/audit/options-audit.php:88
-#: src/component/audit/options-audit.php:92
-msgid "Timezone"
-msgstr ""
-
-#: src/component/audit/options-audit.php:89
-msgid "Date Format"
-msgstr ""
-
-#: src/component/audit/options-audit.php:90
-msgid "Time Format"
-msgstr ""
-
-#: src/component/audit/options-audit.php:91
-msgid "Week Starts On"
-msgstr ""
-
-#: src/component/audit/options-audit.php:93
-msgid "Site Language"
+#, php-format
+msgid "%1$s update option %2$s to %3$s"
 msgstr ""
 
 #: src/component/audit/options-audit.php:94
-msgid "WordPress Address (URL)"
+#, php-format
+msgid "%1$s update option %2$s from %3$s"
 msgstr ""
 
-#: src/component/audit/options-audit.php:95
-msgid "Site Address (URL)"
-msgstr ""
-
-#: src/component/audit/options-audit.php:96
-msgid "Email Address"
-msgstr ""
-
-#: src/component/audit/options-audit.php:97
-msgid "Membership"
-msgstr ""
-
-#: src/component/audit/options-audit.php:98
-msgid "New User Default Role"
-msgstr ""
-
-#: src/component/audit/options-audit.php:99
-#: src/component/audit/options-audit.php:100
-#: src/component/audit/options-audit.php:101
-msgid "Default article settings"
-msgstr ""
-
-#: src/component/audit/options-audit.php:102
-#: src/component/audit/options-audit.php:103
-msgid "Email me whenever"
-msgstr ""
-
-#: src/component/audit/options-audit.php:104
-#: src/component/audit/options-audit.php:106
-msgid "Before a comment appears"
-msgstr ""
-
-#: src/component/audit/options-audit.php:105
-#: src/component/audit/options-audit.php:113
-#: src/component/audit/options-audit.php:114
-#: src/component/audit/options-audit.php:115
-#: src/component/audit/options-audit.php:116
-#: src/component/audit/options-audit.php:117
-#: src/component/audit/options-audit.php:118
-#: src/component/audit/options-audit.php:119
-#: src/component/audit/options-audit.php:120
-#: src/component/audit/options-audit.php:121
-msgid "Other comment settings"
-msgstr ""
-
-#: src/component/audit/options-audit.php:107
-#: src/component/audit/options-audit.php:108
-msgid "Comment Moderation"
-msgstr ""
-
-#: src/component/audit/options-audit.php:109
-msgid "Comment Blocklist"
-msgstr ""
-
-#: src/component/audit/options-audit.php:110
-msgid "Avatar Display"
-msgstr ""
-
-#: src/component/audit/options-audit.php:111
-msgid "Maximum Rating"
-msgstr ""
-
-#: src/component/audit/options-audit.php:112
-msgid "Default Avatar"
-msgstr ""
-
-#: src/component/audit/options-audit.php:122
 #: src/component/audit/options-audit.php:123
+msgid "Site Title"
+msgstr ""
+
 #: src/component/audit/options-audit.php:124
-msgid "Thumbnail size"
+msgid "Tagline"
 msgstr ""
 
 #: src/component/audit/options-audit.php:125
-#: src/component/audit/options-audit.php:126
-#: src/component/audit/options-audit.php:127
-#: src/component/audit/options-audit.php:128
-msgid "Medium size"
+#: src/component/audit/options-audit.php:129
+msgid "Timezone"
 msgstr ""
 
-#: src/component/audit/options-audit.php:129
+#: src/component/audit/options-audit.php:126
+msgid "Date Format"
+msgstr ""
+
+#: src/component/audit/options-audit.php:127
+msgid "Time Format"
+msgstr ""
+
+#: src/component/audit/options-audit.php:128
+msgid "Week Starts On"
+msgstr ""
+
 #: src/component/audit/options-audit.php:130
-msgid "Large size"
+msgid "Site Language"
+msgstr ""
+
+#: src/component/audit/options-audit.php:131
+msgid "WordPress Address (URL)"
+msgstr ""
+
+#: src/component/audit/options-audit.php:132
+msgid "Site Address (URL)"
+msgstr ""
+
+#: src/component/audit/options-audit.php:133
+msgid "Email Address"
 msgstr ""
 
 #: src/component/audit/options-audit.php:134
-msgid "Uploading Files"
+msgid "Membership"
 msgstr ""
 
 #: src/component/audit/options-audit.php:135
-msgid "Blog pages show at most"
+msgid "New User Default Role"
 msgstr ""
 
 #: src/component/audit/options-audit.php:136
-msgid "Syndication feeds show the most recent"
-msgstr ""
-
 #: src/component/audit/options-audit.php:137
-msgid "For each article in a feed, show"
-msgstr ""
-
 #: src/component/audit/options-audit.php:138
-msgid "Front page displays"
+msgid "Default article settings"
 msgstr ""
 
 #: src/component/audit/options-audit.php:139
-msgid "Front page"
-msgstr ""
-
 #: src/component/audit/options-audit.php:140
-msgid "Posts page"
+msgid "Email me whenever"
 msgstr ""
 
 #: src/component/audit/options-audit.php:141
-msgid "Search Engine Visibility"
+#: src/component/audit/options-audit.php:143
+msgid "Before a comment appears"
 msgstr ""
 
 #: src/component/audit/options-audit.php:142
-msgid "Default Post Category"
+#: src/component/audit/options-audit.php:150
+#: src/component/audit/options-audit.php:151
+#: src/component/audit/options-audit.php:152
+#: src/component/audit/options-audit.php:153
+#: src/component/audit/options-audit.php:154
+#: src/component/audit/options-audit.php:155
+#: src/component/audit/options-audit.php:156
+#: src/component/audit/options-audit.php:157
+#: src/component/audit/options-audit.php:158
+msgid "Other comment settings"
 msgstr ""
 
-#: src/component/audit/options-audit.php:143
-msgid "Default Mail Category"
-msgstr ""
-
+#: src/component/audit/options-audit.php:144
 #: src/component/audit/options-audit.php:145
-msgid "Default Post Format"
+msgid "Comment Moderation"
 msgstr ""
 
 #: src/component/audit/options-audit.php:146
-msgid "Mail Server"
+msgid "Comment Blocklist"
 msgstr ""
 
 #: src/component/audit/options-audit.php:147
-msgid "Port"
+msgid "Avatar Display"
 msgstr ""
 
 #: src/component/audit/options-audit.php:148
-msgid "Login Name"
+msgid "Maximum Rating"
 msgstr ""
 
 #: src/component/audit/options-audit.php:149
-msgid "Password"
+msgid "Default Avatar"
 msgstr ""
 
-#: src/component/audit/options-audit.php:151
-msgid "Permalink Setting"
-msgstr ""
-
-#: src/component/audit/options-audit.php:152
-msgid "Category base"
-msgstr ""
-
-#: src/component/audit/options-audit.php:153
-msgid "Tag base"
-msgstr ""
-
-#: src/component/audit/options-audit.php:154
-msgid "Registration notification"
-msgstr ""
-
-#: src/component/audit/options-audit.php:155
-msgid "Allow new registrations"
-msgstr ""
-
-#: src/component/audit/options-audit.php:156
-msgid "Add New Users"
-msgstr ""
-
-#: src/component/audit/options-audit.php:157
-msgid "Enable administration menus"
-msgstr ""
-
-#: src/component/audit/options-audit.php:158
 #: src/component/audit/options-audit.php:159
-msgid "Site upload space"
-msgstr ""
-
 #: src/component/audit/options-audit.php:160
-msgid "Upload file types"
-msgstr ""
-
 #: src/component/audit/options-audit.php:161
-msgid "Network Title"
+msgid "Thumbnail size"
 msgstr ""
 
 #: src/component/audit/options-audit.php:162
-msgid "First Post"
-msgstr ""
-
 #: src/component/audit/options-audit.php:163
-msgid "First Page"
-msgstr ""
-
 #: src/component/audit/options-audit.php:164
-msgid "First Comment"
-msgstr ""
-
 #: src/component/audit/options-audit.php:165
-msgid "First Comment URL"
+msgid "Medium size"
 msgstr ""
 
 #: src/component/audit/options-audit.php:166
-msgid "First Comment Author"
-msgstr ""
-
 #: src/component/audit/options-audit.php:167
-msgid "Welcome Email"
+msgid "Large size"
 msgstr ""
 
 #: src/component/audit/options-audit.php:168
-msgid "Welcome User Email"
+msgid "Default image size"
 msgstr ""
 
 #: src/component/audit/options-audit.php:169
-msgid "Max upload file size"
+msgid "Default image align"
+msgstr ""
+
+#: src/component/audit/options-audit.php:170
+msgid "Default image link type"
 msgstr ""
 
 #: src/component/audit/options-audit.php:171
-msgid "Banned Names"
+msgid "Uploading Files"
 msgstr ""
 
 #: src/component/audit/options-audit.php:172
-msgid "Limited Email Registrations"
+msgid "Blog pages show at most"
 msgstr ""
 
 #: src/component/audit/options-audit.php:173
-msgid "Banned Email Domains"
+msgid "Syndication feeds show the most recent"
 msgstr ""
 
-#: src/component/audit/post-audit.php:87
-#, php-format
-msgid "%s published %s \"%s\""
+#: src/component/audit/options-audit.php:174
+msgid "For each article in a feed, show"
+msgstr ""
+
+#: src/component/audit/options-audit.php:175
+msgid "Front page displays"
+msgstr ""
+
+#: src/component/audit/options-audit.php:176
+msgid "Front page"
+msgstr ""
+
+#: src/component/audit/options-audit.php:177
+msgid "Posts page"
+msgstr ""
+
+#: src/component/audit/options-audit.php:178
+msgid "Search Engine Visibility"
+msgstr ""
+
+#: src/component/audit/options-audit.php:179
+msgid "Default Post Category"
+msgstr ""
+
+#: src/component/audit/options-audit.php:180
+msgid "Default Mail Category"
+msgstr ""
+
+#: src/component/audit/options-audit.php:181
+msgid "Default Link Category"
+msgstr ""
+
+#: src/component/audit/options-audit.php:182
+msgid "Default Post Format"
+msgstr ""
+
+#: src/component/audit/options-audit.php:183
+msgid "Mail Server"
+msgstr ""
+
+#: src/component/audit/options-audit.php:184
+msgid "Port"
+msgstr ""
+
+#: src/component/audit/options-audit.php:185
+msgid "Login Name"
+msgstr ""
+
+#: src/component/audit/options-audit.php:186
+msgid "Password"
+msgstr ""
+
+#: src/component/audit/options-audit.php:187
+msgid "Update Services"
+msgstr ""
+
+#: src/component/audit/options-audit.php:188
+msgid "Permalink Setting"
+msgstr ""
+
+#: src/component/audit/options-audit.php:189
+msgid "Category base"
+msgstr ""
+
+#: src/component/audit/options-audit.php:190
+msgid "Tag base"
+msgstr ""
+
+#: src/component/audit/options-audit.php:191
+msgid "Registration notification"
+msgstr ""
+
+#: src/component/audit/options-audit.php:192
+msgid "Allow new registrations"
+msgstr ""
+
+#: src/component/audit/options-audit.php:193
+msgid "Add New Users"
+msgstr ""
+
+#: src/component/audit/options-audit.php:194
+msgid "Enable administration menus"
+msgstr ""
+
+#: src/component/audit/options-audit.php:195
+#: src/component/audit/options-audit.php:196
+msgid "Site upload space"
+msgstr ""
+
+#: src/component/audit/options-audit.php:197
+msgid "Upload file types"
+msgstr ""
+
+#: src/component/audit/options-audit.php:198
+msgid "Network Title"
+msgstr ""
+
+#: src/component/audit/options-audit.php:199
+msgid "First Post"
+msgstr ""
+
+#: src/component/audit/options-audit.php:200
+msgid "First Page"
+msgstr ""
+
+#: src/component/audit/options-audit.php:201
+msgid "First Comment"
+msgstr ""
+
+#: src/component/audit/options-audit.php:202
+msgid "First Comment URL"
+msgstr ""
+
+#: src/component/audit/options-audit.php:203
+msgid "First Comment Author"
+msgstr ""
+
+#: src/component/audit/options-audit.php:204
+msgid "Welcome Email"
+msgstr ""
+
+#: src/component/audit/options-audit.php:205
+msgid "Welcome User Email"
+msgstr ""
+
+#: src/component/audit/options-audit.php:206
+msgid "Max upload file size"
+msgstr ""
+
+#: src/component/audit/options-audit.php:208
+msgid "Banned Names"
+msgstr ""
+
+#: src/component/audit/options-audit.php:209
+msgid "Limited Email Registrations"
+msgstr ""
+
+#: src/component/audit/options-audit.php:210
+msgid "Banned Email Domains"
 msgstr ""
 
 #: src/component/audit/post-audit.php:93
 #, php-format
-msgid "%s pending %s \"%s\""
-msgstr ""
-
-#: src/component/audit/post-audit.php:99
-#, php-format
-msgid "%s drafted %s \"%s\""
+msgid "%1$s published %2$s \"%3$s\""
 msgstr ""
 
 #: src/component/audit/post-audit.php:105
 #, php-format
-msgid "%s changed %s \"%s\" status from %s to %s"
+msgid "%1$s pending %2$s \"%3$s\""
+msgstr ""
+
+#: src/component/audit/post-audit.php:117
+#, php-format
+msgid "%1$s drafted %2$s \"%3$s\""
 msgstr ""
 
 #: src/component/audit/post-audit.php:129
 #, php-format
-msgid "%s deleted %s \"%s\""
+msgid "%1$s changed %2$s \"%3$s\" status from %4$s to %5$s"
 msgstr ""
 
-#: src/component/audit/post-audit.php:171
+#: src/component/audit/post-audit.php:161
 #, php-format
-msgid "%s untrashed %s \"%s\""
+msgid "%1$s deleted %2$s \"%3$s\""
 msgstr ""
 
-#: src/component/audit/post-audit.php:200
+#: src/component/audit/post-audit.php:212
 #, php-format
-msgid "%s trashed %s \"%s\""
+msgid "%1$s untrashed %2$s \"%3$s\""
 msgstr ""
 
-#: src/component/audit/post-audit.php:277
+#: src/component/audit/post-audit.php:247
 #, php-format
-msgid "%s updated %s \"%s\""
+msgid "%1$s trashed %2$s \"%3$s\""
 msgstr ""
 
-#: src/component/audit/post-audit.php:287
+#: src/component/audit/post-audit.php:334
 #, php-format
-msgid "%s added new %s \"%s\""
+msgid "%1$s updated %2$s \"%3$s\""
+msgstr ""
+
+#: src/component/audit/post-audit.php:350
+#, php-format
+msgid "%1$s added new %2$s \"%3$s\""
 msgstr ""
 
 #: src/component/audit/users-audit.php:24
@@ -1146,19 +1175,19 @@ msgid "password reset"
 msgstr ""
 
 #: src/component/backup-settings.php:328
-#: src/component/config/config-adapter.php:235
+#: src/component/config/config-adapter.php:238
 msgid "You have been locked out due to too many invalid login attempts."
 msgstr ""
 
 #: src/component/backup-settings.php:339
-#: src/component/config/config-adapter.php:252
+#: src/component/config/config-adapter.php:255
 msgid ""
 "You have been locked out due to too many attempts to access a file that "
 "doesn't exist."
 msgstr ""
 
 #: src/component/backup-settings.php:350
-#: src/component/config/config-adapter.php:267
+#: src/component/config/config-adapter.php:270
 msgid "The administrator has blocked your IP from accessing this website."
 msgstr ""
 
@@ -1170,49 +1199,52 @@ msgstr ""
 msgid "Recommended default protection for every site"
 msgstr ""
 
-#: src/component/backup-settings.php:822 src/component/backup-settings.php:988
-#: src/component/backup-settings.php:1004
-#: src/component/backup-settings.php:1099
-#: src/component/backup-settings.php:1121
-#: src/component/backup-settings.php:1283 src/controller/audit-logging.php:468
+#: src/component/backup-settings.php:822 src/component/backup-settings.php:1071
+#: src/component/backup-settings.php:1093
+#: src/component/backup-settings.php:1255
+#: src/component/backup-settings.php:1287
+#: src/component/backup-settings.php:1346 src/controller/audit-logging.php:467
 #: src/controller/blocklist-monitor.php:205
 #, php-format
 msgid "Inactive %s"
 msgstr ""
 
 #: src/component/backup-settings.php:931 src/component/backup-settings.php:939
-#: src/component/backup-settings.php:958 src/component/backup-settings.php:1038
-#: src/component/backup-settings.php:1047
-#: src/component/backup-settings.php:1066 src/controller/firewall.php:698
-#: src/controller/scan.php:501 src/controller/security-tweaks.php:780
+#: src/component/backup-settings.php:958 src/component/backup-settings.php:1010
+#: src/component/backup-settings.php:1019
+#: src/component/backup-settings.php:1038 src/controller/firewall.php:698
+#: src/controller/scan.php:512 src/controller/security-tweaks.php:774
 msgid "Email notifications active"
 msgstr ""
 
 #: src/component/backup-settings.php:934 src/component/backup-settings.php:955
-#: src/component/backup-settings.php:996 src/component/backup-settings.php:1042
-#: src/component/backup-settings.php:1063
-#: src/component/backup-settings.php:1084
-#: src/component/backup-settings.php:1105
-#: src/component/backup-settings.php:1107
-#: src/component/backup-settings.php:1113 src/controller/audit-logging.php:473
+#: src/component/backup-settings.php:1014
+#: src/component/backup-settings.php:1035
+#: src/component/backup-settings.php:1056
+#: src/component/backup-settings.php:1077
+#: src/component/backup-settings.php:1079
+#: src/component/backup-settings.php:1085
+#: src/component/backup-settings.php:1294
+#: src/component/backup-settings.php:1329 src/controller/audit-logging.php:472
 #: src/controller/blocklist-monitor.php:210 src/controller/firewall.php:692
-#: src/controller/mask-login.php:446 src/controller/scan.php:493
-#: src/controller/security-headers.php:162 src/controller/two-factor.php:623
+#: src/controller/mask-login.php:475 src/controller/scan.php:504
+#: src/controller/security-headers.php:158 src/controller/two-factor.php:680
 #: front/src/module/two-fa/two-fa-free.vue:54
-#: front/src/module/two-fa/two-fa.vue:56 front/src/module/two-fa/two-fa.vue:63
+#: front/src/module/two-fa/two-fa.vue:59 front/src/module/two-fa/two-fa.vue:66
 msgid "Active"
 msgstr ""
 
-#: src/component/backup-settings.php:935 src/component/backup-settings.php:982
-#: src/component/backup-settings.php:998 src/component/backup-settings.php:1043
-#: src/component/backup-settings.php:1093
-#: src/component/backup-settings.php:1105
-#: src/component/backup-settings.php:1107
-#: src/component/backup-settings.php:1109
-#: src/component/backup-settings.php:1115 src/controller/audit-logging.php:482
-#: src/controller/blocklist-monitor.php:212 src/controller/mask-login.php:446
-#: src/controller/scan.php:495 src/controller/security-headers.php:162
-#: src/controller/two-factor.php:623
+#: src/component/backup-settings.php:935 src/component/backup-settings.php:1015
+#: src/component/backup-settings.php:1065
+#: src/component/backup-settings.php:1077
+#: src/component/backup-settings.php:1079
+#: src/component/backup-settings.php:1081
+#: src/component/backup-settings.php:1087
+#: src/component/backup-settings.php:1282
+#: src/component/backup-settings.php:1341 src/controller/audit-logging.php:481
+#: src/controller/blocklist-monitor.php:212 src/controller/mask-login.php:475
+#: src/controller/scan.php:506 src/controller/security-headers.php:158
+#: src/controller/two-factor.php:680
 #: front/src/module/dashboard/component/report-free.vue:19
 #: front/src/module/dashboard/component/report-free.vue:25
 #: front/src/module/dashboard/component/report-free.vue:31
@@ -1222,41 +1254,41 @@ msgid "Inactive"
 msgstr ""
 
 #: src/component/backup-settings.php:944 src/component/backup-settings.php:963
-#: src/component/backup-settings.php:978 src/component/backup-settings.php:1052
-#: src/component/backup-settings.php:1071
-#: src/component/backup-settings.php:1088 src/controller/audit-logging.php:477
-#: src/controller/firewall.php:703 src/controller/scan.php:505
+#: src/component/backup-settings.php:1024
+#: src/component/backup-settings.php:1043
+#: src/component/backup-settings.php:1060
+#: src/component/backup-settings.php:1308 src/controller/audit-logging.php:476
+#: src/controller/firewall.php:703 src/controller/scan.php:516
 #, php-format
 msgid "Email reports sending %s"
 msgstr ""
 
 #: src/component/backup-settings.php:950 src/component/backup-settings.php:969
-#: src/component/backup-settings.php:1058
-#: src/component/backup-settings.php:1077 src/controller/firewall.php:709
-#: src/controller/scan.php:510
+#: src/component/backup-settings.php:1030
+#: src/component/backup-settings.php:1049 src/controller/firewall.php:709
+#: src/controller/scan.php:521
 #, php-format
 msgid "Email report inactive %s"
 msgstr ""
 
-#: src/component/backup-settings.php:1027
-#: src/controller/security-tweaks.php:768
+#: src/component/backup-settings.php:999 src/controller/security-tweaks.php:762
 msgid "All available recommendations activated"
 msgstr ""
 
-#: src/component/backup-settings.php:1031
-#: src/controller/security-tweaks.php:772
+#: src/component/backup-settings.php:1003
+#: src/controller/security-tweaks.php:766
 #, php-format
 msgid "%1$d/%2$d recommendations activated"
 msgstr ""
 
-#: src/component/backup-settings.php:1184
-#: front/src/module/dashboard/dashboard.vue:24
+#: src/component/backup-settings.php:1156
+#: front/src/module/dashboard/dashboard.vue:27
 #: front/src/module/security-tweak/security-tweak.vue:6
-#: front/src/module/security-tweak/security-tweak.vue:24
+#: front/src/module/security-tweak/security-tweak.vue:27
 msgid "Security Recommendations"
 msgstr ""
 
-#: src/component/backup-settings.php:1186 src/controller/scan.php:31
+#: src/component/backup-settings.php:1158 src/controller/scan.php:30
 #: front/src/module/dashboard/component/file-scanning-free.vue:6
 #: front/src/module/dashboard/component/file-scanning.vue:6
 #: front/src/module/scan/screen/no-scan.vue:6
@@ -1264,10 +1296,10 @@ msgstr ""
 msgid "Malware Scanning"
 msgstr ""
 
-#: src/component/backup-settings.php:1188 src/controller/audit-logging.php:35
+#: src/component/backup-settings.php:1160 src/controller/audit-logging.php:34
 #: src/model/setting/audit-logging.php:33
 #: front/src/module/audit/audit-free.vue:5 front/src/module/audit/audit.vue:6
-#: front/src/module/audit/audit.vue:57
+#: front/src/module/audit/audit.vue:60
 #: front/src/module/dashboard/component/audit-free.vue:6
 #: front/src/module/dashboard/component/audit.vue:6
 #: front/src/module/dashboard/component/quick-setup.vue:55
@@ -1276,35 +1308,35 @@ msgstr ""
 msgid "Audit Logging"
 msgstr ""
 
-#: src/component/backup-settings.php:1190 src/controller/firewall.php:32
+#: src/component/backup-settings.php:1162 src/controller/firewall.php:32
 #: front/src/module/dashboard/component/ip-lockout.vue:6
 #: front/src/module/ip-lockout/ip-lockout.vue:6
 msgid "Firewall"
 msgstr ""
 
-#: src/component/backup-settings.php:1194 src/controller/two-factor.php:34
+#: src/component/backup-settings.php:1166 src/controller/two-factor.php:34
 msgid "2FA"
 msgstr ""
 
-#: src/component/backup-settings.php:1196 src/model/setting/mask-login.php:76
+#: src/component/backup-settings.php:1168 src/model/setting/mask-login.php:76
 #: src/model/setting/two-fa.php:164
-#: front/src/module/advanced-tools/advanced-tools.vue:13
-#: front/src/module/advanced-tools/advanced-tools.vue:23
+#: front/src/module/advanced-tools/advanced-tools.vue:16
+#: front/src/module/advanced-tools/advanced-tools.vue:26
 #: front/src/module/advanced-tools/screen/mask-login.vue:5
 #: front/src/module/advanced-tools/screen/mask-login.vue:32
 #: front/src/module/dashboard/component/advanced-tools.vue:37
 msgid "Mask Login Area"
 msgstr ""
 
-#: src/component/backup-settings.php:1198
-#: front/src/module/advanced-tools/advanced-tools.vue:18
-#: front/src/module/advanced-tools/advanced-tools.vue:24
+#: src/component/backup-settings.php:1170
+#: front/src/module/advanced-tools/advanced-tools.vue:21
+#: front/src/module/advanced-tools/advanced-tools.vue:27
 #: front/src/module/advanced-tools/screen/security-headers.vue:6
 #: front/src/module/dashboard/component/advanced-tools.vue:14
 msgid "Security Headers"
 msgstr ""
 
-#: src/component/backup-settings.php:1200
+#: src/component/backup-settings.php:1172
 #: src/controller/blocklist-monitor.php:226
 #: front/src/module/dashboard/component/blacklist-free.vue:6
 #: front/src/module/dashboard/component/blacklist.vue:6
@@ -1312,11 +1344,17 @@ msgstr ""
 msgid "Blocklist Monitor"
 msgstr ""
 
-#: src/component/blacklist-lockout.php:37 src/controller/blacklist.php:79
+#: src/component/backup-settings.php:1299
+#: src/component/backup-settings.php:1334
+#, php-format
+msgid "Active %s"
+msgstr ""
+
+#: src/component/blacklist-lockout.php:36 src/controller/blacklist.php:78
 msgid "Block all"
 msgstr ""
 
-#: src/component/blacklist-lockout.php:41 src/controller/blacklist.php:80
+#: src/component/blacklist-lockout.php:40 src/controller/blacklist.php:79
 msgid "Allow all"
 msgstr ""
 
@@ -1341,45 +1379,45 @@ msgstr ""
 msgid "Failed login attempt with a ban username %s"
 msgstr ""
 
-#: src/component/login-lockout.php:216
+#: src/component/login-lockout.php:217
 msgid "Lockout occurred: Too many failed login attempts"
 msgstr ""
 
-#: src/component/notfound-lockout.php:291
-#: src/component/notfound-lockout.php:295
+#: src/component/notfound-lockout.php:301
+#: src/component/notfound-lockout.php:305
 #, php-format
 msgid "Request for file %s which doesn't exist"
 msgstr ""
 
-#: src/component/notfound-lockout.php:299
+#: src/component/notfound-lockout.php:310
 #, php-format
 msgid "Lockout occurred:  Too many 404 requests for %s"
 msgstr ""
 
-#: src/component/notification.php:32
+#: src/component/notification.php:34
 msgid "Every Half Hour"
 msgstr ""
 
-#: src/component/notification.php:127 src/component/notification.php:141
-#: src/controller/notification.php:128 front/src/component/recipients.vue:106
+#: src/component/notification.php:130 src/component/notification.php:144
+#: src/controller/notification.php:143 front/src/component/recipients.vue:106
 msgid "Invalid email address"
 msgstr ""
 
-#: src/component/notification.php:145 front/src/component/recipients.vue:96
+#: src/component/notification.php:148 front/src/component/recipients.vue:96
 msgid "This email address is already in use"
 msgstr ""
 
-#: src/component/notification.php:278 src/view/email/subscribed.php:17
+#: src/component/notification.php:286 src/view/email/subscribed.php:17
 msgid "Confirmed"
 msgstr ""
 
-#: src/component/notification.php:288 src/view/email/unsubscribe.php:17
+#: src/component/notification.php:299 src/view/email/unsubscribe.php:17
 msgid "Unsubscribed"
 msgstr ""
 
-#: src/component/notification.php:396 src/component/notification.php:417
-#: src/controller/firewall.php:494 src/model/notification.php:311
-#: src/model/notification.php:325
+#: src/component/notification.php:419 src/component/notification.php:440
+#: src/controller/firewall.php:494 src/model/notification.php:308
+#: src/model/notification.php:322
 msgid "Never"
 msgstr ""
 
@@ -1428,7 +1466,7 @@ msgid ""
 "Downgrade and Clickjacking attacks."
 msgstr ""
 
-#: src/component/security-headers/sh-strict-transport.php:239
+#: src/component/security-headers/sh-strict-transport.php:245
 msgid "Strict Transport"
 msgstr ""
 
@@ -1453,6 +1491,19 @@ msgstr ""
 
 #: src/component/security-headers/sh-xss-protection.php:96
 msgid "X-XSS-Protection"
+msgstr ""
+
+#: src/component/security-tweak.php:149
+#, php-format
+msgid ""
+"Some hostings do not allow you to make changes to the wp-config.php file. "
+"Please contact your hosting support team to switch %s ON or OFF on your site."
+msgstr ""
+
+#: src/component/security-tweak.php:165
+#, php-format
+msgid ""
+"Couldn't change the %s in your wp-config.php file. Please change it manually:"
 msgstr ""
 
 #: src/component/security-tweaks/change-admin.php:87
@@ -1491,37 +1542,47 @@ msgstr ""
 msgid "You don't have a user account sporting the admin username, great!"
 msgstr ""
 
-#: src/component/security-tweaks/change-admin.php:189
+#: src/component/security-tweaks/change-admin.php:191
 msgid ""
 "Using the default admin username is widely considered bad practice and opens "
 "you up to the easitest form of entry to your website. We will create new "
 "admin username for you."
 msgstr ""
 
-#: src/component/security-tweaks/change-admin.php:191
+#: src/component/security-tweaks/change-admin.php:193
 msgid "Admin User"
 msgstr ""
 
-#: src/component/security-tweaks/disable-file-editor.php:60
+#: src/component/security-tweaks/disable-file-editor.php:52
+#: src/component/security-tweaks/hide-error.php:199
+msgid "The file wp-config.php is not writable"
+msgstr ""
+
+#: src/component/security-tweaks/disable-file-editor.php:106
+#: src/component/security-tweaks/hide-error.php:253
+msgid "Error writing to file."
+msgstr ""
+
+#: src/component/security-tweaks/disable-file-editor.php:162
 msgid "Disable the file editor"
 msgstr ""
 
-#: src/component/security-tweaks/disable-file-editor.php:61
+#: src/component/security-tweaks/disable-file-editor.php:163
 msgid "The file editor is currently enabled."
 msgstr ""
 
-#: src/component/security-tweaks/disable-file-editor.php:62
+#: src/component/security-tweaks/disable-file-editor.php:164
 msgid "You've disabled the file editor, winning."
 msgstr ""
 
-#: src/component/security-tweaks/disable-file-editor.php:64
+#: src/component/security-tweaks/disable-file-editor.php:166
 msgid ""
 "The file editor is currently active, this means anyone with access to your "
 "login information can further edit your plugin and theme files and inject "
 "malicious code. We will disable file editor for you."
 msgstr ""
 
-#: src/component/security-tweaks/disable-file-editor.php:65
+#: src/component/security-tweaks/disable-file-editor.php:167
 msgid "File Editor"
 msgstr ""
 
@@ -1564,58 +1625,49 @@ msgid ""
 "will disable XML-RPC for you."
 msgstr ""
 
-#: src/component/security-tweaks/hide-error.php:154
-msgid "The file wp-config.php is not writable"
-msgstr ""
-
-#: src/component/security-tweaks/hide-error.php:173
-#: src/component/security-tweaks/hide-error.php:203
-msgid "Sorry, we only support vanilla setup."
-msgstr ""
-
-#: src/component/security-tweaks/hide-error.php:299
+#: src/component/security-tweaks/hide-error.php:310
 msgid "Hide error reporting"
 msgstr ""
 
-#: src/component/security-tweaks/hide-error.php:300
+#: src/component/security-tweaks/hide-error.php:311
 msgid "Error debugging is currently allowed."
 msgstr ""
 
-#: src/component/security-tweaks/hide-error.php:301
+#: src/component/security-tweaks/hide-error.php:312
 msgid ""
 "You've disabled all error reporting, Houston will never report a problem."
 msgstr ""
 
-#: src/component/security-tweaks/hide-error.php:303
+#: src/component/security-tweaks/hide-error.php:314
 msgid ""
 "Error debugging feature is useful for active development, but on live sites "
 "provides hackers yet another way to find loopholes in your site's security. "
 "We will disable error reporting for you."
 msgstr ""
 
-#: src/component/security-tweaks/hide-error.php:304
+#: src/component/security-tweaks/hide-error.php:315
 msgid "Error Reporting"
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:38
+#: src/component/security-tweaks/login-duration.php:47
 msgid "Duration can only be a number and greater than 0"
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:119
+#: src/component/security-tweaks/login-duration.php:132
 msgid "Manage Login Duration"
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:120
+#: src/component/security-tweaks/login-duration.php:133
 #, php-format
 msgid "Your current login duration is the default %d days"
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:122
+#: src/component/security-tweaks/login-duration.php:135
 #, php-format
 msgid "You've adjusted the default login duration to %d days"
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:127
+#: src/component/security-tweaks/login-duration.php:140
 msgid ""
 "Users who select the 'remember me' option will stay logged in for 14 days."
 "It’s good practice to reduce this default time to reduce the risk of someone "
@@ -1623,7 +1675,7 @@ msgid ""
 "duration to 7 days."
 msgstr ""
 
-#: src/component/security-tweaks/login-duration.php:129
+#: src/component/security-tweaks/login-duration.php:142
 msgid "Login Duration"
 msgstr ""
 
@@ -1717,7 +1769,7 @@ msgstr ""
 msgid "Information Disclosure"
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:74
+#: src/component/security-tweaks/security-key.php:73
 #: src/component/security-tweaks/servers/apache.php:91
 #: src/component/security-tweaks/servers/apache.php:177
 #: src/component/security-tweaks/servers/apache.php:326
@@ -1730,7 +1782,7 @@ msgstr ""
 msgid "The file %s is not writable"
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:107
+#: src/component/security-tweaks/security-key.php:106
 #, php-format
 msgid ""
 "All key salts have been regenerated. You will now need to <a href=\"%s"
@@ -1738,37 +1790,37 @@ msgid ""
 "class=\"hardener-timer\">%s</span> seconds."
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:149
+#: src/component/security-tweaks/security-key.php:148
 msgid "Unable to generate salts. Please try again."
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:203
+#: src/component/security-tweaks/security-key.php:202
 msgid ""
 "We can't tell how old your security keys are, perhaps it's time to update "
 "them?"
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:206
+#: src/component/security-tweaks/security-key.php:205
 #, php-format
 msgid "Your current security keys are %s days old. Time to update them!"
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:212
+#: src/component/security-tweaks/security-key.php:211
 msgid "Update old security keys"
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:214
+#: src/component/security-tweaks/security-key.php:213
 #, php-format
 msgid "Your security keys are less than %s days old, nice work."
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:219
+#: src/component/security-tweaks/security-key.php:218
 msgid ""
 "Your current security keys are unknown days old. Time to update them! We "
 "will update the frequency to 60 days."
 msgstr ""
 
-#: src/component/security-tweaks/security-key.php:221
+#: src/component/security-tweaks/security-key.php:220
 msgid "Security Keys"
 msgstr ""
 
@@ -1878,63 +1930,63 @@ msgstr ""
 msgid "Advanced Tools"
 msgstr ""
 
-#: src/controller/audit-logging.php:93
+#: src/controller/audit-logging.php:92
 msgid "Summary"
 msgstr ""
 
-#: src/controller/audit-logging.php:94 src/controller/firewall-logs.php:104
+#: src/controller/audit-logging.php:93 src/controller/firewall-logs.php:107
 #: src/controller/firewall.php:347 front/src/module/audit/screen/logs.vue:203
 msgid "Date / Time"
 msgstr ""
 
-#: src/controller/audit-logging.php:95
+#: src/controller/audit-logging.php:94
 #: front/src/module/audit/screen/logs.vue:184
 msgid "Context"
 msgstr ""
 
-#: src/controller/audit-logging.php:96 src/controller/firewall-logs.php:105
+#: src/controller/audit-logging.php:95 src/controller/firewall-logs.php:108
 #: src/controller/firewall.php:348 front/src/module/audit/screen/logs.vue:189
 #: front/src/module/scan/screen/_issues.vue:7
 msgid "Type"
 msgstr ""
 
-#: src/controller/audit-logging.php:97 src/controller/firewall-logs.php:106
+#: src/controller/audit-logging.php:96 src/controller/firewall-logs.php:109
 #: src/controller/firewall.php:349
 msgid "IP address"
 msgstr ""
 
-#: src/controller/audit-logging.php:98
+#: src/controller/audit-logging.php:97
 #: front/src/module/audit/screen/logs.vue:199
 msgid "User"
 msgstr ""
 
-#: src/controller/audit-logging.php:181
+#: src/controller/audit-logging.php:180
 msgid "Invalid data"
 msgstr ""
 
-#: src/controller/audit-logging.php:350 src/controller/blacklist.php:123
-#: src/controller/firewall.php:98 src/controller/login-lockout.php:197
-#: src/controller/main-setting.php:90 src/controller/mask-login.php:213
-#: src/controller/nf-lockout.php:245 src/controller/scan.php:281
-#: src/controller/security-headers.php:75 src/controller/two-factor.php:436
+#: src/controller/audit-logging.php:349 src/controller/blacklist.php:122
+#: src/controller/firewall.php:98 src/controller/login-lockout.php:189
+#: src/controller/main-setting.php:88 src/controller/mask-login.php:240
+#: src/controller/nf-lockout.php:245 src/controller/scan.php:289
+#: src/controller/security-headers.php:75 src/controller/two-factor.php:476
 msgid "Your settings have been updated."
 msgstr ""
 
-#: src/controller/blacklist.php:172
+#: src/controller/blacklist.php:171
 msgid ""
 "You have successfully downloaded Geo IP Database. You can now use this "
 "feature to ban any countries to access any area of your website."
 msgstr ""
 
-#: src/controller/blacklist.php:373 src/controller/blacklist.php:383
+#: src/controller/blacklist.php:372 src/controller/blacklist.php:382
 msgid "Your file is invalid!"
 msgstr ""
 
-#: src/controller/blacklist.php:393
+#: src/controller/blacklist.php:392
 msgid "Your file content is invalid!"
 msgstr ""
 
-#: src/controller/blacklist.php:406
+#: src/controller/blacklist.php:405
 msgid "Your allowlist/blocklist has been successfully imported."
 msgstr ""
 
@@ -1946,30 +1998,30 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: src/controller/firewall-logs.php:73
+#: src/controller/firewall-logs.php:76
 #, php-format
 msgid ""
 "IP %s has been added to your allowlist. You can control your allowlist in <a "
 "href=\"%s\">IP Lockouts.</a>"
 msgstr ""
 
-#: src/controller/firewall-logs.php:78
+#: src/controller/firewall-logs.php:81
 #, php-format
 msgid ""
 "IP %s has been added to your blocklist You can control your blocklist in <a "
 "href=\"%s\">IP Lockouts.</a>"
 msgstr ""
 
-#: src/controller/firewall-logs.php:83 src/controller/firewall.php:610
+#: src/controller/firewall-logs.php:86 src/controller/firewall.php:610
 #, php-format
 msgid "IP %s has been deleted"
 msgstr ""
 
-#: src/controller/firewall-logs.php:103 src/controller/firewall.php:346
+#: src/controller/firewall-logs.php:106 src/controller/firewall.php:346
 msgid "Log"
 msgstr ""
 
-#: src/controller/firewall-logs.php:107 src/controller/firewall.php:350
+#: src/controller/firewall-logs.php:110 src/controller/firewall.php:350
 #: front/src/module/security-tweak/component/disable-file-editor.vue:47
 #: front/src/module/security-tweak/component/disable-file-editor.vue:60
 #: front/src/module/security-tweak/component/disable-trackback.vue:48
@@ -1996,18 +2048,18 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: src/controller/firewall-logs.php:157 src/traits/formats.php:98
+#: src/controller/firewall-logs.php:160 src/traits/formats.php:98
 msgid "ago"
 msgstr ""
 
-#: src/controller/firewall-logs.php:189
+#: src/controller/firewall-logs.php:192
 #, php-format
 msgid ""
 "IP %1$s has been removed from your %2$s You can control your %3$s in <a href="
 "\"%4$s\">IP Lockouts.</a>"
 msgstr ""
 
-#: src/controller/firewall-logs.php:195
+#: src/controller/firewall-logs.php:198
 #, php-format
 msgid ""
 "IP %1$s has been added to your %2$s You can control your %3$s in <a href="
@@ -2063,11 +2115,11 @@ msgstr ""
 msgid "Unexpected value %1$s from IP %2$s"
 msgstr ""
 
-#: src/controller/hub.php:245 src/controller/main-setting.php:352
-#: src/controller/main-setting.php:362 src/controller/main-setting.php:394
-#: src/controller/main-setting.php:404 src/controller/main-setting.php:472
-#: src/controller/main-setting.php:482 src/controller/main-setting.php:536
-#: src/controller/main-setting.php:555
+#: src/controller/hub.php:245 src/controller/main-setting.php:350
+#: src/controller/main-setting.php:360 src/controller/main-setting.php:392
+#: src/controller/main-setting.php:402 src/controller/main-setting.php:470
+#: src/controller/main-setting.php:480 src/controller/main-setting.php:534
+#: src/controller/main-setting.php:553
 msgid "Invalid config"
 msgstr ""
 
@@ -2075,61 +2127,61 @@ msgstr ""
 msgid "Empty data"
 msgstr ""
 
-#: src/controller/login-lockout.php:201
+#: src/controller/login-lockout.php:193
 msgid "Login Protection has been activated."
 msgstr ""
 
-#: src/controller/login-lockout.php:204
+#: src/controller/login-lockout.php:196
 msgid "Login Protection has been deactivated."
 msgstr ""
 
-#: src/controller/main-setting.php:129
+#: src/controller/main-setting.php:127
 msgid "Your settings have been reset."
 msgstr ""
 
-#: src/controller/main-setting.php:236
+#: src/controller/main-setting.php:234
 msgid "The file is corrupted."
 msgstr ""
 
-#: src/controller/main-setting.php:251
+#: src/controller/main-setting.php:249
 msgid ""
 "An error occurred while importing the file. Please check your file or upload "
 "another file."
 msgstr ""
 
-#: src/controller/main-setting.php:278
+#: src/controller/main-setting.php:276
 #, php-format
 msgid ""
 "<strong>%s</strong> config has been uploaded successfully – you can now "
 "apply it to this site."
 msgstr ""
 
-#: src/controller/main-setting.php:300
+#: src/controller/main-setting.php:298
 msgid "Invalid config name"
 msgstr ""
 
-#: src/controller/main-setting.php:325 src/controller/main-setting.php:508
+#: src/controller/main-setting.php:323 src/controller/main-setting.php:506
 #, php-format
 msgid "<strong>%s</strong> config saved successfully."
 msgstr ""
 
-#: src/controller/main-setting.php:335 src/controller/main-setting.php:518
+#: src/controller/main-setting.php:333 src/controller/main-setting.php:516
 msgid "An error occurred while saving your config. Please try it again."
 msgstr ""
 
-#: src/controller/main-setting.php:419
+#: src/controller/main-setting.php:417
 #, php-format
 msgid "<strong>%s</strong> config has been applied successfully."
 msgstr ""
 
-#: src/controller/main-setting.php:434
+#: src/controller/main-setting.php:432
 #, php-format
 msgid ""
 "Because of some security recommendations get applied, You will now need to "
 "<a href=\"%s\"><strong>re-login</strong></a>.<br/>This will auto reload now"
 msgstr ""
 
-#: src/controller/main-setting.php:546
+#: src/controller/main-setting.php:544
 msgid "Config removed successfully."
 msgstr ""
 
@@ -2145,7 +2197,7 @@ msgid ""
 "to this page to continue setup."
 msgstr ""
 
-#: src/controller/mask-login.php:297 src/controller/mask-login.php:319
+#: src/controller/mask-login.php:330 src/controller/mask-login.php:352
 msgid "This feature is disabled"
 msgstr ""
 
@@ -2157,151 +2209,165 @@ msgstr ""
 msgid "404 Detection has been deactivated."
 msgstr ""
 
-#: src/controller/notification.php:29
+#: src/controller/notification.php:28
 #: front/src/module/notification/notification.vue:5
 #: front/src/module/scan/screen/_notification.vue:5
 msgid "Notifications"
 msgstr ""
 
-#: src/controller/notification.php:73
+#: src/controller/notification.php:74
 #, php-format
 msgid ""
-"You are now subscribed to receive <strong>%s</strong>. Made a mistake? <a "
-"href=\"%s\">Unsubscribe</a>"
+"You are now subscribed to receive <strong>%1$s</strong>. Made a mistake? <a "
+"href=\"%2$s\">Unsubscribe</a>"
 msgstr ""
 
-#: src/controller/notification.php:75
+#: src/controller/notification.php:81
 #, php-format
 msgid "You are now unsubscribed from <strong>%s</strong>."
 msgstr ""
 
-#: src/controller/notification.php:146 src/controller/notification.php:150
-#: src/controller/notification.php:160 src/controller/security-tweaks.php:104
-#: src/controller/security-tweaks.php:115
-#: src/controller/security-tweaks.php:140
+#: src/controller/notification.php:89
+msgid "Dismiss this notice."
+msgstr ""
+
+#: src/controller/notification.php:162 src/controller/notification.php:166
+#: src/controller/notification.php:176 src/controller/security-tweaks.php:108
+#: src/controller/security-tweaks.php:119
+#: src/controller/security-tweaks.php:144
 #: src/controller/security-tweaks.php:168
-#: src/controller/security-tweaks.php:178
-#: src/controller/security-tweaks.php:198
-#: src/controller/security-tweaks.php:222
-#: src/controller/security-tweaks.php:249
-#: src/controller/security-tweaks.php:277
-#: src/controller/security-tweaks.php:300 src/controller/two-factor.php:213
+#: src/controller/security-tweaks.php:221
+#: src/controller/security-tweaks.php:248
+#: src/controller/security-tweaks.php:276
+#: src/controller/security-tweaks.php:299 src/controller/two-factor.php:224
 msgid "Invalid request"
 msgstr ""
 
-#: src/controller/notification.php:230
+#: src/controller/notification.php:251
 msgid ""
 "You have activated the notification successfully. Note, recipients will need "
 "to confirm their subscriptions to begin receiving notifications."
 msgstr ""
 
-#: src/controller/notification.php:270
+#: src/controller/notification.php:294
 msgid ""
 "Your settings have been updated successfully. Any new recipients will "
 "receive an email to confirm their subscription."
 msgstr ""
 
-#: src/controller/notification.php:432
+#: src/controller/notification.php:456
 msgid "You have deactivated the notifications successfully."
 msgstr ""
 
-#: src/controller/notification.php:469
+#: src/controller/notification.php:493
 msgid "You have deactivated the notification successfully."
 msgstr ""
 
-#: src/controller/notification.php:488 src/controller/notification.php:492
+#: src/controller/notification.php:511 src/controller/notification.php:515
 msgid "You shall not pass"
 msgstr ""
 
-#: src/controller/notification.php:633
+#: src/controller/notification.php:659
 #, php-format
 msgid ""
 "Your timezone is set to <strong>%1$s</strong>, so your current time is "
 "<strong>%2$s</strong>."
 msgstr ""
 
-#: src/controller/notification.php:662
+#: src/controller/notification.php:689
 #, php-format
-msgid "%s: %s"
+msgid "%1$s: %2$s"
 msgstr ""
 
-#: src/controller/notification.php:665
+#: src/controller/notification.php:694
 msgid "Enabled"
 msgstr ""
 
-#: src/controller/notification.php:665 src/controller/notification.php:668
+#: src/controller/notification.php:694 src/controller/notification.php:700
 #: front/src/module/two-fa/two-fa-free.vue:53
-#: front/src/module/two-fa/two-fa.vue:55 front/src/module/two-fa/two-fa.vue:62
+#: front/src/module/two-fa/two-fa.vue:58 front/src/module/two-fa/two-fa.vue:65
 msgid "Disabled"
 msgstr ""
 
-#: src/controller/onboard.php:68 src/controller/onboard.php:146
+#: src/controller/notification.php:735
+msgid "Module not found."
+msgstr ""
+
+#: src/controller/notification.php:750
+msgid "Invitation sent successfully."
+msgstr ""
+
+#: src/controller/notification.php:755
+msgid "Sorry! We could not send the invitation, Please try again later."
+msgstr ""
+
+#: src/controller/onboard.php:68 src/controller/onboard.php:145
 msgid "Invalid"
 msgstr ""
 
-#: src/controller/scan.php:75 src/model/scan.php:306
+#: src/controller/scan.php:83 src/model/scan.php:309
 msgid "A scan is already in progress"
 msgstr ""
 
-#: src/controller/scan.php:129
+#: src/controller/scan.php:137
 msgid "Error during scanning"
 msgstr ""
 
-#: src/controller/scan.php:443
+#: src/controller/scan.php:454
 msgid "Automatic scans are disabled"
 msgstr ""
 
-#: src/controller/scan.php:445
+#: src/controller/scan.php:456
 #, php-format
 msgid "Automatic scans are running %s"
 msgstr ""
 
-#: src/controller/security-tweaks.php:37
+#: src/controller/security-tweaks.php:40
 #: src/model/setting/security-tweaks.php:112
 #: front/src/module/dashboard/component/security-tweaks.vue:6
-#: front/src/module/security-tweak/security-tweak.vue:54
-#: front/src/module/security-tweak/security-tweak.vue:82
+#: front/src/module/security-tweak/security-tweak.vue:57
+#: front/src/module/security-tweak/security-tweak.vue:85
 msgid "Recommendations"
 msgstr ""
 
-#: src/controller/security-tweaks.php:131
+#: src/controller/security-tweaks.php:135
 msgid "Security recommendation successfully resolved."
 msgstr ""
 
-#: src/controller/security-tweaks.php:189
+#: src/controller/security-tweaks.php:193
 msgid "Security recommendation successfully reverted."
 msgstr ""
 
-#: src/controller/security-tweaks.php:227
+#: src/controller/security-tweaks.php:226
 msgid "Security recommendation successfully ignored."
 msgstr ""
 
-#: src/controller/security-tweaks.php:254
+#: src/controller/security-tweaks.php:253
 msgid "Security recommendation successfully restored."
 msgstr ""
 
-#: src/controller/security-tweaks.php:285
+#: src/controller/security-tweaks.php:284
 msgid "Security recommendation successfully re-checked."
 msgstr ""
 
-#: src/controller/security-tweaks.php:315
+#: src/controller/security-tweaks.php:314
 msgid "Invalid Reminder frequency"
 msgstr ""
 
-#: src/controller/security-tweaks.php:326
+#: src/controller/security-tweaks.php:325
 msgid "Security recommendation successfully updated."
 msgstr ""
 
-#: src/controller/security-tweaks.php:330
+#: src/controller/security-tweaks.php:329
 msgid "Error while updating."
 msgstr ""
 
-#: src/controller/security-tweaks.php:436
+#: src/controller/security-tweaks.php:432
 #, php-format
 msgid "You have bulk %1$s %2$s security recommendations."
 msgstr ""
 
-#: src/controller/security-tweaks.php:446
+#: src/controller/security-tweaks.php:442
 #, php-format
 msgid ""
 "You have bulk actioned %d security recommendations. You still have a few "
@@ -2309,9 +2375,9 @@ msgid ""
 "automatically, so please address them below."
 msgstr ""
 
-#: src/controller/security-tweaks.php:494
-#: src/controller/security-tweaks.php:703
-#: src/controller/security-tweaks.php:730
+#: src/controller/security-tweaks.php:490
+#: src/controller/security-tweaks.php:697
+#: src/controller/security-tweaks.php:724
 #, php-format
 msgid ""
 "There is an error while processing recommendation %1$s, error message: %2$s"
@@ -2338,35 +2404,35 @@ msgstr ""
 msgid "Read article"
 msgstr ""
 
-#: src/controller/two-factor.php:139
+#: src/controller/two-factor.php:141
 msgid "Two Factor"
 msgstr ""
 
-#: src/controller/two-factor.php:174
+#: src/controller/two-factor.php:178
 msgid "Please try again"
 msgstr ""
 
-#: src/controller/two-factor.php:185
+#: src/controller/two-factor.php:195
 msgid "Your code has been sent to your email."
 msgstr ""
 
-#: src/controller/two-factor.php:225 src/controller/two-factor.php:262
+#: src/controller/two-factor.php:236 src/controller/two-factor.php:273
 msgid "Whoops, the passcode you entered was incorrect or expired."
 msgstr ""
 
-#: src/controller/two-factor.php:363
+#: src/controller/two-factor.php:379
 msgid "Please input a valid OTP code"
 msgstr ""
 
-#: src/controller/two-factor.php:373
+#: src/controller/two-factor.php:392
 msgid "Your OTP code is incorrect. Please try again."
 msgstr ""
 
-#: src/controller/two-factor.php:503
+#: src/controller/two-factor.php:553
 msgid "Test email has been sent to your email."
 msgstr ""
 
-#: src/controller/two-factor.php:507
+#: src/controller/two-factor.php:560
 msgid "Test email failed."
 msgstr ""
 
@@ -2382,23 +2448,23 @@ msgstr ""
 msgid "Not banned or in allowlist"
 msgstr ""
 
-#: src/model/notification.php:291
+#: src/model/notification.php:287
 #, php-format
 msgid "%s at %s"
 msgstr ""
 
-#: src/model/notification.php:295
+#: src/model/notification.php:292
 #, php-format
 msgid "%s/%d, %s"
 msgstr ""
 
-#: src/model/notification.php:338
+#: src/model/notification.php:335
 #, php-format
 msgid "Email %s is invalid format"
 msgstr ""
 
 #: src/model/notification/audit-report.php:13
-#: src/model/notification/audit-report.php:126
+#: src/model/notification/audit-report.php:127
 msgid "Audit Logging - Reporting"
 msgstr ""
 
@@ -2408,27 +2474,27 @@ msgid ""
 "events."
 msgstr ""
 
-#: src/model/notification/audit-report.php:86
+#: src/model/notification/audit-report.php:87
 #, php-format
 msgid "Here's what's been happening at %s"
 msgstr ""
 
-#: src/model/notification/audit-report.php:97
+#: src/model/notification/audit-report.php:98
 #, php-format
 msgid "There were no events logged for <a href='%s'>%s</a>"
 msgstr ""
 
-#: src/model/notification/audit-report.php:127
+#: src/model/notification/audit-report.php:128
 #: src/model/notification/firewall-notification.php:151
 #: src/model/notification/firewall-report.php:119
-#: src/model/notification/malware-notification.php:255
+#: src/model/notification/malware-notification.php:259
 #: src/model/notification/malware-report.php:131
-#: src/model/notification/tweak-reminder.php:179
+#: src/model/notification/tweak-reminder.php:180
 msgid "Recipients"
 msgstr ""
 
-#: src/model/notification/audit-report.php:128
 #: src/model/notification/audit-report.php:129
+#: src/model/notification/audit-report.php:130
 #: src/model/notification/firewall-report.php:115
 #: src/model/notification/firewall-report.php:116
 #: src/model/notification/malware-report.php:132
@@ -2436,17 +2502,17 @@ msgstr ""
 msgid "Day of"
 msgstr ""
 
-#: src/model/notification/audit-report.php:130
+#: src/model/notification/audit-report.php:131
 #: src/model/notification/firewall-report.php:117
 #: src/model/notification/malware-report.php:134
 #: front/src/module/scan/screen/_reporting.vue:80
 msgid "Time of day"
 msgstr ""
 
-#: src/model/notification/audit-report.php:131
+#: src/model/notification/audit-report.php:132
 #: src/model/notification/firewall-report.php:118
 #: src/model/notification/malware-report.php:135
-#: src/model/notification/tweak-reminder.php:178
+#: src/model/notification/tweak-reminder.php:179
 #: front/src/module/scan/screen/_reporting.vue:65
 msgid "Frequency"
 msgstr ""
@@ -2553,7 +2619,7 @@ msgid "In the month"
 msgstr ""
 
 #: src/model/notification/malware-notification.php:25
-#: src/model/notification/malware-notification.php:247
+#: src/model/notification/malware-notification.php:251
 msgid "Malware Scanning - Notification"
 msgstr ""
 
@@ -2622,44 +2688,44 @@ msgid ""
 "Official WPMU DEV Superhero\n"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:178
+#: src/model/notification/malware-notification.php:182
 msgid "File"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:181
+#: src/model/notification/malware-notification.php:185
 msgid "Issue"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:223
+#: src/model/notification/malware-notification.php:227
 msgid "Let's get your site patched up."
 msgstr ""
 
-#: src/model/notification/malware-notification.php:248
+#: src/model/notification/malware-notification.php:252
 #: src/model/notification/malware-report.php:130
 msgid "Send notifications when no issues are detected"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:249
+#: src/model/notification/malware-notification.php:253
 msgid "Email subject when an issue is found"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:250
+#: src/model/notification/malware-notification.php:254
 msgid "Email subject when no issues are found"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:251
+#: src/model/notification/malware-notification.php:255
 msgid "Email subject when failed to scan"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:252
+#: src/model/notification/malware-notification.php:256
 msgid "Email body when an issue is found"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:253
+#: src/model/notification/malware-notification.php:257
 msgid "Email body when no issues are found"
 msgstr ""
 
-#: src/model/notification/malware-notification.php:254
+#: src/model/notification/malware-notification.php:258
 msgid "When failed to scan"
 msgstr ""
 
@@ -2677,7 +2743,7 @@ msgstr ""
 #: front/src/module/scan/screen/_notification.vue:200
 #: front/src/module/scan/screen/_notification.vue:211
 #: front/src/module/two-fa/two-fa-free.vue:414
-#: front/src/module/two-fa/two-fa.vue:422
+#: front/src/module/two-fa/two-fa.vue:425
 msgid "Subject"
 msgstr ""
 
@@ -2686,7 +2752,7 @@ msgid "Subscribe it"
 msgstr ""
 
 #: src/model/notification/tweak-reminder.php:28
-#: src/model/notification/tweak-reminder.php:177
+#: src/model/notification/tweak-reminder.php:178
 msgid "Security Recommendations - Notification"
 msgstr ""
 
@@ -2694,7 +2760,7 @@ msgstr ""
 msgid "Get email notifications if/when a security recommendation needs fixing."
 msgstr ""
 
-#: src/model/notification/tweak-reminder.php:128
+#: src/model/notification/tweak-reminder.php:129
 #, php-format
 msgid ""
 "Security Recommendation Report for %s. %s recommendation needs attention."
@@ -2753,8 +2819,8 @@ msgid "Days to keep logs"
 msgstr ""
 
 #: src/model/setting/login-lockout.php:109
-#: front/src/module/ip-lockout/ip-lockout.vue:41
-#: front/src/module/ip-lockout/ip-lockout.vue:62
+#: front/src/module/ip-lockout/ip-lockout.vue:44
+#: front/src/module/ip-lockout/ip-lockout.vue:65
 #: front/src/module/ip-lockout/screen/lockout.vue:5
 #: front/src/module/ip-lockout/screen/lockout.vue:31
 msgid "Login Protection"
@@ -2820,12 +2886,12 @@ msgid "Masking URL"
 msgstr ""
 
 #: src/model/setting/mask-login.php:78
-#: front/src/module/advanced-tools/screen/mask-login.vue:103
+#: front/src/module/advanced-tools/screen/mask-login.vue:102
 msgid "Redirect traffic"
 msgstr ""
 
 #: src/model/setting/mask-login.php:79
-#: front/src/module/advanced-tools/screen/mask-login.vue:146
+#: front/src/module/advanced-tools/screen/mask-login.vue:145
 msgid "Redirection URL"
 msgstr ""
 
@@ -2833,19 +2899,25 @@ msgstr ""
 msgid "Select the page or post your default login URLs will redirect to"
 msgstr ""
 
-#: src/model/setting/mask-login.php:166 src/model/setting/mask-login.php:173
+#: src/model/setting/mask-login.php:169
+msgid ""
+"The slug you have provided cannot be used for masking your login area. "
+"Please try a new one."
+msgstr ""
+
+#: src/model/setting/mask-login.php:175
 msgid ""
 "A page already exists at this URL, please pick a unique page for your new "
 "login area."
 msgstr ""
 
-#: src/model/setting/mask-login.php:180
+#: src/model/setting/mask-login.php:181
 msgid "Redirect URL must different from Login URL"
 msgstr ""
 
 #: src/model/setting/notfound-lockout.php:128
-#: front/src/module/ip-lockout/ip-lockout.vue:45
-#: front/src/module/ip-lockout/ip-lockout.vue:63
+#: front/src/module/ip-lockout/ip-lockout.vue:48
+#: front/src/module/ip-lockout/ip-lockout.vue:66
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:6
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:29
 msgid "404 Detection"
@@ -2986,18 +3058,18 @@ msgstr ""
 
 #: src/model/setting/security-tweaks.php:111
 #: front/src/module/security-tweak/screen/resolve.vue:4
-#: front/src/module/security-tweak/security-tweak.vue:65
-#: front/src/module/security-tweak/security-tweak.vue:83
+#: front/src/module/security-tweak/security-tweak.vue:68
+#: front/src/module/security-tweak/security-tweak.vue:86
 msgid "Actioned"
 msgstr ""
 
 #: src/model/setting/security-tweaks.php:113
 #: front/src/module/scan/screen/_ignore.vue:4
-#: front/src/module/scan/screen/scan-result.vue:110
-#: front/src/module/scan/screen/scan-result.vue:124
+#: front/src/module/scan/screen/scan-result.vue:113
+#: front/src/module/scan/screen/scan-result.vue:127
 #: front/src/module/security-tweak/screen/ignore.vue:5
-#: front/src/module/security-tweak/security-tweak.vue:74
-#: front/src/module/security-tweak/security-tweak.vue:84
+#: front/src/module/security-tweak/security-tweak.vue:77
+#: front/src/module/security-tweak/security-tweak.vue:87
 msgid "Ignored"
 msgstr ""
 
@@ -3020,7 +3092,7 @@ msgid "Enabled user roles"
 msgstr ""
 
 #: src/model/setting/two-fa.php:166 front/src/module/two-fa/two-fa-free.vue:190
-#: front/src/module/two-fa/two-fa.vue:193
+#: front/src/module/two-fa/two-fa.vue:196
 msgid "Force users to log in with two-factor authentication"
 msgstr ""
 
@@ -3031,12 +3103,12 @@ msgstr ""
 #: src/model/setting/two-fa.php:169
 #: front/src/module/scan/screen/_notification.vue:139
 #: front/src/module/two-fa/two-fa-free.vue:433
-#: front/src/module/two-fa/two-fa.vue:441
+#: front/src/module/two-fa/two-fa.vue:444
 msgid "Body"
 msgstr ""
 
 #: src/model/setting/two-fa.php:170 front/src/module/two-fa/two-fa-free.vue:423
-#: front/src/module/two-fa/two-fa.vue:431
+#: front/src/module/two-fa/two-fa.vue:434
 msgid "Sender"
 msgstr ""
 
@@ -3054,13 +3126,13 @@ msgstr ""
 
 #: src/model/setting/two-fa.php:174 front/src/module/two-fa/two-fa-free.vue:58
 #: front/src/module/two-fa/two-fa-free.vue:242
-#: front/src/module/two-fa/two-fa.vue:60 front/src/module/two-fa/two-fa.vue:243
-#: front/src/module/two-fa/two-fa.vue:263
+#: front/src/module/two-fa/two-fa.vue:63 front/src/module/two-fa/two-fa.vue:246
+#: front/src/module/two-fa/two-fa.vue:266
 msgid "Custom Graphic"
 msgstr ""
 
 #: src/model/setting/two-fa.php:175 front/src/module/two-fa/two-fa-free.vue:224
-#: front/src/module/two-fa/two-fa.vue:227
+#: front/src/module/two-fa/two-fa.vue:230
 msgid "App Title"
 msgstr ""
 
@@ -3332,14 +3404,14 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: src/view/two-fa/disabled.php:38 src/view/two-fa/enabled.php:11
+#: src/view/two-fa/disabled.php:38 src/view/two-fa/enabled.php:20
 msgid "Security"
 msgstr ""
 
-#: src/view/two-fa/disabled.php:44 src/view/two-fa/enabled.php:16
+#: src/view/two-fa/disabled.php:44 src/view/two-fa/enabled.php:24
 #: front/src/module/two-fa/two-fa-free.vue:7
 #: front/src/module/two-fa/two-fa-free.vue:69
-#: front/src/module/two-fa/two-fa.vue:7 front/src/module/two-fa/two-fa.vue:72
+#: front/src/module/two-fa/two-fa.vue:7 front/src/module/two-fa/two-fa.vue:75
 msgid "Two Factor Authentication"
 msgstr ""
 
@@ -3391,19 +3463,19 @@ msgstr ""
 msgid "Verify"
 msgstr ""
 
-#: src/view/two-fa/enabled.php:20
+#: src/view/two-fa/enabled.php:29
 msgid "Two factor authentication is active."
 msgstr ""
 
-#: src/view/two-fa/enabled.php:24
+#: src/view/two-fa/enabled.php:32
 msgid "Disable"
 msgstr ""
 
-#: src/view/two-fa/enabled.php:30
+#: src/view/two-fa/enabled.php:37
 msgid "Fallback email address"
 msgstr ""
 
-#: src/view/two-fa/enabled.php:36
+#: src/view/two-fa/enabled.php:42
 msgid ""
 "If you ever lose your device, you can send a fallback passcode to this email "
 "address."
@@ -3456,7 +3528,7 @@ msgstr ""
 
 #: front/src/component/recipients.vue:46
 #: front/src/module/two-fa/two-fa-free.vue:291
-#: front/src/module/two-fa/two-fa.vue:301
+#: front/src/module/two-fa/two-fa.vue:304
 msgid "Email"
 msgstr ""
 
@@ -3465,7 +3537,7 @@ msgstr ""
 #: front/src/module/scan/screen/_notification.vue:232
 #: front/src/module/settings/screen/data.vue:131
 #: front/src/module/two-fa/two-fa-free.vue:454
-#: front/src/module/two-fa/two-fa.vue:462
+#: front/src/module/two-fa/two-fa.vue:465
 msgid "Cancel"
 msgstr ""
 
@@ -3714,55 +3786,51 @@ msgid "New Login URL slug"
 msgstr ""
 
 #: front/src/module/advanced-tools/screen/mask-login.vue:94
-msgid "Users will login at"
-msgstr ""
-
-#: front/src/module/advanced-tools/screen/mask-login.vue:95
 msgid ""
 "Note: Registration and Password Reset emails have hardcoded URLs in them. We "
 "will update them automatically to match your new login URL."
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:106
+#: front/src/module/advanced-tools/screen/mask-login.vue:105
 msgid ""
 "Send visitors and bots who try to visit the default WordPress login URLs to "
 "a separate URL to avoid 404s."
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:133
+#: front/src/module/advanced-tools/screen/mask-login.vue:132
 msgid "Redirect URL"
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:142
+#: front/src/module/advanced-tools/screen/mask-login.vue:141
 msgid "Visitors who visit the default login URLs will be redirected to the"
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:157
+#: front/src/module/advanced-tools/screen/mask-login.vue:156
 #: front/src/module/audit/screen/settings.vue:45
 #: front/src/module/audit/screen/settings.vue:54
 #: front/src/module/ip-lockout/screen/lockout.vue:166
 #: front/src/module/ip-lockout/screen/lockout.vue:179
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:260
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:272
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:257
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:269
 #: front/src/module/two-fa/two-fa-free.vue:358
 #: front/src/module/two-fa/two-fa-free.vue:367
-#: front/src/module/two-fa/two-fa.vue:367
-#: front/src/module/two-fa/two-fa.vue:376
+#: front/src/module/two-fa/two-fa.vue:370
+#: front/src/module/two-fa/two-fa.vue:379
 msgid "Deactivate"
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:160
+#: front/src/module/advanced-tools/screen/mask-login.vue:159
 msgid ""
 "Disable login area masking and return to the default wp-admin and wp-login "
 "URLS."
 msgstr ""
 
-#: front/src/module/advanced-tools/screen/mask-login.vue:178
+#: front/src/module/advanced-tools/screen/mask-login.vue:177
 #: front/src/module/advanced-tools/screen/security-headers.vue:188
 #: front/src/module/audit/screen/settings.vue:63
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:303
 #: front/src/module/ip-lockout/screen/lockout.vue:188
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:281
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:278
 #: front/src/module/ip-lockout/screen/settings.vue:51
 #: front/src/module/notification/component/configure-dialog.vue:107
 #: front/src/module/scan/screen/_notification.vue:99
@@ -3775,13 +3843,8 @@ msgstr ""
 #: front/src/module/settings/screen/data.vue:95
 #: front/src/module/settings/screen/general.vue:64
 #: front/src/module/two-fa/two-fa-free.vue:377
-#: front/src/module/two-fa/two-fa.vue:385
+#: front/src/module/two-fa/two-fa.vue:388
 msgid "Save Changes"
-msgstr ""
-
-#: front/src/module/advanced-tools/screen/mask-login.vue:308
-msgid ""
-"Replace the default <strong>wp-admin</strong> or <strong>wp-login</strong> to"
 msgstr ""
 
 #: front/src/module/advanced-tools/screen/security-headers.vue:11
@@ -3791,7 +3854,7 @@ msgid ""
 "headers."
 msgstr ""
 
-#: front/src/module/audit/audit-free.vue:15
+#: front/src/module/audit/audit-free.vue:18
 msgid ""
 "Track and log each and every event when changes are made to your site and "
 "get detailed reports on what's going on behind the scenes, including any "
@@ -3799,11 +3862,11 @@ msgid ""
 "WPMU DEV membership. Try it free today!"
 msgstr ""
 
-#: front/src/module/audit/audit.vue:17
+#: front/src/module/audit/audit.vue:20
 msgid "Events logged in the past 7 days"
 msgstr ""
 
-#: front/src/module/audit/audit.vue:24
+#: front/src/module/audit/audit.vue:27
 #: front/src/module/dashboard/component/report-free.vue:6
 #: front/src/module/dashboard/component/report.vue:6
 #: front/src/module/scan/screen/_reporting-free.vue:5
@@ -3812,17 +3875,17 @@ msgstr ""
 msgid "Reporting"
 msgstr ""
 
-#: front/src/module/audit/audit.vue:35 front/src/module/audit/audit.vue:44
+#: front/src/module/audit/audit.vue:38 front/src/module/audit/audit.vue:47
 #: front/src/module/audit/screen/logs.vue:5
 msgid "Event Logs"
 msgstr ""
 
-#: front/src/module/audit/audit.vue:75
+#: front/src/module/audit/audit.vue:78
 msgid ""
 "Track and log each and every event when changes are made to your site and"
 msgstr ""
 
-#: front/src/module/audit/audit.vue:81
+#: front/src/module/audit/audit.vue:84
 #: front/src/module/dashboard/component/advanced-tools.vue:44
 #: front/src/module/dashboard/component/audit.vue:17
 #: front/src/module/dashboard/component/blacklist.vue:34
@@ -3836,7 +3899,7 @@ msgid "Activate"
 msgstr ""
 
 #: front/src/module/audit/screen/logs.vue:10
-#: front/src/module/ip-lockout/screen/logs.vue:21
+#: front/src/module/ip-lockout/screen/logs.vue:22
 msgid "Export CSV"
 msgstr ""
 
@@ -3936,7 +3999,7 @@ msgstr ""
 
 #: front/src/module/audit/screen/settings.vue:48
 #: front/src/module/ip-lockout/screen/lockout.vue:169
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:262
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:259
 msgid ""
 "If you no longer want to use this feature you can turn it off at any time."
 msgstr ""
@@ -4142,9 +4205,9 @@ msgstr ""
 
 #: front/src/module/dashboard/component/file-scanning-free.vue:70
 #: front/src/module/dashboard/component/file-scanning-free.vue:79
-#: front/src/module/scan/screen/scan-result.vue:45
-#: front/src/module/scan/screen/scan-result.vue:60
-#: front/src/module/scan/screen/scan-result.vue:75
+#: front/src/module/scan/screen/scan-result.vue:48
+#: front/src/module/scan/screen/scan-result.vue:63
+#: front/src/module/scan/screen/scan-result.vue:78
 msgid "Pro Feature"
 msgstr ""
 
@@ -4162,7 +4225,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/dashboard/component/ip-lockout.vue:23
-#: front/src/module/ip-lockout/ip-lockout.vue:22
+#: front/src/module/ip-lockout/ip-lockout.vue:25
 msgid "Last lockout"
 msgstr ""
 
@@ -4305,14 +4368,14 @@ msgid "You have actioned all available security recommendations, great work!"
 msgstr ""
 
 #: front/src/module/dashboard/component/tutorial.vue:178
-#: front/src/module/tutorial/tutorial.vue:149
+#: front/src/module/tutorial/tutorial.vue:152
 msgid ""
 "Find Out if You’re Hacked: How to Find and Delete Suspicious Code with "
 "Defender"
 msgstr ""
 
 #: front/src/module/dashboard/component/tutorial.vue:180
-#: front/src/module/tutorial/tutorial.vue:151
+#: front/src/module/tutorial/tutorial.vue:154
 msgid "Find Out if You’re Hacked: How to Find and Delete Suspicious Code..."
 msgstr ""
 
@@ -4340,46 +4403,46 @@ msgid ""
 "This feature is available to members who host their sites with WPMU DEV."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:28
+#: front/src/module/dashboard/dashboard.vue:31
 msgid "Malware Scan Issues"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:32
+#: front/src/module/dashboard/dashboard.vue:35
 #: front/src/module/scan/screen/scan-result.vue:10
 #: front/src/module/scan/screen/scanning.vue:10
 msgid "New Scan"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:41
+#: front/src/module/dashboard/dashboard.vue:44
 msgid "Last Lockout"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:150
+#: front/src/module/dashboard/dashboard.vue:153
 msgid "You don't have any outstanding security recommendations, nice work!"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:152
-#: front/src/module/security-tweak/security-tweak.vue:134
+#: front/src/module/dashboard/dashboard.vue:155
+#: front/src/module/security-tweak/security-tweak.vue:138
 msgid ""
 "You have one security recommendation left to do. We recommend you action it, "
 "or ignore it if it's irrelevant."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:154
-#: front/src/module/scan/screen/scan-result.vue:207
+#: front/src/module/dashboard/dashboard.vue:157
+#: front/src/module/scan/screen/scan-result.vue:210
 msgid ""
 "We've detected a potential security risk in your file system. We recommend "
 "you take a look and action a fix, or ignore the file if it's harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:156
+#: front/src/module/dashboard/dashboard.vue:159
 msgid ""
 "You have one security recommendation left to do, and one potential security "
 "risk in your file system. We recommend you take a look and action fixes, or "
 "ignore the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:158
+#: front/src/module/dashboard/dashboard.vue:161
 #, c-format
 msgid ""
 "You have one security recommendation left to do, and %s potential security "
@@ -4387,7 +4450,7 @@ msgid ""
 "ignore the issues if they are harmless"
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:160
+#: front/src/module/dashboard/dashboard.vue:163
 #, c-format
 msgid ""
 "You have %s security recommendations left to do, and one potential security "
@@ -4395,7 +4458,7 @@ msgid ""
 "ignore the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:162
+#: front/src/module/dashboard/dashboard.vue:165
 #, c-format
 msgid ""
 "You have %s security recommendations left to do, and %s potential security "
@@ -4403,14 +4466,14 @@ msgid ""
 "ignore the issues if they are harmless."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:164
+#: front/src/module/dashboard/dashboard.vue:167
 #, c-format
 msgid ""
 "You have %d security recommendations left to do. We recommend you action it, "
 "or ignore it if it's irrelevant."
 msgstr ""
 
-#: front/src/module/dashboard/dashboard.vue:166
+#: front/src/module/dashboard/dashboard.vue:169
 #, c-format
 msgid ""
 "We've detected %d potential security risks in your file system. We recommend "
@@ -4460,7 +4523,7 @@ msgstr ""
 #: front/src/module/ip-lockout/component/lockout-table.vue:56
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:41
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:197
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:208
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:211
 msgid "Allowlist"
 msgstr ""
 
@@ -4472,7 +4535,7 @@ msgstr ""
 
 #: front/src/module/ip-lockout/component/lockout-table.vue:63
 #: front/src/module/ip-lockout/component/lockout-table.vue:115
-#: front/src/module/notification/notification.vue:52
+#: front/src/module/notification/notification.vue:55
 #: front/src/module/scan/component/nav-and-filter.vue:22
 #: front/src/module/security-tweak/screen/issues.vue:53
 msgid "Apply"
@@ -4518,30 +4581,30 @@ msgstr ""
 msgid "Unallowlist"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:13
+#: front/src/module/ip-lockout/ip-lockout.vue:16
 msgid "Lockouts in the past 24 hours"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:16
+#: front/src/module/ip-lockout/ip-lockout.vue:19
 msgid "Total lockouts in the past 30 days"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:26
+#: front/src/module/ip-lockout/ip-lockout.vue:29
 msgid "Login lockouts in the past 7 days"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:30
+#: front/src/module/ip-lockout/ip-lockout.vue:33
 msgid "404 lockouts in the past 7 days"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:49
-#: front/src/module/ip-lockout/ip-lockout.vue:64
+#: front/src/module/ip-lockout/ip-lockout.vue:52
+#: front/src/module/ip-lockout/ip-lockout.vue:67
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:6
 msgid "IP Banning"
 msgstr ""
 
-#: front/src/module/ip-lockout/ip-lockout.vue:53
-#: front/src/module/ip-lockout/ip-lockout.vue:65
+#: front/src/module/ip-lockout/ip-lockout.vue:56
+#: front/src/module/ip-lockout/ip-lockout.vue:68
 #: front/src/module/ip-lockout/screen/logs.vue:4
 msgid "Logs"
 msgstr ""
@@ -4710,7 +4773,7 @@ msgid "Upload your exported blocklist."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:266
-#: front/src/module/two-fa/two-fa.vue:278
+#: front/src/module/two-fa/two-fa.vue:281
 msgid "Upload file"
 msgstr ""
 
@@ -4757,7 +4820,7 @@ msgstr ""
 
 #: front/src/module/ip-lockout/screen/ip-blacklist.vue:393
 #: front/src/module/ip-lockout/screen/lockout.vue:246
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:336
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:333
 #, c-format
 msgid ""
 "This message will be displayed across your website during the lockout "
@@ -4874,7 +4937,7 @@ msgid "Login protection is enabled. There are no lockouts logged yet."
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/lockout.vue:240
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:333
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:330
 #, c-format
 msgid ""
 "There have been %s lockouts in the last 24 hours. <a href=\"%s"
@@ -4901,7 +4964,7 @@ msgstr ""
 msgid "Oldest"
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/logs.vue:27
+#: front/src/module/ip-lockout/screen/logs.vue:29
 msgid ""
 "Here's your comprehensive IP lockout log. You can allowlist and ban IPs from "
 "there."
@@ -4925,44 +4988,36 @@ msgid "404 hits"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:144
-msgid "Files & Folders"
+msgid "Files, folders and file types"
 msgstr ""
 
 #: front/src/module/ip-lockout/screen/notfound-lockout.vue:146
 msgid ""
-"Choose specific files and folders that you want to automatically ban users/"
-"bots from accessing, or allowlist access to."
+"Choose specific files, folders and file types that you want to automatically "
+"ban users/bots from accessing, or allow access to."
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:210
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:209
 msgid ""
-"If you know a common file or folder on your website is missing, you can "
-"record it here so it doesn't count towards a lockout record."
+"If you know a common file, folder or file type on your website is missing, "
+"you can record it here so it doesn't count towards a lockout record."
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:212
-msgid "Allowlisted files & folders"
-msgstr ""
-
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:218
-msgid "One URL per line. You must list the full path beginning with a /."
-msgstr ""
-
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:237
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:234
 msgid "Exclusions"
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:239
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:236
 msgid ""
 "By default, Defender will monitor all interactions with your website but you "
 "can choose to disable 404 detection for specific areas of your site."
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:253
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:250
 msgid "Monitor 404s from logged in users"
 msgstr ""
 
-#: front/src/module/ip-lockout/screen/notfound-lockout.vue:332
+#: front/src/module/ip-lockout/screen/notfound-lockout.vue:329
 msgid "404 detection is enabled. There are no lockouts logged yet."
 msgstr ""
 
@@ -5025,30 +5080,30 @@ msgstr ""
 msgid "Each notification has unique settings that can be configured below."
 msgstr ""
 
-#: front/src/module/notification/notification.vue:18
+#: front/src/module/notification/notification.vue:21
 msgid "Active notifications"
 msgstr ""
 
-#: front/src/module/notification/notification.vue:25
+#: front/src/module/notification/notification.vue:28
 msgid "Next scheduled reporting"
 msgstr ""
 
-#: front/src/module/notification/notification.vue:33
+#: front/src/module/notification/notification.vue:36
 msgid "Configure"
 msgstr ""
 
-#: front/src/module/notification/notification.vue:38
+#: front/src/module/notification/notification.vue:41
 msgid ""
 "Activate and schedule notifications and reports in one place. Get tailored "
 "security reports delivered to your inbox, so you don’t have to worry about "
 "checking in."
 msgstr ""
 
-#: front/src/module/onboard/onboard.vue:19
+#: front/src/module/onboard/onboard.vue:22
 msgid "Let's get started"
 msgstr ""
 
-#: front/src/module/onboard/onboard.vue:21
+#: front/src/module/onboard/onboard.vue:24
 msgid ""
 "Security doesn't take a break, and Defender is here to help! Get started by "
 "activating all our security features with recommended default settings, then "
@@ -5056,11 +5111,11 @@ msgid ""
 "process and start from scratch."
 msgstr ""
 
-#: front/src/module/onboard/onboard.vue:25
+#: front/src/module/onboard/onboard.vue:28
 msgid "Activate & Configure"
 msgstr ""
 
-#: front/src/module/onboard/onboard.vue:79
+#: front/src/module/onboard/onboard.vue:82
 msgid "Setup complete!"
 msgstr ""
 
@@ -5104,7 +5159,7 @@ msgstr ""
 #: front/src/module/security-tweak/component/prevent-enum-users.vue:94
 #: front/src/module/security-tweak/component/prevent-php-executed.vue:210
 #: front/src/module/security-tweak/component/protect-information.vue:185
-#: front/src/module/security-tweak/component/replace-admin-username.vue:97
+#: front/src/module/security-tweak/component/replace-admin-username.vue:93
 #: front/src/module/security-tweak/component/security-key.vue:115
 #: front/src/module/security-tweak/component/wp-versions.vue:98
 msgid "Ignore"
@@ -5190,8 +5245,8 @@ msgid ""
 msgstr ""
 
 #: front/src/module/scan/screen/_issues.vue:4
-#: front/src/module/scan/screen/scan-result.vue:103
-#: front/src/module/scan/screen/scan-result.vue:123
+#: front/src/module/scan/screen/scan-result.vue:106
+#: front/src/module/scan/screen/scan-result.vue:126
 msgid "Issues"
 msgstr ""
 
@@ -5204,7 +5259,7 @@ msgid "Plugins/Themes Vulnerability"
 msgstr ""
 
 #: front/src/module/scan/screen/_issues.vue:13
-#: front/src/module/scan/screen/scan-result.vue:55
+#: front/src/module/scan/screen/scan-result.vue:58
 msgid "Suspicious code"
 msgstr ""
 
@@ -5286,7 +5341,7 @@ msgstr ""
 #: front/src/module/scan/screen/_notification.vue:148
 #: front/src/module/scan/screen/_notification.vue:220
 #: front/src/module/two-fa/two-fa-free.vue:443
-#: front/src/module/two-fa/two-fa.vue:451
+#: front/src/module/two-fa/two-fa.vue:454
 msgid "Available variables"
 msgstr ""
 
@@ -5387,32 +5442,32 @@ msgstr ""
 msgid "Run Scan"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:24
+#: front/src/module/scan/screen/scan-result.vue:27
 msgid "Malware scanning issues"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:26
+#: front/src/module/scan/screen/scan-result.vue:29
 msgid "Last scan"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:32
+#: front/src/module/scan/screen/scan-result.vue:35
 msgid "Wordpress core"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:40
+#: front/src/module/scan/screen/scan-result.vue:43
 msgid "Plugins & themes"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:70
+#: front/src/module/scan/screen/scan-result.vue:73
 msgid "Scheduled Scanning"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:205
-#: front/src/module/security-tweak/security-tweak.vue:132
+#: front/src/module/scan/screen/scan-result.vue:208
+#: front/src/module/security-tweak/security-tweak.vue:136
 msgid "You don't have any outstanding security issues, nice work!"
 msgstr ""
 
-#: front/src/module/scan/screen/scan-result.vue:209
+#: front/src/module/scan/screen/scan-result.vue:212
 #, c-format
 msgid ""
 "You have %s potential security risks in your file system. We recommend you "
@@ -5469,7 +5524,7 @@ msgstr ""
 #: front/src/module/security-tweak/component/php-versions.vue:70
 #: front/src/module/security-tweak/component/prevent-enum-users.vue:81
 #: front/src/module/security-tweak/component/prevent-php-executed.vue:76
-#: front/src/module/security-tweak/component/replace-admin-username.vue:76
+#: front/src/module/security-tweak/component/replace-admin-username.vue:72
 #: front/src/module/security-tweak/component/security-key.vue:76
 #: front/src/module/security-tweak/component/wp-versions.vue:68
 msgid "How to fix"
@@ -5609,7 +5664,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/security-tweak/component/php-versions.vue:51
-#: front/src/module/security-tweak/security-tweak.vue:32
+#: front/src/module/security-tweak/security-tweak.vue:35
 msgid "Current PHP version"
 msgstr ""
 
@@ -5845,31 +5900,22 @@ msgid ""
 "an important piece of the puzzle hackers need to hijack your website."
 msgstr ""
 
-#: front/src/module/security-tweak/component/replace-admin-username.vue:72
-msgid ""
-"Using the default admin username is widely considered bad practice and opens "
-"you up to the easiest form of entry to your website. We recommend avoiding "
-"generic usernames like admin, administrator, and anything that matches your "
-"hostname (mattebutter) as these are the usernames hackers and bots will "
-"attempt first."
-msgstr ""
-
-#: front/src/module/security-tweak/component/replace-admin-username.vue:80
+#: front/src/module/security-tweak/component/replace-admin-username.vue:76
 msgid ""
 "Choose a new admin username name below. Alternately, you can ignore this "
 "recommendation if you really want to keep the admin username at your own "
 "risk."
 msgstr ""
 
-#: front/src/module/security-tweak/component/replace-admin-username.vue:85
+#: front/src/module/security-tweak/component/replace-admin-username.vue:81
 msgid "New admin username"
 msgstr ""
 
-#: front/src/module/security-tweak/component/replace-admin-username.vue:107
+#: front/src/module/security-tweak/component/replace-admin-username.vue:103
 msgid "Update Username"
 msgstr ""
 
-#: front/src/module/security-tweak/component/replace-admin-username.vue:115
+#: front/src/module/security-tweak/component/replace-admin-username.vue:111
 msgid "Ensure you backup your database before performing this recommendation."
 msgstr ""
 
@@ -5920,7 +5966,7 @@ msgid ""
 msgstr ""
 
 #: front/src/module/security-tweak/component/wp-versions.vue:52
-#: front/src/module/security-tweak/security-tweak.vue:39
+#: front/src/module/security-tweak/security-tweak.vue:42
 msgid "Current WordPress version"
 msgstr ""
 
@@ -6015,7 +6061,7 @@ msgstr ""
 msgid "Nice work! These vulnerabilities have been addressed."
 msgstr ""
 
-#: front/src/module/security-tweak/security-tweak.vue:136
+#: front/src/module/security-tweak/security-tweak.vue:140
 #, c-format
 msgid ""
 "You have %s security recommendations to action. Review the recommendations. "
@@ -6023,8 +6069,8 @@ msgid ""
 msgstr ""
 
 #: front/src/module/settings/screen/accessibility.vue:5
-#: front/src/module/settings/settings.vue:31
-#: front/src/module/settings/settings.vue:43
+#: front/src/module/settings/settings.vue:34
+#: front/src/module/settings/settings.vue:46
 msgid "Accessibility"
 msgstr ""
 
@@ -6056,8 +6102,8 @@ msgid "Try the hub"
 msgstr ""
 
 #: front/src/module/settings/screen/data.vue:5
-#: front/src/module/settings/settings.vue:25
-#: front/src/module/settings/settings.vue:42
+#: front/src/module/settings/settings.vue:28
+#: front/src/module/settings/settings.vue:45
 msgid "Data & Settings"
 msgstr ""
 
@@ -6106,8 +6152,8 @@ msgid ""
 msgstr ""
 
 #: front/src/module/settings/screen/general.vue:5
-#: front/src/module/settings/settings.vue:15
-#: front/src/module/settings/settings.vue:40
+#: front/src/module/settings/settings.vue:18
+#: front/src/module/settings/settings.vue:43
 msgid "General"
 msgstr ""
 
@@ -6139,12 +6185,12 @@ msgstr ""
 msgid "By default, Defender will use the language set in the site's "
 msgstr ""
 
-#: front/src/module/settings/settings.vue:20
-#: front/src/module/settings/settings.vue:41
+#: front/src/module/settings/settings.vue:23
+#: front/src/module/settings/settings.vue:44
 msgid "Configs"
 msgstr ""
 
-#: front/src/module/tutorial/tutorial.vue:16
+#: front/src/module/tutorial/tutorial.vue:19
 msgid "Defender Tutorials"
 msgstr ""
 
@@ -6156,45 +6202,45 @@ msgid ""
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:44
-#: front/src/module/two-fa/two-fa.vue:46
+#: front/src/module/two-fa/two-fa.vue:49
 msgid "Users enabled authentication"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:51
 #: front/src/module/two-fa/two-fa-free.vue:147
-#: front/src/module/two-fa/two-fa.vue:53 front/src/module/two-fa/two-fa.vue:150
+#: front/src/module/two-fa/two-fa.vue:56 front/src/module/two-fa/two-fa.vue:153
 msgid "Lost Phone"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:76
-#: front/src/module/two-fa/two-fa.vue:79
+#: front/src/module/two-fa/two-fa.vue:82
 msgid ""
 "Configure your two-factor authentication settings. Our recommendations are "
 "enabled by default."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:95
-#: front/src/module/two-fa/two-fa.vue:98
+#: front/src/module/two-fa/two-fa.vue:101
 msgid "Two-factor authentication is now active."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:96
-#: front/src/module/two-fa/two-fa.vue:99
+#: front/src/module/two-fa/two-fa.vue:102
 msgid "User roles with this feature enabled must visit their "
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:98
-#: front/src/module/two-fa/two-fa.vue:101
+#: front/src/module/two-fa/two-fa.vue:104
 msgid "Profile page"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:99
-#: front/src/module/two-fa/two-fa.vue:102
+#: front/src/module/two-fa/two-fa.vue:105
 msgid "to complete setup and sync their account with the Authenticator app."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:109
-#: front/src/module/two-fa/two-fa.vue:112
+#: front/src/module/two-fa/two-fa.vue:115
 msgid ""
 "Two-factor authentication is currently inactive. Configure and save your "
 "settings to complete setup."
@@ -6202,13 +6248,13 @@ msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:116
 #: front/src/module/two-fa/two-fa-free.vue:197
-#: front/src/module/two-fa/two-fa.vue:119
-#: front/src/module/two-fa/two-fa.vue:200
+#: front/src/module/two-fa/two-fa.vue:122
+#: front/src/module/two-fa/two-fa.vue:203
 msgid "User Roles"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:119
-#: front/src/module/two-fa/two-fa.vue:122
+#: front/src/module/two-fa/two-fa.vue:125
 msgid ""
 "Choose the user roles you want to enable two-factor authentication for. "
 "Users with those roles will then be required to use the Authenticator app to "
@@ -6216,71 +6262,71 @@ msgid ""
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:127
-#: front/src/module/two-fa/two-fa.vue:130
+#: front/src/module/two-fa/two-fa.vue:133
 msgid "User role"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:151
-#: front/src/module/two-fa/two-fa.vue:154
+#: front/src/module/two-fa/two-fa.vue:157
 msgid ""
 "If a user is unable to access their phone, you can allow an option to send "
 "the one time password to their registered email."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:164
-#: front/src/module/two-fa/two-fa.vue:167
+#: front/src/module/two-fa/two-fa.vue:170
 msgid "Enable lost phone option"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:172
-#: front/src/module/two-fa/two-fa.vue:175
+#: front/src/module/two-fa/two-fa.vue:178
 msgid "Force Authentication"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:176
-#: front/src/module/two-fa/two-fa.vue:179
+#: front/src/module/two-fa/two-fa.vue:182
 msgid ""
 "By default, two-factor authentication is optional for users. This setting "
 "forces users to activate two-factor."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:193
-#: front/src/module/two-fa/two-fa.vue:196
+#: front/src/module/two-fa/two-fa.vue:199
 msgid "Note: Users will be forced to set up two-factor when they next login."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:209
-#: front/src/module/two-fa/two-fa.vue:212
+#: front/src/module/two-fa/two-fa.vue:215
 msgid "Custom warning message"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:214
-#: front/src/module/two-fa/two-fa.vue:217
+#: front/src/module/two-fa/two-fa.vue:220
 msgid ""
 "Note: This is shown in the users Profile area indicating they must use two-"
 "factor authentication."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:227
-#: front/src/module/two-fa/two-fa.vue:230
+#: front/src/module/two-fa/two-fa.vue:233
 msgid ""
 "Customise the title that appears in the Authenticator app for this website."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:232
-#: front/src/module/two-fa/two-fa.vue:235
+#: front/src/module/two-fa/two-fa.vue:238
 msgid "Custom Title"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:246
-#: front/src/module/two-fa/two-fa.vue:247
+#: front/src/module/two-fa/two-fa.vue:250
 msgid ""
 "By default, Defender’s icon appears above the login fields. You can upload "
 "your own branding, or turn this feature off."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:259
-#: front/src/module/two-fa/two-fa.vue:259
+#: front/src/module/two-fa/two-fa.vue:262
 msgid "Enable custom graphics above login fields"
 msgstr ""
 
@@ -6292,82 +6338,82 @@ msgid ""
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:281
-#: front/src/module/two-fa/two-fa.vue:291
+#: front/src/module/two-fa/two-fa.vue:294
 msgid "Emails"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:284
-#: front/src/module/two-fa/two-fa.vue:294
+#: front/src/module/two-fa/two-fa.vue:297
 msgid ""
 "Customize the default copy for emails the two-factor feature sends to users."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:297
-#: front/src/module/two-fa/two-fa.vue:307
+#: front/src/module/two-fa/two-fa.vue:310
 msgid "Lost phone one time password"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:315
-#: front/src/module/two-fa/two-fa.vue:325
+#: front/src/module/two-fa/two-fa.vue:328
 msgid "App Download"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:318
-#: front/src/module/two-fa/two-fa.vue:328
+#: front/src/module/two-fa/two-fa.vue:331
 msgid ""
 "Need the app? Here’s links to the official iOS and Android authenticator "
 "applications."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:344
-#: front/src/module/two-fa/two-fa.vue:353
+#: front/src/module/two-fa/two-fa.vue:356
 msgid "Active Users"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:347
-#: front/src/module/two-fa/two-fa.vue:356
+#: front/src/module/two-fa/two-fa.vue:359
 msgid ""
 "Here’s a quick link to see which of your users have enabled two-factor "
 "authentication."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:351
-#: front/src/module/two-fa/two-fa.vue:360
+#: front/src/module/two-fa/two-fa.vue:363
 msgid "View users"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:352
-#: front/src/module/two-fa/two-fa.vue:361
+#: front/src/module/two-fa/two-fa.vue:364
 msgid "who have enabled this feature."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:361
-#: front/src/module/two-fa/two-fa.vue:370
+#: front/src/module/two-fa/two-fa.vue:373
 msgid "Disable two-factor authentication on your website."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:395
-#: front/src/module/two-fa/two-fa.vue:403
+#: front/src/module/two-fa/two-fa.vue:406
 msgid "Edit Email"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:408
-#: front/src/module/two-fa/two-fa.vue:416
+#: front/src/module/two-fa/two-fa.vue:419
 msgid ""
 "This email sends a temporary passcode when the user can’t access their phone."
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:459
-#: front/src/module/two-fa/two-fa.vue:467
+#: front/src/module/two-fa/two-fa.vue:470
 msgid "Save Template"
 msgstr ""
 
 #: front/src/module/two-fa/two-fa-free.vue:463
-#: front/src/module/two-fa/two-fa.vue:471
+#: front/src/module/two-fa/two-fa.vue:474
 msgid "Send Test"
 msgstr ""
 
-#: front/src/module/two-fa/two-fa.vue:264
+#: front/src/module/two-fa/two-fa.vue:267
 msgid "For best results use a 168x168px JPG or PNG."
 msgstr ""
 

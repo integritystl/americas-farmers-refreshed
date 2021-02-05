@@ -50,9 +50,38 @@ class Advanced_Tools extends \WP_Defender\Controller2 {
 		( new \WP_Defender\Model\Setting\Security_Headers() )->delete();
 	}
 
-	//we dont have any data on this module
+	/**
+	 * Drop Defender's directories and files in /uploads/
+	 *
+	 * @since 2.4.6
+	 */
 	public function remove_data() {
-		return;
+		$upload_def_dir = $this->get_tmp_path();
+		if ( empty( $upload_def_dir ) ) {
+			return;
+		}
+		global $wp_filesystem;
+		if ( is_null( $wp_filesystem ) ) {
+			WP_Filesystem();
+		}
+
+		$maxmind_dir = $upload_def_dir . DIRECTORY_SEPARATOR . 'maxmind';
+		$wp_filesystem->delete( $maxmind_dir, true );
+		$arr_deleted_files = array(
+			'audit',
+			'internal',
+			'malware-scan',
+			'mask',
+			'notification',
+			'scan',
+			'scan_malware',
+			'test',
+			'defender.log',
+		);
+
+		foreach ( $arr_deleted_files as $deleted_file ) {
+			$wp_filesystem->delete( $deleted_file );
+		}
 	}
 
 	public function data_frontend() {

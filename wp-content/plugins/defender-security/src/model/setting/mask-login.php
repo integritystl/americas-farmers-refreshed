@@ -157,21 +157,22 @@ class Mask_Login extends Setting {
 			'login',
 			'wp-admin',
 			'admin',
-			'dashboard'
+			'dashboard',
+			'wp-login',
+			'wp-login.php',
+			'wp-login-php',
 		];
 		//remove the double slash
 		$this->mask_url = ltrim( $this->mask_url, '/\\' );
 
 		if ( in_array( $this->mask_url, $forbidden, true ) ) {
-			$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.',
-				'wpdef' );
+			$this->errors[] = __( 'The slug you have provided cannot be used for masking your login area. Please try a new one.', 'wpdef' );
 
 			return false;
 		}
 		$exits = get_page_by_path( $this->mask_url, OBJECT, [ 'post', 'page' ] );
 		if ( is_object( $exits ) ) {
-			$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.',
-				'wpdef' );
+			$this->errors[] = __( 'A page already exists at this URL, please pick a unique page for your new login area.', 'wpdef' );
 
 			return false;
 		}

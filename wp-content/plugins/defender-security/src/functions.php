@@ -1,6 +1,7 @@
 <?php
-//simple functions that can access globally
-use Calotes\Helper\Array_Cache;
+if ( ! defined( 'ABSPATH' ) ) {
+	die;
+}
 
 /**
  * @param $path
@@ -8,7 +9,7 @@ use Calotes\Helper\Array_Cache;
  * @return string
  */
 function defender_asset_url( $path ) {
-	$base_url = plugin_dir_url( dirname( __FILE__ ) );
+	$base_url = plugin_dir_url( __DIR__ );
 
 	return untrailingslashit( $base_url ) . $path;
 }
@@ -19,7 +20,7 @@ function defender_asset_url( $path ) {
  * @return string
  */
 function defender_path( $path ) {
-	$base_path = plugin_dir_path( dirname( __FILE__ ) );
+	$base_path = plugin_dir_path( __DIR__ );
 
 	return $base_path . $path;
 }
@@ -53,11 +54,14 @@ function defender_wp_config_path() {
 		return ABSPATH . 'wp-config.php';
 	}
 
-	if ( @file_exists( dirname( ABSPATH ) . '/wp-config.php' ) && ! @file_exists( dirname( ABSPATH ) . '/wp-settings.php' ) ) {
+	if (
+		@file_exists( dirname( ABSPATH ) . '/wp-config.php' )
+		&& ! @file_exists( dirname( ABSPATH ) . '/wp-settings.php' )
+	) {
 		return dirname( ABSPATH ) . '/wp-config.php';
 	}
 
-	if ( defined( 'WD_TEST' ) && constant( 'WD_TEST' ) == true ) {
+	if ( defined( 'WD_TEST' ) && WD_TEST ) {
 		return '/tmp/wordpress-tests-lib/wp-tests-config.php';
 	}
 }
@@ -87,41 +91,6 @@ function wd_central() {
 	global $wp_defender_central;
 
 	return $wp_defender_central;
-}
-
-/**
- * Delete every data & settings
- */
-function defender_nuke() {
-	Array_Cache::get( 'advanced_tools' )->remove_data();
-	Array_Cache::get( 'audit' )->remove_data();
-	Array_Cache::get( 'dashboard' )->remove_data();
-	Array_Cache::get( 'security_tweaks' )->remove_data();
-	Array_Cache::get( 'scan' )->remove_data();
-	Array_Cache::get( 'ip_lockout' )->remove_data();
-	Array_Cache::get( 'two_fa' )->remove_data();
-	Array_Cache::get( 'advanced_tools' )->remove_data();
-	Array_Cache::get( 'notification' )->remove_data();
-	Array_Cache::get( 'tutorial' )->remove_data();
-	Array_Cache::get( 'blocklist_monitor' )->remove_data();
-
-	Array_Cache::get( 'advanced_tools' )->remove_settings();
-	Array_Cache::get( 'audit' )->remove_settings();
-	Array_Cache::get( 'dashboard' )->remove_settings();
-	Array_Cache::get( 'security_tweaks' )->remove_settings();
-	Array_Cache::get( 'scan' )->remove_settings();
-	Array_Cache::get( 'ip_lockout' )->remove_settings();
-	Array_Cache::get( 'two_fa' )->remove_settings();
-	Array_Cache::get( 'advanced_tools' )->remove_settings();
-	Array_Cache::get( 'notification' )->remove_settings();
-	Array_Cache::get( 'tutorial' )->remove_settings();
-	Array_Cache::get( 'blocklist_monitor' )->remove_settings();
-
-	delete_site_option( 'wp_defender' );
-	delete_option( 'wp_defender' );
-	delete_option( 'wd_db_version' );
-	delete_site_option( 'wd_db_version' );
-	delete_site_option( 'wp_defender_shown_activator' );
 }
 
 /**
@@ -265,4 +234,22 @@ if ( ! function_exists( 'defender_wp_check_php_version' ) ) {
 
 		return $response;
 	}
+}
+
+/**
+ * Get hostname
+ *
+ * @return string|null
+ */
+function defender_get_hostname() {
+	$host = parse_url( get_site_url(), PHP_URL_HOST );
+	$host = str_replace( 'www.', '', $host );
+	$host = explode( '.', $host );
+	if ( is_array( $host ) ) {
+		$host = array_shift( $host );
+	} else {
+		$host = null;
+	}
+
+	return $host;
 }

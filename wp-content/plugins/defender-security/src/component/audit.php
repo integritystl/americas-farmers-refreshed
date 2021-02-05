@@ -34,13 +34,14 @@ class Audit extends Component {
 			//then check point will be today
 			$checkpoint = time();
 		}
-		$checkpoint = intval( $checkpoint );
-		$date_from  = intval( $date_from );
-		if ( count( $internal ) === 0 && $checkpoint > $date_from ) {
+		$checkpoint = (int) $checkpoint;
+		$date_from  = (int) $date_from;
+		if ( 0 === count( $internal ) && $checkpoint > $date_from ) {
 			//have to fetch from API
 			$this->log( 'fetch from cloud', 'audit' );
+			//Todo:need $paged as 'nopaging'-arg?
 			$cloud = $this->query_from_api( $date_from, $date_to );
-			$this->log( var_export( $cloud, true ), 'audit' );
+			//$this->log( var_export( $cloud, true ), 'audit' );
 			if ( is_wp_error( $cloud ) ) {
 				$this->log( sprintf( 'Fetch error %s', $cloud->get_error_message() ), 'audit' );
 
@@ -62,6 +63,7 @@ class Audit extends Component {
 				//fetch the data from
 				$this->log( sprintf( 'checkpoint %s - date from %s', date( 'Y-m-d H:i:s', $checkpoint ),
 					date( 'Y-m-d H:i:s', $date_from ) ), 'audit' );
+				//Todo:need $paged as 'nopaging'-arg?
 				$cloud = $this->query_from_api( $date_from, $checkpoint );
 				if ( is_wp_error( $cloud ) ) {
 					$this->log( sprintf( 'Fetch error %s', $cloud->get_error_message() ), 'audit' );
@@ -82,10 +84,10 @@ class Audit extends Component {
 	}
 
 	/**
-	 * @param $date_from
-	 * @param $date_to
+	 * @param int $date_from
+	 * @param int $date_to
 	 *
-	 * @return \WP_Error
+	 * @return array|\WP_Error
 	 * @throws \Exception
 	 */
 	public function query_from_api( $date_from, $date_to ) {
@@ -103,9 +105,12 @@ class Audit extends Component {
 		];
 
 		$this->attach_behavior( WPMUDEV::class, WPMUDEV::class );
-		$data = $this->make_wpmu_request( WPMUDEV::API_AUDIT, $args, [
-			'method' => 'GET'
-		] );
+		$data = $this->make_wpmu_request(
+			WPMUDEV::API_AUDIT,
+			$args,
+			array( 'method' => 'GET' ),
+			true
+		);
 
 		if ( is_wp_error( $data ) ) {
 			$this->log( sprintf( 'Fetch error %s', $data->get_error_message() ), 'audit' );
@@ -113,7 +118,7 @@ class Audit extends Component {
 			return $data;
 		}
 
-		if ( $data['status'] !== 'success' ) {
+		if ( 'success' !== $data['status'] ) {
 			return new \WP_Error( Error_Code::API_ERROR, __( 'Something wrong happen, please try again!', 'wpdef' ) );
 		}
 
@@ -292,6 +297,14 @@ class Audit extends Component {
 			return;
 		}
 		$model = new \WP_Defender\Model\Audit_Log();
+		
+		if ( count($events) > 1 ) {
+			if ( $model->has_method('mass_insert') ) {
+				$model->mass_insert( $events );
+				return;
+			}
+		}
+
 		foreach ( $events as $event ) {
 			$model->import( $event );
 			$model->synced = 0;

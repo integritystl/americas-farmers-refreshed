@@ -4,7 +4,6 @@ namespace WP_Defender\Component\Security_Tweaks;
 
 use Calotes\Component\Response;
 use WP_Error;
-use Calotes\Helper\HTTP;
 use Calotes\Base\Component;
 use WP_Defender\Model\Setting\Mask_Login;
 

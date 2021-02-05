@@ -46,7 +46,7 @@ class Login_Lockout extends Controller2 {
 	 */
 	public function save_settings( Request $request ) {
 		$data        = $request->get_data_by_model( $this->model );
-		$old_enabled = boolval( $this->model->enabled );
+		$old_enabled = (bool) $this->model->enabled;
 
 		$this->model->import( $data );
 		if ( $this->model->validate() ) {
@@ -78,19 +78,11 @@ class Login_Lockout extends Controller2 {
 	 * @return array
 	 */
 	public function data_frontend() {
-		$host = parse_url( get_site_url(), PHP_URL_HOST );
-		$host = str_replace( 'www.', '', $host );
-		$host = explode( '.', $host );
-		if ( is_array( $host ) ) {
-			$host = array_shift( $host );
-		} else {
-			$host = null;
-		}
 
 		return array_merge( [
 			'model' => $this->model->export(),
 			'misc'  => [
-				'host' => $host
+				'host' => defender_get_hostname()
 			]
 		], $this->dump_routes_and_nonces() );
 	}
@@ -190,7 +182,7 @@ class Login_Lockout extends Controller2 {
 	 * @return string
 	 */
 	private function get_update_message( $data, $old_data ) {
-		$new_data = boolval( $data['enabled'] );
+		$new_data = (bool) $data['enabled'];
 
 		// If old data and new data is matched, then it is not activated or deactivated.
 		if ( $old_data === $new_data ) {

@@ -62,6 +62,11 @@ class Notfound_Lockout extends Component {
 		//check if this hostname has googlebot or google.com
 		if ( preg_match( '/\.googlebot|google\.com$/i', $hostname ) ) {
 			$hosts = gethostbynamel( $hostname );
+
+			if ( ! is_array( $hosts ) ) {
+				return false;
+			}
+
 			//check if this match the oringal ip
 			foreach ( $hosts as $host ) {
 				if ( $ip === $host ) {
@@ -103,6 +108,11 @@ class Notfound_Lockout extends Component {
 		$hostname = gethostbyaddr( $ip );
 		if ( preg_match( '/\.msnbot|msn\.com$/i', $hostname ) ) {
 			$hosts = gethostbynamel( $hostname );
+
+			if ( ! is_array( $hosts ) ) {
+				return false;
+			}
+
 			//check if this match the oringal ip
 			foreach ( $hosts as $host ) {
 				if ( $ip === $host ) {
@@ -295,9 +305,9 @@ class Notfound_Lockout extends Component {
 				$model->log  = sprintf( __( "Request for file %s which doesn't exist", 'wpdef' ), $uri );
 				break;
 			case self::SCENARIO_LOCKOUT_404:
+			default:
 				$model->type = Lockout_Log::LOCKOUT_404;
-				$model->log  = sprintf( __( 'Lockout occurred:  Too many 404 requests for %s', 'wpdef' ),
-					$uri );
+				$model->log  = sprintf( __( 'Lockout occurred:  Too many 404 requests for %s', 'wpdef' ), $uri );
 				break;
 		}
 		if ( $model->type === Lockout_Log::LOCKOUT_404 ) {

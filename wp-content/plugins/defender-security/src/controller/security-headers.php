@@ -107,13 +107,9 @@ class Security_Headers extends Controller2 {
 		}
 	}
 
-	public function remove_settings() {
-		// TODO: Implement remove_settings() method.
-	}
+	public function remove_settings() {}
 
-	public function remove_data() {
-		$this->get_model()->delete();
-	}
+	public function remove_data() {}
 
 	/**
 	 * A summary data for dashboard

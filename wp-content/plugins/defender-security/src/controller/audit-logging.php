@@ -5,7 +5,6 @@ namespace WP_Defender\Controller;
 use Calotes\Component\Request;
 use Calotes\Component\Response;
 use Calotes\Helper\HTTP;
-use Calotes\Helper\Route;
 use WP_Defender\Component\Audit;
 use WP_Defender\Controller2;
 use WP_Defender\Model\Audit_Log;

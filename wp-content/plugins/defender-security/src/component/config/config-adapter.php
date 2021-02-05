@@ -45,6 +45,9 @@ class Config_Adapter extends Component {
 	}
 
 	/**
+	 * Convert key type from frequency to text.
+	 * Attention: it's NOT translation lines.
+	 *
 	 * @param int $freq
 	 *
 	 * @return string
@@ -167,7 +170,7 @@ class Config_Adapter extends Component {
 		$scan = array(
 			'integrity_check'               => empty( $old_data['scan_core'] ) ? true : $old_data['scan_core'],
 			'check_known_vuln'              => empty( $old_data['scan_vuln'] ) ? true : $old_data['scan_vuln'],
-			'scan_malware'                  => empty( $old_data['scan_content'] ) ? true : $old_data['scan_content'],
+			'scan_malware'                  => empty( $old_data['scan_content'] ) ? false : $old_data['scan_content'],
 			'filesize'                      => empty( $old_data['max_filesize'] ) ? 3 : $old_data['max_filesize'],
 			//should get bool value
 			'report'                        => isset( $old_data['report'] ) && $old_data['report'] ? 'enabled' : 'disabled',

@@ -190,12 +190,12 @@ class Mask_Login extends Component {
 	public function generate_ticket() {
 		$otp                               = wp_generate_password( 12, false );
 		$settings                          = new \WP_Defender\Model\Setting\Mask_Login();
-		$settings->express_tickets[ $otp ] = [
+		$settings->express_tickets[ $otp ] = array(
 			'otp'     => $otp,
 			'bind_to' => null,
 			'expiry'  => strtotime( '+3 day' ),
-			'used'    => 0
-		];
+			'used'    => 0,
+		);
 		$settings->save();
 
 		return $otp;
@@ -232,10 +232,26 @@ class Mask_Login extends Component {
 			return false;
 		}
 
-		$detail['used']                       += 1;
+		$detail['used']                      += 1;
 		$settings->express_tickets[ $ticket ] = $detail;
 		$settings->save();
 
 		return true;
+	}
+
+	/**
+	 * Check if the HTTP_USER_AGENT is a bot
+	 *
+	 * @return bool
+	 */
+	public function is_bot_request() {
+		if ( preg_match(
+			'/bot|crawl|curl|dataprovider|search|get|spider|find|java|majesticsEO|google|yahoo|teoma|contaxe|yandex|libwww-perl|facebookexternalhit/i',
+			$_SERVER['HTTP_USER_AGENT']
+		) ) {
+			return true;
+		}
+
+		return false;
 	}
 }

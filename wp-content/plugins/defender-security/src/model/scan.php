@@ -100,6 +100,7 @@ class Scan extends DB {
 						$count_malware ++;
 						break;
 					case Scan_Item::TYPE_VULNERABILITY:
+					default:
 						$count_vuln ++;
 						break;
 				}
@@ -146,6 +147,7 @@ class Scan extends DB {
 					$model->attach_behavior( Malware_Result::class, Malware_Result::class );
 					break;
 				case Scan_Item::TYPE_VULNERABILITY:
+				default:
 					$model->attach_behavior( Vuln_Result::class, Vuln_Result::class );
 					break;
 			}
@@ -240,6 +242,7 @@ class Scan extends DB {
 					$model->attach_behavior( Malware_Result::class, Malware_Result::class );
 					break;
 				case Scan_Item::TYPE_VULNERABILITY:
+				default:
 					$model->attach_behavior( Vuln_Result::class, Vuln_Result::class );
 					break;
 			}
@@ -336,13 +339,12 @@ class Scan extends DB {
 	 * @return self|null
 	 */
 	public static function get_active() {
-		$orm   = self::get_orm();
-		$model = $orm->get_repository( self::class )->where( 'status', 'NOT IN', [
+		$orm = self::get_orm();
+
+		return $orm->get_repository( self::class )->where( 'status', 'NOT IN', [
 			self::STATUS_FINISH,
 			self::STATUS_ERROR
 		] )->first();
-
-		return $model;
 	}
 
 	/**
@@ -351,22 +353,20 @@ class Scan extends DB {
 	 * @return self|null
 	 */
 	public static function get_last() {
-		$orm   = self::get_orm();
-		$model = $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
-		             ->order_by( 'id', 'desc' )->first();
+		$orm = self::get_orm();
 
-		return $model;
+		return $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
+			->order_by( 'id', 'desc' )->first();
 	}
 
 	/**
 	 * @return array
 	 */
 	public static function get_last_all() {
-		$orm    = self::get_orm();
-		$models = $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
-		              ->order_by( 'id', 'desc' )->get();
+		$orm = self::get_orm();
 
-		return $models;
+		return $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
+			->order_by( 'id', 'desc' )->get();
 	}
 
 	/**

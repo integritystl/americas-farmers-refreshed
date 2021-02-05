@@ -52,6 +52,7 @@ class Vuln_Result extends Behavior {
 	 */
 	public function resolve() {
 		$data = $this->owner->raw_data;
+
 		if ( 'wordpress' === $data['type'] ) {
 			return [
 				'url' => network_admin_url( 'wp-admin/update-core.php' )
@@ -61,8 +62,11 @@ class Vuln_Result extends Behavior {
 		if ( 'plugin' === $data['type'] ) {
 			return $this->upgrade_plugin( $data['slug'] );
 		} elseif ( 'theme' === $data['type'] ) {
-			$this->upgrade_theme( $data['base_slug'] );
+			return $this->upgrade_theme( $data['base_slug'] );
 		}
+
+		// If type does not match.
+		return new \WP_Error( Error_Code::INVALID, __( 'Please try again! We could not find the issue type.', 'wpdef' ) );
 	}
 
 	/**
@@ -74,6 +78,7 @@ class Vuln_Result extends Behavior {
 		$skin     = new Silent_Skin();
 		$upgrader = new \Theme_Upgrader( $skin );
 		$ret      = $upgrader->upgrade( $slug );
+
 		if ( $ret === true ) {
 			$model = Scan::get_last();
 			$model->remove_issue( $this->owner->id );
@@ -82,13 +87,14 @@ class Vuln_Result extends Behavior {
 				'message' => __( 'This item has been resolved.', 'wpdef' )
 			];
 		}
-		//this is wp error
+
+		// this is wp error.
 		if ( is_wp_error( $ret ) ) {
 			return $ret;
 		}
 
-		//sometimes it return false
-		return new \WP_Error( Error_Code::INVALID, __( 'Please try again!', 'wpdef' ) );
+		// Sometimes it return false because of it could not complete the update process.
+		return new \WP_Error( Error_Code::INVALID, __( "We couldn't update your theme. Please try updating with another method.", 'wpdef' ) );
 	}
 
 	/**

@@ -4,8 +4,6 @@ namespace WP_Defender\Controller;
 
 use Calotes\Component\Request;
 use Calotes\Component\Response;
-use Calotes\Helper\HTTP;
-use Calotes\Helper\Route;
 use WP_Defender\Component\Security_Tweaks\Servers\Server;
 use WP_Defender\Controller;
 use Calotes\Helper\Array_Cache;
@@ -30,6 +28,11 @@ class Security_Tweaks extends Controller2 {
 	 */
 	protected $model;
 
+	/**
+	 * @var \WP_Defender\Component\Scan
+	 */
+	public $scan;
+
 	const STATUS_ISSUES = 'issues', STATUS_RESOLVE = 'fixed', STATUS_IGNORE = 'ignore', STATUS_RESTORE = 'restore';
 
 	public function __construct() {
@@ -44,9 +47,9 @@ class Security_Tweaks extends Controller2 {
 		);
 		$this->model = wd_di()->get( \WP_Defender\Model\Setting\Security_Tweaks::class );
 		$this->register_routes();
-		$this->log( 'Init class ' . self::class );
 		//init all the tweaks, should happen one time
 		$this->init_tweaks();
+		$this->scan = wd_di()->get( \WP_Defender\Component\Scan::class );
 		//now shield up
 		$this->boot();
 		//add addition hooks
@@ -97,6 +100,7 @@ class Security_Tweaks extends Controller2 {
 
 		$slug  = isset( $data['slug'] ) ? $data['slug'] : false;
 		$tweak = $this->get_tweak( $slug );
+
 		if ( ! is_object( $tweak ) ) {
 			return new Response(
 				false,
@@ -159,14 +163,13 @@ class Security_Tweaks extends Controller2 {
 				),
 			)
 		);
-		$slug  = isset( $data['slug'] ) ? $data['slug'] : false;
-		$tweak = $this->get_tweak( $slug );
+		$slug    = isset( $data['slug'] ) ? $data['slug'] : false;
+		$tweak   = $this->get_tweak( $slug );
+		$invalid = array( 'message' => __( 'Invalid request', 'wpdef' ) );
 		if ( ! is_object( $tweak ) ) {
 			return new Response(
 				false,
-				array(
-					'message' => __( 'Invalid request', 'wpdef' ),
-				)
+				$invalid
 			);
 		}
 		if ( in_array( $slug, array( 'prevent-php-executed', 'protect-information' ), true ) ) {
@@ -174,9 +177,7 @@ class Security_Tweaks extends Controller2 {
 			if ( ! $current_server ) {
 				return new Response(
 					false,
-					array(
-						'message' => __( 'Invalid request', 'wpdef' ),
-					)
+					$invalid
 				);
 			}
 			$ret = $tweak->revert( $current_server );
@@ -184,19 +185,17 @@ class Security_Tweaks extends Controller2 {
 			$ret = $tweak->revert();
 		}
 
+		if ( is_wp_error( $ret ) ) {
+			$this->ajax_response( $ret->get_error_message(), false );
+		}
 		if ( true === $ret ) {
 			$this->model->mark( self::STATUS_ISSUES, $slug );
 			$this->ajax_response( __( 'Security recommendation successfully reverted.', 'wpdef' ) );
 		}
-		if ( is_wp_error( $ret ) ) {
-			$this->ajax_response( $ret->get_error_message(), false );
-		}
 
 		return new Response(
 			false,
-			array(
-				'message' => __( 'Invalid request', 'wpdef' ),
-			)
+			$invalid
 		);
 	}
 
@@ -352,6 +351,7 @@ class Security_Tweaks extends Controller2 {
 			'issues'  => $this->init_tweaks( self::STATUS_ISSUES, 'array' ),
 			'fixed'   => $this->init_tweaks( self::STATUS_RESOLVE, 'array' ),
 			'ignored' => $this->init_tweaks( self::STATUS_IGNORE, 'array' ),
+			'indicator_issue_count'     => $this->scan->indicator_issue_count()
 		);
 		if ( $interval ) {
 			$data['interval'] = $interval;
@@ -367,7 +367,6 @@ class Security_Tweaks extends Controller2 {
 		if ( ! $this->is_page_active() ) {
 			return;
 		}
-		$this->log( 'Prepare data' );
 
 		wp_localize_script( 'def-securitytweaks', 'security_tweaks', $this->data_frontend() );
 		wp_enqueue_script( 'def-securitytweaks' );
@@ -398,10 +397,7 @@ class Security_Tweaks extends Controller2 {
 			'fixed'            => $this->init_tweaks( self::STATUS_RESOLVE, 'array' ),
 			'ignored'          => $this->init_tweaks( self::STATUS_IGNORE, 'array' ),
 			'not_allowed_bulk' => $not_allowed_bulk,
-			'model'            => array(
-				//Todo: need?
-				'notification'        => $this->model->notification,
-			),
+			'indicator_issue_count'     => $this->scan->indicator_issue_count()
 		);
 
 		return array_merge( $data, $this->dump_routes_and_nonces() );
@@ -584,14 +580,12 @@ class Security_Tweaks extends Controller2 {
 		$tweaks = Array_Cache::get( 'tweaks', 'tweaks' );
 
 		if ( ! is_array( $tweaks ) ) {
-			$this->log( 'Initial tweaks, should happen 1 time each request' );
 			foreach ( $classes as $class ) {
 				$obj                  = new $class;
 				$tweaks[ $obj->slug ] = $obj;
 			}
 			Array_Cache::set( 'tweaks', $tweaks, 'tweaks' );
 		}
-		$this->log( 'Get tweaks, method: ' . $type );
 		$tmp = array();
 		if ( is_null( $type ) ) {
 			$tmp = $tweaks;
@@ -647,7 +641,7 @@ class Security_Tweaks extends Controller2 {
 	}
 
 	public function remove_settings() {
-		//rever it first
+		//revert it first
 		$tweaks = $this->init_tweaks( self::STATUS_RESOLVE );
 		//assign this so internal can use the current server
 		$_POST['current_server'] = Server::get_current_server();

@@ -53,7 +53,7 @@ class Server_Factory {
 			'litespeed' => 'Apache', // We're going to use same server for Apache and LiteSpeed
 			'iis-7'     => 'IIS_7',
 			'flywheel'  => 'Flywheel',
-			'cloudflare'=> 'Cloudflare',
+			'cloudflare'=> 'Flywheel', // We're going to use same server for Flywheel and Cloudflare
 		] );
 	}
 

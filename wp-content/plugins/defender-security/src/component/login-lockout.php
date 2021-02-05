@@ -212,6 +212,7 @@ class Login_Lockout extends \WP_Defender\Component {
 				);
 				break;
 			case self::SCENARIO_LOGIN_LOCKOUT:
+			default:
 				$model->type = Lockout_Log::AUTH_LOCK;
 				$model->log  = __( 'Lockout occurred: Too many failed login attempts', 'wpdef' );
 				break;

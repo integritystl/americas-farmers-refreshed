@@ -4,7 +4,6 @@ namespace WP_Defender\Controller;
 
 use Calotes\Component\Request;
 use Calotes\Component\Response;
-use Calotes\Helper\HTTP;
 use Calotes\Helper\Route;
 use WP_Defender\Controller2;
 use WP_Defender\Model\Notification\Malware_Report;
@@ -42,6 +41,15 @@ class Scan extends Controller2 {
 		add_action( 'defender_enqueue_assets', array( &$this, 'enqueue_assets' ) );
 		add_action( 'wp_ajax_defender_process_scan', array( &$this, 'process' ) );
 		add_action( 'wp_ajax_nopriv_defender_process_scan', array( &$this, 'process' ) );
+		//Clean up data after successful core update
+		add_action( '_core_updated_successfully', array( &$this, 'clean_up_data' ) );
+	}
+
+	/**
+	 * Clean up data after core updating
+	 */
+	public function clean_up_data() {
+		$this->service->clean_up();
 	}
 
 	/**
@@ -303,20 +311,26 @@ class Scan extends Controller2 {
 			$url
 		);
 		$this->log( sprintf( 'ping url %s', $url ), 'scan' );
-		$ret = wp_remote_post(
-			$url,
-			array(
-				'body'     => array(),
-				'blocking' => false,
-				'timeout'  => 3,
-				'headers'  => array(
-					'user-agent' => sprintf(
-						'Mozilla/5.0 (compatible; WPMU DEV Defender/%1$s; +https://premium.wpmudev.org)',
-						DEFENDER_VERSION
-					),
+		$body = array(
+			'body'     => array(),
+			'blocking' => false,
+			'timeout'  => 3,
+			'headers'  => array(
+				'user-agent' => sprintf(
+					'Mozilla/5.0 (compatible; WPMU DEV Defender/%1$s; +https://premium.wpmudev.org)',
+					DEFENDER_VERSION
 				),
-			)
+			),
 		);
+		if (
+			isset( $_SERVER['PHP_AUTH_USER'], $_SERVER['HTTP_AUTHORIZATION'] )
+			&& ! empty( $_SERVER['PHP_AUTH_USER'] )
+			&& ! empty( $_SERVER['HTTP_AUTHORIZATION'] )
+		) {
+			$body['headers']['Authorization'] = $_SERVER['HTTP_AUTHORIZATION'];
+		}
+
+		wp_remote_post( $url, $body );
 	}
 
 	/**
@@ -387,7 +401,6 @@ class Scan extends Controller2 {
 	 * @return array[]
 	 */
 	public function to_array() {
-		list( $endpoints, $nonces ) = Route::export_routes( 'scan' );
 		$scan = \WP_Defender\Model\Scan::get_active();
 		$last = \WP_Defender\Model\Scan::get_last();
 		if ( ! is_object( $scan ) && ! is_object( $last ) ) {
@@ -408,18 +421,16 @@ class Scan extends Controller2 {
 		);
 	}
 
-	function remove_settings() {
+	public function remove_settings() {
 		( new \WP_Defender\Model\Setting\Scan() )->delete();
 	}
 
-	function remove_data() {
-
-	}
+	public function remove_data() {}
 
 	/**
 	 * This should setup the optimize configs for this module
 	 */
-	function optimize_configs() {
+	public function optimize_configs() {
 		$settings = new \WP_Defender\Model\Setting\Scan();
 		$settings->save();
 		//schedule it

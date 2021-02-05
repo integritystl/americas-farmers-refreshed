@@ -298,7 +298,7 @@ class Backup_Settings extends Component {
 			'scan'             => array(
 				'integrity_check'               => true,
 				'check_known_vuln'              => true,
-				'scan_malware'                  => true,
+				'scan_malware'                  => false,
 				'filesize'                      => 3,
 				'report'                        => 'enabled',
 				'always_send'                   => false,
@@ -343,7 +343,7 @@ class Backup_Settings extends Component {
 				'detect_404_whitelist'                   => ".css\n.js\n.jpg\n.png\n.gif",
 				'detect_404_logged'                      => true,
 				'ip_blacklist'                           => '',
-				'ip_whitelist'                           => ( new \WP_Defender\Component() )->get_user_ip(),
+				'ip_whitelist'                           => $this->get_user_ip(),
 				'country_blacklist'                      => '',
 				'country_whitelist'                      => '',
 				'ip_lockout_message'                     => __(
@@ -954,7 +954,7 @@ class Backup_Settings extends Component {
 			} elseif ( 'iplockout' === $key ) {
 				$data['strings']['iplockout'] = array( __( 'Active', 'wpdef' ) );
 
-				if ( 'enabled' === $config['notification'] ) {
+				if ( isset( $config['notification'] ) && 'enabled' === $config['notification'] ) {
 					$data['strings']['iplockout'][] = __( 'Email notifications active', 'wpdef' );
 				}
 				if ( $is_pro && 'enabled' === $config['report'] ) {
@@ -971,41 +971,13 @@ class Backup_Settings extends Component {
 					);
 				}
 			} elseif ( 'audit' === $key ) {
-				if ( $is_pro ) {
-					if ( 'enabled' === $config['report'] && 1 === count( $data['strings']['audit'] ) ) {
-						$data['strings']['audit'][] = sprintf(
-						/* translators: ... */
-							__( 'Email reports sending %s', 'wpdef' ),
-							$config['frequency']
-						);
-					} else {
-						$data['strings']['audit'] = array( __( 'Inactive', 'wpdef' ) );
-					}
-				} elseif( ! $is_pro ) {
-					$data['strings']['audit'] = array(
-						sprintf(
-						/* translators: ... */
-							__( 'Inactive %s', 'wpdef' ),
-							'<span class="sui-tag sui-tag-pro">Pro</span>'
-						)
-					);
-				}
+
+				$data['strings']['audit'] = $this->format_audit_log_strings( $config, $is_pro );
+
 			} elseif( 'blocklist_monitor' === $key ) {
-				if ( $is_pro ) {
-					if ( isset( $config['status'] ) && '1' === (string)$config['status'] ) {
-						$data['strings']['blocklist_monitor'] = array( __( 'Active', 'wpdef' ) );
-					} else {
-						$data['strings']['blocklist_monitor'] = array( __( 'Inactive', 'wpdef' ) );
-					}
-				} elseif( ! $is_pro ) {
-					$data['strings']['blocklist_monitor'] = array(
-						sprintf(
-						/* translators: ... */
-							__( 'Inactive %s', 'wpdef' ),
-							'<span class="sui-tag sui-tag-pro">Pro</span>'
-						)
-					);
-				}
+
+				$data['strings']['blocklist_monitor'] = $this->format_blocklist_monitor_strings( $config, $is_pro );
+
 			}
 		}
 
@@ -1295,4 +1267,90 @@ class Backup_Settings extends Component {
 			'strings' => $strings
 		];
 	}
+
+	/**
+	 * Format strings of audit log config
+	 *
+	 * @param array $config Saved config.
+	 * @param bool  $is_pro User membership status.
+	 *
+	 * @return array
+	 */
+	private function format_audit_log_strings( $config, $is_pro ) {
+		if ( empty( $config['enabled'] ) ) {
+			if ( $is_pro ) {
+				$audit = array( __( 'Inactive', 'wpdef' ) );
+			} else {
+				$audit = array(
+					sprintf(
+						/* translators: Status of Audit Logs */
+						__( 'Inactive %s', 'wpdef' ),
+						'<span class="sui-tag sui-tag-pro">Pro</span>'
+					),
+				);
+			}
+		} else {
+			if ( $is_pro ) {
+				$audit = array( __( 'Active', 'wpdef' ) );
+			} else {
+				$audit = array(
+					sprintf(
+						/* translators: Status of Audit Logs */
+						__( 'Active %s', 'wpdef' ),
+						'<span class="sui-tag sui-tag-pro">Pro</span>'
+					),
+				);
+			}
+
+			if ( isset( $config['report'] ) && 'enabled' === $config['report'] ) {
+				$audit[] = sprintf(
+					/* translators: It will show on the Settings - Configs */
+					__( 'Email reports sending %s', 'wpdef' ),
+					$config['frequency']
+				);
+			}
+		}
+
+		return $audit;
+	}
+
+	/**
+	 * Format strings of blocklist monitor config
+	 *
+	 * @param array $config Saved config.
+	 * @param bool  $is_pro User membership status.
+	 *
+	 * @return array
+	 */
+	private function format_blocklist_monitor_strings( $config, $is_pro ) {
+		// If blocklist monitor is enable.
+		if ( isset( $config['status'] ) && '1' === (string) $config['status'] ) {
+			if ( $is_pro ) {
+				$monitor = array( __( 'Active', 'wpdef' ) );
+			} else {
+				$monitor = array(
+					sprintf(
+						/* translators: Status of blocklist monitor */
+						__( 'Active %s', 'wpdef' ),
+						'<span class="sui-tag sui-tag-pro">Pro</span>'
+					),
+				);
+			}
+		} else {
+			if ( $is_pro ) {
+				$monitor = array( __( 'Inactive', 'wpdef' ) );
+			} else {
+				$monitor = array(
+					sprintf(
+						/* translators: Status of blocklist monitor */
+						__( 'Inactive %s', 'wpdef' ),
+						'<span class="sui-tag sui-tag-pro">Pro</span>'
+					),
+				);
+			}
+		}
+
+		return $monitor;
+	}
+
 }

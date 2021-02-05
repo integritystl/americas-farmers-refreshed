@@ -53,8 +53,8 @@ class Core_Integrity extends Behavior {
 	private function get_origin_code() {
 		global $wp_version;
 		$data            = $this->owner->raw_data;
-		$file            = $data['file'];
-		$relative_path   = str_replace( ABSPATH, '', $file );
+		$file            = wp_normalize_path( $data['file'] );
+		$relative_path   = str_replace( wp_normalize_path(ABSPATH), '', $file );
 		$source_file_url = "http://core.svn.wordpress.org/tags/$wp_version/" . $relative_path;
 		$ds              = DIRECTORY_SEPARATOR;
 		if ( ! function_exists( 'download_url' ) ) {
@@ -175,6 +175,7 @@ class Core_Integrity extends Behavior {
 					'code' => implode( PHP_EOL, $dir_tree->get_dir_tree() )
 				];
 			case 'modified':
+			default:
 				return [
 					'code'   => file_get_contents( $data['file'] ),
 					'origin' => $this->get_origin_code()

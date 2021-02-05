@@ -1,13 +1,13 @@
 === Defender Security - Malware Scanner, Login Security & Firewall ===
 Plugin Name: Defender Security - Malware Scanner, Login Security & Firewall
-Version: 2.4.5
+Version: 2.4.6
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org/
 Contributors: WPMUDEV, WebFactory
 Tags: security plugin, security, firewall, malware, malware scanner, antivirus, ip blocking, login security, brute force attacks, two-factor authentication, activity log, audit logs, block hackers, 2fa, hack
 Requires at least: 5.0
 Tested up to: 5.6
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPL v2 - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 Security plugin with malware scanner, IP blocking, audit logs, activity logs, firewall, login security & more.
@@ -17,9 +17,9 @@ Security plugin with malware scanner, IP blocking, audit logs, activity logs, fi
 
 **Defender adds the best in WordPress security plugin to your website with just a few clicks. Stop brute force attacks, SQL injections, cross-site scripting XSS, and other WordPress vulnerabilities and hacks with Defender malware scans, antivirus scans, IP blocking, firewall, activity log, security log, and two-factor authentication login security.**
 
-No longer do you have to go through hideously complex settings and get a virtual PhD in security. Defender adds all the hardening and security tweaks you need.
+No longer do you have to go through hideously complex settings and get a virtual PhD in security. Defender adds all the hardening and security recommendations you need.
 
-### Security Tweaks
+### Security Recommendations
 
 Defender starts with a list of one-click hardening techniques that will instantly add layers of protection to your site.
 
@@ -38,6 +38,7 @@ Defender starts with a list of one-click hardening techniques that will instantl
 * Update security keys – reset on-demand
 * Prevent information disclosure – why tell them what you have
 * Prevent PHP execution – because it’s daaaangerous
+* Resolve security recommendations and issues in bulk
 
 ### Learn The Ropes With These Hands-On Defender Tutorials
 
@@ -50,7 +51,7 @@ Defender starts with a list of one-click hardening techniques that will instantl
 Run free malware scans that check WordPress for suspicious code and malware. The Defender scan tool compares your WordPress install with the master copy in WP directory, reports changes and lets you restore the original file with a click.
 
 ### Google 2-step Verification
-Now you can easily join the millions of users that make their accounts safer with Google 2-Step Verification. Activate two-factor authentication and protect your account with both your password and your phone.
+Join the millions of users that make their accounts safer with Google 2-Step Verification - along with other third-party integrations like Microsoft Authenticator and Authy. Activate two-factor authentication and protect your account with both your password and your phone.
 
 [youtube https://www.youtube.com/watch?v=w9pfRCuT36Q]
  
@@ -132,7 +133,7 @@ Thanks for looking at Defender, and I look forward to hardening your site and ma
 
 = Why should I choose Defender over other security plugins? =
 
-Defender is built to add all the best hardening and security tweaks used by the pros without having to become a security expert. This means you get all the most effective and proven protection methods other services provide with fewer settings, on-click hardening and faster setup.
+Defender is built to add all the best hardening and security recommendations used by the pros without having to become a security expert. This means you get all the most effective and proven protection methods other services provide with fewer settings, on-click hardening and faster setup.
 
 = Is Defender the only step I need to take in securing my WordPress site? =
 Hackers and bot attacks are not the only threat to your site.  No matter what security plugin or service you use, always be prepared with a secure backup stored in a safe location away from your live site. Security does not protect from hosting outages, server errors and accidentally lost or damaged data. We recommend [Snapshot](https://premium.wpmudev.org/project/snapshot/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=defender-readme&utm_content=snapshot#trial). Defender with scheduled managed backups is the best way to keep your site safe.
@@ -143,7 +144,7 @@ WPMU DEV's expert support will restore and clean up your site after it’s been 
 == Screenshots ==
 
 1. Malware scans and one-click hardening recommendations.
-2. Layered security tweaks let your harden your site with a few clicks.
+2. Layered security recommendations let your harden your site with a few clicks.
 3. Compares your WordPress install with the directory and restore original files with a click.
 4. Use 2-Step Verification to protect your accounts with your phone.
 5. IP blocklisting, 404 limiter and Timed Lockout attack shield.
@@ -157,7 +158,36 @@ WPMU DEV's expert support will restore and clean up your site after it’s been 
 
 == Changelog ==
 
-= 2.4.5 ( 2020-12-17 ) =
+= 2.4.6 ( 2021-01-27 ) =
+
+- Security: Malware scan doesn't detect Backdoor:PHP/WP-VCD
+- Security: Malware scanning issues with Avada theme
+- Enhance: PHP 8 compatibility
+- Enhance: Mobile UI improvement for IP lockout logs
+- Enhance: Remove menu icon with issue indicator when there are no Scan and Tweak issues
+- Enhance: Suspicious Code scan type is deactivated by default
+- Fix: Defender security headers not applied when Hummingbird caching is active
+- Fix: Revert button not working for certain recommendations
+- Fix: Remember Light mode/Dark mode selection for Malware Scanning code preview
+- Fix: Resend Invite option is not showing for added users (Add users/Invite by Email)
+- Fix: Read More link showing in blue color when High Contrast Mode is ON
+- Fix: Fix footer link URL
+- Fix: 127.0.0.1 showing multiples times on the firewall logs page
+- Fix: Unsubscribe icon is not showing correctly on the notifications page
+- Fix: Console errors on various pages when WooCommerce is activated
+- Fix: Display error for enabled Mask Login and Site Health request
+- Fix: Mask Login Area restricted slugs
+- Fix: Showing all files in WP core as modified
+- Fix: Defender locking out users and detecting wrong user IP
+- Fix: 2FA can't be forced with WooCommerce
+- Fix: Disable File Editor tweak reset
+- Fix: Issues on Flywheel hosting stability improvements
+- Fix: Admin email duplicates in Bulk notification modal
+- Fix: Multiple notifications still being sent after update to 2.4.4
+- Fix: Error when requesting API on the Audit logs page
+- Fix: Audit log does not log all plugins when activated/deactivated in batches
+
+= 2.4.5 ( 2020-12-21 ) =
 
 - New: Add pagination option for IP lockout logs
 - Enhance: Display Blocklist Monitor in the config structure
@@ -222,16 +252,6 @@ WPMU DEV's expert support will restore and clean up your site after it’s been 
 - Fix: Masked login alters ajaxurl in MU in sites table page
 - Fix: Remove 'ambient-light-sensor', 'picture-in-picture', 'speaker' and 'vr' directives from Feature-Policy header
 - Fix: Compatibility with HUB
-
-= 2.3.1 ( 2020-08-10 ) =
-
-- New: Feature to save presets configurations of the Defender's settings, and make them available to download and apply to your other sites
-- New: Add tutorials section in the Defender dashboard
-- Enhance: Allow to bulk delete suspicious files
-- Enhance: Improve the logic of how "Include sub-domains" option should be shown on the Strict Transport Security header
-- Fix: Prevent wp-signup.php to access when Mask Login is enabled
-- Fix: 2FA login does not redirect correctly after login via the my-account page of Woocommerce
-- Fix: Remove the Security Tweak 'Change default database prefix', as this can be bypass
 
 
 [Changelog for previous versions](https://premium.wpmudev.org/project/wp-defender/#view-changelog).

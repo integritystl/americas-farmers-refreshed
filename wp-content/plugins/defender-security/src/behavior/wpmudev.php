@@ -136,6 +136,7 @@ class WPMUDEV extends Behavior {
 
 				return "{$base}api/hub/v1/sites/$site_id/modules/hosting";
 			case self::API_HUB_SYNC :
+			default:
 				return "https://premium.wpmudev.org/api/defender/v1/scan-results";
 		}
 	}
@@ -265,6 +266,7 @@ class WPMUDEV extends Behavior {
 			case 'weekly':
 				return 7;
 			case 'monthly':
+			default:
 				return 30;
 		}
 	}

@@ -121,15 +121,14 @@ class Onboard extends Controller {
 
 	/**
 	 * Resolve all tweaks that we can
+	 * @since 2.4.6 Removed tweaks that can be added to wp-config.php manually: 'hide-error', 'disable-file-editor'
 	 */
 	private function resolve_security_tweaks() {
 		$slugs = [
 			'disable-xml-rpc',
-			'hide-error',
 			'login-duration',
 			'disable-trackback',
 			'prevent-enum-users',
-			'disable-file-editor'
 		];
 		$class = wd_di()->get( Security_Tweaks::class );
 		$class->refresh_tweaks_status();

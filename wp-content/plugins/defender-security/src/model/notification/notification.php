@@ -2,7 +2,6 @@
 
 namespace WP_Defender\Model\Notification;
 
-use Calotes\Helper\HTTP;
 use Calotes\Helper\Route;
 use Calotes\Model\Setting;
 use WP_Defender\Traits\Formats;
@@ -230,6 +229,7 @@ abstract class Notification extends Setting {
 				return $this->is_time_correct();
 			case 'weekly':
 			case 'monthly':
+			default:
 				return $this->is_day_correct() && $this->is_time_correct();
 		}
 	}
@@ -336,7 +336,7 @@ abstract class Notification extends Setting {
 
 			$email = $subscriber['email'];
 			if ( isset( $this->subscribe_invitation_throttle[ $email ] )
-			     && intval( $this->subscribe_invitation_throttle[ $email ] ) > time() ) {
+			     && (int) $this->subscribe_invitation_throttle[ $email ] > time() ) {
 				//this is already sent for this notification, we wont send again at least 6 hours
 				continue;
 			}

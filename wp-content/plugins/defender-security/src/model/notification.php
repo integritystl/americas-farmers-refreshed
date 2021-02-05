@@ -161,9 +161,9 @@ abstract class Notification extends Setting {
 	 * @return bool
 	 */
 	public function maybe_send() {
-		if ( $this->dry_run === true ) {
+		if ( true === $this->dry_run ) {
 			//no send, but need to track as sent so we can requeue it
-			if ( $this->type === 'report' ) {
+			if ( 'report' === $this->type ) {
 				$this->last_sent     = $this->est_timestamp;
 				$this->est_timestamp = $this->get_next_run()->getTimestamp();
 				$this->save();
@@ -172,23 +172,19 @@ abstract class Notification extends Setting {
 			return;
 		}
 
-		if ( $this->status !== self::STATUS_ACTIVE ) {
+		if ( self::STATUS_ACTIVE !== $this->status ) {
 			return false;
 		}
 
-		if ( $this->type === 'notification' ) {
+		if ( 'notification' === $this->type ) {
 			return true;
 		}
 
-		if ( $this->last_sent === 0 ) {
+		if ( 0 === $this->last_sent ) {
 			return false;
 		}
 
 		$now = new \DateTime( 'now', wp_timezone() );
-
-		if ( $this->slug === 'tweak-reminder' ) {
-
-		}
 
 		$time = apply_filters( 'defender_current_time_for_report', $now );
 
@@ -199,11 +195,11 @@ abstract class Notification extends Setting {
 	 * @return \DateTime|false
 	 * @throws \Exception
 	 */
-	public function get_next_run( $for_display = false ) {
-		if ( $this->type === 'notification' ) {
+	public function get_next_run() {
+		if ( 'notification' === $this->type ) {
 			return false;
 		}
-		if ( $this->status !== self::STATUS_ACTIVE ) {
+		if ( self::STATUS_ACTIVE !== $this->status ) {
 			return false;
 		}
 
@@ -219,8 +215,8 @@ abstract class Notification extends Setting {
 		$now      = new \DateTime( 'now', wp_timezone() );
 		$interval = \DateInterval::createFromDateString( (string) $est->getOffset() . 'seconds' );
 		list( $hour, $min ) = explode( ':', $this->time );
-		$hour = intval( $hour );
-		$min  = intval( $min );
+		$hour = (int) $hour;
+		$min  = (int) $min;
 		switch ( $this->frequency ) {
 			case 'daily':
 				//set the time
@@ -246,7 +242,7 @@ abstract class Notification extends Setting {
 				 * We will need to check if the date is passed today, if not, use this, if yes, then queue for next month
 				 */
 				$est->setDate( $est->format( 'Y' ), $est->format( 'm' ), 1 );
-				if ( $this->day_n == '31' ) {
+				if ( 31 === (int) $this->day_n ) {
 					$this->day_n = $est->format( 't' );
 				}
 				$est->add( new \DateInterval( 'P' . ( $this->day_n - 1 ) . 'D' ) );
@@ -292,6 +288,7 @@ abstract class Notification extends Setting {
 			case 'weekly':
 				return sprintf( __( '%s on %s at %s', 'wpdef' ), ucfirst( $this->frequency ), ucfirst( $this->day ), $date->format( 'h:i A' ) );
 			case 'monthly':
+			default:
 				return sprintf( __( '%s/%d, %s', 'wpdef' ), ucfirst( $this->frequency ), $this->day_n, $date->format( 'h:i A' ) );
 		};
 	}

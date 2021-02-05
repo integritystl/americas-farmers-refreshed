@@ -156,6 +156,10 @@ class Mask_Login extends Controller2 {
 	 * @return mixed|void
 	 */
 	public function handle_login_request() {
+		// Doesn't need to handle the login request for bots and crawlers
+		if( $this->service->is_bot_request() ) {
+			return;
+		}
 		//need to check if the current request is for signup, login, if those is not the slug, then we redirect
 		//to the 404 redirect, or 403 wp die
 		$requested_path               = $this->service->get_request_path();
@@ -173,6 +177,19 @@ class Mask_Login extends Controller2 {
 			return;
 		}
 
+		// If user is not logged in but login cookie is set.
+		if ( ! is_user_logged_in() && isset( $_COOKIE[ LOGGED_IN_COOKIE ] ) ) {
+			$user_id = wp_validate_auth_cookie( $_COOKIE[ LOGGED_IN_COOKIE ], 'logged_in' );
+
+			if ( $user_id ) {
+				// Cookie is valid so login the user.
+				wp_set_current_user( $user_id );
+
+				// Return from here because of valid user found.
+				return;
+			}
+		}
+
 		$ticket = HTTP::get( 'ticket', false );
 		if ( false !== $ticket && $this->service->redeem_ticket( $ticket ) ) {
 			//allow to pass
@@ -185,15 +202,25 @@ class Mask_Login extends Controller2 {
 		}
 
 		//if it's the verification link to change Network Admin Email
+		$is_multisite = is_multisite();
 		if (
-			is_multisite()
+			$is_multisite
 			&& false !== strpos( parse_url( $requested_path, PHP_URL_QUERY ), 'network_admin_hash' )
 		) {
 			$logs_url = add_query_arg( 'redirect_to', urlencode( $requested_path ), $this->get_model()->get_new_login_url() );
 			wp_safe_redirect( $logs_url );
 			die;
 		}
-		if ( $this->service->is_on_login_page( $requested_path_without_slash ) ) {
+
+		/**
+		 * Block if it's:
+		 * 1) no MU but there is an attempt to load the 'wp-signup.php' page
+		 * 2) from the list of forbidden slugs
+		*/
+		if (
+			( ! $is_multisite && 'wp-signup.php' === $requested_path_without_slash )
+			|| $this->service->is_on_login_page( $requested_path_without_slash )
+		) {
 			//if they are here and the flow getting here, then just lock
 			return $this->maybe_lock();
 		}
@@ -241,6 +268,12 @@ class Mask_Login extends Controller2 {
 	 * @return mixed
 	 */
 	public function alter_url( $current_url, $scheme = null ) {
+		// Doesn't need to alter the URL for bots
+		// We will not unveil the masked login URL for them, instead show default login URL
+		if( $this->service->is_bot_request() ) {
+			return $current_url;
+		}
+
 		if ( is_user_logged_in() ) {
 			//do nothing
 			return $current_url;
@@ -387,13 +420,9 @@ class Mask_Login extends Controller2 {
 		return $url;
 	}
 
-	function remove_settings() {
-		// TODO: Implement remove_settings() method.
-	}
+	public function remove_settings() {}
 
-	function remove_data() {
-		// TODO: Implement remove_data() method.
-	}
+	public function remove_data() {}
 
 	/**
 	 * @return array

@@ -2,8 +2,6 @@
 
 namespace WP_Defender\Component\Security_Tweaks\Servers;
 
-use Calotes\Helper\HTTP;
-
 class Server {
 	public static function create( $server ) {
 		return new Server_Factory( $server );

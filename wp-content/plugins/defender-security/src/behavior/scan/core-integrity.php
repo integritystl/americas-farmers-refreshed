@@ -22,7 +22,7 @@ class Core_Integrity extends Behavior {
 		$checksums  = $this->get_checksum();
 		$timer = new Timer();
 		$model = $this->owner->scan;
-		$pos   = intval( $model->task_checkpoint );
+		$pos   = (int) $model->task_checkpoint;
 		$core_files->seek( $pos );
 		$this->log( sprintf( 'current pos %s', $pos ), 'scan' );
 		while ( $core_files->valid() ) {
@@ -67,7 +67,7 @@ class Core_Integrity extends Behavior {
 					] );
 				}
 			} else {
-				//$this->log( sprintf( 'unversion %s', $rev_file ), 'scan' );
+				//To log unversion file run: $this->log( sprintf( 'unversion %s', $rev_file ), 'scan' );
 				$model->add_item( Scan_Item::TYPE_INTEGRITY, [
 					'file' => $file,
 					'type' => is_dir( $file ) ? 'dir' : 'unversion'
@@ -114,7 +114,8 @@ class Core_Integrity extends Behavior {
 		if ( ! function_exists( 'get_core_checksums' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/update.php';
 		}
-		$checksums = get_core_checksums( $wp_version, isset( $wp_local_package ) ? $wp_local_package : 'en_US' );
+		$language  = get_locale();
+		$checksums = get_core_checksums( $wp_version, empty( $language ) ? 'en_US' : $language );
 		if ( false === $checksums ) {
 			$this->log( 'Error from fetching checksums from wp.org', 'scan' );
 			$scan         = $this->owner->scan;
