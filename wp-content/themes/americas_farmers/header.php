@@ -75,7 +75,7 @@ if ( $post_slug || $parent_slug == 'grow-communities') {
 
     <!-- End Facebook Pixel Code -->
 
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-IIED/eyOkM6ihtOiQsX2zizxFBphgnv1zbe1bKA+njdFzkr6cDNy16jfIKWu4FNH" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/08730574ad.js" crossorigin="anonymous"></script>
 
 </head>
 
