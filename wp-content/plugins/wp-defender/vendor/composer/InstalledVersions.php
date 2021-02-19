@@ -24,12 +24,12 @@ class InstalledVersions
 private static $installed = array (
   'root' =>
   array (
-    'pretty_version' => 'dev-release/2.4.6',
-    'version' => 'dev-release/2.4.6',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' =>
     array (
     ),
-    'reference' => '6a98e2e1673132bee30ecbf95b98ecdc7f588841',
+    'reference' => '2fc7362bd0b4a08ffdbcfa17d864f597d0ad72ec',
     'name' => 'incsub/wp-defender',
   ),
   'versions' =>
@@ -70,12 +70,12 @@ private static $installed = array (
     ),
     'incsub/wp-defender' =>
     array (
-      'pretty_version' => 'dev-release/2.4.6',
-      'version' => 'dev-release/2.4.6',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' =>
       array (
       ),
-      'reference' => '6a98e2e1673132bee30ecbf95b98ecdc7f588841',
+      'reference' => '2fc7362bd0b4a08ffdbcfa17d864f597d0ad72ec',
     ),
     'mnapoli/php-di' =>
     array (

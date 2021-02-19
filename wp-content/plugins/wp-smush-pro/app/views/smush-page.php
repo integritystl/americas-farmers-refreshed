@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @var \Smush\App\Abstract_Page $this
  */
-$this->do_meta_boxes( 'summary' );
+$this->do_meta_boxes( 'summary' );	  								 		  	  		
 ?>
 
 <div class="sui-row-with-sidenav">
