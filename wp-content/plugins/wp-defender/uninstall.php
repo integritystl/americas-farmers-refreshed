@@ -30,7 +30,7 @@ function defender_drop_custom_tables() {
 include_once __DIR__ . DIRECTORY_SEPARATOR . 'wp-defender.php';
 $settings           = wd_di()->get( \WP_Defender\Model\Setting\Main_Setting::class );
 $uninstall_data     = isset( $settings->uninstall_data ) && 'remove' === $settings->uninstall_data;
-$uninstall_settings = isset( $settings->uninstall_settings ) && 'reset' === $settings->uninstall_settings;		 	    	     	 			  
+$uninstall_settings = isset( $settings->uninstall_settings ) && 'reset' === $settings->uninstall_settings;
 
 if ( $uninstall_settings || $uninstall_data ) {
 	//turn off Audit_Logging so that hooks are not processed after deleting the table or resetting settings

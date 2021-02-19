@@ -205,7 +205,11 @@ class Two_Factor extends Controller2 {
 			return;
 		}
 
-		if ( isset( $_POST['_wpnonce'] ) && ! wp_verify_nonce( $_POST['_wpnonce'], 'verify_otp' ) ) {
+		if ( empty( $_POST['_wpnonce'] ) ) {
+			return;
+		}
+
+		if ( ! wp_verify_nonce( $_POST['_wpnonce'], 'verify_otp' ) ) {
 			return;
 		}
 

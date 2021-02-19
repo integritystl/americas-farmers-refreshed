@@ -28,7 +28,7 @@ if ( ! defined( 'WPINC' ) ) {
 
 <?php if ( ! $is_disabled ) : ?>
 	<div class="sui-actions-right">
-		<?php esc_html_e( 'Made changes?', 'wp-smushit' ); ?> &nbsp;	 			 				 	      	 	
+		<?php esc_html_e( 'Made changes?', 'wp-smushit' ); ?> &nbsp;
 		<button type="button" id="smush-webp-recheck" class="sui-button sui-button-ghost" data-is-configured="<?php echo $is_configured ? '1' : '0'; ?>">
 			<span class="sui-loading-text"><i class="sui-icon-update"></i><?php esc_html_e( 'Re-check status', 'wp-smushit' ); ?></span>
 			<i class="sui-icon-loader sui-loading" aria-hidden="true"></i>
