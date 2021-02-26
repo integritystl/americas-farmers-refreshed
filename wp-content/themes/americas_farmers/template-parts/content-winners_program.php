@@ -42,9 +42,9 @@ if(in_array('announce', $currentPhase)):
 	<div id="announce_winners" data-program="<?php echo $programKey;?>" class="<?php echo $programKey; ?>">
 
 		<h4 class="announce_winners_title">Grow<span class="announce_winners_program_title"><?php echo $programKey; ?></span></h4>
-		<h2 class="winners_year" data-program-year="<?php echo $program_display_year;?>"><?php echo $program_display_year;?> WINNERS</h2>
+		<h2 class="winners_year" data-program-year="<?php echo $program_display_year;?>">2021 WINNERS</h2>
 
-		<p class="announce_winners_label">Select a state using the dropdown field to see who the <?php echo $program_display_year;?> winners are in your area.</p>
+		<p class="announce_winners_label">Select a state using the dropdown field to see who the 2021 winners are in your area.</p>
 		<div class="winners_state_select">
 			<div class="winners_state_select_top">
 				<span id="winners_state_nicename">Select a State</span>
