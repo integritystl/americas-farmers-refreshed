@@ -78,6 +78,9 @@ class Backup_Settings extends Component {
 		$scan_notification  = new Malware_Notification();
 		$scan               = array(
 			'integrity_check'               => $settings->integrity_check,
+			'check_core'                    => $settings->check_core,
+			'check_themes'                  => $settings->check_themes,
+			'check_plugins'                 => $settings->check_plugins,
 			'check_known_vuln'              => $settings->check_known_vuln,
 			'scan_malware'                  => $settings->scan_malware,
 			'filesize'                      => $settings->filesize,
@@ -91,6 +94,7 @@ class Backup_Settings extends Component {
 			'dry_run'                       => $scan_report->dry_run,
 			'notification'                  => $scan_notification->status,
 			'always_send_notification'      => $scan_notification->configs['always_send'],
+			'error_send'                    => $scan_notification->configs['error_send'],
 			'notification_subscribers'      => $this->change_subscriber_format( $scan_notification ),
 			'email_subject_issue_not_found' => $scan_notification->configs['template']['not_found']['subject'],
 			'email_subject_issue_found'     => $scan_notification->configs['template']['found']['subject'],
@@ -297,6 +301,9 @@ class Backup_Settings extends Component {
 			),
 			'scan'             => array(
 				'integrity_check'               => true,
+				'check_core'                    => true,
+				'check_themes'                  => true,
+				'check_plugins'                 => true,
 				'check_known_vuln'              => true,
 				'scan_malware'                  => false,
 				'filesize'                      => 3,
@@ -309,6 +316,7 @@ class Backup_Settings extends Component {
 				'dry_run'                       => false,
 				'notification'                  => 'enabled',
 				'always_send_notification'      => false,
+				'error_send'                    => false,
 				'notification_subscribers'      => $default_recipients,
 				'email_subject_issue_found'     => $model_malware->configs['template']['found']['subject'],
 				'email_subject_issue_not_found' => $model_malware->configs['template']['not_found']['subject'],
@@ -451,8 +459,8 @@ class Backup_Settings extends Component {
 	 * @param string $key
 	 */
 	public function index_key( $key ) {
-		$keys   = get_site_option( self::INDEXER, false );
-		$keys[] = $key;
+		$keys         = get_site_option( self::INDEXER, false );
+		$keys[ $key ] = $key;
 		update_site_option( self::INDEXER, $keys );
 	}
 
@@ -571,17 +579,26 @@ class Backup_Settings extends Component {
 							if ( isset( $module_data['always_send_notification'] ) ) {
 								$scan_notification->configs['always_send'] = $module_data['always_send_notification'];
 							}
+							if ( isset( $module_data['error_send'] ) ) {
+								$scan_notification->configs['error_send'] = $module_data['error_send'];
+							}
 							if ( ! empty( $module_data['email_subject_issue_found'] ) ) {
 								$scan_notification->configs['template']['found']['subject'] = $module_data['email_subject_issue_found'];
 							}
 							if ( ! empty( $module_data['email_subject_issue_not_found'] ) ) {
 								$scan_notification->configs['template']['not_found']['subject'] = $module_data['email_subject_issue_not_found'];
 							}
+							if ( ! empty( $module_data['email_subject_error'] ) ) {
+								$scan_notification->configs['template']['error']['subject'] = $module_data['email_subject_error'];
+							}
 							if ( ! empty( $module_data['email_content_issue_found'] ) ) {
 								$scan_notification->configs['template']['found']['body'] = $module_data['email_content_issue_found'];
 							}
 							if ( ! empty( $module_data['email_content_issue_not_found'] ) ) {
 								$scan_notification->configs['template']['not_found']['body'] = $module_data['email_content_issue_not_found'];
+							}
+							if ( ! empty( $module_data['email_content_error'] ) ) {
+								$scan_notification->configs['template']['error']['body'] = $module_data['email_content_error'];
 							}
 							if ( ! empty( $module_data['notification_subscribers'] ) ) {
 								//Reset all recipients before
@@ -896,12 +913,25 @@ class Backup_Settings extends Component {
 	}
 
 	private function is_any_scan_active( $is_pro, $scan_settings ) {
-		if ( empty( $scan_settings['integrity_check'] ) && ! $is_pro ) {
+		if ( empty( $scan_settings['integrity_check'] ) ) {
+			$integrity_check = false;
+		} elseif (
+			! empty( $scan_settings['integrity_check'] )
+			&& empty( $scan_settings['check_core'] )
+			&& empty( $scan_settings['check_themes'] )
+			&& empty( $scan_settings['check_plugins'] )
+		) {
+			$integrity_check = false;
+		} else {
+			$integrity_check = true;
+		}
+
+		if ( ! $integrity_check && ! $is_pro ) {
 			return false;
 		} elseif (
-			( empty( $scan_settings['integrity_check'] ) && empty( $scan_settings['check_known_vuln'] )
-				&& empty( $scan_settings['scan_malware'] )
-			)
+			! $integrity_check
+			&& empty( $scan_settings['check_known_vuln'] )
+			&& empty( $scan_settings['scan_malware'] )
 			&& ! $is_pro
 		) {
 			return false;
@@ -954,7 +984,7 @@ class Backup_Settings extends Component {
 			} elseif ( 'iplockout' === $key ) {
 				$data['strings']['iplockout'] = array( __( 'Active', 'wpdef' ) );
 
-				if ( 'enabled' === $config['notification'] ) {
+				if ( isset( $config['notification'] ) && 'enabled' === $config['notification'] ) {
 					$data['strings']['iplockout'][] = __( 'Email notifications active', 'wpdef' );
 				}
 				if ( $is_pro && 'enabled' === $config['report'] ) {

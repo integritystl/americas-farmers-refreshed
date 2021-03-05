@@ -6,6 +6,8 @@ use WP_Defender\Behavior\Scan\Core_Integrity;
 use WP_Defender\Behavior\Scan\Gather_Fact;
 use WP_Defender\Behavior\Scan\Known_Vulnerability;
 use WP_Defender\Behavior\Scan\Malware_Scan;
+use WP_Defender\Behavior\Scan\Plugin_Integrity;
+use WP_Defender\Behavior\Scan\Theme_Integrity;
 use WP_Defender\Behavior\WPMUDEV;
 use WP_Defender\Component;
 use WP_Defender\Model\Scan_Item;
@@ -28,6 +30,8 @@ class Scan extends Component {
 		$this->attach_behavior( WPMUDEV::class, WPMUDEV::class );
 		$this->attach_behavior( Gather_Fact::class, Gather_Fact::class );
 		$this->attach_behavior( Core_Integrity::class, Core_Integrity::class );
+		$this->attach_behavior( Theme_Integrity::class, Theme_Integrity::class );
+		$this->attach_behavior( Plugin_Integrity::class, Plugin_Integrity::class );
 		if ( class_exists( Known_Vulnerability::class ) ) {
 			$this->attach_behavior( Known_Vulnerability::class, new Known_Vulnerability() );
 		}
@@ -139,7 +143,18 @@ class Scan extends Component {
 			'gather_fact' => 'gather_fact',
 		];
 		if ( $this->settings->integrity_check ) {
-			$tasks['core_integrity_check'] = 'core_integrity_check';
+			/**
+			 * Changes since 2.4.7
+			*/
+			if ( $this->settings->check_core ) {
+				$tasks['core_integrity_check'] = 'core_integrity_check';
+			}
+			if ( $this->settings->check_plugins ) {
+				$tasks['plugin_integrity_check'] = 'plugin_integrity_check';
+			}
+			if ( $this->settings->check_themes ) {
+				$tasks['theme_integrity_check'] = 'theme_integrity_check';
+			}
 		}
 		if ( $this->is_pro() ) {
 			if ( $this->settings->check_known_vuln ) {

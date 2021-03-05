@@ -3,6 +3,8 @@
 namespace WP_Defender\Model;
 
 use WP_Defender\Behavior\Scan_Item\Core_Integrity;
+use WP_Defender\Behavior\Scan_Item\Plugin_Integrity;
+use WP_Defender\Behavior\Scan_Item\Theme_Integrity;
 use WP_Defender\Behavior\Scan_Item\Malware_Result;
 use WP_Defender\Behavior\Scan_Item\Malware_Scan;
 use WP_Defender\Behavior\Scan_Item\Vuln_Result;
@@ -14,9 +16,9 @@ use WP_Defender\Traits\IO;
 class Scan extends DB {
 	use IO, Formats;
 
-	const STATUS_INIT = 'init', STATUS_ERROR = 'error', STATUS_FINISH = 'finish';
+	const STATUS_INIT    = 'init', STATUS_ERROR = 'error', STATUS_FINISH = 'finish';
 	const IGNORE_INDEXER = 'defender_scan_ignore_index';
-	protected $table = 'defender_scan';
+	protected $table     = 'defender_scan';
 
 	/**
 	 * @var int
@@ -79,69 +81,132 @@ class Scan extends DB {
 	 *
 	 * @return array
 	 */
-	public function prepare_issues() {
-		$orm           = self::get_orm();
-		$models        = $this->get_issues();
-		$arr           = [];
-		$ignored       = [];
-		$count_core    = 0;
-		$count_malware = 0;
-		$count_vuln    = 0;
-		foreach ( $models as $model ) {
-			if ( $model->status === Scan_Item::STATUS_IGNORE ) {
-				$ignored[] = $model->to_array();
-			} elseif ( $model->status === Scan_Item::STATUS_ACTIVE ) {
-				$arr[] = $model->to_array();
-				switch ( $model->type ) {
+	public function prepare_issues( $per_page = null, $paged = null, $type = null ) {
+		$ignored_models        = $this->get_issues( $type, Scan_Item::STATUS_IGNORE, $per_page, $paged );
+		$active_models         = $this->get_issues( $type, Scan_Item::STATUS_ACTIVE, $per_page, $paged );
+		$summary_models        = $this->get_issues();
+		$issues                = array();
+		$ignored               = array();
+		$count_ignored         = 0;
+		$count_total           = $count_ignored + count( $active_models );
+		$count_issues          = 0;
+		$count_issues_filtered = 0;
+		$count_core            = 0;
+		$count_plugin          = 0;
+		$count_theme           = 0;
+		$count_malware         = 0;
+		$count_vuln            = 0;
+		// Info for Summary box
+		foreach ( $summary_models as $summary_model ) {
+			if ( Scan_Item::STATUS_ACTIVE === $summary_model->status ) {
+				switch ($summary_model->type) {
 					case Scan_Item::TYPE_INTEGRITY:
-						$count_core ++;
+						$count_core++;
+						break;
+					case Scan_Item::TYPE_PLUGIN_CHECK:
+						$count_plugin++;
+						break;
+					case Scan_Item::TYPE_THEME_CHECK:
+						$count_theme++;
 						break;
 					case Scan_Item::TYPE_SUSPICIOUS:
-						$count_malware ++;
+						$count_malware++;
 						break;
 					case Scan_Item::TYPE_VULNERABILITY:
 					default:
-						$count_vuln ++;
+						$count_vuln++;
 						break;
+				}
+				// Count all issues
+				$count_issues++;
+			} elseif ( Scan_Item::STATUS_IGNORE === $summary_model->status ) {
+				$count_ignored ++;
+			}
+		}
+
+		foreach ( $ignored_models as $model ) {
+			$ignored[] = $model->to_array();
+		}
+		foreach ( $active_models as $active_model ) {
+			$issues[] = $active_model->to_array();
+
+			if ( Scan_Item::STATUS_ACTIVE === $active_model->status ) {
+				// We will now count all issues again by type filter for pagination usage
+				if ( null !== $type && 'all' !== $type ) {
+					if ( $type === $active_model->type ) {
+						$count_issues_filtered++;
+					}
+				} else {
+					$count_issues_filtered++;
 				}
 			}
 		}
 
-		return [
-			'ignored'       => $ignored,
-			'issues'        => $arr,
-			'count_core'    => $count_core,
-			'count_malware' => $count_malware,
-			'count_vuln'    => $count_vuln
-		];
+		return array(
+			'ignored'               => $ignored,
+			'issues'                => $issues,
+			'count_total'           => $count_total,
+			'count_issues'          => $count_issues,
+			'count_issues_filtered' => $count_issues_filtered,
+			'count_ignored'         => $count_ignored,
+			'count_core'            => $count_core,
+			'count_plugin'          => $count_plugin,
+			'count_theme'           => $count_theme,
+			'count_malware'         => $count_malware,
+			'count_vuln'            => $count_vuln,
+		);
 	}
 
 	/**
 	 * @param null $type
 	 * @param null $status
+	 * @param null $per_page
+	 * @param null $paged
 	 *
 	 * @return Scan_Item[]
 	 */
-	public function get_issues( $type = null, $status = null ) {
+	public function get_issues( $type = null, $status = null, $per_page = null, $paged = null ) {
 		$orm     = self::get_orm();
 		$builder = $orm->get_repository( Scan_Item::class )
-		               ->where( 'parent_id', $this->id );
+					->where( 'parent_id', $this->id );
 
-		if ( $type !== null && in_array( $type, [
-				Scan_Item::TYPE_VULNERABILITY,
-				Scan_Item::TYPE_INTEGRITY,
-				Scan_Item::TYPE_SUSPICIOUS
-			] ) ) {
+		if (
+			! is_null( $type )
+			&& in_array(
+				$type,
+				array(
+					Scan_Item::TYPE_VULNERABILITY,
+					Scan_Item::TYPE_INTEGRITY,
+					Scan_Item::TYPE_PLUGIN_CHECK,
+					Scan_Item::TYPE_THEME_CHECK,
+					Scan_Item::TYPE_SUSPICIOUS,
+				),
+				true
+			)
+		) {
 			$builder->where( 'type', $type );
 		}
-		if ( $status !== null && in_array( $status, [ Scan_Item::STATUS_IGNORE, Scan_Item::STATUS_ACTIVE ] ) ) {
+		if (
+			! is_null( $status )
+			&& in_array( $status, array( Scan_Item::STATUS_IGNORE, Scan_Item::STATUS_ACTIVE ), true )
+		) {
 			$builder->where( 'status', $status );
+		}
+		if ( ! is_null( $per_page ) && ! is_null( $paged ) ) {
+			$limit = ( ( $paged - 1 ) * $per_page ) . ',' . $per_page;
+			$builder->limit( $limit );
 		}
 		$models = $builder->get();
 		foreach ( $models as $key => $model ) {
 			switch ( $model->type ) {
 				case Scan_Item::TYPE_INTEGRITY:
 					$model->attach_behavior( Core_Integrity::class, Core_Integrity::class );
+					break;
+				case Scan_Item::TYPE_THEME_CHECK:
+					$model->attach_behavior( Theme_Integrity::class, Theme_Integrity::class );
+					break;
+				case Scan_Item::TYPE_PLUGIN_CHECK:
+					$model->attach_behavior( Plugin_Integrity::class, Plugin_Integrity::class );
 					break;
 				case Scan_Item::TYPE_SUSPICIOUS:
 					$model->attach_behavior( Malware_Result::class, Malware_Result::class );
@@ -157,6 +222,35 @@ class Scan extends DB {
 		return $models;
 	}
 
+	public function count( $type = null, $status = null ) {
+		$orm     = self::get_orm();
+		$builder = $orm->get_repository( Scan_Item::class )->where( 'parent_id', $this->id );
+
+		if (
+			! is_null( $type )
+			&& in_array(
+				$type,
+				array(
+					Scan_Item::TYPE_VULNERABILITY,
+					Scan_Item::TYPE_INTEGRITY,
+					Scan_Item::TYPE_PLUGIN_CHECK,
+					Scan_Item::TYPE_THEME_CHECK,
+					Scan_Item::TYPE_SUSPICIOUS,
+				),
+				true
+			)
+		) {
+			$builder->where( 'type', $type );
+		}
+		if (
+			! is_null( $status )
+			&& in_array( $status, array( Scan_Item::STATUS_IGNORE, Scan_Item::STATUS_ACTIVE ), true )
+		) {
+			$builder->where( 'status', $status );
+		}
+
+		return $builder->count();
+	}
 	/**
 	 * @param $id
 	 *
@@ -170,7 +264,7 @@ class Scan extends DB {
 		$issue->status = Scan_Item::STATUS_ACTIVE;
 		$issue->save();
 
-		$ignore_lists = get_site_option( self::IGNORE_INDEXER, [] );
+		$ignore_lists = get_site_option( self::IGNORE_INDEXER, array() );
 		$data         = $issue->raw_data;
 		if ( isset( $data['file'] ) ) {
 			unset( $ignore_lists[ array_search( $data['file'], $ignore_lists ) ] );
@@ -192,7 +286,7 @@ class Scan extends DB {
 	 * @return bool
 	 */
 	public function is_issue_ignored( $slug ) {
-		$ignore_lists = get_site_option( self::IGNORE_INDEXER, [] );
+		$ignore_lists = get_site_option( self::IGNORE_INDEXER, array() );
 
 		return in_array( $slug, $ignore_lists, true );
 	}
@@ -212,7 +306,7 @@ class Scan extends DB {
 		$issue->save();
 
 		//add this into global ingnore index
-		$ignore_lists = get_site_option( self::IGNORE_INDEXER, [] );
+		$ignore_lists = get_site_option( self::IGNORE_INDEXER, array() );
 		$data         = $issue->raw_data;
 		if ( isset( $data['file'] ) ) {
 			$ignore_lists[] = $data['file'];
@@ -232,11 +326,18 @@ class Scan extends DB {
 	public function get_issue( $id ) {
 		$orm   = self::get_orm();
 		$model = $orm->get_repository( Scan_Item::class )
-		             ->where( 'id', $id )->first();
+			->where( 'id', $id )
+			->first();
 		if ( is_object( $model ) ) {
 			switch ( $model->type ) {
 				case Scan_Item::TYPE_INTEGRITY:
 					$model->attach_behavior( Core_Integrity::class, Core_Integrity::class );
+					break;
+				case Scan_Item::TYPE_PLUGIN_CHECK:
+					$model->attach_behavior( Plugin_Integrity::class, Plugin_Integrity::class );
+					break;
+				case Scan_Item::TYPE_THEME_CHECK:
+					$model->attach_behavior( Theme_Integrity::class, Theme_Integrity::class );
 					break;
 				case Scan_Item::TYPE_SUSPICIOUS:
 					$model->attach_behavior( Malware_Result::class, Malware_Result::class );
@@ -259,43 +360,77 @@ class Scan extends DB {
 	 */
 	public function remove_issue( $id ) {
 		$orm = self::get_orm();
-		$orm->get_repository( Scan_Item::class )->delete( [ 'id' => $id ] );
+		$orm->get_repository( Scan_Item::class )->delete( array( 'id' => $id ) );
 	}
 
 	/**
 	 * This will build the data we use to output to frontend, base on the current scenario
+	 * @param null|int $per_page
+	 * @param null|int $paged
+	 * @param null|string $type
+	 *
 	 * @return array
 	 */
-	public function to_array() {
-		if ( ! in_array( $this->status, [ self::STATUS_ERROR, self::STATUS_FINISH ] ) ) {
+	public function to_array( $per_page = null, $paged = null, $type = null ) {
+		if ( ! in_array( $this->status, array( self::STATUS_ERROR, self::STATUS_FINISH ), true ) ) {
 			//case process
-			return [
+			return array(
 				'status'      => $this->status,
 				'status_text' => $this->get_status_text(),
 				'percent'     => $this->percent,
 				//this only for hub, when a scan running
-				'count'       => [
-					'total' => 0
-				]
-			];
+				'count'       => array(
+					'total' => 0,
+				),
+			);
 		} elseif ( self::STATUS_FINISH === $this->status ) {
-			$data = $this->prepare_issues();
+			$total_data            = $this->prepare_issues( null, null, $type );
+			$total_filtered        = $this->count( $type );
+			$count_issues_filtered = $total_data['count_issues_filtered'];
+			$ignored_count         = $total_data['count_ignored'];
+			$total_count           = $total_data['count_total'];
 
-			return [
+			$total_issue_pages   = 1;
+			$total_ignored_pages = 1;
+			if( ! is_null( $per_page ) && ( $total_count > $per_page ) ) {
+				$data = $this->prepare_issues( $per_page, $paged, $type );
+				if (  ! is_null( $paged ) ) {
+					$total_issue_pages   = ceil( $count_issues_filtered / $per_page );
+					$total_ignored_pages = ceil( $ignored_count / $per_page );
+				}
+			} else {
+				$data = $total_data;
+			}
+
+			return array(
 				'status'        => $this->status,
 				'issues_items'  => $data['issues'],
 				'ignored_items' => $data['ignored'],
 				'last_scan'     => $this->format_date_time( $this->date_start ),
-				'count'         => [
-					'total'   => count( $data['issues'] ),
-					'core'    => $data['count_core'],
-					'content' => $data['count_malware'],
-					'vuln'    => $data['count_vuln']
-				]
-			];
+				'count'         => array(
+					'total'                 => count( $data['issues'] ),
+					'total_filtered'        => $total_filtered,
+					'issues_total'          => $total_data['count_issues'],
+					'issues_total_filtered' => $count_issues_filtered,
+					'ignored_total'         => $ignored_count,
+					'core'                  => $total_data['count_core'] + $total_data['count_plugin'] + $total_data['count_theme'],
+					'content'               => $total_data['count_malware'],
+					'vuln'                  => $total_data['count_vuln'],
+				),
+				'paging'       => array(
+					'issue'    => array(
+						'paged'       => $paged,
+						'total_pages' => $total_issue_pages,
+					),
+					'ignored'  => array(
+						'paged'       => $paged,
+						'total_pages' => $total_ignored_pages,
+					),
+					'per_page' => $per_page,
+				),
+			);
 		}
 	}
-
 
 	/**
 	 * @param false $from_report
@@ -306,7 +441,7 @@ class Scan extends DB {
 		$orm    = self::get_orm();
 		$active = self::get_active();
 		if ( is_object( $active ) ) {
-			return new \WP_Error( Error_Code::INVALID, __( "A scan is already in progress", 'wpdef' ) );
+			return new \WP_Error( Error_Code::INVALID, __( 'A scan is already in progress', 'wpdef' ) );
 		}
 		$model                = new Scan();
 		$model->status        = self::STATUS_INIT;
@@ -325,12 +460,16 @@ class Scan extends DB {
 	public function delete() {
 		//delete all the relate result items
 		$orm = self::get_orm();
-		$orm->get_repository( Scan_Item::class )->delete( [
-			'parent_id' => $this->id
-		] );
-		$orm->get_repository( self::class )->delete( [
-			'id' => $this->id
-		] );
+		$orm->get_repository( Scan_Item::class )->delete(
+			array(
+				'parent_id' => $this->id,
+			)
+		);
+		$orm->get_repository( self::class )->delete(
+			array(
+				'id' => $this->id,
+			)
+		);
 	}
 
 	/**
@@ -341,10 +480,9 @@ class Scan extends DB {
 	public static function get_active() {
 		$orm = self::get_orm();
 
-		return $orm->get_repository( self::class )->where( 'status', 'NOT IN', [
-			self::STATUS_FINISH,
-			self::STATUS_ERROR
-		] )->first();
+		return $orm->get_repository( self::class )
+			->where( 'status', 'NOT IN', array( self::STATUS_FINISH, self::STATUS_ERROR ) )
+			->first();
 	}
 
 	/**
@@ -355,8 +493,10 @@ class Scan extends DB {
 	public static function get_last() {
 		$orm = self::get_orm();
 
-		return $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
-			->order_by( 'id', 'desc' )->first();
+		return $orm->get_repository( self::class )
+			->where( 'status', self::STATUS_FINISH )
+			->order_by( 'id', 'desc' )
+			->first();
 	}
 
 	/**
@@ -365,8 +505,10 @@ class Scan extends DB {
 	public static function get_last_all() {
 		$orm = self::get_orm();
 
-		return $orm->get_repository( self::class )->where( 'status', self::STATUS_FINISH )
-			->order_by( 'id', 'desc' )->get();
+		return $orm->get_repository( self::class )
+			->where( 'status', self::STATUS_FINISH )
+			->order_by( 'id', 'desc' )
+			->get();
 	}
 
 	/**
@@ -400,6 +542,10 @@ class Scan extends DB {
 				return __( 'Gathering information...', 'wpdef' );
 			case 'core_integrity_check':
 				return __( 'Analyzing WordPress Core...', 'wpdef' );
+			case 'theme_integrity_check':
+				return __( 'Analyzing WordPress Themes...', 'wpdef' );
+			case 'plugin_integrity_check':
+				return __( 'Analyzing WordPress Plugins...', 'wpdef' );
 			case 'vuln_check':
 				return __( 'Checking for any published vulnerabilities in your plugins & themes...', 'wpdef' );
 			case 'suspicious_check':
@@ -464,7 +610,7 @@ class Scan extends DB {
 	public function is_issue_whitelisted( $slug ) {
 		$whitelisted_files = $this->whitelisted_files();
 		foreach ( $whitelisted_files as $file ) {
-			if ( stristr( $slug, $file ) !== false ) {
+			if ( false !== stristr( $slug, $file ) ) {
 				return true;
 			}
 		}

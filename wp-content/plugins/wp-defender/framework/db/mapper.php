@@ -73,7 +73,7 @@ class Mapper extends Component {
 		global $wpdb;
 		if ( 2 === count( $args ) ) {
 			list( $key, $value ) = $args;
-			$this->where[] = $wpdb->prepare( "`$key` = " . $this->guess_var_type( $value ), $value );
+			$this->where[]       = $wpdb->prepare( "`$key` = " . $this->guess_var_type( $value ), $value );
 
 			return $this;
 		}
@@ -84,9 +84,9 @@ class Mapper extends Component {
 			return $this;
 		}
 		if ( in_array( strtolower( $operator ), array( 'in', 'not in' ), true ) ) {
-			$tmp           = $key . " {$operator} (" . implode( ', ',
-					array_fill( 0, count( $value ), $this->guess_var_type( $value ) ) ) . ')';
-			$sql           = call_user_func_array(
+			//Todo: check implode() on php8
+			$tmp = $key . " {$operator} (" . implode( ', ', array_fill( 0, count( $value ), $this->guess_var_type( $value ) ) ) . ')';
+			$sql = call_user_func_array(
 				array(
 					$wpdb,
 					'prepare',
@@ -95,8 +95,11 @@ class Mapper extends Component {
 			);
 			$this->where[] = $sql;
 		} elseif ( 'between' === strtolower( $operator ) ) {
-			$this->where[] = $wpdb->prepare( "{$key} {$operator} {$this->guess_var_type($value[0])} AND {$this->guess_var_type($value[1])}",
-				$value[0], $value[1] );
+			$this->where[] = $wpdb->prepare(
+				"{$key} {$operator} {$this->guess_var_type($value[0])} AND {$this->guess_var_type($value[1])}",
+				$value[0],
+				$value[1]
+			);
 		} else {
 			$this->where[] = $wpdb->prepare( "`$key` $operator {$this->guess_var_type($value)}", $value );
 		}
@@ -196,7 +199,7 @@ class Mapper extends Component {
 	 * @return array
 	 */
 	public function get() {
-		$sql = $this->query_build();
+		$sql                 = $this->query_build();
 		$this->saved_queries = $sql;
 		global $wpdb;
 		$data = $wpdb->get_results( $sql, ARRAY_A );
@@ -294,6 +297,21 @@ class Mapper extends Component {
 
 		$where = implode( ' AND ', $this->where );
 		$sql   = "DELETE FROM $table WHERE $where";
+
+		return $wpdb->query( $sql );
+	}
+
+	/**
+	 * @return int|bool
+	 */
+	public function delete_by_limit() {
+		$table = self::table();
+		global $wpdb;
+
+		$where = implode( ' AND ', $this->where );
+		$limit = $this->limit;
+		$order = $this->order;
+		$sql   = "DELETE FROM $table WHERE $where $order $limit";
 
 		return $wpdb->query( $sql );
 	}

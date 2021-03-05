@@ -48,6 +48,7 @@
 			background-image: url("<?php echo $devman_img ?>");
 			background-repeat: no-repeat;
 			background-size: contain;
+			background-position: center;
 			margin-bottom: 30px;
 		}
 
@@ -70,7 +71,14 @@
 <body>
 <div class="wp-defender">
 	<div class="container">
-		<div class="image"></div>
+	<?php
+		if (
+			( $info['hide_branding'] === false ) ||
+			( $info['hide_branding'] === true && ! empty ( $info['hero_image'] ) )
+		) {
+			echo '<div class="image"></div>';
+		}
+	?>
 		<p><?php echo $message ?></p>
 	</div>
 	<div class="powered"><?php esc_html_e( "Powered by", 'wpdef' ) ?>

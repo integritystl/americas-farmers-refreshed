@@ -33,9 +33,10 @@ use WP_Defender\Traits\Formats;
 class WPMUDEV extends Behavior {
 	use IO, Formats;
 
-	const API_SCAN_SIGNATURE = 'yara_scan', API_SCAN_KNOWN_VULN = 'known_vulnerability';
-	const API_AUDIT          = 'audit_logging', API_AUDIT_ADD = 'audit_logging_add';
-	const API_BLACKLIST      = 'blacklist', API_WAF = 'waf', API_HUB_SYNC = 'hub_sync';
+	const API_SCAN_SIGNATURE  = 'yara_scan', API_SCAN_KNOWN_VULN = 'known_vulnerability';
+	const API_AUDIT           = 'audit_logging', API_AUDIT_ADD = 'audit_logging_add';
+	const API_BLACKLIST       = 'blacklist', API_WAF = 'waf', API_HUB_SYNC = 'hub_sync';
+	const API_PACKAGE_CONFIGS = 'package_configs';
 
 	/**
 	 * Get membership status
@@ -175,6 +176,10 @@ class WPMUDEV extends Behavior {
 				$site_id = $this->get_site_id();
 
 				return "{$base}api/hub/v1/sites/$site_id/modules/hosting";
+
+			case self::API_PACKAGE_CONFIGS:
+				return "{$base}api/hub/v1/package-configs";
+
 			case self::API_HUB_SYNC:
 			default:
 				return 'https://premium.wpmudev.org/api/defender/v1/scan-results';
@@ -245,12 +250,13 @@ class WPMUDEV extends Behavior {
 	public function make_wpmu_request( $scenario, $body = array(), $args = array(), $recheck = false ) {
 		$api_key = $this->get_apikey();
 		if ( false === $api_key ) {
+			$link_text = sprintf( '<a target="_blank" href="%s">%s</a>', 'https://premium.wpmudev.org/project/wpmu-dev-dashboard/', __( 'here', 'wpdef' ) );
 			return new \WP_Error(
 				'dashboard_required',
 				sprintf(
-				/* translators: %s - wpmudev link */
-					esc_html__( 'WPMU DEV Dashboard will be required for this action. Please visit <a target="_blank" href="%s">here</a> and install the WPMU DEV Dashboard', 'wpdef' ),
-					'https://premium.wpmudev.org/project/wpmu-dev-dashboard/'
+					/* translators: %s - wpmudev link */
+					esc_html__( 'WPMU DEV Dashboard will be required for this action. Please visit %s and install the WPMU DEV Dashboard.', 'wpdef' ),
+					$link_text
 				)
 			);
 		}
@@ -297,12 +303,16 @@ class WPMUDEV extends Behavior {
 
 	/**
 	 * This will build data relate to scan module so we can push to hub
+	 * @since 2.4.7 add 'theme_integrity', 'plugin_integrity' args
+	 *
 	 * @return array
 	 */
 	protected function build_scan_hub_data() {
 		$scan         = Scan::get_last();
 		$scan_result  = array(
 			'core_integrity'     => 0,
+			'theme_integrity'    => 0,
+			'plugin_integrity'   => 0,
 			'vulnerability_db'   => 0,
 			'file_suspicious'    => 0,
 			'last_completed'     => false,
@@ -315,6 +325,8 @@ class WPMUDEV extends Behavior {
 			$data = $scan->prepare_issues();
 
 			$scan_result['core_integrity']     = $data['count_core'];
+			$scan_result['theme_integrity']    = $data['count_theme'];
+			$scan_result['plugin_integrity']   = $data['count_plugin'];
 			$scan_result['vulnerability_db']   = $data['count_vuln'];
 			$scan_result['file_suspicious']    = $data['count_malware'];
 			$scan_result['last_completed']     = $scan->date_end;
@@ -597,9 +609,12 @@ class WPMUDEV extends Behavior {
 					),
 					'audit_page_url'        => network_admin_url( 'admin.php?page=wdf-logging' ),
 					'labels'                => array(
-						'core_integrity'   => esc_html__( 'WordPress Core Integrity', 'wpdef' ),
-						'vulnerability_db' => esc_html__( 'Plugins & Themes vulnerability', 'wpdef' ),
-						'file_suspicious'  => esc_html__( 'Suspicious Code', 'wpdef' ),
+						'parent_integrity' => esc_html__( 'File change detection', 'wpdef' ),
+						'core_integrity'   => esc_html__( 'Scan core files', 'wpdef' ),
+						'theme_integrity'  => esc_html__( 'Scan theme files', 'wpdef' ),
+						'plugin_integrity' => esc_html__( 'Scan plugin files', 'wpdef' ),
+						'vulnerability_db' => esc_html__( 'Known vulnerabilities', 'wpdef' ),
+						'file_suspicious'  => esc_html__( 'Suspicious code', 'wpdef' ),
 					),
 					'scan_page_url'         => network_admin_url( 'admin.php?page=wdf-scan' ),
 					'hardener_page_url'     => network_admin_url( 'admin.php?page=wdf-hardener' ),
@@ -684,4 +699,20 @@ class WPMUDEV extends Behavior {
 
 		return false;
 	}
+
+	/**
+	 * Get our special WDP ID header line from the file.
+	 *
+	 * @return array Plugin details: name, id.
+	 */
+	public function get_plugin_details() {
+		return get_file_data(
+			WP_DEFENDER_FILE,
+			array(
+				'name'    => 'Plugin Name',
+				'id'      => 'WDP ID',
+			)
+		);
+	}
+
 }

@@ -301,6 +301,8 @@ class HUB extends Controller2 {
 		if ( is_object( $scan ) ) {
 			$total += count( $scan->get_issues() );
 		}
+		//total number of Scan issues and Ignored items
+		$scan_total_issues = $total;
 		$tweaks = wd_di()->get( Security_Tweaks::class )->data_frontend();
 		$total += $tweaks['summary']['issues_count'];
 		// get statuses of login/404-request if Firewall Notification is enabled
@@ -313,13 +315,14 @@ class HUB extends Controller2 {
 		}
 		$status_active     = \WP_Defender\Model\Notification::STATUS_ACTIVE;
 		$model_sec_headers = wd_di()->get( \WP_Defender\Model\Setting\Security_Headers::class );
+		$scan_report       = wd_di()->get( Malware_Report::class );
 		$ret               = array(
 			'summary'         => array(
 				'count'     => $total,
-				'next_scan' => wd_di()->get( Malware_Report::class )->get_next_run_as_string(),
+				'next_scan' => $scan_report->get_next_run_as_string(),
 			),
 			'report'          => array(
-				'malware_scan'  => wd_di()->get( Malware_Report::class )->get_next_run_as_string( true ),
+				'malware_scan'  => $scan_report->get_next_run_as_string( true ),
 				'firewall'      => wd_di()->get( Firewall_Report::class )->get_next_run_as_string( true ),
 				'audit_logging' => wd_di()->get( Audit_Report::class )->get_next_run_as_string( true ),
 			),
@@ -331,7 +334,7 @@ class HUB extends Controller2 {
 				'php_version'  => PHP_VERSION,
 			),
 			'malware_scan'    => array(
-				'count'        => wd_di()->get( \WP_Defender\Model\Scan::class )->to_array()['count']['total'],
+				'count'        => $scan_total_issues,
 				'notification' => wd_di()->get( Malware_Notification::class )->status === $status_active,
 			),
 			'firewall'        => array(

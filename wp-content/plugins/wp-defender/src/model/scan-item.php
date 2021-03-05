@@ -6,6 +6,7 @@ use WP_Defender\DB;
 
 class Scan_Item extends DB {
 	const TYPE_INTEGRITY = 'core_integrity', TYPE_VULNERABILITY = 'vulnerability', TYPE_SUSPICIOUS = 'malware';
+	const TYPE_THEME_CHECK = 'theme_integrity', TYPE_PLUGIN_CHECK = 'plugin_integrity';
 	const STATUS_ACTIVE = 'active', STATUS_IGNORE = 'ignore';
 
 	protected $table = 'defender_scan_item';

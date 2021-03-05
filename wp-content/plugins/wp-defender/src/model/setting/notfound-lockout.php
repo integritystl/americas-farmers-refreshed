@@ -77,7 +77,7 @@ class Notfound_Lockout extends \Calotes\Model\Setting {
 	 * @var string
 	 * @defender_property
 	 */
-	public $lockout_message = "You have been locked out due to too many attempts to access a file that doesn't exist.";
+	public $lockout_message = '';
 
 	/**
 	 * Set to true for enabling the 404 tracking on logged in user
@@ -98,6 +98,10 @@ class Notfound_Lockout extends \Calotes\Model\Setting {
 		array( array( 'lockout_type' ), 'in', array( 'timeframe', 'permanent' ) ),
 		array( array( 'duration_unit' ), 'in', array( 'seconds', 'minutes', 'hours' ) ),
 	);
+
+	protected function before_load() {
+		$this->lockout_message = __( "You have been locked out due to too many attempts to access a file that doesn't exist.", 'wpdef' );
+	}
 
 	/**
 	 * Get list of blocklisted or allowlisted data
@@ -140,12 +144,8 @@ class Notfound_Lockout extends \Calotes\Model\Setting {
 			'detect_404_lockout_message'       => __( '404 Detection - Lockout Message', 'wpdef' ),
 			//Todo new key: blacklist
 			'detect_404_blacklist'             => __( '404 Detection - Files & Folders Blocklist', 'wpdef' ),
-			//Deprecated key
-//			'detect_404_filetypes_blacklist'   => __( '404 Detection - Filetypes & Extensions Blocklist', 'wpdef' ),
 			//Todo new key: whitelist
 			'detect_404_whitelist'             => __( '404 Detection - Files & Folders Allowlist', 'wpdef' ),
-			//Deprecated key
-//			'detect_404_ignored_filetypes'     => __( '404 Detection - Filetypes & Extensions Allowlist', 'wpdef' ),
 			//Todo new key: detect_logged
 			'detect_404_logged'                => __( '404 Detection - Monitor logged in users', 'wpdef' ),
 		);

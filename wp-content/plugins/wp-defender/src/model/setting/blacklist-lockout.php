@@ -35,7 +35,7 @@ class Blacklist_Lockout extends Setting {
 	 * @var string
 	 * @defender_property
 	 */
-	public $ip_lockout_message = 'The administrator has blocked your IP from accessing this website.';
+	public $ip_lockout_message = '';
 
 	/**
 	 *  This should be use if you don't want an IP from some country to access your site, the error message will refer to
@@ -63,9 +63,10 @@ class Blacklist_Lockout extends Setting {
 	public $geodb_path = null;
 
 	public function before_load() {
-		$whitelist          = $this->get_list( 'allowlist' );
-		$whitelist          = array_filter( $whitelist );
-		$this->ip_whitelist = implode( PHP_EOL, $whitelist );
+		$whitelist                = $this->get_list( 'allowlist' );
+		$whitelist                = array_filter( $whitelist );
+		$this->ip_whitelist       = implode( PHP_EOL, $whitelist );
+		$this->ip_lockout_message = __( 'The administrator has blocked your IP from accessing this website.', 'wpdef' );
 	}
 
 	/**

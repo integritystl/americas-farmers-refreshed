@@ -27,6 +27,12 @@ class Firewall extends \WP_Defender\Controller2 {
 	 */
 	protected $model;
 
+
+	/**
+	 * @var \WP_Defender\Component\Firewall
+	 */
+	public $service;
+
 	public function __construct() {
 		$this->register_page(
 			esc_html__( 'Firewall', 'wpdef' ),
@@ -37,7 +43,8 @@ class Firewall extends \WP_Defender\Controller2 {
 			),
 			$this->parent_slug
 		);
-		$this->model = wd_di()->get( \WP_Defender\Model\Setting\Firewall::class );
+		$this->model   = wd_di()->get( \WP_Defender\Model\Setting\Firewall::class );
+		$this->service = wd_di()->get( \WP_Defender\Component\Firewall::class );
 		$this->register_routes();
 		$this->maybe_show_demo_lockout();
 		$this->maybe_lockout();
@@ -46,7 +53,23 @@ class Firewall extends \WP_Defender\Controller2 {
 		wd_di()->get( Nf_Lockout::class );
 		wd_di()->get( Blacklist::class );
 		wd_di()->get( Firewall_Logs::class );
+
+		/**
+		 * We will schedule the time to clean up old firewall logs
+		 */
+		if ( ! wp_next_scheduled( 'firewall_clean_up_logs' ) ) {
+			wp_schedule_event( time(), 'hourly', 'firewall_clean_up_logs' );
+		}
+
+		add_action( 'firewall_clean_up_logs', array( &$this, 'clean_up_firewall_logs' ) );
 		add_action( 'defender_enqueue_assets', array( &$this, 'enqueue_assets' ), 11 );
+	}
+
+	/**
+	 * Clean up all the old logs from the local storage, this will happen per hourly basis
+	 */
+	public function clean_up_firewall_logs() {
+		$this->service->firewall_clean_up_logs();
 	}
 
 	/**
