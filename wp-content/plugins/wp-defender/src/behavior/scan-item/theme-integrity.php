@@ -9,9 +9,12 @@ use WP_Defender\Model\Scan;
 use WP_Defender\Model\Scan_Item;
 use WP_Defender\Traits\Formats;
 use WP_Defender\Traits\IO;
+use WP_Error;
 
-class Core_Integrity extends Behavior {
+class Theme_Integrity extends Behavior {
 	use Formats, IO;
+
+	const URL_THEME_VCS = 'https://themes.svn.wordpress.org/';
 
 	/**
 	 * Return general data so we can output on frontend
@@ -35,7 +38,7 @@ class Core_Integrity extends Behavior {
 
 		return array(
 			'id'         => $this->owner->id,
-			'type'       => Scan_Item::TYPE_INTEGRITY,
+			'type'       => Scan_Item::TYPE_THEME_CHECK,
 			'file_name'  => pathinfo( $file, PATHINFO_BASENAME ),
 			'full_path'  => $file,
 			'date_added' => $file_created_at,
@@ -51,12 +54,25 @@ class Core_Integrity extends Behavior {
 	 * @return false|string|\WP_Error
 	 */
 	private function get_origin_code() {
-		global $wp_version;
-		$data            = $this->owner->raw_data;
-		$file            = wp_normalize_path( $data['file'] );
-		$relative_path   = str_replace( wp_normalize_path( ABSPATH ), '', $file );
-		$source_file_url = "http://core.svn.wordpress.org/tags/$wp_version/" . $relative_path;
-		$ds              = DIRECTORY_SEPARATOR;
+		$data          = $this->owner->raw_data;
+		$file          = wp_normalize_path( $data['file'] );
+		$ds            = DIRECTORY_SEPARATOR;
+		$theme_dir     = WP_CONTENT_DIR . $ds . 'themes';
+		$relative_path = str_replace( wp_normalize_path( $theme_dir ) . $ds, '', $file );
+		$path_data     = explode( $ds, $relative_path, 2 );
+		if ( ! empty( $path_data ) ) {
+			$theme_slug = $path_data[0];
+			$file_path  = $path_data[1];
+		} else {
+			return new WP_Error( 'defender_broken_file_path', __( 'Broken file path.', 'wpdef' ) );
+		}
+		if ( ! function_exists( 'wp_get_themes' ) ) {
+			require_once( ABSPATH . '/wp-includes/theme.php' );
+		}
+		$theme = wp_get_theme( $theme_slug );
+
+		//Get original from wp.org e.g. https://themes.svn.wordpress.org/twentytwenty/1.6/functions.php
+		$source_file_url = self::URL_THEME_VCS . $theme_slug . $ds . $theme->get( 'Version' ) . $ds . $file_path;
 		if ( ! function_exists( 'download_url' ) ) {
 			require_once ABSPATH . 'wp-admin' . $ds . 'includes' . $ds . 'file.php';
 		}
@@ -129,7 +145,8 @@ class Core_Integrity extends Behavior {
 	}
 
 	/**
-	 * Delete the file, or whole folder
+	 * Todo: check it because the option don't have 'unversion' & 'dir' types
+	 * Delete the file or whole folder
 	 */
 	public function delete() {
 		$data = $this->owner->raw_data;
@@ -153,9 +170,6 @@ class Core_Integrity extends Behavior {
 
 	/**
 	 *  Return the source code depend the type of the issue
-	 *  If it is unversion, return full source
-	 *  If it is dir, we return a list of files
-	 *  If it is modified, we will return the current code & origin
 	 *
 	 * @return array
 	 */
@@ -188,16 +202,17 @@ class Core_Integrity extends Behavior {
 	}
 
 	/**
+	 * Todo: check it because the option don't have 'unversion' & 'dir' types
 	 * @return string
 	 */
 	private function get_short_description() {
 		$data = $this->owner->raw_data;
 		if ( 'unversion' === $data['type'] ) {
-			return esc_html__( 'Unknown file in WordPress core', 'wpdef' );
+			return esc_html__( 'Unknown file in the WordPress theme', 'wpdef' );
 		} elseif ( 'dir' === $data['type'] ) {
-			return esc_html__( 'This directory does not belong to WordPress core', 'wpdef' );
+			return esc_html__( 'This directory does not belong to the WordPress theme', 'wpdef' );
 		} elseif ( 'modified' === $data['type'] ) {
-			return esc_html__( 'This WordPress core file appears modified', 'wpdef' );
+			return esc_html__( 'This theme file appears modified', 'wpdef' );
 		}
 	}
 }

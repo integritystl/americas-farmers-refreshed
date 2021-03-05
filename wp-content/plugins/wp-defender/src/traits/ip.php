@@ -330,12 +330,16 @@ trait IP {
 			return true;
 		}
 
-		if ( false === filter_var(
-			$ip,
-			FILTER_VALIDATE_IP,
-			FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6 | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
-		)
-		) {
+		$filter_flags = FILTER_FLAG_IPV4 | FILTER_FLAG_IPV6;
+		/**
+		 * Since 2.4.7
+		 */
+		if ( apply_filters( 'wp_defender_filtered_internal_ip', false ) ) {
+			// Todo: improve display of IP log when filtering reserved or private IPv4/IPv6 ranges
+			$filter_flags = $filter_flags | FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+		}
+
+		if ( false === filter_var( $ip, FILTER_VALIDATE_IP, $filter_flags ) ) {
 			return false;
 		}
 

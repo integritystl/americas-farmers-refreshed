@@ -130,7 +130,11 @@ class Upgrader {
 			return;
 		}
 
-		if ( version_compare( $current_version, DEFENDER_DB_VERSION, '<' ) ) {
+		// Set the version where we have added the new feature.
+		// Update it when you want to show modal on a specific version.
+		$feature_version = '2.4';
+
+		if ( version_compare( $current_version, $feature_version, '<' ) ) {
 			update_site_option( 'wd_show_new_feature', true );
 		}
 	}
@@ -186,22 +190,176 @@ class Upgrader {
 	}
 
 	/**
+	 *
+	 * Migrate value of scan setting from 'integrity_check' to 'check_core'.
+	 *
+	 * @since 2.4.7
+	 * @return void
+	 */
+	private function migrate_scan_integrity_check() {
+		$model             = new \WP_Defender\Model\Setting\Scan();
+		$model->check_core = (bool) $model->integrity_check;
+		$model->save();
+	}
+
+	/**
 	 * Run an upgrade/installation.
+	 *
+	 * @return void
 	 */
 	public function run() {
+		// Sometimes multiple requests comes at the same time.
+		// So we will only count the web requests.
+		if ( defined( 'DOING_AJAX' ) || defined( 'DOING_CRON' ) ) {
+			return;
+		}
+
 		$db_version = get_site_option( 'wd_db_version' );
 		if ( empty( $db_version ) ) {
-
-			return update_site_option( 'wd_db_version', DEFENDER_DB_VERSION );
+			update_site_option( 'wd_db_version', DEFENDER_DB_VERSION );
+			return;
 		}
+
 		if ( DEFENDER_DB_VERSION === $db_version ) {
 			return;
 		}
+
 		$this->maybe_show_new_features( $db_version );
 		$this->migrate_configs( $db_version );
+
 		if ( version_compare( $db_version, '2.2.9', '<' ) ) {
 			$this->migrate_security_headers();
 		}
+
+		if ( version_compare( $db_version, '2.4.7', '<' ) ) {
+			$this->index_database();
+			$this->migrate_scan_integrity_check();
+		}
+
+		// Don't run any function below this line.
 		update_site_option( 'wd_db_version', DEFENDER_DB_VERSION );
+	}
+
+	/**
+	 * Index necessary columns.
+	 * Sometimes this function call twice that's why we have to check index already exists or not.
+	 * `dbDelta` not work on `ALTER TABLE` query so we had to use $wpdb->query()
+	 *
+	 * @since 2.4.7
+	 * @return void
+	 */
+	private function index_database() {
+		global $wpdb;
+		$wpdb->hide_errors();
+
+		$this->add_index_to_defender_email_log( $wpdb );
+		$this->add_index_to_defender_audit_log( $wpdb );
+		$this->add_index_to_defender_scan_item( $wpdb );
+		$this->add_index_to_defender_lockout_log( $wpdb );
+		$this->add_index_to_defender_lockout( $wpdb );
+	}
+
+	/**
+	 * Add index to defender_email_log
+	 *
+	 * @param $wpdb
+	 * @since 2.4.7
+	 */
+	private function add_index_to_defender_email_log( $wpdb ) {
+		$table  = $wpdb->base_prefix . 'defender_email_log';
+		// Check index already exists or not.
+		$result = $wpdb->get_row( "SHOW INDEX FROM {$table} WHERE Key_name = 'source';", ARRAY_A );
+
+		if ( is_array( $result ) ) {
+			return;
+		}
+
+		$sql = "ALTER TABLE {$table} ADD INDEX `source` (`source`);";
+		$wpdb->query( $sql );
+	}
+
+	/**
+	 * Add index to defender_audit_log
+	 *
+	 * @param $wpdb
+	 * @since 2.4.7
+	 */
+	private function add_index_to_defender_audit_log( $wpdb ) {
+		$table  = $wpdb->base_prefix . 'defender_audit_log';
+		// Check index already exists or not.
+		$result = $wpdb->get_row( "SHOW INDEX FROM {$table} WHERE Key_name = 'event_type';", ARRAY_A );
+
+		if ( is_array( $result ) ) {
+			return;
+		}
+
+		$sql = "ALTER TABLE {$table}
+				ADD INDEX `event_type` (`event_type`),
+				ADD INDEX `action_type` (`action_type`),
+				ADD INDEX `user_id` (`user_id`),
+				ADD INDEX `context` (`context`),
+				ADD INDEX `ip` (`ip`);";
+		$wpdb->query( $sql );
+	}
+
+	/**
+	 * Add index to defender_scan_item
+	 *
+	 * @param $wpdb
+	 * @since 2.4.7
+	 */
+	private function add_index_to_defender_scan_item( $wpdb ) {
+		$table  = $wpdb->base_prefix . 'defender_scan_item';
+		// Check index already exists or not.
+		$result = $wpdb->get_row( "SHOW INDEX FROM {$table} WHERE Key_name = 'type';", ARRAY_A );
+
+		if ( is_array( $result ) ) {
+			return;
+		}
+
+		$sql = "ALTER TABLE {$table} ADD INDEX `type` (`type`), ADD INDEX `status` (`status`);";
+		$wpdb->query( $sql );
+	}
+
+	/**
+	 * Add index to defender_lockout_log
+	 *
+	 * @param $wpdb
+	 * @since 2.4.7
+	 */
+	private function add_index_to_defender_lockout_log( $wpdb ) {
+		$table  = $wpdb->base_prefix . 'defender_lockout_log';
+		// Check index already exists or not.
+		$result = $wpdb->get_row( "SHOW INDEX FROM {$table} WHERE Key_name = 'ip';", ARRAY_A );
+
+		if ( is_array( $result ) ) {
+			return;
+		}
+
+		$sql = "ALTER TABLE {$table} ADD INDEX `ip` (`ip`), ADD INDEX `type` (`type`), ADD INDEX `tried` (`tried`);";
+		$wpdb->query( $sql );
+	}
+
+	/**
+	 * Add index to defender_lockout
+	 *
+	 * @param $wpdb
+	 * @since 2.4.7
+	 */
+	private function add_index_to_defender_lockout( $wpdb ) {
+		$table  = $wpdb->base_prefix . 'defender_lockout';
+		// Check index already exists or not.
+		$result = $wpdb->get_row( "SHOW INDEX FROM {$table} WHERE Key_name = 'ip';", ARRAY_A );
+
+		if ( is_array( $result ) ) {
+			return;
+		}
+
+		$sql = "ALTER TABLE {$table}
+				ADD INDEX `ip` (`ip`),
+				ADD INDEX `status` (`status`),
+				ADD INDEX `attempt` (`attempt`),
+				ADD INDEX `attempt_404` (`attempt_404`);";
+		$wpdb->query( $sql );
 	}
 }

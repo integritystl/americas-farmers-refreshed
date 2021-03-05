@@ -2,16 +2,9 @@
 
 namespace WP_Defender\Component;
 
-use Calotes\Helper\Array_Cache;
 use Faker\Factory;
 use WP_Defender\Model\Audit_Log;
 use WP_Defender\Model\Lockout_Log;
-use WP_Defender\Model\Notification\Audit_Report;
-use WP_Defender\Model\Notification\Firewall_Notification;
-use WP_Defender\Model\Notification\Firewall_Report;
-use WP_Defender\Model\Notification\Malware_Notification;
-use WP_Defender\Model\Notification\Malware_Report;
-use WP_Defender\Model\Notification\Tweak_Reminder;
 use WP_Defender\Model\Scan_Item;
 use WP_Defender\Traits\Formats;
 
@@ -32,7 +25,7 @@ class Cli {
 	 * : Value can be run - Perform a scan, or (un)ignore|delete|resolve to do the relevant task
 	 *
 	 * [--type=<type>]
-	 * : Default is all, or core|plugins|content
+	 * : Default is all, or core_integrity|plugin_integrity|theme_integrity|plugins|content
 	 *
 	 * @param $args
 	 * @param $options
@@ -73,8 +66,14 @@ class Cli {
 	private function scan_task( $task, $options ) {
 		$type = isset( $options['type'] ) ? $options['type'] : null;
 		switch ( $type ) {
-			case 'core':
+			case 'core_integrity':
 				$type = Scan_Item::TYPE_INTEGRITY;
+				break;
+			case 'plugin_integrity':
+				$type = Scan_Item::TYPE_PLUGIN_CHECK;
+				break;
+			case 'theme_integrity':
+				$type = Scan_Item::TYPE_THEME_CHECK;
 				break;
 			case 'plugins':
 				$type = Scan_Item::TYPE_VULNERABILITY;
@@ -114,7 +113,13 @@ class Cli {
 				$items    = $model->get_issues( $type, Scan_Item::STATUS_ACTIVE );
 				$resolved = array();
 				foreach ( $items as $item ) {
-					if ( Scan_Item::TYPE_INTEGRITY === $item->type ) {
+					if (
+						in_array(
+							$item->type,
+							array( Scan_Item::TYPE_INTEGRITY, Scan_Item::TYPE_PLUGIN_CHECK, Scan_Item::TYPE_THEME_CHECK ),
+							true
+						)
+					) {
 						\WP_CLI::log( sprintf( 'Reverting %s to original', $item->raw_data['file'] ) );
 						$ret = $item->resolve();
 						if ( ! is_wp_error( $ret ) ) {
@@ -179,7 +184,7 @@ class Cli {
 	}
 
 	/**
-	 * Generate dummy data, use in cypres & unit test, DO NOT USE IN PRODUCTION
+	 * Generate dummy data, use in cypress & unit test, DO NOT USE IN PRODUCTION
 	 *
 	 * @param $args
 	 * @param $options
@@ -312,14 +317,15 @@ class Cli {
 		if ( ! is_object( $scan ) ) {
 			echo 'No active scan, creating...' . PHP_EOL;
 			$scan = \WP_Defender\Model\Scan::create();
+			if ( is_wp_error( $scan ) ) {
+				return \WP_CLI::error( $scan->get_error_message() );
+			}
 		} else {
 			echo 'Continue from last scan' . PHP_EOL;
 		}
 		$handler = new Scan();
 		$ret     = false;
-		while ( $handler->process() === false ) {
-
-		}
+		while ( $handler->process() === false ) {}
 	}
 
 	/**

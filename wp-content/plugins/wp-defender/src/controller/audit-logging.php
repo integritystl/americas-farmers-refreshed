@@ -53,14 +53,29 @@ class Audit_Logging extends Controller2 {
 				wp_schedule_event( time(), 'hourly', 'audit_sync_events' );
 			}
 			add_action( 'audit_sync_events', array( &$this, 'sync_events' ) );
+
+			/**
+			 * We will schedule the time to clean up old logs
+			 */
+			if ( ! wp_next_scheduled( 'audit_clean_up_logs' ) ) {
+				wp_schedule_event( time(), 'hourly', 'audit_clean_up_logs' );
+			}
+			add_action( 'audit_clean_up_logs', array( &$this, 'clean_up_audit_logs' ) );
 		}
 	}
 
 	/**
-	 * Sync all the events into cloud, this will happen per hourly basic
+	 * Sync all the events into cloud, this will happen per hourly basis
 	 */
 	public function sync_events() {
 		$this->service->flush();
+	}
+
+	/**
+	 * Clean up all the old logs from the local storage, this will happen per hourly basis
+	 */
+	public function clean_up_audit_logs() {
+		$this->service->audit_clean_up_logs();
 	}
 
 	/**

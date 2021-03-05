@@ -2,16 +2,18 @@
 
 namespace WP_Defender\Behavior\Scan_Item;
 
-use Calotes\Base\File;
 use Calotes\Component\Behavior;
 use WP_Defender\Component\Error_Code;
 use WP_Defender\Model\Scan;
 use WP_Defender\Model\Scan_Item;
 use WP_Defender\Traits\Formats;
 use WP_Defender\Traits\IO;
+use WP_Error;
 
-class Core_Integrity extends Behavior {
+class Plugin_Integrity extends Behavior {
 	use Formats, IO;
+
+	const URL_PLUGIN_VCS = 'https://plugins.svn.wordpress.org/%s/tags/%s/%s';
 
 	/**
 	 * Return general data so we can output on frontend
@@ -35,7 +37,7 @@ class Core_Integrity extends Behavior {
 
 		return array(
 			'id'         => $this->owner->id,
-			'type'       => Scan_Item::TYPE_INTEGRITY,
+			'type'       => Scan_Item::TYPE_PLUGIN_CHECK,
 			'file_name'  => pathinfo( $file, PATHINFO_BASENAME ),
 			'full_path'  => $file,
 			'date_added' => $file_created_at,
@@ -46,17 +48,80 @@ class Core_Integrity extends Behavior {
 	}
 
 	/**
-	 * We will get the origin code by looking into svn repo
+	 * Get all installed plugins.
+	 *
+	 * @return array
+	 */
+	private function get_plugins() {
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		if ( ! function_exists( 'get_plugins' ) ) {
+			return array();
+		}
+
+		// WordPress caches this internally.
+		return get_plugins();
+	}
+
+	/**
+	 * Get plugin data.
+	 *
+	 * @return array
+	 */
+	private function find_plugin_by_slug( $slug ) {
+		foreach ( $this->get_plugins() as $file => $data ) {
+			// Comparison is faster, but vast majority of plugins installed are not single file plugins.
+			if ( $file === $slug || 0 === strpos( $file, $slug . '/' ) ) {
+				return $data;
+			}
+		}
+
+		return array();
+	}
+
+	/**
+	 * We will get the origin code by looking into svn repo.
 	 *
 	 * @return false|string|\WP_Error
 	 */
 	private function get_origin_code() {
-		global $wp_version;
-		$data            = $this->owner->raw_data;
-		$file            = wp_normalize_path( $data['file'] );
-		$relative_path   = str_replace( wp_normalize_path( ABSPATH ), '', $file );
-		$source_file_url = "http://core.svn.wordpress.org/tags/$wp_version/" . $relative_path;
-		$ds              = DIRECTORY_SEPARATOR;
+		$data          = $this->owner->raw_data;
+		$file          = wp_normalize_path( $data['file'] );
+		$ds            = DIRECTORY_SEPARATOR;
+		$relative_path = str_replace( wp_normalize_path( WP_PLUGIN_DIR ) . $ds, '', $file );
+		if ( empty( $relative_path ) ) {
+			return new WP_Error( 'defender_broken_file_path', __( 'Failed relative file path.', 'wpdef' ) );
+		}
+
+		if ( false === strpos( $relative_path, '/' ) ) {
+			//Todo: get correct hashes for single-file plugins
+			//separate case for Hello Dolly
+			$slug_and_path = 'hello.php' === $relative_path ? 'hello-dolly' : $relative_path;
+			$path_data     = array( $slug_and_path, $slug_and_path );
+		} else {
+			$path_data = explode( $ds, $relative_path, 2 );
+		}
+		if ( ! empty( $path_data ) ) {
+			$plugin_slug = $path_data[0];
+			$file_path   = $path_data[1];
+		} else {
+			return new WP_Error( 'defender_broken_file_path', __( 'Broken file path.', 'wpdef' ) );
+		}
+
+		$plugin_data = $this->find_plugin_by_slug( $plugin_slug );
+		if ( empty( $plugin_data ) ) {
+			return new WP_Error( 'defender_broken_file_path', __( 'Empty plugin data.', 'wpdef' ) );
+		}
+
+		//Get original from wp.org e.g. https://plugins.svn.wordpress.org/hello-dolly/tags/1.6/
+		$source_file_url = sprintf(
+			self::URL_PLUGIN_VCS,
+			$plugin_slug,
+			$plugin_data['Version'],
+			$file_path
+		);
 		if ( ! function_exists( 'download_url' ) ) {
 			require_once ABSPATH . 'wp-admin' . $ds . 'includes' . $ds . 'file.php';
 		}
@@ -129,7 +194,8 @@ class Core_Integrity extends Behavior {
 	}
 
 	/**
-	 * Delete the file, or whole folder
+	 * Todo: check it because the option don't have 'unversion' & 'dir' types
+	 * Delete the file or whole folder
 	 */
 	public function delete() {
 		$data = $this->owner->raw_data;
@@ -153,9 +219,6 @@ class Core_Integrity extends Behavior {
 
 	/**
 	 *  Return the source code depend the type of the issue
-	 *  If it is unversion, return full source
-	 *  If it is dir, we return a list of files
-	 *  If it is modified, we will return the current code & origin
 	 *
 	 * @return array
 	 */
@@ -188,16 +251,17 @@ class Core_Integrity extends Behavior {
 	}
 
 	/**
+	 * Todo: check it because the option don't have 'unversion' & 'dir' types
 	 * @return string
 	 */
 	private function get_short_description() {
 		$data = $this->owner->raw_data;
 		if ( 'unversion' === $data['type'] ) {
-			return esc_html__( 'Unknown file in WordPress core', 'wpdef' );
+			return esc_html__( 'Unknown file in the WordPress plugin', 'wpdef' );
 		} elseif ( 'dir' === $data['type'] ) {
-			return esc_html__( 'This directory does not belong to WordPress core', 'wpdef' );
+			return esc_html__( 'This directory does not belong to the WordPress plugin', 'wpdef' );
 		} elseif ( 'modified' === $data['type'] ) {
-			return esc_html__( 'This WordPress core file appears modified', 'wpdef' );
+			return esc_html__( 'This plugin file appears modified', 'wpdef' );
 		}
 	}
 }

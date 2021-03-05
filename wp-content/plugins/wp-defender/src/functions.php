@@ -253,3 +253,38 @@ function defender_get_hostname() {
 
 	return $host;
 }
+
+if ( ! function_exists('sanitize_mask_url') ) {
+	/**
+	 * Sanitizes the mask login URL allowing uppercase letters,
+	 * Replacing whitespace and a few other characters with dashes and
+	 * Limits the output to alphanumeric characters, underscore (_) and dash (-).
+	 * Whitespace becomes a dash.
+	 *
+	 * @param string $title     The title to be sanitized.
+	 * @return string The sanitized title.
+	 */
+	function sanitize_mask_url( $title ) {
+		$title = strip_tags( $title );
+		// Preserve escaped octets.
+		$title = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '---$1---', $title );
+		// Remove percent signs that are not part of an octet.
+		$title = str_replace( '%', '', $title );
+		// Restore octets.
+		$title = preg_replace( '|---([a-fA-F0-9][a-fA-F0-9])---|', '%$1', $title );
+
+		if ( seems_utf8( $title ) ) {
+			$title = utf8_uri_encode( $title, 200 );
+		}
+
+		// Kill entities.
+		$title = preg_replace( '/&.+?;/', '', $title );
+		$title = str_replace( '.', '-', $title );
+
+		$title = preg_replace( '/[^%a-zA-Z0-9 _-]/', '', $title );
+		$title = preg_replace( '/\s+/', '-', $title );
+		$title = preg_replace( '|-+|', '-', $title );
+
+		return $title;
+	}
+}

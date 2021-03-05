@@ -4,10 +4,9 @@ namespace WP_Defender\Controller;
 
 use Calotes\Component\Request;
 use Calotes\Component\Response;
-use Calotes\Helper\Route;
 use WP_Defender\Controller2;
 use WP_Defender\Model\Notification\Malware_Report;
-use WP_Defender\Model\Scan_Item;
+use Valitron\Validator;
 
 class Scan extends Controller2 {
 	protected $slug = 'wdf-scan';
@@ -278,6 +277,17 @@ class Scan extends Controller2 {
 	 */
 	public function save_settings( Request $request ) {
 		$data = $request->get_data_by_model( $this->model );
+		//enable all child options, if parent and all child options are disabled, so that there is no notice when saving
+		if (
+			! $data['integrity_check']
+			&& ! $data['check_core']
+			&& ! $data['check_themes']
+			&& ! $data['check_plugins']
+		) {
+			$data['check_core'] = true;
+			$data['check_themes'] = true;
+			$data['check_plugins'] = true;
+		}
 
 		$this->model->import( $data );
 		if ( $this->model->validate() ) {
@@ -297,6 +307,60 @@ class Scan extends Controller2 {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Get the issues mainly for pagination request
+	 *
+	 * @return Response
+	 * @defender_route
+	 */
+	public function get_issues( Request $request ) {
+		$data      = $request->get_data(
+			array(
+				'scenario' => array(
+					'type'     => 'string',
+					'sanitize' => 'sanitize_text_field',
+				),
+				'type' => array(
+					'type'     => 'string',
+					'sanitize' => 'sanitize_text_field',
+				),
+				'per_page'  => array(
+					'type'     => 'string',
+					'sanitize' => 'sanitize_text_field',
+				),
+				'paged'  	=> array(
+					'type'     => 'int',
+					'sanitize' => 'sanitize_text_field',
+				),
+			)
+		);
+
+		// Validate the request
+		$v = new Validator( $data, array() );
+		$v->rule( 'required', array( 'scenario', 'type', 'per_page', 'paged' ) );
+		if ( ! $v->validate() ) {
+			return new Response(
+				false,
+				array(
+					'message' => '',
+				)
+			);
+		}
+
+		$scan = \WP_Defender\Model\Scan::get_last();
+		$issues = $scan->to_array( $data['per_page'], $data['paged'], $data['type'] );
+
+		return new Response(
+			true,
+			array(
+				'issue' => $issues['issues_items'],
+				'ignored' => $issues['ignored_items'],
+				'paging' => $issues['paging'],
+				'count' => $issues['count'],
+			)
+		);
 	}
 
 	/**
@@ -377,6 +441,10 @@ class Scan extends Controller2 {
 			defender_asset_url( '/assets/js/vendor/codemirror/scroll/annotatescrollbar.js' )
 		);
 		wp_enqueue_script(
+			'def-codemirror-simplescrollbars',
+			defender_asset_url( '/assets/js/vendor/codemirror/scroll/simplescrollbars.js' )
+		);
+		wp_enqueue_script(
 			'def-codemirror-searchcursor',
 			defender_asset_url( '/assets/js/vendor/codemirror/search/searchcursor.js' )
 		);
@@ -394,6 +462,10 @@ class Scan extends Controller2 {
 		wp_enqueue_style(
 			'def-codemirror-matchonscrollbars',
 			defender_asset_url( '/assets/js/vendor/codemirror/search/matchesonscrollbar.css' )
+		);
+		wp_enqueue_style(
+			'def-codemirror-simplescrollbars',
+			defender_asset_url( '/assets/js/vendor/codemirror/scroll/simplescrollbars.css' )
 		);
 	}
 
@@ -442,12 +514,14 @@ class Scan extends Controller2 {
 	 * @return array
 	 */
 	public function data_frontend() {
-		$scan = \WP_Defender\Model\Scan::get_active();
-		$last = \WP_Defender\Model\Scan::get_last();
+		$scan     = \WP_Defender\Model\Scan::get_active();
+		$last     = \WP_Defender\Model\Scan::get_last();
+		$per_page = 10;
+		$paged    = 1;
 		if ( ! is_object( $scan ) && ! is_object( $last ) ) {
 			$scan = null;
 		} else {
-			$scan = is_object( $scan ) ? $scan->to_array() : $last->to_array();
+			$scan = is_object( $scan ) ? $scan->to_array( $per_page, $paged ) : $last->to_array( $per_page, $paged );
 		}
 		$settings    = new \WP_Defender\Model\Setting\Scan();
 		$report      = wd_di()->get( Malware_Report::class );
@@ -482,10 +556,11 @@ class Scan extends Controller2 {
 	 */
 	private function is_any_active( $is_pro ) {
 		$settings = new \WP_Defender\Model\Setting\Scan();
-		if ( ! $settings->integrity_check && ! $is_pro ) {
+		$integrity_check = $settings->is_any_filetypes_checked();
+		if ( ! $integrity_check && ! $is_pro ) {
 			return false;
 		} elseif (
-			( ! $settings->integrity_check && ! $settings->check_known_vuln && ! $settings->scan_malware )
+			( ! $integrity_check && ! $settings->check_known_vuln && ! $settings->scan_malware )
 			&& ! $is_pro
 		) {
 			return false;

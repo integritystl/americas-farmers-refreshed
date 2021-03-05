@@ -274,10 +274,11 @@ class Mask_Login extends Controller2 {
 			return $current_url;
 		}
 
-		if ( is_user_logged_in() ) {
+		if ( is_user_logged_in() && stristr( $current_url, 'wp-login.php' ) === false ) {
 			//do nothing
 			return $current_url;
 		}
+
 		if ( stristr( $current_url, 'wp-login.php' ) !== false ) {
 			//this is URL go to old wp-login.php
 			$query = parse_url( $current_url, PHP_URL_QUERY );
@@ -417,7 +418,14 @@ class Mask_Login extends Controller2 {
 			$url .= '/' . ltrim( $path, '/' );
 		}
 
-		return $url;
+		if (
+			is_plugin_active( 'wp-ultimo/wp-ultimo.php' )
+			|| is_plugin_active_for_network( 'wp-ultimo/wp-ultimo.php' )
+		) {
+			return apply_filters( 'site_url', $url, $path, $scheme, $blog_id );
+		} else {
+			return $url;
+		}
 	}
 
 	public function remove_settings() {}

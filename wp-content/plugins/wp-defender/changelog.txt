@@ -1,8 +1,32 @@
 Plugin Name: WP Defender
 Author: WPMU DEV
-Tested up to: 5.6
+Tested up to: 5.6.2
 
 Change Log:
+
+= 2.4.7 ( 2021-03-01 ) =
+
+- New: Sync Config from Defender with The Hub
+- Enhance: Making "Enable Tag" clickable in the notification widget
+- Enhance: Allow capital letters in Masked Login
+- Enhance: New WP CLI commands for file scanning, reset settings, and clear firewall data
+- Enhance: Reducing false-positive reports in malware scanning
+- Enhance: Check plugins and themes against the WP.org repository
+- Enhance: Adding pagination in Malware Scanning grid
+- Enhance: Update text for Suspicious Code scan type options
+- Enhance: Bulk configure - Add to reports/Remove from reports options
+- Enhance: Improve table performance
+- Enhance: Remove hero image when Branding is set to custom for activated Whitelabel
+- Fix: Storage logs not deleted
+- Fix: Update code preview in Malware Scanning
+- Fix: MaxMind DB Reader API version update
+- Fix: Keep empty IP for internal or private IPs
+- Fix: Failed login attempt with an empty banned username
+- Fix: Audit Log Export
+- Fix: Loopback request could not be completed
+- Fix: Subsites login area is blocked for network users
+- Fix: Mask login can be bypassed with wp-signup.php for single sites
+- Fix: Ability to use dash symbol at the start/end of New Login URL slug
 
 = 2.4.6.1 ( 2021-02-12 ) =
 
@@ -74,20 +98,5 @@ Change Log:
 
 - Fix: Fatal version on WordPress 5.2 and earlier
 
-= 2.4.0 ( 2020-11-24 ) =
 
-- New: Notifications section - centralized manager for all notifications and reports
-- New: Onboarding which will replace the old quick setup and enable everything that is recommended
-- New: New: Bulk behavior for Security Recommendations - resolve/ignore almost everything with a single click
-- New: Improving Security Recommendations UI/UX
-- New: 2FA with Authy and Microsoft Authenticator
-- New: Highlight new features in welcome modal
-- Enhance: Better UI/UX and performance for Malware Scanning
-- Fix: The Audit Logging widget on the dashboard doesn’t show the correct report status
-- Fix: The custom message in Login Lockout doesn’t apply when an IP is banned by using a banned username
-- Fix: Conflict with WP Fastest Cache makes revert buttons show incorrectly
-- Fix: Warning with PHP 7.2.x
-- Fix: The username search in Audit Logging doesn’t work
-
-
-397935-1613762623-au
+397935-1614964967-au

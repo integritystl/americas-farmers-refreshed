@@ -169,6 +169,9 @@ class Config_Adapter extends Component {
 	public function update_scan( $old_data ) {
 		$scan = array(
 			'integrity_check'               => empty( $old_data['scan_core'] ) ? true : $old_data['scan_core'],
+			'check_core'                    => empty( $old_data['check_core'] ) ? true : $old_data['check_core'],
+			'check_themes'                  => empty( $old_data['check_themes'] ) ? true : $old_data['check_themes'],
+			'check_plugins'                 => empty( $old_data['check_plugins'] ) ? true : $old_data['check_plugins'],
 			'check_known_vuln'              => empty( $old_data['scan_vuln'] ) ? true : $old_data['scan_vuln'],
 			'scan_malware'                  => empty( $old_data['scan_content'] ) ? false : $old_data['scan_content'],
 			'filesize'                      => empty( $old_data['max_filesize'] ) ? 3 : $old_data['max_filesize'],
@@ -186,12 +189,13 @@ class Config_Adapter extends Component {
 			'always_send_notification'      => empty( $old_data['always_send_notification'] )
 				? false
 				: $old_data['always_send_notification'],
+			'error_send'                    => empty( $old_data['error_send'] ) ? false : $old_data['error_send'],
 			'email_subject_issue_found'     => isset( $old_data['email_subject_issue'] ) ? $old_data['email_subject_issue'] : '',
 			'email_subject_issue_not_found' => isset( $old_data['email_subject'] ) ? $old_data['email_subject'] : '',
-			'email_subject_error'           => '',
+			'email_subject_error'           => isset( $old_data['email_subject_error'] ) ? $old_data['email_subject_error'] : '',
 			'email_content_issue_found'     => isset( $old_data['email_has_issue'] ) ? $old_data['email_has_issue'] : '',
 			'email_content_issue_not_found' => isset( $old_data['email_all_ok'] ) ? $old_data['email_all_ok'] : '',
-			'email_content_error'           => '',
+			'email_content_error'           => isset( $old_data['email_content_error'] ) ? $old_data['email_content_error'] : '',
 		);
 
 		$scan['report_subscribers']       = empty( $old_data['recipients'] )

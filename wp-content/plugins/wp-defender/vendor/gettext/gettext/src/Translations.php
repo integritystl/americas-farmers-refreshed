@@ -365,7 +365,7 @@ class Translations extends ArrayObject
             return $this->setPluralForms(count($info->categories), $info->formula);
         }
 
-        throw new InvalidArgumentException(sprintf('The language "%s" is not valid', $language));	 		 	  	  					 	 	 
+        throw new InvalidArgumentException(sprintf('The language "%s" is not valid', $language));
     }
 
     /**

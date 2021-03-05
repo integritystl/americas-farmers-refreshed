@@ -14,15 +14,15 @@ class Core_Integrity extends Behavior {
 	const CACHE_CHECKSUMS = 'wd_cache_checksums';
 
 	/**
-	 * Check if the core file is un touch
+	 * Check if the core file is on touch
 	 */
 	public function core_integrity_check() {
-		$core_files = get_site_option( Gather_Fact::CACHE_CORE, [] );
+		$core_files = get_site_option( Gather_Fact::CACHE_CORE, array() );
 		$core_files = new \ArrayIterator( $core_files );
 		$checksums  = $this->get_checksum();
-		$timer = new Timer();
-		$model = $this->owner->scan;
-		$pos   = (int) $model->task_checkpoint;
+		$timer      = new Timer();
+		$model      = $this->owner->scan;
+		$pos        = (int) $model->task_checkpoint;
 		$core_files->seek( $pos );
 		$this->log( sprintf( 'current pos %s', $pos ), 'scan' );
 		while ( $core_files->valid() ) {
@@ -58,20 +58,25 @@ class Core_Integrity extends Behavior {
 			//remove the first \ on windows
 			$rev_file = str_replace( DIRECTORY_SEPARATOR, '/', $rev_file );
 			if ( isset( $checksums[ $rev_file ] ) ) {
-				$md5 = md5_file( $file );
-				if ( ! hash_equals( $md5, $checksums[ $rev_file ] ) ) {
+				if ( ! $this->compare_hashes( $file, $checksums[ $rev_file ] ) ) {
 					$this->log( sprintf( 'modified %s', $file ), 'scan' );
-					$model->add_item( Scan_Item::TYPE_INTEGRITY, [
-						'file' => $file,
-						'type' => 'modified'
-					] );
+					$model->add_item(
+						Scan_Item::TYPE_INTEGRITY,
+						array(
+							'file' => $file,
+							'type' => 'modified',
+						)
+					);
 				}
 			} else {
 				//To log unversion file run: $this->log( sprintf( 'unversion %s', $rev_file ), 'scan' );
-				$model->add_item( Scan_Item::TYPE_INTEGRITY, [
-					'file' => $file,
-					'type' => is_dir( $file ) ? 'dir' : 'unversion'
-				] );
+				$model->add_item(
+					Scan_Item::TYPE_INTEGRITY,
+					array(
+						'file' => $file,
+						'type' => is_dir( $file ) ? 'dir' : 'unversion',
+					)
+				);
 			}
 			$model->calculate_percent( $core_files->key() * 100 / $core_files->count(), 2 );
 			if ( $core_files->key() % 100 === 0 ) {
@@ -114,8 +119,7 @@ class Core_Integrity extends Behavior {
 		if ( ! function_exists( 'get_core_checksums' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/update.php';
 		}
-		$language  = get_locale();
-		$checksums = get_core_checksums( $wp_version, empty( $language ) ? 'en_US' : $language );
+		$checksums = get_core_checksums( $wp_version, empty( $wp_local_package ) ? 'en_US' : $wp_local_package );
 		if ( false === $checksums ) {
 			$this->log( 'Error from fetching checksums from wp.org', 'scan' );
 			$scan         = $this->owner->scan;
