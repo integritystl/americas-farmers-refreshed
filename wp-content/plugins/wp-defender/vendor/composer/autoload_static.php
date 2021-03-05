@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111
+class ComposerStaticInite321c3e5aed575e81d2d0cb4f43e8adf
 {
     public static $files = array (
         'bbf73f3db644d3dced353b837903e74c' => __DIR__ . '/..' . '/php-di/php-di/src/DI/functions.php',
@@ -130,9 +130,13 @@ class ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111
         'WP_Defender\\Behavior\\Scan\\Malware_Deep_Scan' => __DIR__ . '/../..' . '/src/behavior/scan/malware-deep-scan.php',
         'WP_Defender\\Behavior\\Scan\\Malware_Quick_Scan' => __DIR__ . '/../..' . '/src/behavior/scan/malware-quick-scan.php',
         'WP_Defender\\Behavior\\Scan\\Malware_Scan' => __DIR__ . '/../..' . '/src/behavior/scan/malware-scan.php',
+        'WP_Defender\\Behavior\\Scan\\Plugin_Integrity' => __DIR__ . '/../..' . '/src/behavior/scan/plugin-integrity.php',
+        'WP_Defender\\Behavior\\Scan\\Theme_Integrity' => __DIR__ . '/../..' . '/src/behavior/scan/theme-integrity.php',
         'WP_Defender\\Behavior\\Scan_Item\\Core_Integrity' => __DIR__ . '/../..' . '/src/behavior/scan-item/core-integrity.php',
         'WP_Defender\\Behavior\\Scan_Item\\Malware_Result' => __DIR__ . '/../..' . '/src/behavior/scan-item/malware-result.php',
+        'WP_Defender\\Behavior\\Scan_Item\\Plugin_Integrity' => __DIR__ . '/../..' . '/src/behavior/scan-item/plugin-integrity.php',
         'WP_Defender\\Behavior\\Scan_Item\\Silent_Skin' => __DIR__ . '/../..' . '/src/behavior/scan-item/vuln-result.php',
+        'WP_Defender\\Behavior\\Scan_Item\\Theme_Integrity' => __DIR__ . '/../..' . '/src/behavior/scan-item/theme-integrity.php',
         'WP_Defender\\Behavior\\Scan_Item\\Vuln_Result' => __DIR__ . '/../..' . '/src/behavior/scan-item/vuln-result.php',
         'WP_Defender\\Behavior\\WPMUDEV' => __DIR__ . '/../..' . '/src/behavior/wpmudev.php',
         'WP_Defender\\Bootstrap' => __DIR__ . '/../..' . '/src/bootstrap.php',
@@ -152,6 +156,7 @@ class ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111
         'WP_Defender\\Component\\Blacklist_Lockout' => __DIR__ . '/../..' . '/src/component/blacklist-lockout.php',
         'WP_Defender\\Component\\Cli' => __DIR__ . '/../..' . '/src/component/cli.php',
         'WP_Defender\\Component\\Config\\Config_Adapter' => __DIR__ . '/../..' . '/src/component/config/config-adapter.php',
+        'WP_Defender\\Component\\Config\\Config_Hub_Helper' => __DIR__ . '/../..' . '/src/component/config/config-hub-helper.php',
         'WP_Defender\\Component\\Error_Code' => __DIR__ . '/../..' . '/src/component/error-code.php',
         'WP_Defender\\Component\\Firewall' => __DIR__ . '/../..' . '/src/component/firewall.php',
         'WP_Defender\\Component\\Login_Lockout' => __DIR__ . '/../..' . '/src/component/login-lockout.php',
@@ -253,9 +258,9 @@ class ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitdaa4e55e1b74461dffcbb09c987a9111::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite321c3e5aed575e81d2d0cb4f43e8adf::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite321c3e5aed575e81d2d0cb4f43e8adf::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInite321c3e5aed575e81d2d0cb4f43e8adf::$classMap;
 
         }, null, ClassLoader::class);
     }

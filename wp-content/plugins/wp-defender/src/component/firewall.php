@@ -10,14 +10,6 @@ class Firewall extends Component {
 	 */
 	public function add_hooks() {
 		add_filter( 'defender_ip_lockout_assets', array( &$this, 'output_scripts_data' ) );
-		//cron for cleanup
-		$next_cleanup = wp_next_scheduled( 'clean_up_old_log' );
-		if ( false === $next_cleanup || $next_cleanup > strtotime( '+90 minutes' ) ) {
-			wp_clear_scheduled_hook( 'clean_up_old_log' );
-			wp_schedule_event( time(), 'hourly', 'clean_up_old_log' );
-		}
-
-		add_action( 'clean_up_old_log', array( &$this, 'clean_up_old_log' ) );
 	}
 
 	/**
@@ -38,7 +30,7 @@ class Firewall extends Component {
 	/**
 	 * Cron for delete old log
 	 */
-	public function clean_up_old_log() {
+	public function firewall_clean_up_logs() {
 		$settings = new \WP_Defender\Model\Setting\Firewall();
 		/**
 		 * Filter Count days for IP logs to be saved to DB
@@ -54,6 +46,6 @@ class Firewall extends Component {
 		}
 		$time_string = '-' . $storage_days . ' days';
 		$timestamp   = $this->local_to_utc( $time_string );
-		 \WP_Defender\Model\Lockout_Log::remove_logs( $timestamp );
+		\WP_Defender\Model\Lockout_Log::remove_logs( $timestamp, 50 );
 	}
 }

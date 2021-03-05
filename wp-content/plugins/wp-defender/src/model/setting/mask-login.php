@@ -15,7 +15,7 @@ class Mask_Login extends Setting {
 	 *
 	 * @var string
 	 * @defender_property
-	 * @sanitize_title
+	 * @sanitize_mask_url
 	 */
 	public $mask_url = '';
 

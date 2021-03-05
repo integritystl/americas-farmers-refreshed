@@ -13,14 +13,16 @@ class Vuln_Result extends Behavior {
 
 	public function to_array() {
 		$data = $this->owner->raw_data;
+		if ( isset( $data['name'], $data['version'], $data['bugs'] ) ) {
 
-		return [
-			'id'         => $this->owner->id,
-			'type'       => Scan_Item::TYPE_VULNERABILITY,
-			'file_name'  => $data['name'],
-			'short_desc' => sprintf( __( 'Vulnerability found in %s.', 'wpdef' ), $data['version'] ),
-			'detail'     => $this->get_detail_as_string( $data ),
-		];
+			return [
+				'id'         => $this->owner->id,
+				'type'       => Scan_Item::TYPE_VULNERABILITY,
+				'file_name'  => $data['name'],
+				'short_desc' => sprintf( __( 'Vulnerability found in %s.', 'wpdef' ), $data['version'] ),
+				'detail'     => $this->get_detail_as_string( $data ),
+			];
+		}
 	}
 
 	/**

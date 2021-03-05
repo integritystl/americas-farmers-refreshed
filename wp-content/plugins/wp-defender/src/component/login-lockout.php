@@ -111,6 +111,9 @@ class Login_Lockout extends \WP_Defender\Component {
 	 * @param $username
 	 */
 	public function process_fail_attempt( $username ) {
+		if ( empty ( $username ) ) {
+			return;
+		}
 		$ip = $this->get_user_ip();
 		// record this
 		$model = Lockout_Ip::get( $ip );

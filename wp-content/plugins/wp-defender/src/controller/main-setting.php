@@ -5,8 +5,10 @@ namespace WP_Defender\Controller;
 use Calotes\Component\Request;
 use Calotes\Component\Response;
 use WP_Defender\Controller2;
+use WP_Defender\Component\Config\Config_Hub_Helper;
 
 class Main_Setting extends Controller2 {
+
 	public $slug = 'wdf-setting';
 
 	/**
@@ -36,6 +38,8 @@ class Main_Setting extends Controller2 {
 		$this->service = wd_di()->get( \WP_Defender\Component\Backup_Settings::class );
 		add_action( 'defender_enqueue_assets', array( &$this, 'enqueue_assets' ) );
 		$this->register_routes();
+
+		Config_Hub_Helper::clear_config_transient();
 	}
 
 	/**
@@ -169,7 +173,9 @@ class Main_Setting extends Controller2 {
 					'high_contrast_mode' => $model->high_contrast_mode,
 				),
 				'misc'          => array(
-					'setting_url' => network_admin_url( is_multisite() ? 'settings.php' : 'options-general.php' ),
+					'setting_url'         => network_admin_url( is_multisite() ? 'settings.php' : 'options-general.php' ),
+					'clear_transient_url' => network_admin_url( 'admin.php?page=wdf-setting&view=configs&transient=clear' ),
+					'last_clear_time'     => Config_Hub_Helper::last_transient_clear_time_diff(),
 				),
 				'configs'       => $configs,
 			),
@@ -278,7 +284,7 @@ class Main_Setting extends Controller2 {
 					),
 					$name
 				),
-				'configs' => $this->service->get_configs(),
+				'configs' => Config_Hub_Helper::get_fresh_frontend_configs( $this->service ),
 			)
 		);
 	}
@@ -312,6 +318,14 @@ class Main_Setting extends Controller2 {
 			$settings
 		);
 		unset( $data['labels'] );
+
+		// Add config to HUB.
+		$hub_id = Config_Hub_Helper::add_configs_to_hub( $data );
+
+		if ( $hub_id ) {
+			$data['hub_id'] = $hub_id;
+		}
+
 		if ( update_site_option( $key, $data ) ) {
 			$this->service->index_key( $key );
 
@@ -323,7 +337,7 @@ class Main_Setting extends Controller2 {
 						__( '<strong>%s</strong> config saved successfully.', 'wpdef' ),
 						$name
 					),
-					'configs' => $this->service->get_configs(),
+					'configs' => Config_Hub_Helper::get_fresh_frontend_configs( $this->service ),
 				)
 			);
 		} else {
@@ -408,7 +422,7 @@ class Main_Setting extends Controller2 {
 		//Return error message or bool value for auth action
 		$restore_result = $this->service->restore_data( $config['configs'] );
 		if ( is_string( $restore_result ) ) {
-			return new Response( false, $restore_result );
+			return $this->apply_config_recommendations_error_message();
 		}
 
 		$message = sprintf(
@@ -448,7 +462,7 @@ class Main_Setting extends Controller2 {
 		}
 
 		$return['message'] = $message;
-		$return['configs'] = $this->service->get_configs();
+		$return['configs'] = Config_Hub_Helper::get_fresh_frontend_configs( $this->service );
 
 		return new Response( true, $return );
 	}
@@ -495,6 +509,7 @@ class Main_Setting extends Controller2 {
 			$option_updated = true;
 		} else {
 			$option_updated = update_site_option( $key, $config );
+			Config_Hub_Helper::update_on_hub( $config );
 		}
 
 		if ( $option_updated ) {
@@ -506,7 +521,7 @@ class Main_Setting extends Controller2 {
 						__( '<strong>%s</strong> config saved successfully.', 'wpdef' ),
 						$name
 					),
-					'configs' => $this->service->get_configs(),
+					'configs' => Config_Hub_Helper::get_fresh_frontend_configs( $this->service ),
 				)
 			);
 		} else {
@@ -535,6 +550,13 @@ class Main_Setting extends Controller2 {
 				)
 			);
 		}
+
+		// Remove from HUB.
+		$config = get_site_option( $key );
+		if ( isset( $config['hub_id'] ) ) {
+			Config_Hub_Helper::delete_configs_from_hub( $config['hub_id'] );
+		}
+
 		if ( 0 === strpos( $key, 'wp_defender_config' ) ) {
 			delete_site_option( $key );
 
@@ -542,7 +564,7 @@ class Main_Setting extends Controller2 {
 				true,
 				array(
 					'message' => __( 'Config removed successfully.', 'wpdef' ),
-					'configs' => $this->service->get_configs(),
+					'configs' => Config_Hub_Helper::get_fresh_frontend_configs( $this->service ),
 				)
 			);
 		}
@@ -568,8 +590,9 @@ class Main_Setting extends Controller2 {
 	 * @return array
 	 */
 	private function get_configs_and_update_status() {
-		$configs = $this->service->get_configs();
+		$configs = Config_Hub_Helper::get_configs( $this->service );
 
+		// Loop to update strings of configs.
 		foreach ( $configs as $key => &$config ) {
 			$config['strings'] = $this->service->import_module_strings( $config );
 
@@ -578,6 +601,28 @@ class Main_Setting extends Controller2 {
 		}
 
 		return $configs;
+	}
+
+	/**
+	 * Response error message along with configs.
+	 *
+	 * @return Response
+	 *
+	 * @throws \Exception
+	 */
+	private function apply_config_recommendations_error_message() {
+		$message = sprintf(
+			__( 'There was an issue with applying some of the tweaks from the <strong>Recommendations</strong> tab because we cannot make changes to your <strong>wp-config.php</strong> file. Please see our %s to apply the changes manually.', 'wpdef' ),
+			'<a href="https://premium.wpmudev.org/docs/wpmu-dev-plugins/defender/#manually-applying-recommendations">documentation</a>'
+		);
+
+		return new Response(
+			false,
+			array(
+				'message' => $message,
+				'configs' => Config_Hub_Helper::get_fresh_frontend_configs( $this->service ),
+			)
+		);
 	}
 
 }

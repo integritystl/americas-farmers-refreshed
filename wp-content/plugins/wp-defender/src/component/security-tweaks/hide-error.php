@@ -43,6 +43,8 @@ class Hide_Error extends Component {
 		} elseif ( in_array( 'wp_debug_log', $this->what_to_change, true ) ) {
 			return $this->disable_debug_log();
 		}
+
+		return false;
 	}
 
 	/**
@@ -64,6 +66,8 @@ class Hide_Error extends Component {
 		} elseif ( in_array( 'wp_debug_log', $this->what_to_change, true ) ) {
 			return $this->enable_debug_log();
 		}
+
+		return false;
 	}
 
 	/**

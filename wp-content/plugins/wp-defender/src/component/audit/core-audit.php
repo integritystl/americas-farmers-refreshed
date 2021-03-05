@@ -14,7 +14,6 @@ class Core_Audit extends Audit_Event {
 
 	public function get_hooks() {
 		return array(
-			//+
 			'switch_theme'              => array(
 				'args'        => array( 'new_name' ),
 				'text'        => sprintf(
@@ -27,7 +26,6 @@ class Core_Audit extends Audit_Event {
 				'context'     => self::CONTEXT_THEME,
 				'action_type' => self::ACTION_ACTIVATED,
 			),
-			//+
 			'activated_plugin'          => array(
 				'args'         => array( 'plugin' ),
 				'text'         => sprintf(

@@ -1,12 +1,12 @@
 <?php return array (
   'root' =>
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-release/2.4.7',
+    'version' => 'dev-release/2.4.7',
     'aliases' =>
     array (
     ),
-    'reference' => '2fc7362bd0b4a08ffdbcfa17d864f597d0ad72ec',
+    'reference' => '126480121a0a12ac1b341940591ce5e913f0e644',
     'name' => 'incsub/wp-defender',
   ),
   'versions' =>
@@ -47,12 +47,12 @@
     ),
     'incsub/wp-defender' =>
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-release/2.4.7',
+      'version' => 'dev-release/2.4.7',
       'aliases' =>
       array (
       ),
-      'reference' => '2fc7362bd0b4a08ffdbcfa17d864f597d0ad72ec',
+      'reference' => '126480121a0a12ac1b341940591ce5e913f0e644',
     ),
     'mnapoli/php-di' =>
     array (
